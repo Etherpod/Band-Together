@@ -1,0 +1,5 @@
+﻿<Project>
+  <PropertyGroup>
+    <OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\Ernesto.OW-2024-Mod-Jam</OutputPath>
+  </PropertyGroup>
+</Project>

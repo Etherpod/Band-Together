@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "CVqco2p6eIqZDFhmxVG4DIK+nQTaQedvI8GbsQuPYRwB9EWuV+xAySo55fMyqYk2QTtZwoWH3B2q7Ni/dcIJLw==",
+  "success": true,
+  "projectFilePath": "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\OW-2024-Mod-Jam.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ether\\.nuget\\packages\\harmonyx\\2.5.5\\harmonyx.2.5.5.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\json.net.unity3d\\9.0.1\\json.net.unity3d.9.0.1.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\mono.cecil\\0.11.4\\mono.cecil.0.11.4.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\monomod.runtimedetour\\21.8.19.1\\monomod.runtimedetour.21.8.19.1.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\monomod.utils\\21.8.19.1\\monomod.utils.21.8.19.1.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\outerwildsgamelibs\\1.1.14.768\\outerwildsgamelibs.1.1.14.768.nupkg.sha512",
+    "C:\\Users\\ether\\.nuget\\packages\\owml\\2.9.8\\owml.2.9.8.nupkg.sha512"
+  ],
+  "logs": []
+}

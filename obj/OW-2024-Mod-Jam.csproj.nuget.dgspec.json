@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\OW-2024-Mod-Jam.csproj": {}
+  },
+  "projects": {
+    "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\OW-2024-Mod-Jam.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\OW-2024-Mod-Jam.csproj",
+        "projectName": "OW-2024-Mod-Jam",
+        "projectPath": "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\OW-2024-Mod-Jam.csproj",
+        "packagesPath": "C:\\Users\\ether\\.nuget\\packages\\",
+        "outputPath": "D:\\Production\\GitHub\\OW-2024-Mod-Jam\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ether\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "OWML": {
+              "target": "Package",
+              "version": "[2.9.8, )"
+            },
+            "OuterWildsGameLibs": {
+              "target": "Package",
+              "version": "[1.1.14.768, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
