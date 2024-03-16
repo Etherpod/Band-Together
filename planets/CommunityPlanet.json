@@ -1,0 +1,19 @@
+{
+  "name": "Placeholder",
+  "starSystem": "Jam3",
+  "Base": {
+    "surfaceSize": 150,
+    "groundSize": 150,
+    "surfaceGravity": 14,
+    "hasMapMarker": true
+  },
+  "Orbit": {
+    "semiMajorAxis": 7000,
+    "primaryBody": "Jam 3 Sun"
+  },
+  "Atmosphere": {
+    "size": 350,
+    "hasOxygen": true,
+    "useAtmosphereShader": true
+  }
+}

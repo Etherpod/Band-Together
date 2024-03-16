@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2024 Ernesto")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85dd01ba3210dfe0eb2bd069a494ae3db3e5af46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f68b47aae464a9a37200ab315a1ede709a0a3190")]
 [assembly: System.Reflection.AssemblyProductAttribute("OW-2024-Mod-Jam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OW-2024-Mod-Jam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
