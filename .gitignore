@@ -1,0 +1,11 @@
+﻿# project files
+assets/
+
+# build files
+obj/
+
+# visual studio
+.vs/
+
+# rider
+.idea/
