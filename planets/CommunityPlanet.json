@@ -20,7 +20,7 @@
     "details": [
       {
         "path": "Assets/CommunityMod/JamPlanet.prefab",
-        "assetBundle": "assets/community_jam",
+        "assetBundle": "assets/jam_planet",
         "keepLoaded": true
       }
     ]
