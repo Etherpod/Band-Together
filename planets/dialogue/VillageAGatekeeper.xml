@@ -1,0 +1,135 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Village Gatekeeper</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Hello, traveler. Welcome to our village.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <EntryCondition>TALKED_TO_GATEKEEPER_A</EntryCondition>
+    <Dialogue>
+      <Page>Was there something you needed?</Page>
+    </Dialogue>
+    
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledPersistentCondition>GOT_SHARD_A</CancelledPersistentCondition>
+        <Text>We need your help to open the Great Door.</Text>
+        <DialogueTarget>Door_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What have you heard about the fifth shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>No, thanks.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+    <SetCondition>TALKED_TO_GATEKEEPER_A</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_0</Name>
+    <Dialogue>
+      <Page>And what reason is there for us to assist you?</Page>
+    </Dialogue>
+    
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>If we all work together we can finally open the door!</Text>
+        <DialogueTarget>Door_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <Text>Do you want to be the only one between the other clans and opening that door?</Text>
+        <DialogueTarget>Door_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <Text>Every other clan has agreed to help.</Text>
+        <DialogueTarget>Door_02</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Don't you want to know what's behind that door?</Text>
+        <DialogueTarget>Door_03</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_00</Name>
+    <Dialogue>
+      <Page>You make a valid point, traveler. That door has remained closed for centuries because of our arrogance.</Page>
+      <Page>Even if we were to join you, there is no guarantee that the other clans will wish to do so.</Page>
+      <Page>I believe our leader would be willing to join you, however, under one condition.</Page>
+    </Dialogue>
+    <DialogueTarget>Cockpit_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_01</Name>
+    <Dialogue>
+      <Page>I would rather not become the target of the other three clans, you are correct in that. The tension between our clans today is already concerningly high.</Page>
+      <Page>However, assisting you could also potentially make us a target.</Page>
+      <Page>I believe our leader would be willing to risk our clan to help you under one condition.</Page>
+    </Dialogue>
+    <DialogueTarget>Cockpit_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_02</Name>
+    <Dialogue>
+      <Page>You put me in a difficult position. I believe I have no choice but to accept.</Page>
+      <Page>It is not I who makes the decisions, however. It is ultimately up to our leader to make the decision of whether we join you.</Page>
+      <Page>I believe our leader would be willing to join under one condition.</Page>
+    </Dialogue>
+    <DialogueTarget>Cockpit_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_0</Name>
+    <Dialogue>
+      <Page>The extent of my knowledge is that the fifth shard was lost somewhere on this planet.</Page>
+      <Page>Perhaps if you gain an audience with our leader he will be able to tell you more.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_0</Name>
+    <Dialogue>
+      <Page>Our clan has recently begun conducting a study on alien manufacturing of spacecraft in an effort to further improve our own constructions.</Page>
+      <Page>If you could provide us with a cockpit, our leader may be convinced into giving you our shard.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Consider it done.</Text>
+        <DialogueTarget>Cockpit_End_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'll get you one in no time!</Text>
+        <DialogueTarget>Cockpit_End_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'll see what I can do.</Text>
+        <DialogueTarget>Cockpit_End_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_End_0</Name>
+    <Dialogue>
+      <Page>Excellent. Goodbye, and good luck.</Page>
+    </Dialogue>
+  </DialogueNode>
+  
+</DialogueTree>

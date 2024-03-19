@@ -1,0 +1,169 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Village Leader</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Greetings.</Page>
+      <Page>You must be the one who gifted us the cockpit?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Yep.</Text>
+        <DialogueTarget>Init_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Do you like it?</Text>
+        <DialogueTarget>Init_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I think you have the wrong person.</Text>
+        <DialogueTarget>Init_02</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_00</Name>
+    <Dialogue>
+      <Page>My clan and I express our gratitude.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_01</Name>
+    <Dialogue>
+      <Page>The technology is suitable, yes. My clan and I thank you.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_02</Name>
+    <Dialogue>
+      <Page>Have I brought the wrong person here?</Page>
+      <Page>How strange... it is rare for me to make a mistake like this. Perhaps I should escort you out of the village while I search for the correct person.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I was only joking.</Text>
+        <DialogueTarget>Init_020</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Sounds good.</Text>
+        <DialogueTarget>Init_021</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_020</Name>
+    <Dialogue>
+      <Page>I see you are one for humor. Luckily, I too am fond of it.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_021</Name>
+    <Dialogue>
+      <Page>You are fortunate in that I was not actually planning to do so.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <EntryCondition>TALKED_TO_LEADER_A</EntryCondition>
+    <Dialogue>
+      <Page>What have you come to request of me?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledPersistentCondition>GOT_SHARD_A</CancelledPersistentCondition>
+        <Text>Will you help us open the Great Door?</Text>
+        <DialogueTarget>Door_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What do you know about the fifth shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <Text>Do you know where the other clans are?</Text>
+        <DialogueTarget>Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>GOT_SHARD_A</RequiredPersistentCondition>
+        <CancelledPersistentCondition>TALKED_TO_LEADER_A</CancelledPersistentCondition>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <Text>I'm glad you agreed to help us.</Text>
+        <DialogueTarget>End_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>GOT_SHARD_A</RequiredPersistentCondition>
+        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <CancelledPersistentCondition>TALKED_TO_LEADER_A</CancelledPersistentCondition>
+        <Text>I'm glad you agreed to help us.</Text>
+        <DialogueTarget>End_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>TALKED_TO_LEADER_A</RequiredPersistentCondition>
+        <Text>Just saying hi.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_0</Name>
+    <Dialogue>
+      <Page>The task you ask of me is a great one. You ask me to give up what my clan has treasured for years to aid you.</Page>
+      <Page>Nevertheless, you did aid our clan. It would seem like the logical course of action is to return that aid. There is also the undeniable fact that everyone is at least a little bit curious as to what lies behind the Great Door.</Page>
+      <Page>As clan leader, I make the decision that my clan will help you in your mission and lend you our shard.</Page>
+      <Page>Take our shard, and use its power to unite this torn world.</Page>
+    </Dialogue>
+    <SetPersistentCondition>GOT_SHARD_A</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_0</Name>
+    <Dialogue>
+      <Page>The tale of the fifth shard is a common story among this clan, though I believe a large portion of the story was told with some creative adjustments.</Page>
+      <Page>Given what I know from reading the old manuscripts, the fifth shard is rumored to be on the south pole. I do not know how much truth this holds, for my clan dare not venture into the southern territory.</Page>
+      <Page>I hope this knowledge aids you on your journey.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Clans_0</Name>
+    <Dialogue>
+      <Page>I know that there is one other Nomai clan on the northern hemisphere and two Inhabitant clans on the southern hemisphere.</Page>
+      <Page>I do not know their precise locations, however. I hope that is enough for you to find them.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_00</Name>
+    <Dialogue>
+      <Page>The feeling is mutual. I hope convincing the other clans to join goes as smoothly as it did with mine, although I have my doubts.</Page>
+      <Page>I will see you at the Great Door, my friend.</Page>
+    </Dialogue>
+    <SetPersistentCondition>TALKED_TO_LEADER_A</SetPersistentCondition>
+  </DialogueNode>
+  
+  <DialogueNode>
+    <Name>End_01</Name>
+    <Dialogue>
+      <Page>The feeling is mutual. I will see you at the Great Door, my friend.</Page>
+    </Dialogue>
+    <SetPersistentCondition>TALKED_TO_LEADER_A</SetPersistentCondition>
+  </DialogueNode>
+</DialogueTree>
