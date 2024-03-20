@@ -2,8 +2,8 @@
   "name": "Placeholder",
   "starSystem": "Jam3",
   "Base": {
-    "surfaceSize": 150,
-    "surfaceGravity": 14,
+    "surfaceSize": 300,
+    //"surfaceGravity": 14,
     "hasMapMarker": true
   },
   "Orbit": {
@@ -20,7 +20,7 @@
     "details": [
       {
         "path": "Assets/CommunityMod/JamPlanet.prefab",
-        "assetBundle": "assets/jam_planet",
+        "assetBundle": "assets/jamplanet",
         "keepLoaded": true
       }
     ]
