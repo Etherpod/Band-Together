@@ -34,6 +34,15 @@
     </DialogueOptionsList>
     <SetCondition>TALKED_TO_GATEKEEPER_A</SetCondition>
   </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Init_2</Name>
+    <EntryCondition>GOT_COCKPIT</EntryCondition>
+    <Dialogue>
+      <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
+      <Page>You have been granted an audience with our leader. Allow me to open the doors.</Page>
+    </Dialogue>
+  </DialogueNode>
 
   <DialogueNode>
     <Name>Door_0</Name>
