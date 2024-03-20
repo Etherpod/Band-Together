@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
-  "filename": "BandTogether.dll",
-  "author": "pikpik_carrot, Etherpod, ditzy, and TheHipOne",
-  "name": "Band Together",
-  "uniqueName": "pikpik_carrot.BandTogether",
+  "filename": "OW-2024-Mod-Jam.dll",
+  "author": "Ernesto",
+  "name": "OW-2024-Mod-Jam",
+  "uniqueName": "Ernesto.OW-2024-Mod-Jam",
   "version": "0.1.0",
   "owmlVersion": "2.9.8",
   "dependencies": ["xen.NewHorizons", "xen.ModJam3" ]

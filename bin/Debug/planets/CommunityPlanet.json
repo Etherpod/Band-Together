@@ -1,0 +1,28 @@
+{
+  "name": "Placeholder",
+  "starSystem": "Jam3",
+  "Base": {
+    "surfaceSize": 300,
+    //"surfaceGravity": 14,
+    "hasMapMarker": true
+  },
+  "Orbit": {
+    "semiMajorAxis": 7000,
+    "primaryBody": "Jam 3 Sun",
+    "siderealPeriod": 1.8
+  },
+  "Atmosphere": {
+    "size": 350,
+    "hasOxygen": true,
+    "useAtmosphereShader": true
+  },
+  "Props": {
+    "details": [
+      {
+        "path": "Assets/CommunityMod/JamPlanet.prefab",
+        "assetBundle": "assets/jamplanet",
+        "keepLoaded": true
+      }
+    ]
+  }
+}
