@@ -20,7 +20,7 @@
     
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_SHARD_A</CancelledPersistentCondition>
+        <CancelledCondition>GOT_SHARD_A</CancelledCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -34,14 +34,56 @@
     </DialogueOptionsList>
     <SetCondition>TALKED_TO_GATEKEEPER_A</SetCondition>
   </DialogueNode>
-  
+
   <DialogueNode>
     <Name>Init_2</Name>
+    <EntryCondition>START_COCKPIT_QUEST</EntryCondition>
+    <Dialogue>
+      <Page>Have you been able to acquire a cockpit?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I'm working on it.</Text>
+        <DialogueTarget>Cockpit_Help_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Why do you need a cockpit?</Text>
+        <DialogueTarget>Cockpit_Help_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'm having trouble getting you one.</Text>
+        <DialogueTarget>Cockpit_Help_2</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Init_3</Name>
     <EntryCondition>GOT_COCKPIT</EntryCondition>
     <Dialogue>
       <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
       <Page>You have been granted an audience with our leader. Allow me to open the doors.</Page>
     </Dialogue>
+    <SetCondition>FINISH_COCKPIT_QUEST</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_4</Name>
+    <EntryCondition>FINISH_COCKPIT_QUEST</EntryCondition>
+    <Dialogue>
+      <Page>Was there something you needed?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What have you heard about the fifth shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>No, thanks.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
   </DialogueNode>
 
   <DialogueNode>
@@ -56,12 +98,12 @@
         <DialogueTarget>Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
         <Text>Do you want to be the only one between the other clans and opening that door?</Text>
         <DialogueTarget>Door_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <RequiredCondition>LAST_CLAN_TO_AGREE</RequiredCondition>
         <Text>Every other clan has agreed to help.</Text>
         <DialogueTarget>Door_02</DialogueTarget>
       </DialogueOption>
@@ -103,6 +145,16 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Door_03</Name>
+    <Dialogue>
+      <Page>You are correct, traveler. There is not one species on this planet who does not wonder what secrets the Great Door holds.</Page>
+      <Page>It is our arrogance and hatred for each other that keeps us from satisfying that curiosity. If I were the one to make the decision, I would say it is time for us to change our ways.</Page>
+      <Page>Sadly, I am not the one who makes the decisions. You will need to consult our leader about your request.</Page>
+      <Page>To gain an audience with him, there is something you will need to do first.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>Shard_0</Name>
     <Dialogue>
       <Page>The extent of my knowledge is that the fifth shard was lost somewhere on this planet.</Page>
@@ -138,6 +190,32 @@
     <Name>Cockpit_End_0</Name>
     <Dialogue>
       <Page>Excellent. Goodbye, and good luck.</Page>
+    </Dialogue>
+    <SetCondition>START_COCKPIT_QUEST</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_Help_0</Name>
+    <Dialogue>
+      <Page>I have faith in your abilites. Good luck.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_Help_1</Name>
+    <Dialogue>
+      <Page>There is no point to our studies on alien technology if there is no technology to study!</Page>
+      <Page>Perhaps, when we finally do construct a spacecraft, we will invite you to see it.</Page>
+      <Page>But first, we will need a cockpit. I trust you will find one successfully.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_Help_2</Name>
+    <Dialogue>
+      <Page>I believe you will be able to find one without my assistance.</Page>
+      <Page>In the case that you were planning to bring an entire ship here, I will inform you now; we are only accepting the cockpit of a ship.</Page>
+      <Page>Good luck.</Page>
     </Dialogue>
   </DialogueNode>
   

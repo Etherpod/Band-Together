@@ -24,5 +24,23 @@
         "keepLoaded": true
       }
     ]
+  },
+  "Spawn": {
+    "playerSpawn": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 500
+      },
+      "startWithSuit": true,
+      "isDefault": true
+    },
+    "shipSpawn": {
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 500
+      }
+    }
   }
 }

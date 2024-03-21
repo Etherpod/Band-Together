@@ -1,5 +1,5 @@
 ﻿<Project>
   <PropertyGroup>
-    <OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\Ernesto.OW-2024-Mod-Jam</OutputPath>
+    <OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\pikpik_carrot.BandTogether</OutputPath>
   </PropertyGroup>
 </Project>

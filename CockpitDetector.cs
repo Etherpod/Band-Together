@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-namespace OWModJam;
+namespace BandTogether;
 
 [RequireComponent(typeof(OWTriggerVolume))]
 public class CockpitDetector : MonoBehaviour
@@ -13,11 +14,17 @@ public class CockpitDetector : MonoBehaviour
         trigger = GetComponent<OWTriggerVolume>();
 		trigger.OnEntry += OnEntry;
 		trigger.OnExit += OnExit;
-	}
+    }
 
-	private void OnEntry(GameObject hitObj)
+	private void OnDisable()
 	{
-        if (hitObj.transform.parent.name == "Module_Cockpit_Body")
+        trigger.OnEntry -= OnEntry;
+        trigger.OnExit -= OnExit;
+    }
+
+    private void OnEntry(GameObject hitObj)
+	{
+        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !DialogueConditionManager.SharedInstance._dictConditions["FINISH_COCKPIT_QUEST"])
 		{
 			//ModMain.Instance.ModHelper.Console.WriteLine("Detected cockpit", OWML.Common.MessageType.Info);
 			DialogueConditionManager.SharedInstance.SetConditionState("GOT_COCKPIT", true);

@@ -1,7 +1,9 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
+using System.Collections;
+using UnityEngine;
 
-namespace OWModJam;
+namespace BandTogether;
 public class ModMain : ModBehaviour
 {
     public static ModMain Instance;
