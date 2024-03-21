@@ -5,49 +5,38 @@ public class LookAtPlayer : MonoBehaviour
 {
     [SerializeField]
     private CharacterDialogueTree _CharacterDialogueTree;
-
-    [SerializeField]
-    private Animator _Animator;
-
     [SerializeField]
     private GameObject _idletarget;
-
     [SerializeField]
-    private Transform _head;
-
-    private Vector3 _currentlookpose = Vector3.zero;
-
-    private Vector3 _targetlookpose = Vector3.zero;
-
-    private Vector3 _newtarget = Vector3.zero;
-
-    public void Awake()
-    {
-        //_head = GameObject.Find("Nomai_Rig_v01:Camera_01SHJnt").transform;
-    }
+    private Transform head;
 
     bool startedConvo = false;
 
-    private void LateUpdate()
+    private void Update()
     {
+        //ModMain.Instance.ModHelper.Console.WriteLine("Up: " + head.up);
+        //ModMain.Instance.ModHelper.Console.WriteLine("Forward: " + head.forward);
+        Vector3 currentLookDir = Vector3.zero;
+        Vector3 targetLookDir;
         if (_CharacterDialogueTree.InConversation())
         {
+            ModMain.Instance.ModHelper.Console.WriteLine("In convo: " + _CharacterDialogueTree);
             if (!startedConvo)
             {
-                _currentlookpose = _head.position - transform.up;
+                currentLookDir = -head.transform.parent.forward;
                 startedConvo = true;
             }
 
-            _targetlookpose = Locator.GetActiveCamera().transform.position;
-            _currentlookpose = Vector3.Lerp(_currentlookpose, _targetlookpose, Time.deltaTime);
-            _head.LookAt(_currentlookpose, -transform.up);
+            targetLookDir = Locator.GetActiveCamera().transform.position;
+            currentLookDir = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
         }
-        if (!_CharacterDialogueTree.InConversation())
+        else
         {
-            _newtarget = _idletarget.transform.position;
-            _currentlookpose = Vector3.Lerp(_currentlookpose, _newtarget, Time.deltaTime);
-            _head.LookAt(_currentlookpose, -transform.up);
+            targetLookDir = -head.transform.parent.forward;
+            currentLookDir = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
             startedConvo = false;
         }
+
+        head.forward = Vector3.up;
     }
 }
