@@ -3,13 +3,13 @@
   "starSystem": "Jam3",
   "Base": {
     "surfaceSize": 300,
-    //"surfaceGravity": 14,
+    "surfaceGravity": 14,
     "hasMapMarker": true
   },
   "Orbit": {
     "semiMajorAxis": 7000,
     "primaryBody": "Jam 3 Sun",
-    "siderealPeriod": 1.8
+    "siderealPeriod": 5
   },
   "Atmosphere": {
     "size": 350,
