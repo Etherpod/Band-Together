@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -8,14 +8,29 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <NoWarn>MSB3270</NoWarn>
+    <Configurations>Debug;Release;Unity</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>none</DebugType>
   </PropertyGroup>
+  <Target Name="CopyDLLs" AfterTargets="Build" Condition=" '$(Configuration)' == 'Unity' And '$(UnityProjectDir)' != '' ">
+    <Message Text="Copying DLL to Unity project" Importance="High" />
+
+    <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(UnityProjectModDir)" />
+
+    <Message Text="Copy complete" Importance="High" />
+  </Target>
+  
   <ItemGroup>
     <PackageReference Include="OWML" Version="2.9.8" />
     <PackageReference Include="OuterWildsGameLibs" Version="1.1.14.768" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="BandTogether.csproj.user" />
+  </ItemGroup>
+  
   <ItemGroup>
     <None Include="default-config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -23,11 +38,6 @@
     <None Include="manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BandTogether.csproj.user" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="planets\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
