@@ -1,4 +1,5 @@
 ﻿# project files
+*.user
 
 # build files
 obj/
