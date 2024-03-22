@@ -79,14 +79,14 @@
 
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_LEADER_A</EntryCondition>
+    <EntryCondition>TALKED_TO_LEADER_B</EntryCondition>
     <Dialogue>
       <Page>What would you request of me?</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>GOT_SHARD_A</CancelledCondition>
+        <CancelledCondition>GOT_SHARD_B</CancelledCondition>
         <Text>Will you help us open the Great Door?</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -100,7 +100,7 @@
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>TALKED_TO_LEADER_A</RequiredCondition>
+        <RequiredCondition>TALKED_TO_LEADER_B</RequiredCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -143,7 +143,7 @@
       <Page>As clan leader, I make the decision that my clan will help you in your mission and lend you our shard.</Page>
       <Page>Take our shard, and use its power to unite this torn world.</Page>
     </Dialogue>
-    <SetCondition>GOT_SHARD_A</SetCondition>
+    <SetCondition>GOT_SHARD_B</SetCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
 
@@ -172,7 +172,8 @@
       <Page>The feeling is mutual. I hope convincing the other clans to join goes as smoothly as it did with mine, although I have my doubts.</Page>
       <Page>I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetCondition>TALKED_TO_LEADER_A</SetCondition>
+    <SetCondition>TALKED_TO_LEADER_B</SetCondition>
+    <SetCondition>VILLAGE_B_TO_DOOR</SetCondition>
   </DialogueNode>
   
   <DialogueNode>
@@ -180,6 +181,7 @@
     <Dialogue>
       <Page>The feeling is mutual. I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetCondition>TALKED_TO_LEADER_A</SetCondition>
+    <SetCondition>TALKED_TO_LEADER_B</SetCondition>
+    <SetCondition>VILLAGE_B_TO_DOOR</SetCondition>
   </DialogueNode>
 </DialogueTree>

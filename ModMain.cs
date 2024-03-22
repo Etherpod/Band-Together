@@ -7,6 +7,10 @@ namespace BandTogether;
 public class ModMain : ModBehaviour
 {
     public static ModMain Instance;
+    public delegate void MoveVillageEvent(string target);
+    public event MoveVillageEvent OnMoveVillage;
+
+    bool movedToDoor = false;
 
     private void Awake()
     {
@@ -28,6 +32,16 @@ public class ModMain : ModBehaviour
             if (loadScene != OWScene.SolarSystem) return;
             ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
         };
+    }
+
+    private void Update()
+    {
+        if (!movedToDoor && DialogueConditionManager.SharedInstance.ConditionExists("VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["VILLAGE_B_TO_DOOR"])
+        {
+            movedToDoor = true;
+            ModHelper.Console.WriteLine("Ok did event");
+            OnMoveVillage("NOMAI_B");
+        }
     }
 }
 

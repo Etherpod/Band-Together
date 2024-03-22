@@ -13,14 +13,14 @@
   
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_GATEKEEPER_A</EntryCondition>
+    <EntryCondition>TALKED_TO_GATEKEEPER_B</EntryCondition>
     <Dialogue>
       <Page>Was there something you needed?</Page>
     </Dialogue>
     
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>GOT_SHARD_A</CancelledCondition>
+        <CancelledCondition>GOT_SHARD_B</CancelledCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -32,7 +32,7 @@
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
-    <SetCondition>TALKED_TO_GATEKEEPER_A</SetCondition>
+    <SetCondition>TALKED_TO_GATEKEEPER_B</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
