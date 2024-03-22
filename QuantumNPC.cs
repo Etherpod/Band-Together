@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 namespace BandTogether;
-public class QuantumNPC : QuantumObject
+public class QuantumNPC : SocketedQuantumObject
 {
 	[Tooltip("It will move through the targets in order every time the event is called.")]
 	[SerializeField] Transform[] targetList;
@@ -24,14 +24,9 @@ public class QuantumNPC : QuantumObject
 		}
 	}
 
-	protected abstract void ChangedQuantumState(bool value)
-	{
-		return true;
-	}
-
 	private new void Update()
 	{
-		if (waitingToTeleport && !IsVisible())
+		if (waitingToTeleport && !IsLocked())
 		{
 			waitingToTeleport = false;
 			transform.position = targetList[targetIndex].position;
