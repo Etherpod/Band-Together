@@ -1,42 +1,38 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BandTogether;
+
+[ExecuteInEditMode]
 public class LookAtPlayer : MonoBehaviour
 {
     [SerializeField]
-    private CharacterDialogueTree _CharacterDialogueTree;
+    private CharacterDialogueTree characterDialogueTree;
+    
     [SerializeField]
-    private GameObject _idletarget;
+    private Transform idleTarget;
+    
     [SerializeField]
-    private Transform head;
-
-    bool startedConvo = false;
+    private Transform neckBone;
 
     private void Update()
     {
-        //ModMain.Instance.ModHelper.Console.WriteLine("Up: " + head.up);
-        //ModMain.Instance.ModHelper.Console.WriteLine("Forward: " + head.forward);
-        Vector3 currentLookDir = Vector3.zero;
-        Vector3 targetLookDir;
-        if (_CharacterDialogueTree.InConversation())
-        {
-            ModMain.Instance.ModHelper.Console.WriteLine("In convo: " + _CharacterDialogueTree);
-            if (!startedConvo)
-            {
-                currentLookDir = -head.transform.parent.forward;
-                startedConvo = true;
-            }
-
-            targetLookDir = Locator.GetActiveCamera().transform.position;
-            currentLookDir = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
-        }
-        else
-        {
-            targetLookDir = -head.transform.parent.forward;
-            currentLookDir = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
-            startedConvo = false;
-        }
-
-        head.forward = Vector3.up;
+        // ModMain.Instance.ModHelper.Console.WriteLine("In convo: " + _CharacterDialogueTree);
+        
+        var targetPosition = characterDialogueTree.InConversation()
+            ? Locator.GetActiveCamera().transform.position
+            : idleTarget.position;
+        var targetLookDir = (targetPosition - neckBone.position).normalized;
+        var currentLookDir = neckBone.up;
+        
+        if ((targetLookDir - currentLookDir).sqrMagnitude < 0.001) return;
+        
+        var nextLookForward = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
+        var nextLookUp = Vector3.Cross(nextLookForward, -neckBone.parent.right);
+        
+        // because of the orientation of the bones, we actually need to look at
+        // the up vector with up being the direction we actually look
+        neckBone.LookAt(neckBone.position + nextLookUp, nextLookForward);
     }
 }
