@@ -16,9 +16,13 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <Target Name="CopyDLLs" AfterTargets="Build" Condition=" '$(Configuration)' == 'Unity' And '$(UnityProjectDir)' != '' ">
-    <Message Text="Copying DLL to Unity project" Importance="High" />
+    <Message Text="Copying DLL and dialogue to Unity project" Importance="High" />
 
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(UnityProjectModDir)" />
+    <ItemGroup>
+      <CopyItems Include="$(TargetDir)\planets\dialogue\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(CopyItems)" DestinationFolder="$(UnityProjectModDir)" />
 
     <Message Text="Copy complete" Importance="High" />
   </Target>

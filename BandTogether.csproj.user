@@ -2,6 +2,6 @@
   <PropertyGroup>
     <OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\pikpik_carrot.BandTogether</OutputPath>
     <UnityProjectDir>D:\Production\GitHub\ow-assets-2024-jam</UnityProjectDir>
-    <UnityProjectModDir>$(UnityProjectDir)\Assets\CommunityMod</UnityProjectModDir>
+    <UnityProjectModDir>$(UnityProjectDir)\Assets\CommunityMod\Imported</UnityProjectModDir>
   </PropertyGroup>
 </Project>

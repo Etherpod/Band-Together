@@ -103,6 +103,20 @@
         <RequiredCondition>TALKED_TO_LEADER_B</RequiredCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>GOT_SHARD_B</RequiredCondition>
+        <CancelledCondition>TALKED_TO_LEADER_B</CancelledCondition>
+        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <Text>I'm glad you agreed to help us.</Text>
+        <DialogueTarget>End_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>LAST_CLAN_TO_AGREE</RequiredCondition>
+        <RequiredCondition>GOT_SHARD_B</RequiredCondition>
+        <CancelledCondition>TALKED_TO_LEADER_B</CancelledCondition>
+        <Text>I'm glad you agreed to help us.</Text>
+        <DialogueTarget>End_01</DialogueTarget>
+      </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
   

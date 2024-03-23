@@ -11,7 +11,7 @@ public class QuantumNPC : SocketedQuantumObject
 	int targetIndex = 0;
 	bool waitingToTeleport = false;
 
-	private void Start()
+	private new void Start()
 	{
 		ModMain.Instance.OnMoveVillage += OnMoveVillage;
 	}
