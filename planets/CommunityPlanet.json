@@ -11,6 +11,9 @@
     "primaryBody": "Jam 3 Sun",
     "siderealPeriod": 5
   },
+  "Water": {
+    "size":  148
+  }
   "Atmosphere": {
     "size": 350,
     "hasOxygen": true,
