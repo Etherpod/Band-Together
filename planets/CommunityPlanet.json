@@ -13,7 +13,7 @@
   },
   "Water": {
     "size":  148
-  }
+  },
   "Atmosphere": {
     "size": 350,
     "hasOxygen": true,
