@@ -39,6 +39,7 @@ public class ModMain : ModBehaviour
         if (!movedToDoor && DialogueConditionManager.SharedInstance.ConditionExists("VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["VILLAGE_B_TO_DOOR"])
         {
             movedToDoor = true;
+            if (OnMoveVillage == null) { return; }
             ModHelper.Console.WriteLine("Ok did event");
             OnMoveVillage("NOMAI_B");
         }
