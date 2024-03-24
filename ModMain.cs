@@ -9,6 +9,7 @@ public class ModMain : ModBehaviour
     public static ModMain Instance;
     public delegate void MoveVillageEvent(string target);
     public event MoveVillageEvent OnMoveVillage;
+    public INewHorizons nhAPI;
 
     bool movedToDoor = false;
 
@@ -23,8 +24,8 @@ public class ModMain : ModBehaviour
         //ModHelper.Console.WriteLine($"My mod {nameof(ModMain)} is loaded!", MessageType.Success);
 
         // Get the New Horizons API and load configs
-        var newHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
-        newHorizons.LoadConfigs(this);
+        nhAPI = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
+        nhAPI.LoadConfigs(this);
 
         // Example of accessing game code.
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>

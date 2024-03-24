@@ -27,10 +27,6 @@ public class QuantumNPC : SocketedQuantumObject
 	public override void Update()
 	{
 		base.Update();
-		if (IsLocked())
-		{
-            ModMain.Instance.ModHelper.Console.WriteLine("Locked");
-        }
 		if (waitingToTeleport && !IsLocked())
 		{
 			waitingToTeleport = false;
