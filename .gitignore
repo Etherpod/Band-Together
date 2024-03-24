@@ -1,5 +1,5 @@
 ﻿# project files
-*.csproj.user
+*.user
 
 # build files
 obj/

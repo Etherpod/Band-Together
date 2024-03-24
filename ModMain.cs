@@ -62,6 +62,16 @@ public class ModMain : ModBehaviour
         };
     }
 
+    private void OnBodyLoaded(string name)
+    {
+        if (name == "Fractured Harmony")
+        {
+            Transform shipReveal = nhAPI.GetPlanet(name).transform.Find("Sector/JamPlanet/ShipLogVolumes/ShipRevealVolume").parent;
+            shipReveal.parent = Locator.GetShipBody().transform;
+            shipReveal.transform.position = Vector3.zero;
+        }
+    }
+
     private void Update()
     {
         if (!movedToDoor && DialogueConditionManager.SharedInstance.ConditionExists("VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["VILLAGE_B_TO_DOOR"])

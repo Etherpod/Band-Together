@@ -9,6 +9,12 @@
     <IsCuriosity/>
     <IgnoreMoreToExplore/>
 
+    <RumorFact>
+      <ID>PLANET_RUMOR</ID>
+      <RumorName>Fractured Harmony</RumorName>
+      <Text>A new planet in the solar system.</Text>
+    </RumorFact>
+
     <ExploreFact>
       <ID>GREAT_DOOR_INIT</ID>
       <Text>A mysterious, large door at the capital. The Nomai says they haven't been able to open it for centuries.</Text>

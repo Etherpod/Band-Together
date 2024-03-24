@@ -1,5 +1,5 @@
 {
-  "name": "Placeholder",
+  "name": "Fractured Harmony",
   "starSystem": "Jam3",
   "Base": {
     "surfaceSize": 300,
@@ -13,7 +13,7 @@
     "initialRotation": 290
   },
   "Water": {
-    "size":  148
+    "size": 148
   },
   "Atmosphere": {
     "size": 350,
@@ -46,5 +46,8 @@
         "z": 500
       }
     }
+  },
+  "ShipLog": {
+    "xmlFile": "planets/shiplog/ShipLog.xml"
   }
 }

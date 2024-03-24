@@ -20,11 +20,13 @@
     
     <DialogueOptionsList>
       <DialogueOption>
+        <CancelledCondition>VISITED_CAPITAL</CancelledCondition>
         <CancelledCondition>GOT_SHARD_B</CancelledCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <CancelledCondition>VISITED_CAPITAL</CancelledCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
