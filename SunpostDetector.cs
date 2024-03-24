@@ -12,16 +12,8 @@ public class SunpostDetector : MonoBehaviour
 
 	private void Start()
 	{
-		ModMain.Instance.nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
-	}
-
-	private void OnBodyLoaded(string body)
-	{
-		if (body == "Jam 3 Sun")
-		{
-			sunTransform = ModMain.Instance.nhAPI.GetPlanet(body).transform;
-		}
-	}
+        sunTransform = ModMain.Instance.nhAPI.GetPlanet("Jam 3 Sun").transform;
+    }
 
 	private void Update()
 	{
@@ -31,7 +23,10 @@ public class SunpostDetector : MonoBehaviour
 			Vector3 sunVector = Vector3.ProjectOnPlane(target.position - sunTransform.position, planeNormal).normalized;
 			Vector3 holeVector = Vector3.ProjectOnPlane(target.position - hole.transform.position, planeNormal).normalized;
 			float dot = Vector3.Dot(sunVector, holeVector);
-            ModMain.Instance.ModHelper.Console.WriteLine("Dot: " + dot);
+			if (dot > 0.999f)
+			{
+                //Change dialogue
+            }
         }
 	}
 }
