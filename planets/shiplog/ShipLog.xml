@@ -12,7 +12,7 @@
     <RumorFact>
       <ID>PLANET_RUMOR</ID>
       <RumorName>Fractured Harmony</RumorName>
-      <Text>A new planet in the solar system.</Text>
+      <Text>A planet in the solar system. I heard there was something interesting on the equator.</Text>
     </RumorFact>
 
     <ExploreFact>
@@ -24,15 +24,20 @@
       <ID>GREAT_DOOR_CLANS_AGREED</ID>
       <Text>I convinced every clan to contribute their shard, but we're still missing one.</Text>
       <AltText>
-        <Text>I completed the key by using each clan's shard and the lost Fifth Shard. When I put the last shard in, the door opened.</Text>
-        <Condition>KEY_COMPLETE</Condition>
+        <Text>I have every piece of the key: one from each of the four clans and the lost Fifth Shard.</Text>
+        <Condition>FIFTH_SHARD_FOUND</Condition>
       </AltText>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>KEY_COMPLETE</ID>
+      <Text>When I put the last shard in, the key glowed and the door opened.</Text>
     </ExploreFact>
   </Entry>
   
   <Entry>
     <ID>NOMAI_VILLAGE_A</ID>
-    <Name>Nomai Settlement A</Name>
+    <Name>The Followers of Greed</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -44,7 +49,7 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_FOUND</ID>
-      <Text>I found a Nomai settlement on the north side of the planet.</Text>
+      <Text>I found a Nomai settlement on the north side of the planet. They call themselves the Followers of Greed.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -63,13 +68,13 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_AGREED</ID>
-      <Text>The leader of the Nomai settlement agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Greed agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
 
   <Entry>
     <ID>NOMAI_VILLAGE_B</ID>
-    <Name>Nomai Settlement B</Name>
+    <Name>The Followers of Exploration</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -81,7 +86,7 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_B_FOUND</ID>
-      <Text>I found a Nomai settlement on the north side of the planet.</Text>
+      <Text>I found a Nomai settlement on the north side of the planet. They call themselves the Followers of Exploration.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -91,13 +96,13 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_B_AGREED</ID>
-      <Text>The leader of the Nomai settlement agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Exploration agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
 
   <Entry>
     <ID>GHIRD_VILLAGE_A</ID>
-    <Name>Ghird Village A</Name>
+    <Name>The Followers of Worship</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -109,7 +114,7 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_A_FOUND</ID>
-      <Text>I found a Ghird village on the south side of the planet.</Text>
+      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Worship.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -119,14 +124,14 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_A_AGREED</ID>
-      <Text>The leader of the Ghird village agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Worship agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
     
   </Entry>
 
   <Entry>
     <ID>GHIRD_VILLAGE_B</ID>
-    <Name>Ghird Village B</Name>
+    <Name>The Followers of Logic</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -138,23 +143,23 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_FOUND</ID>
-      <Text>I found a Ghird village on the south side of the planet.</Text>
+      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Logic.</Text>
     </ExploreFact>
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_QUEST</ID>
-      <Text>The Ghird at the leader's house told me I had to return at 2:00 to enter.</Text>
+      <Text>The Ghird at the leader's house told me I had to return when a "ray of sun rests upon this building."</Text>
     </ExploreFact>
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_AGREED</ID>
-      <Text>The leader of the Ghird village agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Logic agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
 
   <Entry>
     <ID>FIFTH_SHARD</ID>
-    <Name>The fifth shard</Name>
+    <Name>The Fifth Shard</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -167,28 +172,33 @@
       <ID>FIFTH_SHARD_POS</ID>
       <SourceID>NOMAI_VILLAGE_B</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of Nomai Settlement B told me that the fifth shard was on the South Pole.</Text>
+      <Text>The leader of the Followers of Exploration told me that the fifth shard was on the North Pole.</Text>
     </RumorFact>
 
     <RumorFact>
       <ID>FIFTH_SHARD_QUANTUM</ID>
       <SourceID>NOMAI_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of Nomai Settlement A told me that the fifth shard is reached with the red rock.</Text>
+      <Text>The leader of the Followers of Greed told me that the correct stone is tainted with blood.</Text>
     </RumorFact>
 
     <RumorFact>
-      <ID>FIFTH_SHARD_HOLE</ID>
+      <ID>FIFTH_SHARD_PILLAR</ID>
       <SourceID>GHIRD_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of Ghird Village A told me that the fifth shard is accessed through the largest hole.</Text>
+      <Text>The leader of the Followers of Worship told me that if I wanted to reach the fifth shard the stone has to be on top of the shortest pillar.</Text>
     </RumorFact>
 
     <RumorFact>
       <ID>FIFTH_SHARD_LIGHT</ID>
       <SourceID>GHIRD_VILLAGE_B</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of Ghird Village B told me that the fifth shard needs a bright, white light.</Text>
+      <Text>The leader of the Followers of Logic told me that if I wanted to reach the fifth shard I need to attach a light to the stone.</Text>
     </RumorFact>
+
+    <ExploreFact>
+      <ID>FIFTH_SHARD_FOUND</ID>
+      <Text>The final piece of the key to the Great Door. I found it on the North Pole locked behind a puzzle with quantum rocks.</Text>
+    </ExploreFact>
   </Entry>
 </AstroObjectEntry>

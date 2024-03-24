@@ -193,6 +193,9 @@
     <Dialogue>
       <Page>Excellent. Goodbye, and good luck.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_B_QUEST</FactID>
+    </RevealFacts>
     <SetCondition>START_COCKPIT_QUEST</SetCondition>
   </DialogueNode>
 

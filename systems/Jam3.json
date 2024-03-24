@@ -1,0 +1,20 @@
+{
+  "curiosities": [
+    {
+      "id": "GREAT_DOOR",
+      "color": {
+        "r": 152,
+        "g": 193,
+        "b": 94
+      },
+      "highlightColor": {
+        "r": 208,
+        "g": 242,
+        "b": 198
+      }
+    }
+  ],
+  "initialReveal": [
+    "PLANET_RUMOR"
+  ]
+}

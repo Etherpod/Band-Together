@@ -153,10 +153,13 @@
     <Name>Door_0</Name>
     <Dialogue>
       <Page>The task you ask of me is a great one. You ask me to give up what my clan has treasured for years to aid you.</Page>
-      <Page>Nevertheless, you did aid our clan. It would seem like the logical course of action is to return that aid. There is also the undeniable fact that everyone is at least a little bit curious as to what lies behind the Great Door.</Page>
-      <Page>As clan leader, I make the decision that my clan will help you in your mission and lend you our shard.</Page>
-      <Page>Take our shard, and use its power to unite this torn world.</Page>
+      <Page>Nevertheless, you did aid our clan. It would seem like the logical course of action is to return that aid.</Page>
+      <Page>There is also the undeniable fact that everyone is at least a little bit curious as to what lies behind the Great Door.</Page>
+      <Page>As clan leader, I make the decision that the Followers of Exploration will help you in your mission and lend you our shard.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_B_AGREED</FactID>
+    </RevealFacts>
     <SetCondition>GOT_SHARD_B</SetCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
@@ -164,17 +167,19 @@
   <DialogueNode>
     <Name>Shard_0</Name>
     <Dialogue>
-      <Page>The tale of the fifth shard is a common story among this clan, though I believe a large portion of the story was told with some creative adjustments.</Page>
-      <Page>Given what I know from reading the old manuscripts, the fifth shard is rumored to be on the south pole. I do not know how much truth this holds, for my clan dare not venture into the southern territory.</Page>
+      <Page>The tale of the fifth shard is a common story among this clan. The shard is rumored to be on the North Pole, although I have not tested this hypothesis myself.</Page>
       <Page>I hope this knowledge aids you on your journey.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>FIFTH_SHARD_POS</FactID>
+    </RevealFacts>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Clans_0</Name>
     <Dialogue>
-      <Page>I know that there is one other Nomai clan on the northern hemisphere and two Inhabitant clans on the southern hemisphere.</Page>
+      <Page>I know that there is one other Nomai clan on the northern hemisphere and two Ghird clans on the southern hemisphere.</Page>
       <Page>I do not know their precise locations, however. I hope that is enough for you to find them.</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
