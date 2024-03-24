@@ -6,7 +6,11 @@ namespace BandTogether;
 [RequireComponent(typeof(OWTriggerVolume))]
 public class CockpitDetector : MonoBehaviour
 {
+	[SerializeField] NomaiInterfaceSlot activateSlot;
+	[SerializeField] NomaiMultiPartDoor doorController;
+
 	OWTriggerVolume trigger;
+	bool doorOpen = false;
 
 	private void Start()
 	{
@@ -15,6 +19,15 @@ public class CockpitDetector : MonoBehaviour
 		trigger.OnEntry += OnEntry;
 		trigger.OnExit += OnExit;
     }
+
+	private void Update()
+	{
+		if (!doorOpen && DialogueConditionManager.SharedInstance.ConditionExists("FINISH_COCKPIT_QUEST") && DialogueConditionManager.SharedInstance._dictConditions["FINISH_COCKPIT_QUEST"])
+		{
+			doorOpen = true;
+			doorController.Open(activateSlot);
+		}
+	}
 
 	private void OnDisable()
 	{
