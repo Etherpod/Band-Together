@@ -6,9 +6,18 @@ namespace BandTogether;
 public class QuantumNPC : SocketedQuantumObject
 {
 	[SerializeField] Transform[] targetList;
+    [SerializeField] VillageTypes villageType;
 
 	int targetIndex = 0;
 	bool waitingToTeleport = false;
+
+    public enum VillageTypes
+    {
+        NOMAI_A,
+        NOMAI_B,
+        GHIRD_A,
+        GHIRD_B
+    }
 
 	public override void Start()
 	{
@@ -18,7 +27,7 @@ public class QuantumNPC : SocketedQuantumObject
 
 	private void OnMoveVillage(string target)
 	{
-		if (target == "NOMAI_B")
+		if (target == villageType.ToString())
 		{
 			waitingToTeleport = true;
 		}

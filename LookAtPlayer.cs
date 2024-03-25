@@ -7,14 +7,10 @@ namespace BandTogether;
 [ExecuteInEditMode]
 public class LookAtPlayer : MonoBehaviour
 {
-    [SerializeField]
-    private CharacterDialogueTree characterDialogueTree;
-    
-    [SerializeField]
-    private Transform idleTarget;
-    
-    [SerializeField]
-    private Transform neckBone;
+    [SerializeField] CharacterDialogueTree characterDialogueTree;
+    [SerializeField] Transform idleTarget;
+    [SerializeField] Transform neckBone;
+    [SerializeField] bool isGhird;
 
     private void Update()
     {
@@ -24,7 +20,8 @@ public class LookAtPlayer : MonoBehaviour
             ? Locator.GetActiveCamera().transform.position
             : idleTarget.position;
         var targetLookDir = (targetPosition - neckBone.position).normalized;
-        var currentLookDir = neckBone.up;
+        Vector3 currentLookDir = neckBone.up;
+        //for ditzy: Invert the look direction if the isGhird bool is active
         
         if ((targetLookDir - currentLookDir).sqrMagnitude < 0.001) return;
         

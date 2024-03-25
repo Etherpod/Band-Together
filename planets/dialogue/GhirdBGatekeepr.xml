@@ -1,0 +1,101 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Gatekeeper</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Who wishes to enter?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>A stranger.</Text>
+        <DialogueTarget>Init_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>A friend.</Text>
+        <DialogueTarget>Init_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Who's asking?</Text>
+        <DialogueTarget>Init_02</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_00</Name>
+    <Dialogue>
+      <Page>No strangers may enter this building.</Page>
+      <Page>Only those who know the secret code are granted passage.</Page>
+      <Page>Come back at the correct time.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_01</Name>
+    <Dialogue>
+      <Page>Then surely you must know of the secret code?</Page>
+      <Page>Come back at the correct time.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_02</Name>
+    <Dialogue>
+      <Page>The keeper of this gate.</Page>
+      <Page>I only grant passage to those who know the secret code.</Page>
+      <Page>Do you know what it is?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>No.</Text>
+        <DialogueTarget>Init_020</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Of course.</Text>
+        <DialogueTarget>Init_021</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What's the code again? I forgot.</Text>
+        <DialogueTarget>Init_022</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_020</Name>
+    <Dialogue>
+      <Page>That is unfortunate for you.</Page>
+      <Page>Only those who know it may enter.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_021</Name>
+    <Dialogue>
+      <Page>Perfect. Return at the correct time.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_022</Name>
+    <Dialogue>
+      <Page>To forget the code is to prove yourself unworthy of it.</Page>
+      <Page>If you do not know the code, you may not enter.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Entry_0</Name>
+    <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
+    <Dialogue>
+      <Page>I see you have figured out the code.</Page>
+      <Page>Welcome to the hall of the Followers of Logic.</Page>
+    </Dialogue>
+    <SetCondition>OPEN_SUNPOST_DOOR</SetCondition>
+  </DialogueNode>
+</DialogueTree>

@@ -12,7 +12,8 @@ public class ModMain : ModBehaviour
     public event MoveVillageEvent OnMoveVillage;
     public INewHorizons nhAPI;
 
-    bool movedToDoor = false;
+    bool nomaiBMoved = false;
+    bool ghirdBMoved = false;
 
     private void Awake()
     {
@@ -74,12 +75,19 @@ public class ModMain : ModBehaviour
 
     private void Update()
     {
-        if (!movedToDoor && DialogueConditionManager.SharedInstance.ConditionExists("VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["VILLAGE_B_TO_DOOR"])
+        if (!nomaiBMoved && DialogueConditionManager.SharedInstance.ConditionExists("NOMAI_VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["NOMAI_VILLAGE_B_TO_DOOR"])
         {
-            movedToDoor = true;
+            nomaiBMoved = true;
             if (OnMoveVillage == null) { return; }
             ModHelper.Console.WriteLine("Ok did event");
             OnMoveVillage("NOMAI_B");
+        }
+        if (!ghirdBMoved && DialogueConditionManager.SharedInstance.ConditionExists("GHIRD_VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["GHIRD_VILLAGE_B_TO_DOOR"])
+        {
+            ghirdBMoved = true;
+            if (OnMoveVillage == null) { return; }
+            ModHelper.Console.WriteLine("Ok did event");
+            OnMoveVillage("GHIRD_B");
         }
     }
 }

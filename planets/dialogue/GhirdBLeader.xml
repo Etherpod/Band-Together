@@ -1,0 +1,105 @@
+﻿<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Leader of Logic</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Greetings.</Page>
+      <Page>How strange... I do not recognize you. It is rare for an outsider to enter these halls.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <EntryCondition>TALKED_TO_GHIRD_LEADER_B</EntryCondition>
+    <Dialogue>
+      <Page>What would you ask of me?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>GOT_GHIRD_SHARD_B</CancelledCondition>
+        <Text>Can you help us open the Great Door?</Text>
+        <DialogueTarget>Door_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Do you know anything about the Fifth Shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <Text>Do you know where the other clans are?</Text>
+        <DialogueTarget>Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>TALKED_TO_GHIRD_LEADER_B</RequiredCondition>
+        <Text>No, thanks.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_2</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Do you know anything about the Fifth Shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <Text>Do you know where the other clans are?</Text>
+        <DialogueTarget>Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Thanks for helping us open the Great Door.</Text>
+        <DialogueTarget>End_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_0</Name>
+    <Dialogue>
+      <Page>I would normally reply with no. I do not wish to aid the other clans in gaining power from whatever is behind the Great Door.</Page>
+      <Page>But you have demonstrated profound logic for an outsider. Most Ghirds are unable to figure it out themselves.</Page>
+      <Page>I speak for the rest of my clan when I say that the Followers of Logic will contribute their shard to this mission.</Page>
+      <Page>You have done well to reach this place. It is only fair that you receive a reward.</Page>
+    </Dialogue>
+    <SetCondition>GOT_GHIRD_SHARD_B</SetCondition>
+    <DialogueTarget>Init_2</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_0</Name>
+    <Dialogue>
+      <Page>My clan knows only a piece of the information you require. The old manuscripts detailing the myth of the shard have been scattered between the clans.</Page>
+      <Page>The manuscripts I have tell me this: "...place a light upon the stone..."</Page>
+      <Page>The rest of it I do not know. I hope this information helps you.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Clans_0</Name>
+    <Dialogue>
+      <Page>The last time our clan heard of the others, there was one Ghird clan on the southern hemisphere and two Nomai clans on the northern hemisphere.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_0</Name>
+    <Dialogue>
+      <Page>It is my pleasure. When the time comes, I will be with you to open the Great Door.</Page>
+    </Dialogue>
+    <SetCondition>GHIRD_VILLAGE_B_TO_DOOR</SetCondition>
+    <SetCondition>TALKED_TO_GHIRD_LEADER_B</SetCondition>
+  </DialogueNode>
+</DialogueTree>

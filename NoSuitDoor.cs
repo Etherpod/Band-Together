@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class NoSuitDoor
+public class NoSuitDoor : MonoBehaviour
 {
 	[SerializeField] EclipseDoorController doorController;
 
