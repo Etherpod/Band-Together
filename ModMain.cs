@@ -67,9 +67,12 @@ public class ModMain : ModBehaviour
     {
         if (name == "Fractured Harmony")
         {
-            Transform shipReveal = nhAPI.GetPlanet(name).transform.Find("Sector/JamPlanet/ShipLogVolumes/ShipRevealVolume").parent;
-            shipReveal.parent = Locator.GetShipBody().transform;
-            shipReveal.transform.position = Vector3.zero;
+            var planet = nhAPI.GetPlanet(name);
+            planet
+                .transform
+                .Find("Sector/JamPlanet/GhirdCityB/CityHall/house/SacredEntrywayTrigger")
+                .GetComponent<SacredEntrywayTrigger>()
+                .LoadWaterObject(planet);
         }
     }
 
