@@ -1,0 +1,200 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Leader of Worship</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Welcome, traveler.</Page>
+      <Page>You find yourself in the halls of the Sacred Shrubbery. Be welcomed in the Shrubbery's warm embrace.</Page>
+      <Page>That is was we used to say, at least. Before the Shrubbery and all Its holiness were lost to the wild.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <Dialogue>
+      <Page>What a horrible thing to befall these people...</Page>
+    </Dialogue>
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>ASKED_SHRUB_IDENTIFY</CancelledCondition>
+        <Text>What's the Sacred Shrubbery?</Text>
+        <ConditionToSet>ASKED_SHRUB_IDENTIFY</ConditionToSet>
+        <DialogueTarget>Shrub_Identify_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>How did you lose it?</Text>
+        <DialogueTarget>Shrub_Lost_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>ASKED_SHRUB_EXPLAIN</CancelledCondition>
+        <Text>What's so important about this shrubbery?</Text>
+        <ConditionToSet>ASKED_SHRUB_EXPLAIN</ConditionToSet>
+        <DialogueTarget>Shrub_Explain_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Identify_0</Name>
+    <Dialogue>
+      <Page>The Sacred Shrubbery is our almighty angelic guide. It is the creator of everything on this planet. We owe our existence to It.</Page>
+      <Page>And It has been lost. We may never find It again.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Lost_0</Name>
+    <Dialogue>
+      <Page>We had taken It up to the surface to replenish Its divine energy by basking in the sun's radiance.</Page>
+      <Page>But a heavy wind struck, abducting our giver of holiness, never to be seen again.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Why don't you just go look for it?</Text>
+        <DialogueTarget>Shrub_Lost_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Did you see where it went?</Text>
+        <DialogueTarget>Shrub_Lost_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Lost_00</Name>
+    <Dialogue>
+      <Page>Our Shrubbery granted us the protection and safety we need to traverse the surface of this planet.</Page>
+      <Page>Without It, we are vurnerable; nothing stops the other clans from using their unholy technology against us.</Page>
+      <Page>We cannot search for It without Its sacred protection.</Page>
+    </Dialogue>
+    
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Did you see where it went?</Text>
+        <DialogueTarget>Shrub_Lost_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Lost_01</Name>
+    <Dialogue>
+      <Page>One of the Followers witnessed It land on one of the islands next to this one, but we did not have time to retrieve It before we began to feel the prescene of unholy forces.</Page>
+    </Dialogue>
+    <DialogueTarget>Shrub_Quest_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Explain_0</Name>
+    <Dialogue>
+      <Page>This is not just any shrubbery. This is The Sacred Shrubbery, Guardian of Light, Protector of the Faithful, Beacon of Hope, Harbinger of Peace, Fountain of Wisdom, Arbiter of Justice, Patron of Tranquility, Sentinel of the Sacred Grove, Keeper of Secrets, Bearer of Blessings, Herald of Harmony, Warden of the Wilds, Custodian of Serenity, Embodiment of Divinity, Celestial Arboreal Entity,  Sovereign of Sanctity, Patron of Purity, Custodian of the Cosmos, Arboreal Avatar of the Divine, Eternal Witness of Time, Beacon of Eternity, Luminary of the Heavens, Arboreal Monument of Grace, Guardian of the Ethereal Realm, Conduit of Cosmic Energy, Essence of Enlightenment, Vessel of the Divine Will, Divine Arboreal Manifestation, Incarnation of Sacred Nature, Holistic Guardian of Existence, Arboreal Avatar of the Divine Will.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>That's... quite a name.</Text>
+        <DialogueTarget>Shrub_Explain_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>It really is a Sacred Shrubbery!</Text>
+        <DialogueTarget>Shrub_Explain_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Explain_00</Name>
+    <Dialogue>
+      <Page>For a Shrubbery as divine as this, a name of such extravagance only captures a mere fraction of its divinity.</Page>
+      <Page>That is, if we even had a Shrubbery as divine as that.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Explain_01</Name>
+    <Dialogue>
+      <Page>The path to a higher existence begins with the worship of the Sacred Shrubbery.</Page>
+      <Page>I would invite you to worship It, but It is no longer.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_0</Name>
+    <Dialogue>
+      <Page>Please, traveler. Aid us in the recovery of the Sacred Shrubbery. We will not survive without It.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I'll have it done in no time.</Text>
+        <DialogueTarget>Shrub_Quest_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What's in it for me?</Text>
+        <DialogueTarget>Shrub_Quest_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Where did you say it went?</Text>
+        <DialogueTarget>Shrub_Lost_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_00</Name>
+    <Dialogue>
+      <Page>Thank you, traveler. There must be some way we can repay you?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Can you help us open the Great Door?</Text>
+        <DialogueTarget>Shrub_Quest_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_01</Name>
+    <Dialogue>
+      <Page>Anything for the savior of our Sacred Shrubbery.</Page>
+    </Dialogue>
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Can you help us open the Great Door?</Text>
+        <DialogueTarget>Shrub_Quest_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_1</Name>
+    <Dialogue>
+      <Page>This favor you ask of us is a great one. But with the power of our Sacred Shrubbery restored, it will be easily accomplished.</Page>
+      <Page>When you have returned It, we will join you at the Great Door.</Page>
+    </Dialogue>
+    <SetCondition>START_SHRUB_QUEST</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_2</Name>
+    <EntryCondition></EntryCondition>
+    <Dialogue>
+      <Page>Are you having problems with retreiving the Sacred Shrubbery?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Where did you say it went?</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+</DialogueTree>
