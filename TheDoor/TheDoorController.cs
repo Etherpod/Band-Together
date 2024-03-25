@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using OWModJam.TheDoor;
+using UnityEngine;
 
-namespace OWModJam.TheDoor;
+namespace BandTogether.TheDoor;
 
 public class TheDoorController : MonoBehaviour
 {
   private static readonly int Open = Animator.StringToHash("Open");
+
+  public event OWEvent.OWCallback OnOpening; 
   
   [SerializeField]
   private TheDoorKeySocket theDoorKeySocket;
@@ -21,5 +24,6 @@ public class TheDoorController : MonoBehaviour
   private void KeyInserted()
   {
     _animator.SetTrigger(Open);
+    OnOpening?.Invoke();
   }
 }

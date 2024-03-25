@@ -5,7 +5,7 @@ namespace OWModJam.TheDoor;
 
 public class TheDoorKeySocket : OWItemSocket
 {
-  public OWEvent.OWCallback OnKeyInserted;
+  public event OWEvent.OWCallback OnKeyInserted;
 
   [SerializeField]
   private int numKeyFragments;
