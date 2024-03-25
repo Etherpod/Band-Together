@@ -34,6 +34,8 @@ public class ModMain : ModBehaviour
         {
             if (loadScene != OWScene.SolarSystem) return;
             ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
+            
+            nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
