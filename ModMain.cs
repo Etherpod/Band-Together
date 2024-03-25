@@ -1,19 +1,44 @@
-﻿using OWML.Common;
+﻿using System;
+using OWML.Common;
 using OWML.ModHelper;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static BandTogether.QuantumNPC;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
 {
+    private static readonly IDictionary<string, (GroupType group, GroupDestination destination)> GroupDialogueConditions =
+        new Dictionary<string, (GroupType, GroupDestination)>
+        {
+            { "NOMAI_VILLAGE_A_TO_DOOR", (GroupType.NomaiA, GroupDestination.Door) },
+            { "NOMAI_VILLAGE_A_TO_AWAY", (GroupType.NomaiA, GroupDestination.Away) },
+            { "NOMAI_VILLAGE_A_TO_FIRE", (GroupType.NomaiA, GroupDestination.Fire) },
+            
+            { "NOMAI_VILLAGE_B_TO_DOOR", (GroupType.NomaiB, GroupDestination.Door) },
+            { "NOMAI_VILLAGE_B_TO_AWAY", (GroupType.NomaiB, GroupDestination.Away) },
+            { "NOMAI_VILLAGE_B_TO_FIRE", (GroupType.NomaiB, GroupDestination.Fire) },
+            
+            { "GHIRD_VILLAGE_A_TO_DOOR", (GroupType.GhirdA, GroupDestination.Door) },
+            { "GHIRD_VILLAGE_A_TO_AWAY", (GroupType.GhirdA, GroupDestination.Away) },
+            { "GHIRD_VILLAGE_A_TO_FIRE", (GroupType.GhirdA, GroupDestination.Fire) },
+            
+            { "GHIRD_VILLAGE_B_TO_DOOR", (GroupType.GhirdB, GroupDestination.Door) },
+            { "GHIRD_VILLAGE_B_TO_AWAY", (GroupType.GhirdB, GroupDestination.Away) },
+            { "GHIRD_VILLAGE_B_TO_FIRE", (GroupType.GhirdB, GroupDestination.Fire) },
+        };
+    
     public static ModMain Instance;
-    public delegate void MoveNpcEvent(string target);
+    public delegate void MoveNpcEvent(GroupType target);
     public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
-    bool nomaiBMoved = false;
-    bool ghirdBMoved = false;
+    private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
+        .Values
+        .Select(value => value.group)
+        .ToDictionary(key => key, _ => GroupDestination.Start);
 
     private void Awake()
     {
@@ -37,6 +62,8 @@ public class ModMain : ModBehaviour
             
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
+            GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
+                
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
                 var relativeLocation = new RelativeLocationData(Vector3.up * 2 + Vector3.forward * 2, Quaternion.identity, Vector3.zero);
@@ -65,11 +92,11 @@ public class ModMain : ModBehaviour
         };
     }
 
-    private void OnBodyLoaded(string name)
+    private void OnBodyLoaded(string bodyName)
     {
-        if (name == "Fractured Harmony")
+        if (bodyName == "Fractured Harmony")
         {
-            var planet = nhAPI.GetPlanet(name);
+            var planet = nhAPI.GetPlanet(bodyName);
             planet
                 .transform
                 .Find("Sector/JamPlanet/GhirdCityB/CityHall/house/SacredEntrywayTrigger")
@@ -78,20 +105,23 @@ public class ModMain : ModBehaviour
         }
     }
 
-    private void Update()
+    private void OnDialogueConditionChanged(string condition, bool value)
     {
-        if (OnMoveGroup == null) { return; }
+        if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
 
-        if (!nomaiBMoved && DialogueConditionManager.SharedInstance.ConditionExists("NOMAI_VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["NOMAI_VILLAGE_B_TO_DOOR"])
-        {
-            nomaiBMoved = true;
-            OnMoveGroup("NOMAI_B");
-        }
-        if (!ghirdBMoved && DialogueConditionManager.SharedInstance.ConditionExists("GHIRD_VILLAGE_A_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["GHIRD_VILLAGE_A_TO_DOOR"])
-        {
-            ghirdBMoved = true;
-            OnMoveGroup("GHIRD_A");
-        }
+        var destination = GroupDialogueConditions[condition];
+        if (destination.destination <= _groupCurrentLocation[destination.group]) return;
+        
+        OnMoveGroup?.Invoke(destination.group);
+        _groupCurrentLocation[destination.group] = destination.destination;
+    }
+
+    private enum GroupDestination
+    {
+        Start,
+        Door,
+        Away,
+        Fire,
     }
 }
 

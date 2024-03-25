@@ -5,20 +5,20 @@ using UnityEngine;
 namespace BandTogether;
 public class QuantumNPC : SocketedQuantumObject
 {
-	[SerializeField] Transform[] targetList;
-    [SerializeField] GroupType groupType;
+	[SerializeField] private Transform[] targetList;
+	[SerializeField] private GroupType groupType;
 
-	int targetIndex = 0;
-	bool waitingToTeleport = false;
+	public enum GroupType
+	{
+		NomaiA,
+		NomaiB,
+		GhirdA,
+		GhirdB,
+		Captial
+	}
 
-    public enum GroupType
-    {
-        NOMAI_A,
-        NOMAI_B,
-        GHIRD_A,
-        GHIRD_B,
-        CAPTIAL
-    }
+	private int _targetIndex = 0;
+	private bool _waitingToTeleport = false;
 
 	public override void Start()
 	{
@@ -26,27 +26,26 @@ public class QuantumNPC : SocketedQuantumObject
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 	}
 
-	private void OnMoveGroup(string target)
+	private void OnMoveGroup(GroupType targetGroup)
 	{
-		if (target == groupType.ToString())
-		{
-			waitingToTeleport = true;
-		}
+		if (targetGroup != groupType) return;
+		
+		_waitingToTeleport = true;
 	}
 
 	public override void Update()
 	{
 		base.Update();
-		if (waitingToTeleport && !IsLocked())
+		if (_waitingToTeleport && !IsLocked())
 		{
-			waitingToTeleport = false;
-			transform.position = targetList[targetIndex].position;
-			transform.rotation = targetList[targetIndex].rotation;
-			targetIndex++;
+			_waitingToTeleport = false;
+			transform.position = targetList[_targetIndex].position;
+			transform.rotation = targetList[_targetIndex].rotation;
+			_targetIndex++;
 
-			if (targetIndex >= targetList.Length)
+			if (_targetIndex >= targetList.Length)
 			{
-				targetIndex = 0;
+				_targetIndex = 0;
 			}
 		}
 	}
