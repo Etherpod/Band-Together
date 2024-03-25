@@ -27,6 +27,23 @@
         "assetBundle": "assets/jamplanet",
         "keepLoaded": true
       }
+    ],
+    "translatorText": [
+      {
+        "type": "wall",
+        "xmlFile": "planets/text/GhirdVillageBWarning.xml",
+        "alignRadial": true,
+        "position": {
+          "x": 93.64751,
+          "y": -91.83906,
+          "z": -95.40152
+        },
+        "normal": {
+          "x": 0.4274361,
+          "y": 0.8192928,
+          "z": -0.382175
+        }
+      }
     ]
   },
   "Spawn": {

@@ -98,4 +98,63 @@
     </Dialogue>
     <SetCondition>OPEN_SUNPOST_DOOR</SetCondition>
   </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <EntryCondition>GOT_GHIRD_SHARD_B</EntryCondition>
+    <Dialogue>
+      <Page>Do not worry. No code is needed for passage here.</Page>
+      <Page>What do you think lies behind the Great Door?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredCondition>GOT_NOMAI_SHARD_A</RequiredCondition>
+        <Text>Unimaginable wealth.</Text>
+        <DialogueTarget>End_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>GOT_NOMAI_SHARD_B</RequiredCondition>
+        <Text>A spacecraft that can go anywhere in the universe.</Text>
+        <DialogueTarget>End_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>GOT_GHIRD_SHARD_A</RequiredCondition>
+        <Text>The power of a mighty god.</Text>
+        <DialogueTarget>End_2</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I don't know, but we're going to find out.</Text>
+        <DialogueTarget>End_3</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_0</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_1</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_2</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_3</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+  </DialogueNode>
 </DialogueTree>
