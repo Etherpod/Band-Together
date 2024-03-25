@@ -6,28 +6,29 @@ namespace BandTogether;
 public class QuantumNPC : SocketedQuantumObject
 {
 	[SerializeField] Transform[] targetList;
-    [SerializeField] VillageTypes villageType;
+    [SerializeField] GroupType groupType;
 
 	int targetIndex = 0;
 	bool waitingToTeleport = false;
 
-    public enum VillageTypes
+    public enum GroupType
     {
         NOMAI_A,
         NOMAI_B,
         GHIRD_A,
-        GHIRD_B
+        GHIRD_B,
+        CAPTIAL
     }
 
 	public override void Start()
 	{
 		base.Start();
-		ModMain.Instance.OnMoveVillage += OnMoveVillage;
+		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 	}
 
-	private void OnMoveVillage(string target)
+	private void OnMoveGroup(string target)
 	{
-		if (target == villageType.ToString())
+		if (target == groupType.ToString())
 		{
 			waitingToTeleport = true;
 		}
@@ -118,6 +119,6 @@ public class QuantumNPC : SocketedQuantumObject
 
     private void OnDisable()
 	{
-        ModMain.Instance.OnMoveVillage -= OnMoveVillage;
+        ModMain.Instance.OnMoveGroup -= OnMoveGroup;
     }
 }

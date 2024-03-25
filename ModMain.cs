@@ -8,8 +8,8 @@ namespace BandTogether;
 public class ModMain : ModBehaviour
 {
     public static ModMain Instance;
-    public delegate void MoveVillageEvent(string target);
-    public event MoveVillageEvent OnMoveVillage;
+    public delegate void MoveNpcEvent(string target);
+    public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
     bool nomaiBMoved = false;
@@ -80,19 +80,17 @@ public class ModMain : ModBehaviour
 
     private void Update()
     {
+        if (OnMoveGroup == null) { return; }
+
         if (!nomaiBMoved && DialogueConditionManager.SharedInstance.ConditionExists("NOMAI_VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["NOMAI_VILLAGE_B_TO_DOOR"])
         {
             nomaiBMoved = true;
-            if (OnMoveVillage == null) { return; }
-            ModHelper.Console.WriteLine("Ok did event");
-            OnMoveVillage("NOMAI_B");
+            OnMoveGroup("NOMAI_B");
         }
         if (!ghirdBMoved && DialogueConditionManager.SharedInstance.ConditionExists("GHIRD_VILLAGE_A_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["GHIRD_VILLAGE_A_TO_DOOR"])
         {
             ghirdBMoved = true;
-            if (OnMoveVillage == null) { return; }
-            ModHelper.Console.WriteLine("Ok did event");
-            OnMoveVillage("GHIRD_A");
+            OnMoveGroup("GHIRD_A");
         }
     }
 }
