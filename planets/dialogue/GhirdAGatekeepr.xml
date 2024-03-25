@@ -101,7 +101,7 @@
 
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>GOT_GHIRD_SHARD_B</EntryCondition>
+    <EntryCondition>GOT_GHIRD_SHARD_A</EntryCondition>
     <Dialogue>
       <Page>Do not worry. No code is needed for passage here.</Page>
       <Page>What do you think lies behind the Great Door?</Page>

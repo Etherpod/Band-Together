@@ -14,14 +14,14 @@
 
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_GHIRD_LEADER_B</EntryCondition>
+    <EntryCondition>TALKED_TO_GHIRD_LEADER_A</EntryCondition>
     <Dialogue>
       <Page>What would you ask of me?</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>GOT_GHIRD_SHARD_B</CancelledCondition>
+        <CancelledCondition>GOT_GHIRD_SHARD_A</CancelledCondition>
         <Text>Can you help us open the Great Door?</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -35,7 +35,7 @@
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>TALKED_TO_GHIRD_LEADER_B</RequiredCondition>
+        <RequiredCondition>TALKED_TO_GHIRD_LEADER_A</RequiredCondition>
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -72,7 +72,7 @@
       <Page>I speak for the rest of my clan when I say that the Followers of Logic will contribute their shard to this mission.</Page>
       <Page>You have done well to reach this place. It is only fair that you receive a reward.</Page>
     </Dialogue>
-    <SetCondition>GOT_GHIRD_SHARD_B</SetCondition>
+    <SetCondition>GOT_GHIRD_SHARD_A</SetCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
 
@@ -99,7 +99,7 @@
     <Dialogue>
       <Page>It is my pleasure. When the time comes, I will be with you to open the Great Door.</Page>
     </Dialogue>
-    <SetCondition>GHIRD_VILLAGE_B_TO_DOOR</SetCondition>
-    <SetCondition>TALKED_TO_GHIRD_LEADER_B</SetCondition>
+    <SetCondition>GHIRD_VILLAGE_A_TO_DOOR</SetCondition>
+    <SetCondition>TALKED_TO_GHIRD_LEADER_A</SetCondition>
   </DialogueNode>
 </DialogueTree>

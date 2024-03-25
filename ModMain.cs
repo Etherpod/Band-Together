@@ -82,12 +82,12 @@ public class ModMain : ModBehaviour
             ModHelper.Console.WriteLine("Ok did event");
             OnMoveVillage("NOMAI_B");
         }
-        if (!ghirdBMoved && DialogueConditionManager.SharedInstance.ConditionExists("GHIRD_VILLAGE_B_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["GHIRD_VILLAGE_B_TO_DOOR"])
+        if (!ghirdBMoved && DialogueConditionManager.SharedInstance.ConditionExists("GHIRD_VILLAGE_A_TO_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["GHIRD_VILLAGE_A_TO_DOOR"])
         {
             ghirdBMoved = true;
             if (OnMoveVillage == null) { return; }
             ModHelper.Console.WriteLine("Ok did event");
-            OnMoveVillage("GHIRD_B");
+            OnMoveVillage("GHIRD_A");
         }
     }
 }
