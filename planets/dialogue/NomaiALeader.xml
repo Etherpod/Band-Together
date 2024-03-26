@@ -45,9 +45,11 @@
       </DialogueOption>
       <DialogueOption>
         <Text>What if whatever is behind the Great Door is even more powerful than your shard?</Text>
+        <DialogueTarget>Door_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>That shard isn't going to help much when I convince the other three clans to help.</Text>
+        <Text>That shard isn't going to help much when the other three clans want to help.</Text>
+        <DialogueTarget>Door_02</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -58,6 +60,29 @@
       <Page>...</Page>
       <Page>The idea of the Great Door containing only wealth seems unlikely, but it is entirely possible...</Page>
       <Page>If I controlled this planets eceonomy, I would control everyone. I would have complete control.</Page>
+    </Dialogue>
+    <DialogueTarget>Door_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_01</Name>
+    <Dialogue>
+      <Page>An interesting thought.</Page>
+      <Page>It only seems logical to use my shard to obtain something of even greater power.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_02</Name>
+    <Dialogue>
+      <Page>You make a fair point. The other clans will naturally overpower any decision I try to make by having the majority.</Page>
+      <Page>I may eventually be forced to contribute my shard, whether I am in agreement or not.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_1</Name>
+    <Dialogue>
       <Page>I had not considered this possibility before. Perhaps there is reason to help open the Great Door.</Page>
       <Page>But how do I know if you were sent here to deceive me?</Page>
       <Page>Let us make a compromise, as I do not entirely trust you.</Page>
@@ -70,13 +95,6 @@
         <DialogueTarget>Steal_Quest_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Door_01</Name>
-    <Dialogue>
-      <Page></Page>
-    </Dialogue>
   </DialogueNode>
 
   <DialogueNode>
@@ -233,5 +251,49 @@
         <DialogueTarget>Steal_Shrub_Quest_4</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Finish_Steal_Quest_0</Name>
+    <Dialogue>
+      <Page>Is this it? You stole the Sacred Shrubbery?</Page>
+      <Page>I offer my congragulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
+      <Page>I am proud to help a traveler such as you. You have my word that I will join you at the Great Door and contribute my shard to the whole.</Page>
+    </Dialogue>
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What's going to happen to the Followers of Worship?</Text>
+        <DialogueTarget>Finish_Steal_Quest_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'll see you at the door!</Text>
+        <DialogueTarget>Finish_Steal_Quest_02</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>GOT_NOMAI_SHARD_A</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Finish_Steal_Quest_01</Name>
+    <Dialogue>
+      <Page>I would imagine that, with their Sacred Shrubbery gone once again, they will go to the Great Door. It is not as if they have anything better to do.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I'll see you at the door!</Text>
+        <DialogueTarget>Finish_Steal_Quest_02</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Finish_Steal_Quest_02</Name>
+    <Dialogue>
+      <Page>It was a pleasure meeting you.</Page>
+    </Dialogue>
+    <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>
