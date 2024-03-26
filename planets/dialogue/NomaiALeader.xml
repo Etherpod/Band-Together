@@ -41,12 +41,196 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>But there could be lots of money behind the Great Door!</Text>
+        <DialogueTarget>Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>What if whatever is behind the Great Door is even more powerful than your shard?</Text>
       </DialogueOption>
       <DialogueOption>
         <Text>That shard isn't going to help much when I convince the other three clans to help.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_00</Name>
+    <Dialogue>
+      <Page>...</Page>
+      <Page>The idea of the Great Door containing only wealth seems unlikely, but it is entirely possible...</Page>
+      <Page>If I controlled this planets eceonomy, I would control everyone. I would have complete control.</Page>
+      <Page>I had not considered this possibility before. Perhaps there is reason to help open the Great Door.</Page>
+      <Page>But how do I know if you were sent here to deceive me?</Page>
+      <Page>Let us make a compromise, as I do not entirely trust you.</Page>
+      <Page>If you can prove your loyalty to me- to the Followers of Greed- I will give you my shard.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What do I need to do?</Text>
+        <DialogueTarget>Steal_Quest_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_01</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Quest_0</Name>
+    <Dialogue>
+      <Page>The Followers of Greed have at least partial influence in every clan on this planet except for one: The Followers of Worship.</Page>
+      <Page>Their clan is heavily protected and is sheltered underground, making it very hard for my clan to do anything.</Page>
+      <Page>But, since the disappearance of their Sacred Shrubbery, they have let down their guard.</Page>
+      <Page>If you are able to gain entry to their sacred halls and bring me an item without being noticed, I may be able to use it to my advantage.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>You want me to STEAL??</Text>
+        <DialogueTarget>Steal_Quest_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Quest_1</Name>
+    <Dialogue>
+      <Page>And you want my shard. This is the only compromise I am willing to make.</Page>
+      <Page>Do you agree to the terms?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I mean, I don't really have a choice.</Text>
+        <DialogueTarget>Steal_Quest_2</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Quest_2</Name>
+    <Dialogue>
+      <Page>Then it is settled.</Page>
+      <Page>There is an issue, however. I can think of no item they own that would give me the influence I need.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredPersistentCondition>FINISH_SHRUB_QUEST</RequiredPersistentCondition>
+        <Text>What about the Sacred Shrubbery?</Text>
+        <DialogueTarget>Steal_Shrub_Quest_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledPersistentCondition>FINISH_SHRUB_QUEST</CancelledPersistentCondition>
+        <Text>Then what am I supposed to steal?</Text>
+        <DialogueTarget>Steal_Quest_3</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Quest_3</Name>
+    <Dialogue>
+      <Page>Nothing, currently.</Page>
+    </Dialogue>
+    <SetPersistentCondition>WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
+    <DialogueTarget>Steal_Quest_Delay</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Quest_Delay</Name>
+    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
+    <Dialogue>
+      <Page>When an opportunity arises, I will have a job for you. Return here at a later date.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Quest_0</Name>
+    <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
+    <Dialogue>
+      <Page>I still cannot think of what I would gain influence from.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What about the Sacred Shrubbery?</Text>
+        <DialogueTarget>Steal_Shrub_Quest_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Quest_1</Name>
+    <Dialogue>
+      <Page>We cannot steal something that is already lost, sadly.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I found It and gave It back to them.</Text>
+        <DialogueTarget>Steal_Shrub_Quest_2</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Quest_2</Name>
+    <Dialogue>
+      <Page>You what..?</Page>
+      <Page>Do you realize what you have done?!</Page>
+      <Page>Losing that shrubbery was the best thing that happened to this planet!</Page>
+      <Page>Oh, no... You have made a grave mistake, traveler.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What did I do?</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Quest_3</Name>
+    <Dialogue>
+      <Page>The last time the Followers of Worship had their Sacred Shrubbery, this world nearly fell under the complete control of the Order of the Shrubbery.</Page>
+      <Page>This is no longer a matter of simply stealing an item. This is a matter of saving this solar system.</Page>
+      <Page>If we don't extract their Sacred Shrubbery soon... what could happen is something to fear.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What do I do?</Text>
+        <DialogueTarget>Steal_Shrub_Quest_4</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Quest_4</Name>
+    <Dialogue>
+      <Page>Sneak back into the sacred halls and steal the Sacred Shrubbery.</Page>
+      <Page>Once you have escaped with it, bring it to me. I will handle it from there.</Page>
+      <Page>Good luck, traveler.</Page>
+    </Dialogue>
+    <SetPersistentCondition>START_STEAL_QUEST</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Steal_Shrub_Help</Name>
+    <EntryCondition>START_STEAL_QUEST</EntryCondition>
+    <Dialogue>
+      <Page>Did you run into a problem?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What do I do?</Text>
+        <DialogueTarget>Steal_Shrub_Quest_4</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>

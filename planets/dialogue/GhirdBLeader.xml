@@ -261,7 +261,7 @@
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>I'll see you at the door.</Text
+        <Text>I'll see you at the door.</Text>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
