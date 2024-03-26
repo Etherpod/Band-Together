@@ -1,0 +1,53 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Leader of Greed</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Welcome, stranger. I trust you have been enjoying yourself nicely at my settlement.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <Dialogue>
+      <Page>You must be here to request something of me?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Will you help us open the Great Door?</Text>
+        <DialogueTarget>Door_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What can you tell me about the Fifth Shard?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <Text>Do you know where the other clans are?</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_0</Name>
+    <Dialogue>
+      <Page>I am sorry if you were relying on my cooperation, but you will get none here.</Page>
+      <Page>I am not prepared to give away my shard- my greatest source of political power on this planet- to a stranger.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>But there could be lots of money behind the Great Door!</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What if whatever is behind the Great Door is even more powerful than your shard?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>That shard isn't going to help much when I convince the other three clans to help.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+</DialogueTree>

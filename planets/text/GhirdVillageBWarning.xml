@@ -2,18 +2,18 @@
                   xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/text_schema.xsd">
   <TextBlock>
     <ID>1</ID>
-    <Text>This is a note directed to anyone who may be passing by this place of interest.</Text>
+    <Text>LEADER OF GREED: This is a note directed to anyone who may be passing by this place of interest.</Text>
   </TextBlock>
 
   <TextBlock>
     <ID>11</ID>
     <ParentID>1</ParentID>
-    <Text>The entrance to this building appears to shut whenever someone approaches with excessive technology. I would recommend removing your suit and any other pieces of technology before attempting to enter.</Text>
+    <Text>LEADER OF GREED: The entrance to this building appears to close whenever someone approaches with excessive technology. I would recommend removing your suit and any other pieces of technology before attempting to enter.</Text>
   </TextBlock>
 
   <TextBlock>
     <ID>111</ID>
     <ParentID>11</ParentID>
-    <Text>Otherwise, you may run into the issue of passing through a solid and very tightly shut door.</Text>
+    <Text>LEADER OF GREED: Otherwise, you may run into the issue of passing through a solid and very tightly shut door.</Text>
   </TextBlock>
 </NomaiObject>
