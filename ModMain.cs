@@ -36,11 +36,20 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
+    private int numClansConvinced;
+
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
         .Values
         .Select(value => value.group)
         .Distinct()
         .ToDictionary(key => key, _ => GroupDestination.Start);
+    private readonly string[] _shardConditions =
+    {
+        "GOT_NOMAI_SHARD_A",
+        "GOT_NOMAI_SHARD_B",
+        "GOT_GHIRD_SHARD_A",
+        "GOT_GHIRD_SHARD_B"
+    };
 
     private void Awake()
     {
@@ -116,21 +125,34 @@ public class ModMain : ModBehaviour
         {
             OnMoveGroup?.Invoke(GroupType.NomaiA, false);
             _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
+            numClansConvinced++;
         }
         if (CheckCondition("GOT_NOMAI_SHARD_B"))
         {
-            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            OnMoveGroup?.Invoke(GroupType.NomaiB, false);
             _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
+            numClansConvinced++;
         }
         if (CheckCondition("GOT_GHIRD_SHARD_A"))
         {
-            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            OnMoveGroup?.Invoke(GroupType.GhirdA, false);
             _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
+            numClansConvinced++;
         }
         if (CheckCondition("GOT_GHIRD_SHARD_B"))
         {
-            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            OnMoveGroup?.Invoke(GroupType.GhirdB, false);
             _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
+            numClansConvinced++;
+        }
+
+        if (numClansConvinced == 3)
+        {
+            DialogueConditionManager.SharedInstance.SetConditionState("LAST_CLAN_TO_AGREE", true);
+        }
+        else if (numClansConvinced == 4)
+        {
+            DialogueConditionManager.SharedInstance.SetConditionState("ALL_CLANS_AGREED", true);
         }
     }
 
@@ -141,6 +163,19 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
+        if (_shardConditions.Contains(condition))
+        {
+            numClansConvinced += 1;
+            if (numClansConvinced == 3)
+            {
+                DialogueConditionManager.SharedInstance.SetConditionState("LAST_CLAN_TO_AGREE", true);
+            }
+            else if (numClansConvinced == 4)
+            {
+                DialogueConditionManager.SharedInstance.SetConditionState("ALL_CLANS_AGREED", true);
+            }
+        }
+
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
 
         var destination = GroupDialogueConditions[condition];

@@ -22,7 +22,6 @@
       <DialogueOption>
         <CancelledPersistentCondition>ASKED_SHRUB_IDENTIFY</CancelledPersistentCondition>
         <Text>What's the Sacred Shrubbery?</Text>
-        <ConditionToSet>ASKED_SHRUB_IDENTIFY</ConditionToSet>
         <DialogueTarget>Shrub_Identify_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
@@ -32,7 +31,6 @@
       <DialogueOption>
         <CancelledPersistentCondition>ASKED_SHRUB_EXPLAIN</CancelledPersistentCondition>
         <Text>What's so important about this shrubbery?</Text>
-        <ConditionToSet>ASKED_SHRUB_EXPLAIN</ConditionToSet>
         <DialogueTarget>Shrub_Explain_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
@@ -44,6 +42,7 @@
       <Page>The Sacred Shrubbery is our almighty angelic guide. It is the creator of everything on this planet. We owe our existence to It.</Page>
       <Page>And It has been lost. We may never find It again.</Page>
     </Dialogue>
+    <SetPersistentCondition>ASKED_SHRUB_IDENTIFY</SetPersistentCondition>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
@@ -106,6 +105,8 @@
         <DialogueTarget>Shrub_Explain_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+
+    <SetPersistentCondition>ASKED_SHRUB_EXPLAIN</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -240,6 +241,7 @@
     <Dialogue>
       <Page>Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
     </Dialogue>
+    <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_B</SetPersistentCondition>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
 
@@ -259,8 +261,7 @@
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>I'll see you at the door.</Text>
-        <ConditionToSet>TALKED_TO_GHIRD_LEADER_B</ConditionToSet>
+        <Text>I'll see you at the door.</Text
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>

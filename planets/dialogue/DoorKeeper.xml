@@ -421,6 +421,6 @@
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
       <Page>This may be it. We may never unite the clans again.</Page>
     </Dialogue>
-    <SetPersistentCondition>CLANS_LEAVE_DOOR</SetPersistentCondition>
+    <SetCondition>CLANS_LEAVE_DOOR</SetCondition>
   </DialogueNode>
 </DialogueTree>
