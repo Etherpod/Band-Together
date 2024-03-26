@@ -185,8 +185,8 @@
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Init_2</Name>
-    <EntryCondition></EntryCondition>
+    <Name>Shrub_Quest_Hint_0</Name>
+    <EntryCondition>START_SHRUB_QUEST</EntryCondition>
     <Dialogue>
       <Page>Are you having problems with retreiving the Sacred Shrubbery?</Page>
     </Dialogue>
@@ -194,7 +194,80 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Where did you say it went?</Text>
+        <DialogueTarget>Shrub_Quest_Hint_1</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_Hint_1</Name>
+    <Dialogue>
+      <Page>One of the Followers witnessed It land on one of the islands next to this one, but we did not have time to retrieve It before we began to feel the prescene of unholy forces.</Page>
+      <Page>I hope you are able to locate It. Shrubspeed, traveler.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Returned_0</Name>
+    <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
+    <Dialogue>
+      <Page>Oh, how I have missed our holy savior! Far too long has it been since we have seen It.</Page>
+      <Page>I can already feel Its divine protection encompassing me. Thank you, traveler. We bid you farewell.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Aren't you going to help us open the Great Door?</Text>
+        <DialogueTarget>Shrub_Returned_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Returned_01</Name>
+    <Dialogue>
+      <Page>Oh, yes. When everyone is prepared to open the door, we will come and place our shard in.</Page>
+    </Dialogue>
+    <DialogueTarget>Shrub_Returned_02</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Returned_02</Name>
+    <Dialogue>
+      <Page>Is there anything else?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Do you know anything about the Fifth Shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Where are the other clans?</Text>
+        <DialogueTarget>Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'll see you at the door.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_0</Name>
+    <Dialogue>
+      <Page>I was reading a scroll earlier that I think mentioned the Fifth Shard.</Page>
+      <Page>If I recall correctly, it said something along the lines of "...stone on the shortest pillar..."</Page>
+      <Page>I hope that helps you.</Page>
+    </Dialogue>
+    <DialogueTarget>Shrub_Returned_02</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Clans_0</Name>
+    <Dialogue>
+      <Page>We do not know much about the other clans, as we rarely leave these halls.</Page>
+      <Page>The last time I heard about the other clans, there were two Nomai clans and one other Ghird clan.</Page>
+    </Dialogue>
+    <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
 </DialogueTree>

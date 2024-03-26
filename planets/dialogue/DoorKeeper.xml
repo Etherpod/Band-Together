@@ -320,6 +320,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Got it.</Text>
+        <DialogueTarget>Shard_Quest_End</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -334,6 +335,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>I was sort of hoping for something more.</Text>
+        <DialogueTarget>Shard_Quest_110</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>That's good enough for me.</Text>
@@ -343,9 +345,80 @@
   </DialogueNode>
 
   <DialogueNode>
-    <DialogueOption>
-      <Text>Then all that is left for me is to wish you a safe journey.</Text>
-      <Text>I will be waiting here, as I always have. Good luck, traveler.</Text>
-    </DialogueOption>
+    <Name>Shard_Quest_110</Name>
+    <Dialogue>
+      <Page>Is being the first to bear witness to a treasure locked behind an impenetrable door centuries ago not enough to convince you?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I guess I can settle for that.</Text>
+        <DialogueTarget>Shard_Quest_10</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_Quest_End</Name>
+    <Dialogue>
+      <Page>Then all that is left for me is to wish you a safe journey.</Page>
+      <Page>I will be waiting here, as I always have. Good luck, traveler.</Page>
+    </Dialogue>
+    <SetCondition>MAIN_QUEST_START</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Missing_Clans_0</Name>
+    <EntryCondition>MAIN_QUEST_START</EntryCondition>
+    <Dialogue>
+      <Page>I don't believe all of the clans are present. We need all of the shards to open the door.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Missing_Shard_0</Name>
+    <EntryCondition>ALL_CLANS_AGREED</EntryCondition>
+    <Dialogue>
+      <Page>Fantastic! Every clan is here! The last thing we need to do is find the Fifth Shard and complete the key.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>All_Shards_0</Name>
+    <EntryCondition>FIFTH_SHARD</EntryCondition>
+    <Dialogue>
+      <Page>So, this is it.</Page>
+      <Page>After all these centuries, we are finally about to open the Great Door.</Page>
+      <Page>I wonder what secrets lie within?</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Opened_Door_0</Name>
+    <EntryCondition>SEARCHED_GREAT_DOOR</EntryCondition>
+    <Dialogue>
+      <Page>What did you find in the chamber?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>There's... nothing.</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Let me keep searching.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Opened_Door_01</Name>
+    <Dialogue>
+      <Page>Nothing? No wealth? Power? Technology?</Page>
+      <Page>There's nothing in there?</Page>
+      <Page>And to think, after all these years, we had finally brought all the clans back together, just for there to be nothing behind the door.</Page>
+      <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
+      <Page>This may be it. We may never unite the clans again.</Page>
+    </Dialogue>
+    <SetCondition>CLANS_LEAVE_DOOR</SetCondition>
   </DialogueNode>
 </DialogueTree>
