@@ -11,6 +11,15 @@ public class KeyFragment : OWItem
         onPickedUp += OnPickedUp;
     }
 
+    public override bool IsAnimationPlaying()
+    {
+        return base.IsAnimationPlaying();
+    }
+
+    public override void PlaySocketAnimation()
+    {
+    }
+
     private void OnPickedUp(OWItem item)
     {
         FindObjectOfType<QuantumRockSolver>().OnPickedUp();

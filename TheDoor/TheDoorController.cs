@@ -22,7 +22,13 @@ public class TheDoorController : MonoBehaviour
 
     private void KeyInserted()
     {
+        ModMain.Instance.ModHelper.Console.WriteLine("key fully inserted");
         _animator.SetTrigger(Open);
         OnOpening?.Invoke();
+    }
+
+    public void PlayKeyCompletionSfx()
+    {
+        theDoorKeySocket.PlayCompletionSfx();
     }
 }

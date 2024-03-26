@@ -9,12 +9,14 @@ public class TheDoorKeySocket : OWItemSocket
     [SerializeField]
     private int numKeyFragments;
 
+    private AudioSource _completionSfx;
     private int _numInsertedFragments = 0;
 
     public override void Awake()
     {
         base.Awake();
         _acceptableType = KeyFragment.ItemType;
+        _completionSfx = GetComponentInChildren<AudioSource>();
     }
 
     public override void Start()
@@ -29,18 +31,19 @@ public class TheDoorKeySocket : OWItemSocket
         OnSocketableDonePlacing -= OnKeyFragmentPlaced;
     }
 
-    public override OWItem RemoveFromSocket()
-    {
-        ((ScrollItem)_socketedItem).HideNomaiText();
-        return base.RemoveFromSocket();
-    }
-
     private void OnKeyFragmentPlaced(OWItem socketable)
     {
         _numInsertedFragments += 1;
+        ModMain.Instance.ModHelper.Console.WriteLine($"key fragments inserted: {_numInsertedFragments}");
         if (numKeyFragments <= _numInsertedFragments)
         {
+            ModMain.Instance.ModHelper.Console.WriteLine("key complete");
             OnKeyInserted?.Invoke();
         }
+    }
+
+    public void PlayCompletionSfx()
+    {
+        _completionSfx.Play();
     }
 }
