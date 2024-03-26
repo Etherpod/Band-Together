@@ -2,7 +2,7 @@
   "name": "Fractured Harmony",
   "starSystem": "Jam3",
   "Base": {
-    "surfaceSize": 300,
+    "surfaceSize": 200,
     "surfaceGravity": 14,
     "hasMapMarker": true
   },
@@ -43,6 +43,23 @@
           "y": 0.8192928,
           "z": -0.382175
         }
+      }
+    ],
+    "signals": [
+      {
+        "name": "The Great Door",
+        "frequency": "Wide-Band Transmission",
+        "audio": "NomaiEscapePodDistressSignal_LP",
+        "onlyAudibleToScope": true,
+        "parentPath": "Sector/JamPlanet/MiddleGround/DistressBeacon",
+        "isRelativeToParent": true,
+        "position": {
+          "x": 0,
+          "y": 2,
+          "z": 0
+        },
+        "detectionRadius": 500,
+        "identificationRadius": 20
       }
     ]
   },
