@@ -32,7 +32,7 @@ public class ModMain : ModBehaviour
         };
     
     public static ModMain Instance;
-    public delegate void MoveNpcEvent(GroupType target);
+    public delegate void MoveNpcEvent(GroupType target, bool shouldActQuatum);
     public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
@@ -105,7 +105,38 @@ public class ModMain : ModBehaviour
                 .Find("Sector/JamPlanet/GhirdCityB/CityHall/house/SacredEntrywayTrigger")
                 .GetComponent<SacredEntrywayTrigger>()
                 .LoadWaterObject(planet);
+
+            MoveGroupsToDoor();
         }
+    }
+
+    private void MoveGroupsToDoor()
+    {
+        if (CheckCondition("GOT_NOMAI_SHARD_A"))
+        {
+            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
+        }
+        if (CheckCondition("GOT_NOMAI_SHARD_B"))
+        {
+            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
+        }
+        if (CheckCondition("GOT_GHIRD_SHARD_A"))
+        {
+            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
+        }
+        if (CheckCondition("GOT_GHIRD_SHARD_B"))
+        {
+            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
+        }
+    }
+
+    private bool CheckCondition(string condition)
+    {
+        return DialogueConditionManager.SharedInstance.ConditionExists(condition) && DialogueConditionManager.SharedInstance._dictConditions[condition];
     }
 
     private void OnDialogueConditionChanged(string condition, bool value)
@@ -115,7 +146,7 @@ public class ModMain : ModBehaviour
         var destination = GroupDialogueConditions[condition];
         if (destination.destination <= _groupCurrentLocation[destination.group]) return;
         
-        OnMoveGroup?.Invoke(destination.group);
+        OnMoveGroup?.Invoke(destination.group, true);
         _groupCurrentLocation[destination.group] = destination.destination;
     }
 

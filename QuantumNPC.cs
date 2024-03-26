@@ -8,6 +8,8 @@ public class QuantumNPC : SocketedQuantumObject
 	[SerializeField] private Transform[] targetList;
 	[SerializeField] private GroupType groupType;
 
+    private bool _actQuantum = true;
+
 	public enum GroupType
 	{
 		NomaiA,
@@ -26,17 +28,18 @@ public class QuantumNPC : SocketedQuantumObject
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 	}
 
-	private void OnMoveGroup(GroupType targetGroup)
+	private void OnMoveGroup(GroupType targetGroup, bool shouldActQuantum)
 	{
 		if (targetGroup != groupType) return;
-		
+
+        _actQuantum = shouldActQuantum;
 		_waitingToTeleport = true;
 	}
 
 	public override void Update()
 	{
 		base.Update();
-		if (_waitingToTeleport && !IsLocked())
+		if (_waitingToTeleport && (!IsLocked() || !_actQuantum))
 		{
 			_waitingToTeleport = false;
 			transform.position = targetList[_targetIndex].position;

@@ -20,7 +20,7 @@
     </Dialogue>
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>ASKED_SHRUB_IDENTIFY</CancelledCondition>
+        <CancelledPersistentCondition>ASKED_SHRUB_IDENTIFY</CancelledPersistentCondition>
         <Text>What's the Sacred Shrubbery?</Text>
         <ConditionToSet>ASKED_SHRUB_IDENTIFY</ConditionToSet>
         <DialogueTarget>Shrub_Identify_0</DialogueTarget>
@@ -30,7 +30,7 @@
         <DialogueTarget>Shrub_Lost_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>ASKED_SHRUB_EXPLAIN</CancelledCondition>
+        <CancelledPersistentCondition>ASKED_SHRUB_EXPLAIN</CancelledPersistentCondition>
         <Text>What's so important about this shrubbery?</Text>
         <ConditionToSet>ASKED_SHRUB_EXPLAIN</ConditionToSet>
         <DialogueTarget>Shrub_Explain_0</DialogueTarget>
@@ -181,7 +181,7 @@
       <Page>This favor you ask of us is a great one. But with the power of our Sacred Shrubbery restored, it will be easily accomplished.</Page>
       <Page>When you have returned It, we will join you at the Great Door.</Page>
     </Dialogue>
-    <SetCondition>START_SHRUB_QUEST</SetCondition>
+    <SetPersistentCondition>START_SHRUB_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>

@@ -40,13 +40,11 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>What is the Great Door?</Text>
-        <ConditionToSet>BACKGROUND_DOOR</ConditionToSet>
         <DialogueTarget>Background_Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_COMPREHEND</CancelledPersistentCondition>
         <Text>How am I able to understand you?</Text>
-        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
@@ -63,15 +61,15 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>How do you open it?</Text>
-        <ConditionToSet>BACKGROUND_DOOR_OPEN</ConditionToSet>
         <DialogueTarget>Background_Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>What's behind it?</Text>
-        <ConditionToSet>BACKGROUND_DOOR_CONTENT</ConditionToSet>
         <DialogueTarget>Background_Door_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+
+    <SetPersistentCondition>BACKGROUND_DOOR</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -82,7 +80,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR_CONTENT</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_DOOR_CONTENT</CancelledPersistentCondition>
         <Text>What's behind it?</Text>
         <DialogueTarget>Background_Door_01</DialogueTarget>
       </DialogueOption>
@@ -91,6 +89,8 @@
         <DialogueTarget>Background_Shattering_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+
+    <SetPersistentCondition>BACKGROUND_DOOR_OPEN</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -103,7 +103,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR_OPEN</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_DOOR_OPEN</CancelledPersistentCondition>
         <Text>How do you open it?</Text>
         <DialogueTarget>Background_Door_00</DialogueTarget>
       </DialogueOption>
@@ -112,6 +112,8 @@
         <DialogueTarget>Background_Shattering_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+
+    <SetPersistentCondition>BACKGROUND_DOOR_CONTENT</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -123,26 +125,28 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_DOOR</CancelledPersistentCondition>
         <Text>You what..?</Text>
         <DialogueTarget>Background_Comprehend_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_DOOR</CancelledPersistentCondition>
         <Text>That's amazing!</Text>
         <DialogueTarget>Background_Comprehend_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_DOOR_</RequiredCondition>
+        <RequiredPersistentCondition>BACKGROUND_DOOR_</RequiredPersistentCondition>
         <Text>You what..?</Text>
         <DialogueTarget>Background_Comprehend_02</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_DOOR_</RequiredCondition>
+        <RequiredPersistentCondition>BACKGROUND_DOOR_</RequiredPersistentCondition>
         <Text>That's amazing!</Text>
         <DialogueTarget>Background_Comprehend_03</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+    
+    <SetPersistentCondition>BACKGROUND_COMPREHEND</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -150,6 +154,7 @@
     <Dialogue>
       <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. Only so much caution can be exercised when doing something like this in thirty seconds, though.</Page>
     </Dialogue>
+    <DialogueTarget>Background_Comprehend_ToStart</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -157,7 +162,7 @@
     <Dialogue>
       <Page>It is a highly practiced art in our culture, and is very useful when communicating with alien species.</Page>
     </Dialogue>
-    <DialogueTarget>Background_0</DialogueTarget>
+    <DialogueTarget>Background_Comprehend_ToStart</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -169,7 +174,6 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>What is the Great Door?</Text>
-        <ConditionToSet>BACKGROUND_DOOR</ConditionToSet>
         <DialogueTarget>Background_Door_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
@@ -183,9 +187,8 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_CLANS</CancelledPersistentCondition>
         <Text>Where are the other clans?</Text>
-        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
@@ -203,13 +206,12 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_CLANS</CancelledPersistentCondition>
         <Text>Where are the other clans?</Text>
-        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
+        <RequiredPersistentCondition>BACKGROUND_CLANS</RequiredPersistentCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
@@ -231,20 +233,18 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_COMPREHEND</CancelledPersistentCondition>
         <Text>How am I able to understand you?</Text>
-        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_CLANS</CancelledPersistentCondition>
         <Text>Where are the other clans?</Text>
-        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
-        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <RequiredPersistentCondition>BACKGROUND_CLANS</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BACKGROUND_COMPREHEND</RequiredPersistentCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
@@ -261,17 +261,18 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledPersistentCondition>BACKGROUND_COMPREHEND</CancelledPersistentCondition>
         <Text>How am I able to understand you?</Text>
-        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <RequiredPersistentCondition>BACKGROUND_COMPREHEND</RequiredPersistentCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+
+    <SetPersistentCondition>BACKGROUND_CLANS</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -286,6 +287,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Convince them to do what?</Text>
+        <DialogueTarget>Shard_Quest_1</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -364,7 +366,7 @@
       <Page>Then all that is left for me is to wish you a safe journey.</Page>
       <Page>I will be waiting here, as I always have. Good luck, traveler.</Page>
     </Dialogue>
-    <SetCondition>MAIN_QUEST_START</SetCondition>
+    <SetPersistentCondition>MAIN_QUEST_START</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -419,6 +421,6 @@
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
       <Page>This may be it. We may never unite the clans again.</Page>
     </Dialogue>
-    <SetCondition>CLANS_LEAVE_DOOR</SetCondition>
+    <SetPersistentCondition>CLANS_LEAVE_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

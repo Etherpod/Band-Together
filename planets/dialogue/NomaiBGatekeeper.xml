@@ -20,13 +20,13 @@
     
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>VISITED_CAPITAL</CancelledCondition>
-        <CancelledCondition>GOT_NOMAI_SHARD_B</CancelledCondition>
+        <CancelledPersistentCondition>VISITED_CAPITAL</CancelledPersistentCondition>
+        <CancelledPersistentCondition>GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>VISITED_CAPITAL</CancelledCondition>
+        <CancelledPersistentCondition>VISITED_CAPITAL</CancelledPersistentCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
@@ -34,7 +34,7 @@
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
-    <SetCondition>TALKED_TO_NOMAI_GATEKEEPER_B</SetCondition>
+    <SetPersistentCondition>TALKED_TO_NOMAI_GATEKEEPER_B</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -67,7 +67,7 @@
       <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
       <Page>You have been granted an audience with our leader. Allow me to open the doors.</Page>
     </Dialogue>
-    <SetCondition>FINISH_COCKPIT_QUEST</SetCondition>
+    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -100,12 +100,12 @@
         <DialogueTarget>Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>Do you want to be the only one between the other clans and opening that door?</Text>
         <DialogueTarget>Door_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>LAST_CLAN_TO_AGREE</RequiredCondition>
+        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
         <Text>Every other clan has agreed to help.</Text>
         <DialogueTarget>Door_02</DialogueTarget>
       </DialogueOption>
@@ -196,7 +196,7 @@
     <RevealFacts>
       <FactID>NOMAI_VILLAGE_B_QUEST</FactID>
     </RevealFacts>
-    <SetCondition>START_COCKPIT_QUEST</SetCondition>
+    <SetPersistentCondition>START_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>

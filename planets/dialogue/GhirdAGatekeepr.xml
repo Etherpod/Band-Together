@@ -96,7 +96,7 @@
       <Page>I see you have figured out the code.</Page>
       <Page>Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
-    <SetCondition>OPEN_SUNPOST_DOOR</SetCondition>
+    <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -109,17 +109,17 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <RequiredCondition>GOT_NOMAI_SHARD_A</RequiredCondition>
+        <RequiredPersistentCondition>GOT_NOMAI_SHARD_A</RequiredPersistentCondition>
         <Text>Unimaginable wealth.</Text>
         <DialogueTarget>End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>GOT_NOMAI_SHARD_B</RequiredCondition>
+        <RequiredPersistentCondition>GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
         <Text>A spacecraft that can go anywhere in the universe.</Text>
         <DialogueTarget>End_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>GOT_GHIRD_SHARD_A</RequiredCondition>
+        <RequiredPersistentCondition>GOT_GHIRD_SHARD_A</RequiredPersistentCondition>
         <Text>The power of a mighty god.</Text>
         <DialogueTarget>End_2</DialogueTarget>
       </DialogueOption>

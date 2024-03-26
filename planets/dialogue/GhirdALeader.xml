@@ -21,7 +21,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>GOT_GHIRD_SHARD_A</CancelledCondition>
+        <CancelledPersistentCondition>GOT_GHIRD_SHARD_A</CancelledPersistentCondition>
         <Text>Can you help us open the Great Door?</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -30,12 +30,12 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>Do you know where the other clans are?</Text>
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>TALKED_TO_GHIRD_LEADER_A</RequiredCondition>
+        <RequiredPersistentCondition>TALKED_TO_GHIRD_LEADER_A</RequiredPersistentCondition>
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -53,7 +53,7 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
+        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>Do you know where the other clans are?</Text>
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
@@ -72,7 +72,7 @@
       <Page>I speak for the rest of my clan when I say that the Followers of Logic will contribute their shard to this mission.</Page>
       <Page>You have done well to reach this place. It is only fair that you receive a reward.</Page>
     </Dialogue>
-    <SetCondition>GOT_GHIRD_SHARD_A</SetCondition>
+    <SetPersistentCondition>GOT_GHIRD_SHARD_A</SetPersistentCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
 
@@ -99,7 +99,7 @@
     <Dialogue>
       <Page>It is my pleasure. When the time comes, I will be with you to open the Great Door.</Page>
     </Dialogue>
-    <SetCondition>GHIRD_VILLAGE_A_TO_DOOR</SetCondition>
-    <SetCondition>TALKED_TO_GHIRD_LEADER_A</SetCondition>
+    <SetPersistentCondition>GHIRD_VILLAGE_A_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_A</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>
