@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+namespace BandTogether;
 public class NoSuitDoor : MonoBehaviour
 {
 	[SerializeField] EclipseDoorController doorController;

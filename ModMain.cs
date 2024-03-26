@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static BandTogether.QuantumNPC;
+using System.Reflection;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
@@ -38,11 +39,13 @@ public class ModMain : ModBehaviour
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
         .Values
         .Select(value => value.group)
+        .Distinct()
         .ToDictionary(key => key, _ => GroupDestination.Start);
 
     private void Awake()
     {
         Instance = this;
+        HarmonyLib.Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
     }
 
     private void Start()
