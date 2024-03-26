@@ -163,6 +163,7 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
+        Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
             numClansConvinced += 1;
@@ -180,6 +181,8 @@ public class ModMain : ModBehaviour
 
         var destination = GroupDialogueConditions[condition];
         if (destination.destination <= _groupCurrentLocation[destination.group]) return;
+        
+        Instance.ModHelper.Console.WriteLine($"moving [{destination.group}] to: {destination.destination.ToString()}");
         
         OnMoveGroup?.Invoke(destination.group, true);
         _groupCurrentLocation[destination.group] = destination.destination;

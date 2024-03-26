@@ -25,4 +25,10 @@ public class Shrubbery : OWItem
     Ethereal Arboreal Custodian of Harmonious Existence, Divine Guardian of Cosmic Order,
     Celestial Patron of Transcendental Bliss, Eternal Arboreal Sentinel of Universal Harmony
     """;
+
+  public override void Awake()
+  {
+    base.Awake();
+    _type = ItemType;
+  }
 }

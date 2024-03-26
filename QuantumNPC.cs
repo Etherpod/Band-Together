@@ -22,17 +22,20 @@ public class QuantumNPC : SocketedQuantumObject
 	private int _targetIndex = 0;
 	private bool _waitingToTeleport = false;
 
-	public override void Start()
+	public override void Awake()
 	{
-		base.Start();
+		base.Awake();
+		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 	}
 
 	private void OnMoveGroup(GroupType targetGroup, bool shouldActQuantum)
 	{
+		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} asked to move for: {targetGroup}");
 		if (targetGroup != groupType) return;
+		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} moving");
 
-        _actQuantum = shouldActQuantum;
+		_actQuantum = shouldActQuantum;
 		_waitingToTeleport = true;
 	}
 

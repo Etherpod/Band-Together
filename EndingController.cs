@@ -6,16 +6,15 @@ namespace BandTogether;
 
 public class EndingController : MonoBehaviour
 {
-  [SerializeField]
-  private TheDoorController doorController;
-  
-  [SerializeField]
-  private Campfire fire;
+  [SerializeField] private TheDoorController doorController;
+  [SerializeField] private Campfire fire;
+  [SerializeField] private AudioSource[] nomaiInstruments;
+  [SerializeField] private AudioSource[] ghirdInstruments;
+  [SerializeField] private AudioSource pad;
 
   private void Awake()
   {
     fire.OnCampfireStateChange += OnFireStateChanged;
-    doorController.OnOpening += OnDoorOpening;
   }
 
   private void OnFireStateChanged(Campfire changedFire)
@@ -23,7 +22,7 @@ public class EndingController : MonoBehaviour
     if (fire.GetState() == Campfire.State.LIT) OnFireLit();
   }
 
-  private void OnDoorOpening()
+  private void OnEnterRoom()
   {
     
   }
