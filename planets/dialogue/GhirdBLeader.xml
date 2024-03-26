@@ -196,6 +196,10 @@
         <Text>Where did you say it went?</Text>
         <DialogueTarget>Shrub_Quest_Hint_1</DialogueTarget>
       </DialogueOption>
+      <DialogueOption>
+        <Text>Where do I put the Sacred Shrubbery when I find it?</Text>
+        <DialogueTarget>Shrub_Quest_Hint_2</DialogueTarget>
+      </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
 
@@ -204,6 +208,14 @@
     <Dialogue>
       <Page>One of the Followers witnessed It land on one of the islands next to this one, but we did not have time to retrieve It before we began to feel the prescene of unholy forces.</Page>
       <Page>I hope you are able to locate It. Shrubspeed, traveler.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Quest_Hint_2</Name>
+    <Dialogue>
+      <Page>Place the Sacred Shrubbery atop Its divine throne at the very back of these halls.</Page>
+      <Page>Take care not to get lost on the way there.</Page>
     </Dialogue>
   </DialogueNode>
 
@@ -226,7 +238,7 @@
   <DialogueNode>
     <Name>Shrub_Returned_01</Name>
     <Dialogue>
-      <Page>Oh, yes. When everyone is prepared to open the door, we will come and place our shard in.</Page>
+      <Page>Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
     </Dialogue>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
@@ -248,6 +260,7 @@
       </DialogueOption>
       <DialogueOption>
         <Text>I'll see you at the door.</Text>
+        <ConditionToSet>TALKED_TO_GHIRD_LEADER_B</ConditionToSet>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -255,7 +268,7 @@
   <DialogueNode>
     <Name>Shard_0</Name>
     <Dialogue>
-      <Page>I was reading a scroll earlier that I think mentioned the Fifth Shard.</Page>
+      <Page>I was reading a scroll earlier that I believe mentioned the Fifth Shard you speak of.</Page>
       <Page>If I recall correctly, it said something along the lines of "...stone on the shortest pillar..."</Page>
       <Page>I hope that helps you.</Page>
     </Dialogue>
@@ -269,5 +282,43 @@
       <Page>The last time I heard about the other clans, there were two Nomai clans and one other Ghird clan.</Page>
     </Dialogue>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Waiting_0</Name>
+    <EntryCondition>TALKED_TO_GHIRD_LEADER_B</EntryCondition>
+    <Dialogue>
+      <Page>What do you want now?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Aren't you going to come to the Great Door?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Do you know anything about the Fifth Shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Where are the other clans?</Text>
+        <DialogueTarget>Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Nothing, sorry.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Waiting_01</Name>
+    <Dialogue>
+      <Page>Yes, certainly. We only need to... finish our prayers to the Sacred Shrubbery. Then we will meet you at the Great Door.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>If you say so...</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
   </DialogueNode>
 </DialogueTree>
