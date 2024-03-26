@@ -35,6 +35,6 @@ public class DebugItem : OWItem
       ModMain.Instance.ModHelper.Console.WriteLine($"set condition: {s}");
     }
 
-    i++;
+    i = (i + 1) % Conditions.Length;
   }
 }

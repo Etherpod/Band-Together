@@ -25,15 +25,15 @@ public class QuantumNPC : SocketedQuantumObject
 	public override void Awake()
 	{
 		base.Awake();
-		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
+		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 	}
 
 	private void OnMoveGroup(GroupType targetGroup, bool shouldActQuantum)
 	{
-		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} asked to move for: {targetGroup}");
+		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} asked to move for: {targetGroup}");
 		if (targetGroup != groupType) return;
-		ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} moving");
+		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} moving");
 
 		_actQuantum = shouldActQuantum;
 		_waitingToTeleport = true;

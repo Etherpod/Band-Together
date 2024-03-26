@@ -7,28 +7,30 @@ using System.Linq;
 using UnityEngine;
 using static BandTogether.QuantumNPC;
 using System.Reflection;
+using HarmonyLib;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
 {
-    private static readonly IDictionary<string, (GroupType group, GroupDestination destination)> GroupDialogueConditions =
-        new Dictionary<string, (GroupType, GroupDestination)>
+    private static readonly IDictionary<string, (GroupType[] groups, GroupDestination destination)> GroupDialogueConditions =
+        new Dictionary<string, (GroupType[], GroupDestination)>
         {
-            { "NOMAI_VILLAGE_A_TO_DOOR", (GroupType.NomaiA, GroupDestination.Door) },
-            { "NOMAI_VILLAGE_A_TO_AWAY", (GroupType.NomaiA, GroupDestination.Away) },
-            { "NOMAI_VILLAGE_A_TO_FIRE", (GroupType.NomaiA, GroupDestination.Fire) },
-            
-            { "NOMAI_VILLAGE_B_TO_DOOR", (GroupType.NomaiB, GroupDestination.Door) },
-            { "NOMAI_VILLAGE_B_TO_AWAY", (GroupType.NomaiB, GroupDestination.Away) },
-            { "NOMAI_VILLAGE_B_TO_FIRE", (GroupType.NomaiB, GroupDestination.Fire) },
-            
-            { "GHIRD_VILLAGE_A_TO_DOOR", (GroupType.GhirdA, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_A_TO_AWAY", (GroupType.GhirdA, GroupDestination.Away) },
-            { "GHIRD_VILLAGE_A_TO_FIRE", (GroupType.GhirdA, GroupDestination.Fire) },
-            
-            { "GHIRD_VILLAGE_B_TO_DOOR", (GroupType.GhirdB, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_B_TO_AWAY", (GroupType.GhirdB, GroupDestination.Away) },
-            { "GHIRD_VILLAGE_B_TO_FIRE", (GroupType.GhirdB, GroupDestination.Fire) },
+            { "NOMAI_VILLAGE_A_TO_DOOR", (new[] { GroupType.NomaiA }, GroupDestination.Door) },
+            { "NOMAI_VILLAGE_A_TO_FIRE", (new[] { GroupType.NomaiA }, GroupDestination.Fire) },
+
+            { "NOMAI_VILLAGE_B_TO_DOOR", (new[] { GroupType.NomaiB }, GroupDestination.Door) },
+            { "NOMAI_VILLAGE_B_TO_FIRE", (new[] { GroupType.NomaiB }, GroupDestination.Fire) },
+
+            { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GroupType.GhirdA }, GroupDestination.Door) },
+            { "GHIRD_VILLAGE_A_TO_FIRE", (new[] { GroupType.GhirdA }, GroupDestination.Fire) },
+
+            { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GroupType.GhirdB }, GroupDestination.Door) },
+            { "GHIRD_VILLAGE_B_TO_FIRE", (new[] { GroupType.GhirdB }, GroupDestination.Fire) },
+
+            {
+                "CLANS_LEAVE_DOOR",
+                (new[] { GroupType.NomaiA, GroupType.NomaiB, GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Away)
+            },
         };
     
     public static ModMain Instance;
@@ -40,7 +42,7 @@ public class ModMain : ModBehaviour
 
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
         .Values
-        .Select(value => value.group)
+        .SelectMany(value => value.groups)
         .Distinct()
         .ToDictionary(key => key, _ => GroupDestination.Start);
     private readonly string[] _shardConditions =
@@ -163,7 +165,7 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
-        Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
+        // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
             numClansConvinced += 1;
@@ -180,12 +182,20 @@ public class ModMain : ModBehaviour
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
 
         var destination = GroupDialogueConditions[condition];
-        if (destination.destination <= _groupCurrentLocation[destination.group]) return;
+        var groupsToMove = destination
+            .groups
+            .Where(group => _groupCurrentLocation[group] < destination.destination)
+            .ToList();
+        // Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Join()}");
+        if (groupsToMove.Count() is 0) return;
         
-        Instance.ModHelper.Console.WriteLine($"moving [{destination.group}] to: {destination.destination.ToString()}");
-        
-        OnMoveGroup?.Invoke(destination.group, true);
-        _groupCurrentLocation[destination.group] = destination.destination;
+        foreach (var group in groupsToMove)
+        {
+            // Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination.ToString()}");
+
+            OnMoveGroup?.Invoke(group, true);
+            _groupCurrentLocation[group] = destination.destination;
+        }
     }
 
     private enum GroupDestination
