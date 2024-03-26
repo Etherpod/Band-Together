@@ -1,10 +1,7 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 namespace BandTogether;
 
-[ExecuteInEditMode]
 public class LookAtPlayer : MonoBehaviour
 {
     [SerializeField] CharacterDialogueTree characterDialogueTree;
@@ -20,16 +17,24 @@ public class LookAtPlayer : MonoBehaviour
             ? Locator.GetActiveCamera().transform.position
             : idleTarget.position;
         var targetLookDir = (targetPosition - neckBone.position).normalized;
-        Vector3 currentLookDir = neckBone.up;
-        //for ditzy: Invert the look direction if the isGhird bool is active
+        Vector3 currentLookDir = isGhird ? -neckBone.up : neckBone.up;
         
         if ((targetLookDir - currentLookDir).sqrMagnitude < 0.001) return;
         
         var nextLookForward = Vector3.Lerp(currentLookDir, targetLookDir, Time.deltaTime);
-        var nextLookUp = Vector3.Cross(nextLookForward, -neckBone.parent.right);
-        
-        // because of the orientation of the bones, we actually need to look at
-        // the up vector with up being the direction we actually look
-        neckBone.LookAt(neckBone.position + nextLookUp, nextLookForward);
+
+        if (isGhird)
+        {
+            var nextLookUp = Vector3.Cross(nextLookForward, neckBone.parent.forward);
+            var nextLookLeft = Vector3.Cross(nextLookUp, nextLookForward);
+            neckBone.LookAt(neckBone.position + nextLookLeft, -nextLookForward);
+        }
+        else
+        {
+            var nextLookUp = Vector3.Cross(nextLookForward, -neckBone.parent.right);
+            // because of the orientation of the bones, we actually need to look at
+            // the up vector with up being the direction we actually look
+            neckBone.LookAt(neckBone.position + nextLookUp, nextLookForward);
+        }
     }
 }
