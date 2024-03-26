@@ -35,8 +35,14 @@
         <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <RequiredPersistentCondition>GOT_GHIRD_SHARD_A</RequiredPersistentCondition>
+        <CancelledPersistentCondition>TALKED_TO_GHIRD_LEADER_A</CancelledPersistentCondition>
+        <Text>Thanks for helping us open the Great Door.</Text>
+        <DialogueTarget>End_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
         <RequiredPersistentCondition>TALKED_TO_GHIRD_LEADER_A</RequiredPersistentCondition>
-        <Text>No, thanks.</Text>
+        <Text>Nothing, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
