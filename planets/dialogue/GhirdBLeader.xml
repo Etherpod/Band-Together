@@ -182,6 +182,9 @@
       <Page>This favor you ask of us is a great one. But with the power of our Sacred Shrubbery restored, it will be easily accomplished.</Page>
       <Page>When you have returned It, we will join you at the Great Door.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_B_QUEST</FactID>
+    </RevealFacts>
     <SetPersistentCondition>START_SHRUB_QUEST</SetPersistentCondition>
   </DialogueNode>
 
@@ -241,6 +244,9 @@
     <Dialogue>
       <Page>Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_B_AGREED</FactID>
+    </RevealFacts>
     <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_B</SetPersistentCondition>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
@@ -270,9 +276,12 @@
     <Name>Shard_0</Name>
     <Dialogue>
       <Page>I was reading a scroll earlier that I believe mentioned the Fifth Shard you speak of.</Page>
-      <Page>If I recall correctly, it said something along the lines of "...stone on the shortest pillar..."</Page>
+      <Page>If I recall correctly, it said something along the lines of "Move it to the shortest pillar..."</Page>
       <Page>I hope that helps you.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>FIFTH_SHARD_PILLAR</FactID>
+    </RevealFacts>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
 
@@ -295,6 +304,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Aren't you going to come to the Great Door?</Text>
+        <DialogueTarget>Waiting_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>Do you know anything about the Fifth Shard?</Text>

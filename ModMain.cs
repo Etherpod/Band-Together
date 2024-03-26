@@ -176,6 +176,7 @@ public class ModMain : ModBehaviour
             else if (numClansConvinced == 4)
             {
                 DialogueConditionManager.SharedInstance.SetConditionState("ALL_CLANS_AGREED", true);
+                Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
             }
         }
 
@@ -197,6 +198,23 @@ public class ModMain : ModBehaviour
             _groupCurrentLocation[group] = destination.destination;
         }
     }
+
+    /*public bool GetSavedCondition(string condition, bool value)
+    {
+        //loads the save
+        Dictionary<string, List<string>> guy = ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
+        List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
+
+        if (save.Contains(condition))
+        {
+            
+        }
+
+        save.Add(condition + ":" + value);
+        guy[name] = save;
+        ModHelper.Storage.Save(guy, "save.json");
+    }*/
 
     private enum GroupDestination
     {

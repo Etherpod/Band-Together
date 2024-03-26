@@ -12,7 +12,7 @@
     <RumorFact>
       <ID>PLANET_RUMOR</ID>
       <RumorName>Fractured Harmony</RumorName>
-      <Text>A planet in the solar system. I heard there was something interesting on the equator.</Text>
+      <Text>A planet in the solar system. I hear a signal coming from somewhere on it.</Text>
     </RumorFact>
 
     <ExploreFact>
@@ -24,14 +24,14 @@
       <ID>GREAT_DOOR_CLANS_AGREED</ID>
       <Text>I convinced every clan to contribute their shard, but we're still missing one.</Text>
       <AltText>
-        <Text>I have every piece of the key: one from each of the four clans and the lost Fifth Shard.</Text>
+        <Text>I convinced every clan to contribute their shard and found the final missing shard.</Text>
         <Condition>FIFTH_SHARD_FOUND</Condition>
       </AltText>
     </ExploreFact>
 
     <ExploreFact>
       <ID>KEY_COMPLETE</ID>
-      <Text>When I put the last shard in, the key glowed and the door opened.</Text>
+      <Text>When I put the last shard in, the door swung open.</Text>
     </ExploreFact>
   </Entry>
   
@@ -54,16 +54,16 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_QUEST</ID>
-      <Text>A Nomai told me that, to see their leader, I have to prove my worth by stealing something from one of the southern clans.</Text>
+      <Text>A Nomai told me that, to see their leader, I have to prove my worth by stealing something from the Followers of Worship. They said that there wasn't anything good to steal right now.</Text>
+      <AltText>
+        <Text>A Nomai told me that, to see their leader, I have to prove my worth by stealing something from the Followers of Worship.</Text>
+        <Condition>STEAL_QUEST</Condition>
+      </AltText>
     </ExploreFact>
 
     <ExploreFact>
-      <ID>NO_STEAL_QUEST</ID>
-      <Text>The Nomai said that there isn't anything good to steal right now.</Text>
-      <AltText>
-        <Text>The Nomai said that I need to steal the sacred shrubbery from the southern clan I visited.</Text>
-        <Condition>STEAL_QUEST</Condition>
-      </AltText>
+      <ID>STEAL_QUEST</ID>
+      <Text>The Nomai said I had to steal the Sacred Shrubbery from the Followers of Worship and bring it to them.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -101,37 +101,8 @@
   </Entry>
 
   <Entry>
-    <ID>GHIRD_VILLAGE_A</ID>
-    <Name>The Followers of Worship</Name>
-    <Curiosity>GREAT_DOOR</Curiosity>
-
-    <RumorFact>
-      <ID>GHIRD_VILLAGE_A_RUMOR</ID>
-      <SourceID>GREAT_DOOR</SourceID>
-      <RumorName>Key Shard</RumorName>
-      <Text>A Nomai told me that one of the shards was in a Ghird village on the south side of the planet.</Text>
-    </RumorFact>
-
-    <ExploreFact>
-      <ID>GHIRD_VILLAGE_A_FOUND</ID>
-      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Worship.</Text>
-    </ExploreFact>
-
-    <ExploreFact>
-      <ID>GHIRD_VILLAGE_A_QUEST</ID>
-      <Text>One of the Ghirds said I had to find the lost sacred shrubbery to see their leader.</Text>
-    </ExploreFact>
-
-    <ExploreFact>
-      <ID>GHIRD_VILLAGE_A_AGREED</ID>
-      <Text>The leader of the Followers of Worship agreed to help us open the door by giving their shard to us.</Text>
-    </ExploreFact>
-    
-  </Entry>
-
-  <Entry>
     <ID>GHIRD_VILLAGE_B</ID>
-    <Name>The Followers of Logic</Name>
+    <Name>The Followers of Worship</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
 
     <RumorFact>
@@ -143,16 +114,50 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_FOUND</ID>
-      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Logic.</Text>
+      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Worship.</Text>
     </ExploreFact>
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_QUEST</ID>
-      <Text>The Ghird at the leader's house told me I had to return when a "ray of sun rests upon this building."</Text>
+      <Text>One of the Ghirds said I had to find the Sacred Shrubbery to see their leader. They said it was on one of the islands next to theirs, but they weren't sure which one it was.</Text>
     </ExploreFact>
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_AGREED</ID>
+      <Text>The leader of the Followers of Worship said they would help us, but they sounded a little suspicious.</Text>
+    </ExploreFact>
+    
+  </Entry>
+
+  <Entry>
+    <ID>GHIRD_VILLAGE_A</ID>
+    <Name>The Followers of Logic</Name>
+    <Curiosity>GREAT_DOOR</Curiosity>
+
+    <RumorFact>
+      <ID>GHIRD_VILLAGE_A_RUMOR</ID>
+      <SourceID>GREAT_DOOR</SourceID>
+      <RumorName>Key Shard</RumorName>
+      <Text>A Nomai told me that one of the shards was in a Ghird village on the south side of the planet.</Text>
+    </RumorFact>
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_A_FOUND</ID>
+      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Logic.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_A_QUEST</ID>
+      <Text>A Ghird told me that I need to know the code and come back at the correct time.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_IDIOT</ID>
+      <Text>I found a strange pole on the island next to the village.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_A_AGREED</ID>
       <Text>The leader of the Followers of Logic agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
@@ -172,28 +177,28 @@
       <ID>FIFTH_SHARD_POS</ID>
       <SourceID>NOMAI_VILLAGE_B</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of the Followers of Exploration told me that the fifth shard was on the North Pole.</Text>
+      <Text>The leader of the Followers of Exploration told me: "Travel to the north pole..."</Text>
     </RumorFact>
 
     <RumorFact>
       <ID>FIFTH_SHARD_QUANTUM</ID>
       <SourceID>NOMAI_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of the Followers of Greed told me that the correct stone is tainted with blood.</Text>
+      <Text>The leader of the Followers of Greed told me: "Use the stone tainted with blood..."</Text>
     </RumorFact>
 
     <RumorFact>
       <ID>FIFTH_SHARD_PILLAR</ID>
-      <SourceID>GHIRD_VILLAGE_A</SourceID>
+      <SourceID>GHIRD_VILLAGE_B</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of the Followers of Worship told me that if I wanted to reach the fifth shard the stone has to be on top of the shortest pillar.</Text>
+      <Text>The leader of the Followers of Worship told me: "Move it to the shortest pillar..."</Text>
     </RumorFact>
 
     <RumorFact>
       <ID>FIFTH_SHARD_LIGHT</ID>
-      <SourceID>GHIRD_VILLAGE_B</SourceID>
+      <SourceID>GHIRD_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of the Followers of Logic told me that if I wanted to reach the fifth shard I need to attach a light to the stone.</Text>
+      <Text>The leader of the Followers of Logic told me: "Place a light upon the stone..."</Text>
     </RumorFact>
 
     <ExploreFact>

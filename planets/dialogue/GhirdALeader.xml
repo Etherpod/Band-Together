@@ -86,9 +86,12 @@
     <Name>Shard_0</Name>
     <Dialogue>
       <Page>My clan knows only a piece of the information you require. The old manuscripts detailing the myth of the shard have been scattered between the clans.</Page>
-      <Page>The manuscripts I have tell me this: "...place a light upon the stone..."</Page>
+      <Page>The manuscripts I have tell me this: "Place a light upon the stone..."</Page>
       <Page>The rest of it I do not know. I hope this information helps you.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>FIFTH_SHARD_LIGHT</FactID>
+    </RevealFacts>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
@@ -105,6 +108,9 @@
     <Dialogue>
       <Page>It is my pleasure. When the time comes, I will be with you to open the Great Door.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_AGREED</FactID>
+    </RevealFacts>
     <SetPersistentCondition>GHIRD_VILLAGE_A_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_A</SetPersistentCondition>
   </DialogueNode>

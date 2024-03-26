@@ -38,6 +38,7 @@ public class TheDoorKeySocket : OWItemSocket
         if (numKeyFragments <= _numInsertedFragments)
         {
             ModMain.Instance.ModHelper.Console.WriteLine("key complete");
+            Locator.GetShipLogManager().RevealFact("KEY_COMPLETE");
             OnKeyInserted?.Invoke();
         }
     }

@@ -167,7 +167,7 @@
   <DialogueNode>
     <Name>Shard_0</Name>
     <Dialogue>
-      <Page>The tale of the fifth shard is a common story among this clan. The shard is rumored to be on the North Pole, although I have not tested this hypothesis myself.</Page>
+      <Page>The tale of the fifth shard is a common story among this clan. A scroll I read recently said this: "Travel to the north pole..."</Page>
       <Page>I hope this knowledge aids you on your journey.</Page>
     </Dialogue>
     <RevealFacts>

@@ -8,6 +8,7 @@
     <Dialogue>
       <Page>Welcome, stranger. I trust you have been enjoying yourself nicely at my settlement.</Page>
     </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -23,12 +24,17 @@
       </DialogueOption>
       <DialogueOption>
         <Text>What can you tell me about the Fifth Shard?</Text>
-      </DialogueOption>
-      <DialogueOption>
-        <CancelledCondition>LAST_CLAN_TO_AGREE</CancelledCondition>
-        <Text>Do you know where the other clans are?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_0</Name>
+    <Dialogue>
+      <Page>I know the following from a scroll I read: "Use the stone tainted with blood..."</Page>
+    </Dialogue>
+    <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -155,6 +161,9 @@
     <Dialogue>
       <Page>Nothing, currently.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
     <SetPersistentCondition>WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
     <DialogueTarget>Steal_Quest_Delay</DialogueTarget>
   </DialogueNode>
@@ -169,6 +178,7 @@
 
   <DialogueNode>
     <Name>Steal_Shrub_Quest_0</Name>
+    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
     <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
     <Dialogue>
       <Page>I still cannot think of what I would gain influence from.</Page>
@@ -208,6 +218,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>What did I do?</Text>
+        <DialogueTarget>Steal_Shrub_Quest_3</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -232,9 +243,12 @@
     <Name>Steal_Shrub_Quest_4</Name>
     <Dialogue>
       <Page>Sneak back into the sacred halls and steal the Sacred Shrubbery.</Page>
-      <Page>Once you have escaped with it, bring it to me. I will handle it from there.</Page>
+      <Page>Once you have escaped with it, bring it to me and place it on the table in front of me. I will handle it from there.</Page>
       <Page>Good luck, traveler.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>STEAL_QUEST</FactID>
+    </RevealFacts>
     <SetPersistentCondition>START_STEAL_QUEST</SetPersistentCondition>
   </DialogueNode>
 
@@ -255,6 +269,7 @@
 
   <DialogueNode>
     <Name>Finish_Steal_Quest_0</Name>
+    <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
     <Dialogue>
       <Page>Is this it? You stole the Sacred Shrubbery?</Page>
       <Page>I offer my congragulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
@@ -293,6 +308,9 @@
     <Dialogue>
       <Page>It was a pleasure meeting you.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_A_AGREED</FactID>
+    </RevealFacts>
     <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>

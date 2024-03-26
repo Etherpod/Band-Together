@@ -23,6 +23,9 @@
         <DialogueTarget>Init_02</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>

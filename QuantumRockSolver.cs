@@ -29,7 +29,7 @@ public class QuantumRockSolver : MonoBehaviour
         {
             _puzzleSolved = true;
             _quantumController.SetIsQuantum(false);
-            ModMain.Instance.ModHelper.Console.WriteLine("Solved puzzle");
+            //ModMain.Instance.ModHelper.Console.WriteLine("Solved puzzle");
             _animator.SetTrigger(Activated);
         }
     }
@@ -38,5 +38,6 @@ public class QuantumRockSolver : MonoBehaviour
     {
         _animator.SetTrigger(PickedUp);
         DialogueConditionManager.SharedInstance.SetConditionState("FIFTH_SHARD", true);
+        Locator.GetShipLogManager().RevealFact("FIFTH_SHARD_FOUND");
     }
 }

@@ -28,7 +28,7 @@ public class GhirdLightsOutController : MonoBehaviour
 
     private void Update()
     {
-        if (!lightsOut && DialogueConditionManager.SharedInstance.ConditionExists("START_SHRUB_QUEST") && DialogueConditionManager.SharedInstance._dictConditions["START_SHRUB_QUEST"])
+        if (!lightsOut && DialogueConditionManager.SharedInstance.ConditionExists("START_STEAL_QUEST") && DialogueConditionManager.SharedInstance._dictConditions["START_STEAL_QUEST"])
         {
             lightsOut = true;
             LightsOut();
@@ -37,6 +37,8 @@ public class GhirdLightsOutController : MonoBehaviour
 
     public void LightsOut()
     {
+        FindObjectOfType<TheDivineThrone>().EnableInteraction(true);
+
         foreach (Light light in lightsParent.GetComponentsInChildren<Light>())
         {
             light.enabled = false;

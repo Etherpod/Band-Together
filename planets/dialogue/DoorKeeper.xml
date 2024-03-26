@@ -366,6 +366,12 @@
       <Page>Then all that is left for me is to wish you a safe journey.</Page>
       <Page>I will be waiting here, as I always have. Good luck, traveler.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_A_RUMOR</FactID>
+      <FactID>NOMAI_VILLAGE_B_RUMOR</FactID>
+      <FactID>GHIRD_VILLAGE_A_RUMOR</FactID>
+      <FactID>GHIRD_VILLAGE_B_RUMOR</FactID>
+    </RevealFacts>
     <SetPersistentCondition>MAIN_QUEST_START</SetPersistentCondition>
   </DialogueNode>
 

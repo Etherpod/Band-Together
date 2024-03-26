@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace BandTogether;
+﻿namespace BandTogether;
 
 public class TheDivineThrone : OWItemSocket
 {
@@ -15,16 +13,23 @@ public class TheDivineThrone : OWItemSocket
         base.Start();
 
         OnSocketableDonePlacing += OnShrubberyReSeatedUponItsHolyArborealThrone;
+        OnSocketableDoneRemoving += OnShrubberyRemovedFromItsHolyArborealThrone;
     }
 
     private void OnDestroy()
     {
         OnSocketableDonePlacing -= OnShrubberyReSeatedUponItsHolyArborealThrone;
+        OnSocketableDoneRemoving += OnShrubberyRemovedFromItsHolyArborealThrone;
     }
 
     private void OnShrubberyReSeatedUponItsHolyArborealThrone(OWItem item)
     {
         base.EnableInteraction(false);
         DialogueConditionManager.SharedInstance.SetConditionState("FINISH_SHRUB_QUEST", true);
+    }
+
+    private void OnShrubberyRemovedFromItsHolyArborealThrone(OWItem item)
+    {
+        base.EnableInteraction(false);
     }
 }
