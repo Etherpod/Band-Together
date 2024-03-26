@@ -1,0 +1,351 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>The Keeper</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Hello there, traveler!</Page>
+      <Page>It appears someone has picked up my transmission after all!</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>That signal was coming from you?</Text>
+        <DialogueTarget>Init_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Who are you?</Text>
+        <DialogueTarget>Background_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_00</Name>
+    <Dialogue>
+      <Page>Yes. I had set it up in the hopes of someone following it to its source, which turned out to be exactly what happened.</Page>
+    </Dialogue>
+    <DialogueTarget>Background_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_0</Name>
+    <Dialogue>
+      <Page>I am the Keeper of the Door, but you may call me the Keeper.</Page>
+      <Page>I have been overseeing the Great Door's condition for the past two centuries.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What is the Great Door?</Text>
+        <ConditionToSet>BACKGROUND_DOOR</ConditionToSet>
+        <DialogueTarget>Background_Door_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <Text>How am I able to understand you?</Text>
+        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
+        <DialogueTarget>Background_Comprehend_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Door_0</Name>
+    <Dialogue>
+      <Page>The Great Door is the large metal structure that lies at the top of that staircase beside us.</Page>
+      <Page>No one knows who or why it was built, only that it has existed on this planet for thousands of years.</Page>
+      <Page>The door is indestructible, proven by countless attempts that were taken to break through it.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>How do you open it?</Text>
+        <ConditionToSet>BACKGROUND_DOOR_OPEN</ConditionToSet>
+        <DialogueTarget>Background_Door_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What's behind it?</Text>
+        <ConditionToSet>BACKGROUND_DOOR_CONTENT</ConditionToSet>
+        <DialogueTarget>Background_Door_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Door_00</Name>
+    <Dialogue>
+      <Page>We believe the only way to open the door is to use a special key, though we did not get the chance to test that theory before the Shattering.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_DOOR_CONTENT</CancelledCondition>
+        <Text>What's behind it?</Text>
+        <DialogueTarget>Background_Door_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What was the Shattering?</Text>
+        <DialogueTarget>Background_Shattering_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Door_01</Name>
+    <Dialogue>
+      <Page>The contents of the door are a subject of great speculation.</Page>
+      <Page>Some believe it to hold great wealth. Others believe there to be unimaginable power.</Page>
+      <Page>Our curiosity is what has driven us to try and open it. Sadly, the Shattering appears to have replaced that curiosity with greed.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_DOOR_OPEN</CancelledCondition>
+        <Text>How do you open it?</Text>
+        <DialogueTarget>Background_Door_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What was the Shattering?</Text>
+        <DialogueTarget>Background_Shattering_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_0</Name>
+    <Dialogue>
+      <Page>When you arrived, I took the time to realign your synapses in order for you to comprehend the spoken and written languages on this planet.</Page>
+      <Page>Quite an ingenious procedure if I do say so myself.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <Text>You what..?</Text>
+        <DialogueTarget>Background_Comprehend_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <Text>That's amazing!</Text>
+        <DialogueTarget>Background_Comprehend_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BACKGROUND_DOOR_</RequiredCondition>
+        <Text>You what..?</Text>
+        <DialogueTarget>Background_Comprehend_02</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BACKGROUND_DOOR_</RequiredCondition>
+        <Text>That's amazing!</Text>
+        <DialogueTarget>Background_Comprehend_03</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_00</Name>
+    <Dialogue>
+      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. Only so much caution can be exercised when doing something like this in thirty seconds, though.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_01</Name>
+    <Dialogue>
+      <Page>It is a highly practiced art in our culture, and is very useful when communicating with alien species.</Page>
+    </Dialogue>
+    <DialogueTarget>Background_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_ToStart</Name>
+    <Dialogue>
+      <Page></Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What is the Great Door?</Text>
+        <ConditionToSet>BACKGROUND_DOOR</ConditionToSet>
+        <DialogueTarget>Background_Door_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_02</Name>
+    <Dialogue>
+      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. Only so much caution can be exercised when doing something like this in thirty seconds, though.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <Text>Where are the other clans?</Text>
+        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
+        <DialogueTarget>Background_Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Why were you transmitting a signal?</Text>
+        <DialogueTarget>Shard_Quest_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Comprehend_03</Name>
+    <Dialogue>
+      <Page>It is a highly practiced art in our culture, and is very useful when communicating with alien species.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <Text>Where are the other clans?</Text>
+        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
+        <DialogueTarget>Background_Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
+        <Text>Why were you transmitting a signal?</Text>
+        <DialogueTarget>Shard_Quest_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Shattering_0</Name>
+    <Dialogue>
+      <Page>When our ancestors first discovered the Great Door, they also discovered what appeared to be the key to it. But when they attempted to place it into the door, it did nothing.</Page>
+      <Page>The entire core of the key was missing. Without the core, it would not function. The core was hypothesized to be somewhere on the planet, but it was never found.</Page>
+      <Page>That is, until someone uncovered ancient manuscripts detailing the location of the core.</Page>
+      <Page>Our united civilization began to split into clans, and each clan had a different idea of what lay behind the door.</Page>
+      <Page>But each clan thought that the rewards should belong to them only.</Page>
+      <Page>A large argument ensued about who should reap the rewards, and in the end the key was accidentally shattered into four pieces.</Page>
+      <Page>Each clan took a shard for themselves and became independent of the former civilization.</Page>
+      <Page>Today there still exists four clans, all hoping to open the door and steal away the rewards.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <Text>How am I able to understand you?</Text>
+        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
+        <DialogueTarget>Background_Comprehend_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <Text>Where are the other clans?</Text>
+        <ConditionToSet>BACKGROUND_CLANS</ConditionToSet>
+        <DialogueTarget>Background_Clans_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
+        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <Text>Why were you transmitting a signal?</Text>
+        <DialogueTarget>Shard_Quest_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Background_Clans_0</Name>
+    <Dialogue>
+      <Page>Our civilization split into four different clans: two Nomai clans and two Ghird clans.</Page>
+      <Page>The two Nomai clans are on the northern hemisphere, and the two Ghird clans are on the southern hemisphere.</Page>
+      <Page>Each clan has their own piece of the key to the Great Door.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <Text>How am I able to understand you?</Text>
+        <ConditionToSet>BACKGROUND_COMPREHEND</ConditionToSet>
+        <DialogueTarget>Background_Comprehend_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <Text>Why were you transmitting a signal?</Text>
+        <DialogueTarget>Shard_Quest_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_Quest_0</Name>
+    <Dialogue>
+      <Page>I was searching for passing travelers that would be willing to help me.</Page>
+      <Page>It has been a long time since the Shattering. I think everyone on this planet is getting tired of conflict.</Page>
+      <Page>I know that if I were to approach the other clans with an offer of peace, they would reject it.</Page>
+      <Page>But a stranger- both to this planet and its history- might have a chance at convincing them.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Convince them to do what?</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_Quest_1</Name>
+    <Dialogue>
+      <Page>To contribute their shard, of course!</Page>
+      <Page>If each of the clans agree to supply their shards, we can finally open the door!</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I'm in.</Text>
+        <DialogueTarget>Shard_Quest_10</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What do I get out of it?</Text>
+        <DialogueTarget>Shard_Quest_11</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_Quest_10</Name>
+    <Dialogue>
+      <Page>Excellent! Your mission will be to visit each of the clans and try to convince them to help us.</Page>
+      <Page>Convincing each clan is only the first step, though. We also require the Fifth Shard to complete the key.</Page>
+      <Page>Try to gather information from each clan about the Fifth Shard. I believe they each hold a piece of the puzzle.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Got it.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_Quest_11</Name>
+    <Dialogue>
+      <Page>Given how you would be the one to bring everyone together, it seems fair to appoint you as the one to open the Great Door.</Page>
+      <Page>You will be the first to enter the Great Door in the history of this planet!</Page>
+    </Dialogue>
+  
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I was sort of hoping for something more.</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>That's good enough for me.</Text>
+        <DialogueTarget>Shard_Quest_10</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <DialogueOption>
+      <Text>Then all that is left for me is to wish you a safe journey.</Text>
+      <Text>I will be waiting here, as I always have. Good luck, traveler.</Text>
+    </DialogueOption>
+  </DialogueNode>
+</DialogueTree>

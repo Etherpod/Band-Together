@@ -1,0 +1,42 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Follower of Logic</NameField>
+
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Hello, stranger.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What are you looking at?</Text>
+        <DialogueTarget>Sunpost_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Sunpost_0</Name>
+    <Dialogue>
+      <Page>I have been pondering the existence of that strange post on the island next to us.</Page>
+      <Page>I faintly recall it having something to do with the secret code, but it has been so long since I last used the code.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Good luck figuring it out.</Text>
+        <DialogueTarget>End_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_0</Name>
+    <Dialogue>
+      <Page>Thank you, stranger.</Page>
+      <Page>Perhaps I will ask one of the other Ghirds tomorrow. They may be able to shed some light on this situation.</Page>
+    </Dialogue>
+  </DialogueNode>
+</DialogueTree>
