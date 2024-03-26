@@ -1,29 +1,28 @@
-﻿using OWModJam.TheDoor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BandTogether.TheDoor;
 
 public class TheDoorController : MonoBehaviour
 {
-  private static readonly int Open = Animator.StringToHash("Open");
+    private static readonly int Open = Animator.StringToHash("Open");
 
-  public event OWEvent.OWCallback OnOpening; 
-  
-  [SerializeField]
-  private TheDoorKeySocket theDoorKeySocket;
-  
-  private Animator _animator;
+    public event OWEvent.OWCallback OnOpening;
 
-  private void Awake()
-  {
-    _animator = base.gameObject.GetComponent<Animator>();
+    [SerializeField]
+    private TheDoorKeySocket theDoorKeySocket;
 
-    theDoorKeySocket.OnKeyInserted += KeyInserted;
-  }
+    private Animator _animator;
 
-  private void KeyInserted()
-  {
-    _animator.SetTrigger(Open);
-    OnOpening?.Invoke();
-  }
+    private void Awake()
+    {
+        _animator = base.gameObject.GetComponent<Animator>();
+
+        theDoorKeySocket.OnKeyInserted += KeyInserted;
+    }
+
+    private void KeyInserted()
+    {
+        _animator.SetTrigger(Open);
+        OnOpening?.Invoke();
+    }
 }
