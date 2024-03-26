@@ -1,33 +1,42 @@
 ﻿using System;
+using BandTogether.TheDoor;
 using UnityEngine;
 
 namespace BandTogether;
 public class QuantumRockSolver : MonoBehaviour
 {
-    [SerializeField] QuantumSocket correctSocket;
+    private static readonly int Activated = Animator.StringToHash("Activated");
+    private static readonly int PickedUp = Animator.StringToHash("PickedUp");
+    
+    [SerializeField] private QuantumSocket correctSocket;
+    [SerializeField] private KeyFragment keyFragment;
 
-    SocketedQuantumObject quantumController;
-    bool puzzleSolved = false;
+    private SocketedQuantumObject _quantumController;
+    private bool _puzzleSolved = false;
+    private Animator _animator;
 
     private void Start()
     {
-        quantumController = GetComponent<SocketedQuantumObject>();
+        _quantumController = GetComponent<SocketedQuantumObject>();
+        _animator = GetComponentInChildren<Animator>();
+
+        keyFragment.onPickedUp += OnPickedUp;
     }
 
     private void Update()
     {
-        if (!puzzleSolved && quantumController._occupiedSocket == correctSocket && Locator.GetProbe().transform.parent == GetComponentInChildren<Collider>().transform)
+        if (!_puzzleSolved && _quantumController._occupiedSocket == correctSocket && Locator.GetProbe().transform.parent == GetComponentInChildren<Collider>().transform)
         {
-            puzzleSolved = true;
-            quantumController.SetIsQuantum(false);
+            _puzzleSolved = true;
+            _quantumController.SetIsQuantum(false);
             ModMain.Instance.ModHelper.Console.WriteLine("Solved puzzle");
-            GetComponentInChildren<Animator>().SetBool("Activated", true);
+            _animator.SetTrigger(Activated);
         }
     }
 
-    public void OnPickedUp()
+    public void OnPickedUp(OWItem item)
     {
-        GetComponentInChildren<Animator>().SetBool("PickedUp", true);
+        _animator.SetTrigger(PickedUp);
         DialogueConditionManager.SharedInstance.SetConditionState("FIFTH_SHARD", true);
     }
 }
