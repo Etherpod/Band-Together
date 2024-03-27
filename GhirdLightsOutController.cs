@@ -17,18 +17,30 @@ public class GhirdLightsOutController : MonoBehaviour
             propGhird.SetActive(true);
         }
 
-        foreach (GhostBrain ghostBrain in chaseGhirds)
+        ModMain.Instance.ModHelper.Events.Unity.FireOnNextUpdate(() =>
         {
-            ModMain.Instance.ModHelper.Events.Unity.FireOnNextUpdate(() =>
+            foreach (GhostBrain ghostBrain in chaseGhirds)
             {
                 ghostBrain.gameObject.SetActive(false);
-            });
-        }
+            }
+
+            if (PlayerData.GetPersistentCondition("START_STEAL_QUEST") && !PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
+            {
+                lightsOut = true;
+            }
+        });
     }
 
     private void Update()
     {
-        if (!lightsOut && !PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+        if (lightsOut && PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
+        {
+            lightsOut = false;
+            LightsOn();
+        }
+        if (lightsOut || PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST")) return;
+        
+        if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
         {
             lightsOut = true;
             LightsOut();
@@ -60,6 +72,26 @@ public class GhirdLightsOutController : MonoBehaviour
                 ghostBrain.OnEnterDreamWorld();
                 ghostBrain.EscalateThreatAwareness(GhostData.ThreatAwareness.SomeoneIsInHere);
             });
+        }
+    }
+
+    public void LightsOn()
+    {
+        foreach (Light light in lightsParent.GetComponentsInChildren<Light>())
+        {
+            light.enabled = true;
+        }
+        foreach (OWEmissiveRenderer renderer in lightsParent.GetComponentsInChildren<OWEmissiveRenderer>())
+        {
+            renderer.SetEmissiveScale(1f);
+        }
+        foreach (GameObject propGhird in propGhirds)
+        {
+            propGhird.SetActive(true);
+        }
+        foreach (GhostBrain ghostBrain in chaseGhirds)
+        {
+            ghostBrain.gameObject.SetActive(false);
         }
     }
 }

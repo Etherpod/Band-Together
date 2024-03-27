@@ -66,15 +66,11 @@ public class ModMain : ModBehaviour
         nhAPI = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
         nhAPI.LoadConfigs(this);
 
-        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
-        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
-        _currentSave = guy.ContainsKey(name) ? guy[name] : new List<string>();
-
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
             if (loadScene != OWScene.SolarSystem) return;
             ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
-            
+
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
@@ -132,7 +128,17 @@ public class ModMain : ModBehaviour
 
     private void InitializeConditions()
     {
-        SetSavedCondition("test", true);
+        //Loads the save or makes a new one
+        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        //Gets the name to use for the save dict
+        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
+        //Gets the save data for the current profile
+        List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
+        _currentSave = save;
+
+        WriteMessage("Length first: " + save.Count);
+
+        //SetSavedCondition("test", true);
         WriteMessage("Count: " + _currentSave.Count);
         if (GetSavedConditionList() != null)
         {
@@ -143,44 +149,39 @@ public class ModMain : ModBehaviour
             }
         }
         
-        if (CheckCondition("GOT_NOMAI_SHARD_A"))
+        if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiA, false);
             _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
             _numClansConvinced++;
         }
-        if (CheckCondition("GOT_NOMAI_SHARD_B"))
+        if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiB, false);
             _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
             _numClansConvinced++;
         }
-        if (CheckCondition("GOT_GHIRD_SHARD_A"))
+        if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdA, false);
             _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
             _numClansConvinced++;
         }
-        if (CheckCondition("GOT_GHIRD_SHARD_B"))
+        if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdB, false);
             _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
             _numClansConvinced++;
         }
 
-        if (CheckCondition("START_STEAL_QUEST"))
+        if (GetSavedCondition("SHRUB_GIVEN_TO_NOMAI"))
+        {
+            FindObjectOfType<ShrubberySocketNomai>().PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+        }
+        else if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
         {
             FindObjectOfType<TheDivineThrone>().PlaceIntoSocket(FindObjectOfType<Shrubbery>());
         }
-
-        /*if (_numClansConvinced == 3 && !CheckCondition("LAST_CLAN_TO_AGREE"))
-        {
-            SetSavedCondition("LAST_CLAN_TO_AGREE", true);
-        }
-        else if (_numClansConvinced == 4 && !CheckCondition("ALL_CLANS_AGREED"))
-        {
-            SetSavedCondition("ALL_CLANS_AGREED", true);
-        }*/
     }
 
     public static bool CheckCondition(string condition)
@@ -194,11 +195,11 @@ public class ModMain : ModBehaviour
         if (_shardConditions.Contains(condition))
         {
             _numClansConvinced += 1;
-            if (_numClansConvinced == 3 && !CheckCondition("LAST_CLAN_TO_AGREE"))
+            if (_numClansConvinced == 3 && !GetSavedCondition("LAST_CLAN_TO_AGREE"))
             {
                 SetSavedCondition("LAST_CLAN_TO_AGREE", true);
             }
-            else if (_numClansConvinced == 4 && !CheckCondition("ALL_CLANS_AGREED"))
+            else if (_numClansConvinced == 4 && !GetSavedCondition("ALL_CLANS_AGREED"))
             {
                 SetSavedCondition("ALL_CLANS_AGREED", true);
                 Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
@@ -232,6 +233,7 @@ public class ModMain : ModBehaviour
         var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
         //Gets the save data for the current profile
         List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
+        Instance.SendMessage("Length: " + save.Count);
 
         List<string> toRemove = new();
 

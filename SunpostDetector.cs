@@ -11,14 +11,23 @@ public class SunpostDetector : MonoBehaviour
 
 	Transform sunTransform;
 	bool correctTime;
+	bool opened;
 
 	private void Start()
 	{
         sunTransform = ModMain.Instance.nhAPI.GetPlanet("Jam 3 Sun").transform;
+
+		if (PlayerData.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+		{
+            opened = true;
+            doorController.CallOpenEvent();
+        }
     }
 
 	private void Update()
 	{
+		if (opened) return;
+
 		if (sunTransform != null)
 		{
 			Vector3 planeNormal = Vector3.Cross(target.position - transform.position, transform.right);
@@ -37,8 +46,9 @@ public class SunpostDetector : MonoBehaviour
             }
         }
 
-		if (DialogueConditionManager.SharedInstance.GetConditionState("OPEN_SUNPOST_DOOR"))
+		if (PlayerData.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
 		{
+			opened = true;
 			doorController.CallOpenEvent();
 		}
 	}

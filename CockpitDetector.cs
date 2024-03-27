@@ -14,7 +14,6 @@ public class CockpitDetector : MonoBehaviour
 
 	private void Start()
 	{
-		ModMain.Instance.ModHelper.Console.WriteLine("Start");
         trigger = GetComponent<OWTriggerVolume>();
 		trigger.OnEntry += OnEntry;
 		trigger.OnExit += OnExit;
@@ -22,7 +21,7 @@ public class CockpitDetector : MonoBehaviour
 
 	private void Update()
 	{
-		if (!doorOpen && DialogueConditionManager.SharedInstance.GetConditionState("FINISH_COCKPIT_QUEST"))
+		if (!doorOpen && PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
 		{
 			doorOpen = true;
 			doorController.Open(activateSlot);
@@ -37,7 +36,7 @@ public class CockpitDetector : MonoBehaviour
 
     private void OnEntry(GameObject hitObj)
 	{
-        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !DialogueConditionManager.SharedInstance.GetConditionState("FINISH_COCKPIT_QUEST"))
+        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
 		{
 			ModMain.SetSavedCondition("GOT_COCKPIT", true);
 		}

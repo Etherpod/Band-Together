@@ -290,8 +290,8 @@
       <Page>I offer my congragulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
       <Page>I am proud to help a traveler such as you. You have my word that I will join you at the Great Door and contribute my shard to the whole.</Page>
     </Dialogue>
-    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
     <SetPersistentCondition>GOT_NOMAI_SHARD_A</SetPersistentCondition>
+    <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -314,6 +314,7 @@
         <DialogueTarget>Finish_Steal_Quest_12</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
