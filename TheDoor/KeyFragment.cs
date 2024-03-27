@@ -1,39 +1,61 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace BandTogether.TheDoor;
 
+[RequireComponent(typeof(Animator))]
 public class KeyFragment : OWItem
 {
-  public static readonly ItemType ItemType = (ItemType)256;
+	public static readonly ItemType ItemType = (ItemType)256;
 
-  [SerializeField] private Transform item;
+	private static readonly int TriggerReveal = Animator.StringToHash("Reveal");
+	private static readonly int TriggerMove = Animator.StringToHash("Move");
+	private static readonly int TriggerInsert = Animator.StringToHash("Insert");
+	private static readonly int TriggerActivate = Animator.StringToHash("Activate");
+	private static readonly int StateInserted = Animator.StringToHash("Inserted");
 
-  public override string GetDisplayName() => "Key Fragment";
+	private Animator _animator = null;
+	private bool _animating = false;
 
-  public override void Awake()
-  {
-    base.Awake();
-    _type = ItemType;
-  }
+	public override string GetDisplayName() => "Key Fragment";
 
-  public override void PickUpItem(Transform holdTranform)
-  {
-    base.PickUpItem(holdTranform);
-    item.localRotation = Quaternion.Euler(90f, 0f, 0f);
-    item.localPosition = new Vector3(0f, -0.4f, 0f);
-  }
+	public override void Awake()
+	{
+		base.Awake();
+		_type = ItemType;
+		_animator = gameObject.GetRequiredComponent<Animator>();
+		if (_animator) ModMain.WriteMessage("animator found");
+	}
 
-  public override void SocketItem(Transform socketTransform, Sector sector)
-  {
-    base.SocketItem(socketTransform, sector);
-    item.localRotation = Quaternion.identity;
-    item.localPosition = Vector3.zero;
-  }
+	public void Reveal()
+	{
+		_animator.SetTrigger(TriggerReveal);
+		// ModMain.WriteMessage("reveal");
+	}
 
-  public override void DropItem(Vector3 position, Vector3 normal, Transform parent, Sector sector, IItemDropTarget customDropTarget)
-  {
-    base.DropItem(position, normal, parent, sector, customDropTarget);
-    item.localRotation = Quaternion.identity;
-    item.localPosition = Vector3.zero;
-  }
+	public void ActivateDoor()
+	{
+		_animator.SetTrigger(TriggerActivate);
+		_animating = false;
+		// ModMain.WriteMessage("activate door");
+	}
+
+
+	public override bool IsAnimationPlaying() =>
+		_animating && _animator.GetCurrentAnimatorStateInfo(0).shortNameHash != StateInserted;
+
+	public override void PlaySocketAnimation()
+	{
+		_animator.SetTrigger(TriggerInsert);
+		_animating = true;
+		_interactable = false;
+	}
+
+	public override void PickUpItem(Transform holdTranform)
+	{
+		base.PickUpItem(holdTranform);
+		transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+		transform.localPosition = new Vector3(0f, -0.4f, 0f);
+		_animator.SetTrigger(TriggerMove);
+	}
 }

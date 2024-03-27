@@ -214,7 +214,7 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
-        Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
+        // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
             _numClansConvinced += 1;
@@ -236,12 +236,12 @@ public class ModMain : ModBehaviour
             .groups
             .Where(group => _groupCurrentLocation[group] < destination.destination)
             .ToList();
-        Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Count}");
+        // Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Count}");
         if (groupsToMove.Count() is 0) return;
 
         foreach (var group in groupsToMove)
         {
-            Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination}");
+            // Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination}");
 
             OnMoveGroup?.Invoke(group, true);
             _groupCurrentLocation[group] = destination.destination;
@@ -256,7 +256,7 @@ public class ModMain : ModBehaviour
         var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
         //Gets the save data for the current profile
         List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
-        Instance.SendMessage("Length: " + save.Count);
+        // Instance.SendMessage("Length: " + save.Count);
 
         List<string> toRemove = new();
 

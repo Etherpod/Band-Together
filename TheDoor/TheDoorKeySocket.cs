@@ -17,6 +17,7 @@ public class TheDoorKeySocket : OWItemSocket
         base.Awake();
         _acceptableType = KeyFragment.ItemType;
         _completionSfx = GetComponentInChildren<AudioSource>();
+        
     }
 
     public override void Start()

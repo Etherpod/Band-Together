@@ -10,6 +10,7 @@ public class QuantumRockSolver : MonoBehaviour
     
     [SerializeField] private QuantumSocket correctSocket;
     [SerializeField] private KeyFragment keyFragment;
+    [SerializeField] private Transform animationRoot;
 
     private SocketedQuantumObject _quantumController;
     private bool _puzzleSolved = false;
@@ -18,7 +19,7 @@ public class QuantumRockSolver : MonoBehaviour
     private void Start()
     {
         _quantumController = GetComponent<SocketedQuantumObject>();
-        _animator = GetComponentInChildren<Animator>();
+        _animator = GetComponent<Animator>();
 
         keyFragment.onPickedUp += OnPickedUp;
     }
@@ -29,9 +30,17 @@ public class QuantumRockSolver : MonoBehaviour
         {
             _puzzleSolved = true;
             _quantumController.SetIsQuantum(false);
-            //ModMain.Instance.ModHelper.Console.WriteLine("Solved puzzle");
             _animator.SetTrigger(Activated);
+            keyFragment.transform.parent = animationRoot;
+            keyFragment.transform.localPosition = Vector3.zero;
+            keyFragment.transform.localRotation = Quaternion.identity;
+            keyFragment.transform.localScale = Vector3.one;
         }
+    }
+
+    public void Reveal()
+    {
+        keyFragment.Reveal();
     }
 
     public void OnPickedUp(OWItem item)

@@ -6,25 +6,23 @@ public class TheDoorController : MonoBehaviour
 {
     private static readonly int Open = Animator.StringToHash("Open");
 
-    public event OWEvent.OWCallback OnOpening;
-
-    [SerializeField]
-    private TheDoorKeySocket theDoorKeySocket;
+    [SerializeField] private TheDoorKeySocket theDoorKeySocket;
+    [SerializeField] private KeyFragment keyFragment;
+    // [SerializeField] private Transform lostKeyAnimationPivot;
 
     private Animator _animator;
 
     private void Awake()
     {
-        _animator = base.gameObject.GetComponent<Animator>();
+        _animator = gameObject.GetRequiredComponent<Animator>();
 
         theDoorKeySocket.OnKeyInserted += KeyInserted;
     }
 
     private void KeyInserted()
     {
-        ModMain.Instance.ModHelper.Console.WriteLine("key fully inserted");
         _animator.SetTrigger(Open);
-        OnOpening?.Invoke();
+        keyFragment.ActivateDoor();
     }
 
     public void PlayKeyCompletionSfx()
