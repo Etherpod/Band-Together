@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine;
 using static BandTogether.QuantumNPC;
 using System.Reflection;
-using HarmonyLib;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
@@ -34,7 +33,8 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
-    private int numClansConvinced;
+    private int _numClansConvinced;
+    private List<string> _currentSave = new();
 
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
         .Values
@@ -57,14 +57,13 @@ public class ModMain : ModBehaviour
 
     private void Start()
     {
-        // Starting here, you'll have access to OWML's mod helper.
-        //ModHelper.Console.WriteLine($"My mod {nameof(ModMain)} is loaded!", MessageType.Success);
-
-        // Get the New Horizons API and load configs
         nhAPI = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
         nhAPI.LoadConfigs(this);
 
-        // Example of accessing game code.
+        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
+        _currentSave = guy.ContainsKey(name) ? guy[name] : new List<string>();
+
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
             if (loadScene != OWScene.SolarSystem) return;
@@ -113,65 +112,81 @@ public class ModMain : ModBehaviour
                 .GetComponent<SacredEntrywayTrigger>()
                 .LoadWaterObject(planet);
 
-            MoveGroupsToDoor();
+            InitializeConditions();
         }
     }
 
-    private void MoveGroupsToDoor()
+    private void InitializeConditions()
     {
+        SetSavedCondition("test", true);
+        WriteMessage("Count: " + _currentSave.Count);
+        if (GetSavedConditionList() != null)
+        {
+            foreach (string savedCondition in GetSavedConditionList())
+            {
+                WriteMessage(savedCondition);
+                DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("true"));
+            }
+        }
+        
         if (CheckCondition("GOT_NOMAI_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiA, false);
             _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
-            numClansConvinced++;
+            _numClansConvinced++;
         }
         if (CheckCondition("GOT_NOMAI_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiB, false);
             _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
-            numClansConvinced++;
+            _numClansConvinced++;
         }
         if (CheckCondition("GOT_GHIRD_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdA, false);
             _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
-            numClansConvinced++;
+            _numClansConvinced++;
         }
         if (CheckCondition("GOT_GHIRD_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdB, false);
             _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
-            numClansConvinced++;
+            _numClansConvinced++;
         }
 
-        if (numClansConvinced == 3)
+        if (CheckCondition("START_STEAL_QUEST"))
         {
-            DialogueConditionManager.SharedInstance.SetConditionState("LAST_CLAN_TO_AGREE", true);
+            FindObjectOfType<TheDivineThrone>().PlaceIntoSocket(FindObjectOfType<Shrubbery>());
         }
-        else if (numClansConvinced == 4)
+
+        /*if (_numClansConvinced == 3 && !CheckCondition("LAST_CLAN_TO_AGREE"))
         {
-            DialogueConditionManager.SharedInstance.SetConditionState("ALL_CLANS_AGREED", true);
+            SetSavedCondition("LAST_CLAN_TO_AGREE", true);
         }
+        else if (_numClansConvinced == 4 && !CheckCondition("ALL_CLANS_AGREED"))
+        {
+            SetSavedCondition("ALL_CLANS_AGREED", true);
+        }*/
     }
 
-    private bool CheckCondition(string condition)
+    public static bool CheckCondition(string condition)
     {
         return DialogueConditionManager.SharedInstance.ConditionExists(condition) && DialogueConditionManager.SharedInstance._dictConditions[condition];
     }
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
-        // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
+        Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
-            numClansConvinced += 1;
-            if (numClansConvinced == 3)
+            _numClansConvinced += 1;
+            if (_numClansConvinced == 3 && !CheckCondition("LAST_CLAN_TO_AGREE"))
             {
-                DialogueConditionManager.SharedInstance.SetConditionState("LAST_CLAN_TO_AGREE", true);
+                SetSavedCondition("LAST_CLAN_TO_AGREE", true);
             }
-            else if (numClansConvinced == 4)
+            else if (_numClansConvinced == 4 && !CheckCondition("ALL_CLANS_AGREED"))
             {
-                DialogueConditionManager.SharedInstance.SetConditionState("ALL_CLANS_AGREED", true);
+                SetSavedCondition("ALL_CLANS_AGREED", true);
                 Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
             }
         }
@@ -183,34 +198,57 @@ public class ModMain : ModBehaviour
             .groups
             .Where(group => _groupCurrentLocation[group] < destination.destination)
             .ToList();
-        // Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Join()}");
+        Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Count}");
         if (groupsToMove.Count() is 0) return;
         
         foreach (var group in groupsToMove)
         {
-            // Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination.ToString()}");
+            Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination}");
 
             OnMoveGroup?.Invoke(group, true);
             _groupCurrentLocation[group] = destination.destination;
         }
     }
 
-    /*public bool GetSavedCondition(string condition, bool value)
+    public static void SetSavedCondition(string condition, bool value)
     {
-        //loads the save
-        Dictionary<string, List<string>> guy = ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        //Loads the save or makes a new one
+        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        //Gets the name to use for the save dict
         var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
+        //Gets the save data for the current profile
         List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
 
-        if (save.Contains(condition))
-        {
-            
-        }
+        List<string> toRemove = new();
 
+        save.RemoveAll(savedCondition => savedCondition.StartsWith(condition + ":"));
+
+        //Re-adds condition
         save.Add(condition + ":" + value);
         guy[name] = save;
-        ModHelper.Storage.Save(guy, "save.json");
-    }*/
+        Instance.ModHelper.Storage.Save(guy, "save.json");
+        Instance._currentSave = save;
+
+        DialogueConditionManager.SharedInstance.SetConditionState(condition, value);
+    }
+
+    public static bool GetSavedCondition(string condition)
+    {
+        if (Instance._currentSave.Count == 0) { return false; }
+        string savedCondition = Instance._currentSave.Where(savedCondition => savedCondition.StartsWith(condition + ":")).First();
+        return savedCondition.EndsWith("true");
+    }
+
+    public static List<string> GetSavedConditionList()
+    {
+        if (Instance._currentSave.Count == 0) return null;
+        return Instance._currentSave;
+    }
+
+    public static void WriteMessage(string msg)
+    {
+        Instance.ModHelper.Console.WriteLine(msg);
+    }
 
     private enum GroupDestination
     {

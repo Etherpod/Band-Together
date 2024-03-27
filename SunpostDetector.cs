@@ -37,7 +37,7 @@ public class SunpostDetector : MonoBehaviour
             }
         }
 
-		if (DialogueConditionManager.SharedInstance.ConditionExists("OPEN_SUNPOST_DOOR") && DialogueConditionManager.SharedInstance._dictConditions["OPEN_SUNPOST_DOOR"])
+		if (DialogueConditionManager.SharedInstance.GetConditionState("OPEN_SUNPOST_DOOR"))
 		{
 			doorController.CallOpenEvent();
 		}

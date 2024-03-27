@@ -104,6 +104,7 @@
     <ID>GHIRD_VILLAGE_B</ID>
     <Name>The Followers of Worship</Name>
     <Curiosity>GREAT_DOOR</Curiosity>
+    <AltPhotoCondition>GHIRD_VILLAGE_B_FOUND</AltPhotoCondition>
 
     <RumorFact>
       <ID>GHIRD_VILLAGE_B_RUMOR</ID>
@@ -113,8 +114,18 @@
     </RumorFact>
 
     <ExploreFact>
+      <ID>GHIRD_VILLAGE_B_ELEVATOR</ID>
+      <Text>I found a strange house on the southern side of the planet. The door leading inside is locked.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_B_ENTER</ID>
+      <Text>I found a message written by a Nomai. It says the door to the house only opens when you don't have technology with you.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
       <ID>GHIRD_VILLAGE_B_FOUND</ID>
-      <Text>I found a Ghird village on the south side of the planet. They call themselves the Followers of Worship.</Text>
+      <Text>I found a large underground shrine where the Followers of Worship are living.</Text>
     </ExploreFact>
 
     <ExploreFact>

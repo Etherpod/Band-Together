@@ -28,7 +28,7 @@ public class GhirdLightsOutController : MonoBehaviour
 
     private void Update()
     {
-        if (!lightsOut && DialogueConditionManager.SharedInstance.ConditionExists("START_STEAL_QUEST") && DialogueConditionManager.SharedInstance._dictConditions["START_STEAL_QUEST"])
+        if (!lightsOut && !PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
         {
             lightsOut = true;
             LightsOut();

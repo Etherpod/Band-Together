@@ -23,42 +23,42 @@
     {
       "id": "GREAT_DOOR",
       "position": {
-        "x": 200,
-        "y": 200
+        "x": 600,
+        "y": -200
       }
     },
     {
       "id": "NOMAI_VILLAGE_A",
       "position": {
-        "x": 200,
-        "y": 0
+        "x": 1000,
+        "y": 100
       }
     },
     {
       "id": "NOMAI_VILLAGE_B",
       "position": {
-        "x": 0,
-        "y": 200
+        "x": 1000,
+        "y": -100
       }
     },
     {
       "id": "GHIRD_VILLAGE_A",
       "position": {
-        "x": -200,
-        "y": 0
+        "x": 1000,
+        "y": -300
       }
     },
     {
       "id": "GHIRD_VILLAGE_B",
       "position": {
-        "x": 0,
-        "y": -200
+        "x": 1000,
+        "y": -500
       }
     },
     {
       "id": "FIFTH_SHARD",
       "position": {
-        "x": 0,
+        "x": 1400,
         "y": -200
       }
     }

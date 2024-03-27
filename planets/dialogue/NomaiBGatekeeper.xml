@@ -20,13 +20,11 @@
     
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>VISITED_CAPITAL</CancelledPersistentCondition>
         <CancelledPersistentCondition>GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>VISITED_CAPITAL</CancelledPersistentCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
@@ -34,6 +32,7 @@
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
+    
     <SetPersistentCondition>TALKED_TO_NOMAI_GATEKEEPER_B</SetPersistentCondition>
   </DialogueNode>
 
@@ -62,6 +61,8 @@
   
   <DialogueNode>
     <Name>Init_3</Name>
+
+    <EntryCondition>START_COCKPIT_QUEST</EntryCondition>
     <EntryCondition>GOT_COCKPIT</EntryCondition>
     <Dialogue>
       <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
@@ -80,7 +81,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>What have you heard about the fifth shard?</Text>
-        <DialogueTarget>Shard_0</DialogueTarget>
+        <DialogueTarget>Shard_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>No, thanks.</Text>
@@ -163,6 +164,15 @@
       <Page>Perhaps if you gain an audience with our leader he will be able to tell you more.</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shard_1</Name>
+    <Dialogue>
+      <Page>The extent of my knowledge is that the fifth shard was lost somewhere on this planet.</Page>
+      <Page>Our leader may know more about the subject.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_4</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>

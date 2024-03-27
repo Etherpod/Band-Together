@@ -122,8 +122,9 @@ public class QuantumNPC : SocketedQuantumObject
         return false;
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
 	{
+        base.OnDestroy();
         ModMain.Instance.OnMoveGroup -= OnMoveGroup;
     }
 }

@@ -82,6 +82,7 @@
     }
   },
   "ShipLog": {
-    "xmlFile": "planets/shiplog/ShipLog.xml"
+    "xmlFile": "planets/shiplog/ShipLog.xml",
+    "spriteFolder": "planets/shiplog"
   }
 }

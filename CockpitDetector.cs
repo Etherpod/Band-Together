@@ -22,7 +22,7 @@ public class CockpitDetector : MonoBehaviour
 
 	private void Update()
 	{
-		if (!doorOpen && DialogueConditionManager.SharedInstance.ConditionExists("FINISH_COCKPIT_QUEST") && DialogueConditionManager.SharedInstance._dictConditions["FINISH_COCKPIT_QUEST"])
+		if (!doorOpen && DialogueConditionManager.SharedInstance.GetConditionState("FINISH_COCKPIT_QUEST"))
 		{
 			doorOpen = true;
 			doorController.Open(activateSlot);
@@ -37,10 +37,9 @@ public class CockpitDetector : MonoBehaviour
 
     private void OnEntry(GameObject hitObj)
 	{
-        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !DialogueConditionManager.SharedInstance._dictConditions["FINISH_COCKPIT_QUEST"])
+        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !DialogueConditionManager.SharedInstance.GetConditionState("FINISH_COCKPIT_QUEST"))
 		{
-			//ModMain.Instance.ModHelper.Console.WriteLine("Detected cockpit", OWML.Common.MessageType.Info);
-			DialogueConditionManager.SharedInstance.SetConditionState("GOT_COCKPIT", true);
+			ModMain.SetSavedCondition("GOT_COCKPIT", true);
 		}
 	}
 
@@ -48,8 +47,7 @@ public class CockpitDetector : MonoBehaviour
 	{
         if (hitObj.transform.parent.name == "Module_Cockpit_Body")
         {
-            //ModMain.Instance.ModHelper.Console.WriteLine("Detected cockpit", OWML.Common.MessageType.Info);
-            DialogueConditionManager.SharedInstance.SetConditionState("GOT_COCKPIT", true);
+            ModMain.SetSavedCondition("GOT_COCKPIT", true);
         }
     }
 }

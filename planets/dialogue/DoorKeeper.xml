@@ -135,12 +135,12 @@
         <DialogueTarget>Background_Comprehend_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>BACKGROUND_DOOR_</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BACKGROUND_DOOR</RequiredPersistentCondition>
         <Text>You what..?</Text>
         <DialogueTarget>Background_Comprehend_02</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>BACKGROUND_DOOR_</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BACKGROUND_DOOR</RequiredPersistentCondition>
         <Text>That's amazing!</Text>
         <DialogueTarget>Background_Comprehend_03</DialogueTarget>
       </DialogueOption>
@@ -192,6 +192,7 @@
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <RequiredPersistentCondition>BACKGROUND_CLANS</RequiredPersistentCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>

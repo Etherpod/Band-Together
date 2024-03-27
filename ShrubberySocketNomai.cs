@@ -17,7 +17,7 @@ public class ShrubberySocketNomai : OWItemSocket
 
     private void OnInsert(OWItem item)
     {
-        DialogueConditionManager.SharedInstance.SetConditionState("SHRUB_GIVEN_TO_NOMAI", true);
+        ModMain.SetSavedCondition("SHRUB_GIVEN_TO_NOMAI", true);
         base.EnableInteraction(false);
     }
 }

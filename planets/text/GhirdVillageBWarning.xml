@@ -16,4 +16,11 @@
     <ParentID>11</ParentID>
     <Text>LEADER OF GREED: Otherwise, you may run into the issue of passing through a solid and very tightly shut door.</Text>
   </TextBlock>
+
+  <ShipLogConditions>
+    <RevealFact>
+      <FactID>GHIRD_VILLAGE_B_ENTER</FactID>
+      <Condition>11</Condition>
+    </RevealFact>
+  </ShipLogConditions>
 </NomaiObject>
