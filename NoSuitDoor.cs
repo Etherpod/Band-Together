@@ -10,12 +10,12 @@ public class NoSuitDoor : MonoBehaviour
 
 	private void Update()
 	{
-		if (!suitOff && GameObject.Find("ExpeditionGear").GetComponent<SuitPickupVolume>()._containsSuit)
+		if (!suitOff && !Locator.GetPlayerSuit().IsWearingSuit())
 		{
 			suitOff = true;
 			doorController.CallOpenEvent();
 		}
-		else if (suitOff && !GameObject.Find("ExpeditionGear").GetComponent<SuitPickupVolume>()._containsSuit)
+		else if (suitOff && Locator.GetPlayerSuit().IsWearingSuit())
 		{
 			suitOff = false;
 			doorController.CallCloseEvent();
