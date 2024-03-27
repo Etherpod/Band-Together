@@ -16,21 +16,17 @@ public class ModMain : ModBehaviour
         new Dictionary<string, (GroupType[], GroupDestination)>
         {
             { "NOMAI_VILLAGE_A_TO_DOOR", (new[] { GroupType.NomaiA }, GroupDestination.Door) },
-            { "NOMAI_VILLAGE_A_TO_FIRE", (new[] { GroupType.NomaiA }, GroupDestination.Fire) },
-
             { "NOMAI_VILLAGE_B_TO_DOOR", (new[] { GroupType.NomaiB }, GroupDestination.Door) },
-            { "NOMAI_VILLAGE_B_TO_FIRE", (new[] { GroupType.NomaiB }, GroupDestination.Fire) },
-
             { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GroupType.GhirdA }, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_A_TO_FIRE", (new[] { GroupType.GhirdA }, GroupDestination.Fire) },
-
             { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GroupType.GhirdB }, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_B_TO_FIRE", (new[] { GroupType.GhirdB }, GroupDestination.Fire) },
 
             {
                 "CLANS_LEAVE_DOOR",
                 (new[] { GroupType.NomaiA, GroupType.NomaiB, GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Away)
             },
+            
+            { "NOMAI_TO_FIRE", (new[] { GroupType.NomaiA, GroupType.NomaiB }, GroupDestination.Fire) },
+            { "GHIRD_TO_FIRE", (new[] { GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Fire) },
         };
     
     public static ModMain Instance;
