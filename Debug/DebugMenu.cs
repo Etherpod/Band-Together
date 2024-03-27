@@ -5,6 +5,10 @@ namespace BandTogether.Debug;
 
 public class DebugMenu
 {
+	private static DebugMenu _instance;
+
+	public static DebugMenu Instance => _instance;
+
 	private readonly GameObject _planet;
 
 	private IMenuAPI _menuAPI;
@@ -18,9 +22,12 @@ public class DebugMenu
 
 	public static DebugMenu InitMenu(GameObject planet)
 	{
-		var debugMenu = new DebugMenu(planet);
-		debugMenu.LoadMenu();
-		return debugMenu;
+		if (_instance is not null) return _instance;
+		
+		_instance = new DebugMenu(planet);
+		_instance.LoadMenu();
+
+		return _instance;
 	}
 
 	private void LoadMenu()
@@ -69,7 +76,7 @@ public class DebugMenu
 		var targetRotation = destination.rotation;
 		var targetPosition = destination.position + 2 * (targetRotation * Vector3.up);
 		var targetVelocity = planetBody.GetVelocity();
-		
+
 		playerBody.SetPosition(targetPosition);
 		playerBody.SetRotation(targetRotation);
 		playerBody.SetVelocity(targetVelocity);
