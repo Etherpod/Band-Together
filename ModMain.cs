@@ -114,7 +114,7 @@ public class ModMain : ModBehaviour
         {
             _planet = nhAPI.GetPlanet(bodyName);
 
-            _debugMenu = DebugMenu.InitMenu(_planet);
+            // _debugMenu = DebugMenu.InitMenu(_planet);
 
             _planet
                 .transform
@@ -145,6 +145,7 @@ public class ModMain : ModBehaviour
             foreach (string savedCondition in GetSavedConditionList())
             {
                 WriteMessage(savedCondition);
+                if (savedCondition.IndexOf(':') == -1) continue;
                 DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("true"));
             }
         }
