@@ -5,16 +5,62 @@
       "color": {
         "r": 152,
         "g": 193,
-        "b": 94
+        "b": 94,
+        "a": 255
       },
       "highlightColor": {
         "r": 208,
         "g": 242,
-        "b": 198
+        "b": 198,
+        "a": 255
       }
     }
   ],
   "initialReveal": [
     "PLANET_RUMOR"
+  ],
+  "entryPositions": [
+    {
+      "id": "GREAT_DOOR",
+      "position": {
+        "x": 200,
+        "y": 200
+      }
+    },
+    {
+      "id": "NOMAI_VILLAGE_A",
+      "position": {
+        "x": 200,
+        "y": 0
+      }
+    },
+    {
+      "id": "NOMAI_VILLAGE_B",
+      "position": {
+        "x": 0,
+        "y": 200
+      }
+    },
+    {
+      "id": "GHIRD_VILLAGE_A",
+      "position": {
+        "x": -200,
+        "y": 0
+      }
+    },
+    {
+      "id": "GHIRD_VILLAGE_B",
+      "position": {
+        "x": 0,
+        "y": -200
+      }
+    },
+    {
+      "id": "FIFTH_SHARD",
+      "position": {
+        "x": 0,
+        "y": -200
+      }
+    }
   ]
 }
