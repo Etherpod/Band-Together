@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine;
 using static BandTogether.QuantumNPC;
 using System.Reflection;
+using BandTogether.Debug;
 using BandTogether.Util;
 using HarmonyLib;
 
@@ -52,9 +53,7 @@ public class ModMain : ModBehaviour
         "GOT_GHIRD_SHARD_B"
     };
 
-    private Menu _modMenu;
-    private IMenuAPI _menuAPI;
-    private Menu _telepoMenu;
+    private DebugMenu _debugMenu;
 
     private void Awake()
     {
@@ -111,37 +110,6 @@ public class ModMain : ModBehaviour
 
     private void CreateDebugMenus()
     {
-        _menuAPI = ModHelper.Interaction.TryGetModApi<IMenuAPI>("_nebula.MenuFramework");
-        _modMenu = _menuAPI.PauseMenu_MakePauseListMenu("BAND TOGETHER DEBUG ACTIONS");
-        _menuAPI.PauseMenu_MakeMenuOpenButton("BAND-TOGETHER DEBUG ACTIONS", _modMenu);
-
-        _telepoMenu = _menuAPI.PauseMenu_MakePauseListMenu("TELEPORT DESTINATIONS");
-        _menuAPI.PauseMenu_MakeMenuOpenButton("TELEPORT TO PLANET", _telepoMenu, _modMenu);
-        AddTeleportButton("NORTH POLE", "NorthPole");
-        AddTeleportButton("SOUTH POLE", "SouthPole");
-        AddTeleportButton("THE DOOR", "TheDoor");
-        AddTeleportButton("NOMAI // COCKPIT", "NomaiCockpit");
-        AddTeleportButton("NOMAI // OTHER", "NomaiOther");
-        AddTeleportButton("BIRB // FOLLOWERS OF ITS GRAND EPHEMERAL ARBOREAL ILLUMINATING ETERNAL SOVEREIGN CELESTIAL TRANQUIL BEARER, THE SACRED SHRUBBERY", "GhirdShrubbery");
-        AddTeleportButton("BIRB // LOGIC", "GhirdLogic");
-    }
-
-    private void AddTeleportButton(string buttonText, string targetName)
-    {
-        _menuAPI.PauseMenu_MakeSimpleButton(buttonText, _telepoMenu).onClick.AddListener(() =>
-        {
-            TeleportPlayer(targetName);
-        });
-    }
-
-    private void TeleportPlayer(string target)
-    {
-        var playerBody = Locator.GetPlayerBody();
-        var destination = _planet.transform.Find($"Sector/JamPlanet/Debug/TeleportDestinations/{target}");
-        var planetBody = _planet.GetComponent<OWRigidbody>();
-        playerBody.SetPosition(destination.position + 2*(destination.rotation*Vector3.up));
-        playerBody.SetRotation(destination.rotation);
-        playerBody.SetVelocity(planetBody.GetVelocity());
     }
 
     private void OnBodyLoaded(string bodyName)
@@ -149,6 +117,9 @@ public class ModMain : ModBehaviour
         if (bodyName == "Fractured Harmony")
         {
             _planet = nhAPI.GetPlanet(bodyName);
+
+            _debugMenu = DebugMenu.InitMenu(_planet);
+
             _planet
                 .transform
                 .Find("Sector/JamPlanet/GhirdCityB/CityHall/house/SacredEntrywayTrigger")
