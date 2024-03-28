@@ -26,11 +26,11 @@ public class ModMain : ModBehaviour
                 "CLANS_LEAVE_DOOR",
                 (new[] { GroupType.NomaiA, GroupType.NomaiB, GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Away)
             },
-            
+
             { "NOMAI_TO_FIRE", (new[] { GroupType.NomaiA, GroupType.NomaiB }, GroupDestination.Fire) },
             { "GHIRD_TO_FIRE", (new[] { GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Fire) },
         };
-    
+
     public static ModMain Instance;
     public delegate void MoveNpcEvent(GroupType target, bool shouldActQuatum);
     public event MoveNpcEvent OnMoveGroup;
@@ -74,7 +74,7 @@ public class ModMain : ModBehaviour
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
-                
+
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
                 var relativeLocation = new RelativeLocationData(Vector3.up * 2 + Vector3.forward * 2, Quaternion.identity, Vector3.zero);
@@ -146,10 +146,12 @@ public class ModMain : ModBehaviour
             {
                 WriteMessage(savedCondition);
                 if (savedCondition.IndexOf(':') == -1) continue;
-                DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("true"));
+                WriteMessage(savedCondition.Split(':').First());
+                WriteMessage(savedCondition.EndsWith("True"));
+                DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("True"));
             }
         }
-        
+
         if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiA, false);
@@ -175,13 +177,20 @@ public class ModMain : ModBehaviour
             _numClansConvinced++;
         }
 
+        WriteMessage(DialogueConditionManager.SharedInstance.GetConditionState("FINISH_SHRUB_QUEST"));
+
         if (GetSavedCondition("SHRUB_GIVEN_TO_NOMAI"))
         {
-            FindObjectOfType<ShrubberySocketNomai>().PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            ShrubberySocketNomai socketNomai = FindObjectOfType<ShrubberySocketNomai>();
+            socketNomai.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            socketNomai.EnableInteraction(false);
         }
-        else if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+        else if (GetSavedCondition("FINISH_SHRUB_QUEST"))
         {
-            FindObjectOfType<TheDivineThrone>().PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            TheDivineThrone socketThrone = FindObjectOfType<TheDivineThrone>();
+            socketThrone.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            socketThrone.EnableInteraction(false);
+            FindObjectOfType<ShrubberySocketNomai>().EnableInteraction(true);
         }
     }
 
@@ -216,7 +225,7 @@ public class ModMain : ModBehaviour
             .ToList();
         Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Count}");
         if (groupsToMove.Count() is 0) return;
-        
+
         foreach (var group in groupsToMove)
         {
             Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination}");
@@ -251,9 +260,16 @@ public class ModMain : ModBehaviour
 
     public static bool GetSavedCondition(string condition)
     {
+        //WriteMessage("Condition: " + condition);
         if (Instance._currentSave.Count == 0) { return false; }
-        string savedCondition = Instance._currentSave.Where(savedCondition => savedCondition.StartsWith(condition + ":")).First();
-        return savedCondition.EndsWith("true");
+        string[] savedConditions = Instance._currentSave.Where(savedCondition => savedCondition.StartsWith(condition + ":")).ToArray();
+        if (savedConditions.Count() > 0)
+        {
+            //WriteMessage("Saved: " + savedConditions[0]);
+            return savedConditions[0].EndsWith("True");
+        }
+
+        return false;
     }
 
     public static List<string> GetSavedConditionList()
@@ -262,9 +278,9 @@ public class ModMain : ModBehaviour
         return Instance._currentSave;
     }
 
-    public static void WriteMessage(string msg)
+    public static void WriteMessage(object msg)
     {
-        Instance.ModHelper.Console.WriteLine(msg);
+        Instance.ModHelper.Console.WriteLine(msg.ToString());
     }
 
     private enum GroupDestination

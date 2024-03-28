@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using OWML.ModHelper;
 
 namespace BandTogether;
 
@@ -50,6 +51,8 @@ public class MyPatchClass
 				
 				if (sharedInstance.ConditionExists(condition))
 				{
+					ModMain.WriteMessage("Condition: " + condition);
+					ModMain.WriteMessage(sharedInstance.GetConditionState(condition));
 					// ModMain.WriteMessage($"found condition value: {sharedInstance.GetConditionState(condition)}");
 					return sharedInstance.GetConditionState(condition);
 				}

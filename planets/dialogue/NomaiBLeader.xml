@@ -191,8 +191,8 @@
       <Page>The feeling is mutual. I hope convincing the other clans to join goes as smoothly as it did with mine, although I have my doubts.</Page>
       <Page>I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetPersistentCondition>NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
+    <DialogueTarget>End_2</DialogueTarget>
   </DialogueNode>
   
   <DialogueNode>
@@ -200,7 +200,15 @@
     <Dialogue>
       <Page>The feeling is mutual. I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetPersistentCondition>NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
+    <DialogueTarget>End_2</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>End_2</Name>
+    <Dialogue>
+      <Page>I will see you at the Great Door, my friend.</Page>
+    </Dialogue>
+    <SetPersistentCondition>NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

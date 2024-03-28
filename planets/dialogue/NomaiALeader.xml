@@ -193,8 +193,8 @@
 
   <DialogueNode>
     <Name>Steal_Shrub_Quest_0</Name>
-    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
     <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
     <Dialogue>
       <Page>I still cannot think of what I would gain influence from.</Page>
     </Dialogue>

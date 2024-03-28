@@ -13,6 +13,8 @@ public class ShrubberySocketNomai : OWItemSocket
         base.Start();
 
         OnSocketableDonePlacing += OnInsert;
+
+        base.EnableInteraction(false);
     }
 
     private void OnInsert(OWItem item)
