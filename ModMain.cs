@@ -36,6 +36,7 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public INewHorizons nhAPI;
 
+    private bool _debugEnabled = false;
     private int _numClansConvinced;
     private List<string> _currentSave = new();
     private GameObject _planet;
@@ -112,9 +113,11 @@ public class ModMain : ModBehaviour
     {
         if (bodyName == "Fractured Harmony")
         {
+            _debugEnabled = PlayerData.GetPersistentCondition("BAND_TOGETHER_DEBUG_ENABLED");
+            
             _planet = nhAPI.GetPlanet(bodyName);
 
-            // _debugMenu = DebugMenu.InitMenu(_planet);
+            if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(_planet);
 
             _planet
                 .transform
@@ -282,6 +285,8 @@ public class ModMain : ModBehaviour
     {
         Instance.ModHelper.Console.WriteLine(msg.ToString());
     }
+
+    public static bool IsDebugEnabled() => Instance._debugEnabled;
 
     private enum GroupDestination
     {
