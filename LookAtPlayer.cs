@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace BandTogether;
 
@@ -9,11 +10,28 @@ public class LookAtPlayer : MonoBehaviour
     [SerializeField] Transform neckBone;
     [SerializeField] bool isGhird;
 
+    private bool _lookAtPlayer = false;
+
+    private void FixedUpdate()
+    {
+        var npcTransform = transform;
+        
+        var relativePlayerPosition = Locator._playerBody.GetPosition() - npcTransform.position;
+        var playerInRange = relativePlayerPosition.sqrMagnitude < 16;
+        if (!playerInRange)
+        {
+            _lookAtPlayer = false;
+            return;
+        }
+
+        _lookAtPlayer = Vector3.Angle(npcTransform.forward, Vector3.ProjectOnPlane(relativePlayerPosition, npcTransform.up)) < 90;
+    }
+
     private void Update()
     {
         // ModMain.Instance.ModHelper.Console.WriteLine("In convo: " + _CharacterDialogueTree);
         
-        var targetPosition = characterDialogueTree.InConversation()
+        var targetPosition = _lookAtPlayer
             ? Locator.GetActiveCamera().transform.position
             : idleTarget.position;
         var targetLookDir = (targetPosition - neckBone.position).normalized;
