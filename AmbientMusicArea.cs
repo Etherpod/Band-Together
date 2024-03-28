@@ -11,16 +11,39 @@ public class AmbientMusicArea : MonoBehaviour
 
     OWTriggerVolume trigger;
     AudioSource audio;
-    bool fading;
+    bool fadeIn;
+    bool fadeOut;
     float fadeStartTime;
+    float lastVolume;
+    float maxVolume;
 
     private void Start()
     {
         trigger = GetComponent<OWTriggerVolume>();
         audio = GetComponent<AudioSource>();
 
+        maxVolume = audio.volume;
+
         trigger.OnEntry += OnEntry;
         trigger.OnExit += OnExit;
+    }
+
+    private void Update()
+    {
+        if (fadeIn)
+        {
+            float num = Mathf.InverseLerp(fadeStartTime, fadeStartTime + fadeTime, Time.time);
+            audio.volume = Mathf.Lerp(lastVolume, maxVolume, num);
+        }
+        else if (fadeOut)
+        {
+            float num = Mathf.InverseLerp(fadeStartTime, fadeStartTime + fadeTime, Time.time);
+            audio.volume = Mathf.Lerp(lastVolume, 0f, num);
+            if (audio.volume <= 0)
+            {
+                fadeOut = false;
+            }
+        }
     }
 
     private void OnEntry(GameObject obj)
@@ -29,6 +52,9 @@ public class AmbientMusicArea : MonoBehaviour
         {
             audio.time = 0;
             audio.Play();
+            lastVolume = audio.volume;
+            fadeStartTime = Time.time;
+            fadeIn = true;
         }
     }
 
@@ -37,6 +63,9 @@ public class AmbientMusicArea : MonoBehaviour
         if (obj.CompareTag("Player"))
         {
             audio.Stop();
+            lastVolume = audio.volume;
+            fadeStartTime = Time.time;
+            fadeOut = true;
         }
     }
 
