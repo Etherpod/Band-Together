@@ -47,7 +47,7 @@
     <RevealFacts>
       <FactID>FIFTH_SHARD_QUANTUM</FactID>
     </RevealFacts>
-    <DialogueTarget>Init_1</DialogueTarget>
+    <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -324,9 +324,18 @@
     </Dialogue>
     <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
-
+  
   <DialogueNode>
     <Name>Finish_Steal_Quest_12</Name>
+    <Dialogue>
+      <Page>Goodbye, traveler.</Page>
+    </Dialogue>
+    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
+  <DialogueTarget>Finish_Steal_Quest_13</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Finish_Steal_Quest_13</Name>
     <Dialogue>
       <Page>It was a pleasure meeting you.</Page>
     </Dialogue>
@@ -334,6 +343,5 @@
       <FactID>NOMAI_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
     <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

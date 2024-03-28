@@ -10,6 +10,7 @@ using System.Reflection;
 using BandTogether.Debug;
 using BandTogether.Util;
 using HarmonyLib;
+using OWML.Utils;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
@@ -66,6 +67,11 @@ public class ModMain : ModBehaviour
     {
         nhAPI = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
         nhAPI.LoadConfigs(this);
+
+        if (!EnumUtils.IsDefined<ItemType>("Shrubbery"))
+        {
+            EnumUtils.Create<ItemType>("Shrubbery", 512);
+        }
 
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
@@ -125,7 +131,10 @@ public class ModMain : ModBehaviour
                 .GetComponent<SacredEntrywayTrigger>()
                 .LoadWaterObject(_planet);
 
-            InitializeConditions();
+            this.ModHelper.Events.Unity.FireOnNextUpdate(() =>
+            {
+                InitializeConditions();
+            });
         }
     }
 
@@ -139,18 +148,12 @@ public class ModMain : ModBehaviour
         List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
         _currentSave = save;
 
-        WriteMessage("Length first: " + save.Count);
-
-        //SetSavedCondition("test", true);
-        WriteMessage("Count: " + _currentSave.Count);
         if (GetSavedConditionList() != null)
         {
             foreach (string savedCondition in GetSavedConditionList())
             {
                 WriteMessage(savedCondition);
                 if (savedCondition.IndexOf(':') == -1) continue;
-                WriteMessage(savedCondition.Split(':').First());
-                WriteMessage(savedCondition.EndsWith("True"));
                 DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("True"));
             }
         }
@@ -180,8 +183,6 @@ public class ModMain : ModBehaviour
             _numClansConvinced++;
         }
 
-        WriteMessage(DialogueConditionManager.SharedInstance.GetConditionState("FINISH_SHRUB_QUEST"));
-
         if (GetSavedCondition("SHRUB_GIVEN_TO_NOMAI"))
         {
             ShrubberySocketNomai socketNomai = FindObjectOfType<ShrubberySocketNomai>();
@@ -192,9 +193,13 @@ public class ModMain : ModBehaviour
         {
             TheDivineThrone socketThrone = FindObjectOfType<TheDivineThrone>();
             socketThrone.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
-            socketThrone.EnableInteraction(false);
-            FindObjectOfType<ShrubberySocketNomai>().EnableInteraction(true);
+            if (!PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+            {
+                socketThrone.EnableInteraction(false);
+            }
         }
+
+        FindObjectOfType<GhirdLightsOutController>().InitializeGhirds();
     }
 
     public static bool CheckCondition(string condition)

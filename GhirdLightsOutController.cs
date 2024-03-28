@@ -8,9 +8,25 @@ public class GhirdLightsOutController : MonoBehaviour
     [SerializeField] GhostBrain[] chaseGhirds;
     [SerializeField] GameObject lightsParent;
 
-    bool lightsOut;
+    bool lightsOut = false;
 
-    private void Start()
+    private void Update()
+    {
+        if (lightsOut && PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
+        {
+            lightsOut = false;
+            LightsOn();
+        }
+        if (lightsOut || PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST")) return;
+        
+        if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+        {
+            lightsOut = true;
+            LightsOut();
+        }
+    }
+
+    public void InitializeGhirds()
     {
         foreach (GameObject propGhird in propGhirds)
         {
@@ -27,24 +43,9 @@ public class GhirdLightsOutController : MonoBehaviour
             if (PlayerData.GetPersistentCondition("START_STEAL_QUEST") && !PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
             {
                 lightsOut = true;
+                LightsOut();
             }
         });
-    }
-
-    private void Update()
-    {
-        if (lightsOut && PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
-        {
-            lightsOut = false;
-            LightsOn();
-        }
-        if (lightsOut || PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST")) return;
-        
-        if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
-        {
-            lightsOut = true;
-            LightsOut();
-        }
     }
 
     public void LightsOut()
