@@ -296,6 +296,7 @@
 
   <DialogueNode>
     <Name>Finish_Steal_Quest_1</Name>
+    <EntryCondition>GOT_NOMAI_SHARD_A</EntryCondition>
     <Dialogue>
       <Page>Is there anything you would like to ask me?</Page>
     </Dialogue>
@@ -310,8 +311,13 @@
         <DialogueTarget>Shard_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <CancelledPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</CancelledPersistentCondition>
         <Text>I'll see you at the door!</Text>
         <DialogueTarget>Finish_Steal_Quest_12</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
+        <Text>Just saying hi.</Text>
       </DialogueOption>
     </DialogueOptionsList>
     <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>

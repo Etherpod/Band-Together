@@ -34,6 +34,10 @@ public class AmbientMusicArea : MonoBehaviour
         {
             float num = Mathf.InverseLerp(fadeStartTime, fadeStartTime + fadeTime, Time.time);
             audio.volume = Mathf.Lerp(lastVolume, maxVolume, num);
+            if (audio.volume >= maxVolume)
+            {
+                fadeIn = false;
+            }
         }
         else if (fadeOut)
         {
@@ -41,6 +45,7 @@ public class AmbientMusicArea : MonoBehaviour
             audio.volume = Mathf.Lerp(lastVolume, 0f, num);
             if (audio.volume <= 0)
             {
+                audio.Stop();
                 fadeOut = false;
             }
         }
@@ -48,7 +53,7 @@ public class AmbientMusicArea : MonoBehaviour
 
     private void OnEntry(GameObject obj)
     {
-        if (obj.CompareTag("Player"))
+        if (obj.CompareTag("PlayerDetector"))
         {
             audio.time = 0;
             audio.Play();
@@ -60,9 +65,8 @@ public class AmbientMusicArea : MonoBehaviour
 
     private void OnExit(GameObject obj)
     {
-        if (obj.CompareTag("Player"))
+        if (obj.CompareTag("PlayerDetector"))
         {
-            audio.Stop();
             lastVolume = audio.volume;
             fadeStartTime = Time.time;
             fadeOut = true;

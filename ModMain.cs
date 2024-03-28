@@ -199,6 +199,11 @@ public class ModMain : ModBehaviour
             }
         }
 
+        if (PlayerData.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+        {
+            FindObjectOfType<SunpostDetector>().OpenDoor();
+        }
+
         FindObjectOfType<GhirdLightsOutController>().InitializeGhirds();
     }
 

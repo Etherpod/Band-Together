@@ -16,12 +16,6 @@ public class SunpostDetector : MonoBehaviour
 	private void Start()
 	{
         sunTransform = ModMain.Instance.nhAPI.GetPlanet("Jam 3 Sun").transform;
-
-		if (PlayerData.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
-		{
-            opened = true;
-            doorController.CallOpenEvent();
-        }
     }
 
 	private void Update()
@@ -51,5 +45,11 @@ public class SunpostDetector : MonoBehaviour
 			opened = true;
 			doorController.CallOpenEvent();
 		}
+	}
+
+	public void OpenDoor()
+	{
+		opened = true;
+		doorController.CallOpenEvent();
 	}
 }
