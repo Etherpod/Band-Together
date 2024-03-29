@@ -54,9 +54,9 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_QUEST</ID>
-      <Text>A Nomai told me that, to see their leader, I have to prove my worth by stealing something from the Followers of Worship. They said that there wasn't anything good to steal right now.</Text>
+      <Text>The Nomai told me that, to earn their trust, I have to prove my worth by stealing something from the Followers of Worship. They said that there wasn't anything good to steal right now.</Text>
       <AltText>
-        <Text>A Nomai told me that, to see their leader, I have to prove my worth by stealing something from the Followers of Worship.</Text>
+        <Text>The Nomai told me that, to earn their trust, I have to prove my worth by stealing something from the Followers of Worship.</Text>
         <Condition>STEAL_QUEST</Condition>
       </AltText>
     </ExploreFact>
