@@ -68,7 +68,6 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_AGREED</ID>
-      <IgnoreMoreToExplore/>
       <Text>The leader of the Followers of Greed agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
@@ -97,7 +96,6 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_B_AGREED</ID>
-      <IgnoreMoreToExplore/>
       <Text>The leader of the Followers of Exploration agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
@@ -137,7 +135,6 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_AGREED</ID>
-      <IgnoreMoreToExplore/>
       <Text>The leader of the Followers of Worship said they would help us, but they sounded a little suspicious.</Text>
     </ExploreFact>
     
@@ -172,7 +169,6 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_A_AGREED</ID>
-      <IgnoreMoreToExplore/>
       <Text>The leader of the Followers of Logic agreed to help us open the door by giving their shard to us.</Text>
     </ExploreFact>
   </Entry>
@@ -218,7 +214,6 @@
 
     <ExploreFact>
       <ID>FIFTH_SHARD_FOUND</ID>
-      <IgnoreMoreToExplore/>
       <Text>The final piece of the key to the Great Door. I found it on the North Pole locked behind a puzzle with quantum rocks.</Text>
     </ExploreFact>
   </Entry>
