@@ -43,10 +43,10 @@ public class EndingController : MonoBehaviour
 
   private void OnClansMove(QuantumNPC.GroupType target, bool shouldActQuatum)
   {
-    // if (target != QuantumNPC.GroupType.NomaiA) return;
-    //
-    // _moves++;
-    // if (_moves != 2) return;
+    if (target != QuantumNPC.GroupType.NomaiA) return;
+    
+    _moves++;
+    if (_moves != 2) return;
 
     fire.SetInteractionEnabled(true);
   }
@@ -94,5 +94,11 @@ public class EndingController : MonoBehaviour
     });
     
     musicAnimator.SetTrigger(Play);
+    ModMain.Instance.Invoke(nameof(ModMain.OnTriggerCampfireEnd), 40);
   }
+
+  // public void AndSoTheStoryComesToAnEnd()
+  // {
+  //   ModMain.Instance.OnTriggerCampfireEnd();
+  // }
 }

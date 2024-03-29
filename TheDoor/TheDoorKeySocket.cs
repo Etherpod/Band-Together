@@ -32,10 +32,10 @@ public class TheDoorKeySocket : OWItemSocket
         OnSocketableDonePlacing -= OnKeyFragmentPlaced;
     }
 
-    private void OnKeyFragmentPlaced(OWItem socketable)
+    public void OnKeyFragmentPlaced(OWItem socketable)
     {
         _numInsertedFragments += 1;
-        ModMain.Instance.ModHelper.Console.WriteLine($"key fragments inserted: {_numInsertedFragments}");
+        // ModMain.Instance.ModHelper.Console.WriteLine($"key fragments inserted: {_numInsertedFragments}");
         if (numKeyFragments <= _numInsertedFragments)
         {
             ModMain.Instance.ModHelper.Console.WriteLine("key complete");

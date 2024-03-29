@@ -38,6 +38,10 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
+
+    public delegate void ShardFoundEvent(string condition);
+    public event ShardFoundEvent OnShardFound;
+        
     public INewHorizons nhAPI;
 
     private bool _debugEnabled = false;
@@ -242,6 +246,8 @@ public class ModMain : ModBehaviour
                 SetSavedCondition("ALL_CLANS_AGREED", true);
                 Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
             }
+            
+            OnShardFound?.Invoke(condition);
         }
 
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
