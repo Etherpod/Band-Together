@@ -43,7 +43,7 @@ public class QuantumNPC : SocketedQuantumObject
 
     private void OnMainQuest()
     {
-        if (groupType != GroupType.Captial)
+        if (groupType != GroupType.Captial && _conversationToEnable != null)
         {
             _conversationToEnable.SetActive(true);
         }
