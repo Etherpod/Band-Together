@@ -36,11 +36,14 @@ public class ModMain : ModBehaviour
     public static ModMain Instance;
     public delegate void MoveNpcEvent(GroupType target, bool shouldActQuatum);
     public event MoveNpcEvent OnMoveGroup;
+    public delegate void ModStartEvent();
+    public event ModStartEvent OnMainQuest;
     public INewHorizons nhAPI;
 
     private bool _debugEnabled = false;
     private int _numClansConvinced;
     private List<string> _currentSave = new();
+    private List<GameObject> factsToEnable = new();
     private GameObject _planet;
 
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
@@ -59,7 +62,7 @@ public class ModMain : ModBehaviour
     private void Awake()
     {
         Instance = this;
-        HarmonyLib.Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
     }
 
     private void Start()
@@ -119,7 +122,7 @@ public class ModMain : ModBehaviour
         if (bodyName == "Fractured Harmony")
         {
             _debugEnabled = PlayerData.GetPersistentCondition("BAND_TOGETHER_DEBUG_ENABLED");
-            
+
             _planet = nhAPI.GetPlanet(bodyName);
 
             if (IsDebugEnabled()) DebugMenu.InitMenu(_planet);
@@ -154,6 +157,15 @@ public class ModMain : ModBehaviour
                 WriteMessage(savedCondition);
                 if (savedCondition.IndexOf(':') == -1) continue;
                 DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("True"));
+            }
+        }
+
+        if (!PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
+        {
+            foreach (ShipLogFactTriggerVolume factTrigger in _planet.GetComponentsInChildren<ShipLogFactTriggerVolume>())
+            {
+                factsToEnable.Add(factTrigger.gameObject);
+                factTrigger.gameObject.SetActive(false);
             }
         }
 
@@ -206,13 +218,18 @@ public class ModMain : ModBehaviour
         FindObjectOfType<GhirdLightsOutController>().InitializeGhirds();
     }
 
-    public static bool CheckCondition(string condition)
-    {
-        return DialogueConditionManager.SharedInstance.ConditionExists(condition) && DialogueConditionManager.SharedInstance._dictConditions[condition];
-    }
-
     private void OnDialogueConditionChanged(string condition, bool value)
     {
+        if (factsToEnable.Count > 0 && condition == "MAIN_QUEST_START")
+        {
+            OnMainQuest?.Invoke();
+            foreach (GameObject factTrigger in factsToEnable)
+            {
+                factTrigger.SetActive(true);
+            }
+        }
+
+        // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
             _numClansConvinced += 1;
@@ -284,6 +301,25 @@ public class ModMain : ModBehaviour
     {
         if (Instance._currentSave.Count == 0) return null;
         return Instance._currentSave;
+    }
+
+    public void ClearSavedConditions()
+    {
+        //Loads the save or makes a new one
+        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
+        //Gets the name to use for the save dict
+        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
+        if (guy.ContainsKey(name))
+        {
+            guy[name].Clear();
+            Instance.ModHelper.Storage.Save(guy, "save.json");
+        }
+    }
+
+    public void OnTriggerCampfireEnd()
+    {
+        FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to reunite the clans and bring harmony back to the planet. Maybe the real gift was the friends we made along the way?";
+        FindObjectOfType<GameOverController>().SetupGameOverScreen(10f);
     }
 
     public static void WriteMessage(object msg)

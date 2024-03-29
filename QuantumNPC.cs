@@ -9,6 +9,7 @@ public class QuantumNPC : SocketedQuantumObject
 	[SerializeField] private GroupType groupType;
 
     private bool _actQuantum = true;
+    private GameObject _conversationToEnable;
 
 	public enum GroupType
 	{
@@ -27,7 +28,26 @@ public class QuantumNPC : SocketedQuantumObject
 		base.Awake();
 		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
+        ModMain.Instance.OnMainQuest += OnMainQuest;
 	}
+
+    public override void Start()
+    {
+        base.Start();
+        if (groupType != GroupType.Captial && GetComponentInChildren<InteractReceiver>() && !PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
+        {
+            _conversationToEnable = GetComponentInChildren<InteractReceiver>().gameObject;
+            _conversationToEnable.SetActive(false);
+        }
+    }
+
+    private void OnMainQuest()
+    {
+        if (groupType != GroupType.Captial)
+        {
+            _conversationToEnable.SetActive(true);
+        }
+    }
 
 	private void OnMoveGroup(GroupType targetGroup, bool shouldActQuantum)
 	{
@@ -126,5 +146,6 @@ public class QuantumNPC : SocketedQuantumObject
 	{
         base.OnDestroy();
         ModMain.Instance.OnMoveGroup -= OnMoveGroup;
+        ModMain.Instance.OnMainQuest -= OnMainQuest;
     }
 }

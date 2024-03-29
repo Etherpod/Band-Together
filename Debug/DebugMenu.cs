@@ -54,7 +54,15 @@ public class DebugMenu
 			"BIRB // FOLLOWERS OF ITS GRAND EPHEMERAL ARBOREAL ILLUMINATING ETERNAL SOVEREIGN CELESTIAL TRANQUIL BEARER, THE SACRED SHRUBBERY",
 			"GhirdShrubbery");
 		AddTeleportButton("BIRB // LOGIC", "GhirdLogic");
-	}
+
+        _menuAPI.PauseMenu_MakeSimpleButton("END SCREEN", _telepoMenu).onClick.AddListener(() =>
+        {
+			ModMain.Instance.ModHelper.Events.Unity.FireInNUpdates(() =>
+			{
+				ModMain.Instance.OnTriggerCampfireEnd();
+			}, 120);
+        });
+    }
 
 	private void AddTeleportButton(string buttonText, string targetName)
 	{
