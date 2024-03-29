@@ -412,6 +412,7 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>There's... nothing.</Text>
+        <DialogueTarget>Opened_Door_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>Let me keep searching.</Text>

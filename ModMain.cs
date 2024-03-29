@@ -28,6 +28,7 @@ public class ModMain : ModBehaviour
                 (new[] { GroupType.NomaiA, GroupType.NomaiB, GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Away)
             },
 
+            { "DOORKEEPER_TO_FIRE", (new[] { GroupType.Captial }, GroupDestination.Fire) },
             { "NOMAI_TO_FIRE", (new[] { GroupType.NomaiA, GroupType.NomaiB }, GroupDestination.Fire) },
             { "GHIRD_TO_FIRE", (new[] { GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Fire) },
         };
@@ -54,8 +55,6 @@ public class ModMain : ModBehaviour
         "GOT_GHIRD_SHARD_A",
         "GOT_GHIRD_SHARD_B"
     };
-
-    private DebugMenu _debugMenu;
 
     private void Awake()
     {
@@ -123,7 +122,7 @@ public class ModMain : ModBehaviour
             
             _planet = nhAPI.GetPlanet(bodyName);
 
-            if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(_planet);
+            if (IsDebugEnabled()) DebugMenu.InitMenu(_planet);
 
             _planet
                 .transform
@@ -214,7 +213,6 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
-        // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
             _numClansConvinced += 1;
@@ -236,13 +234,10 @@ public class ModMain : ModBehaviour
             .groups
             .Where(group => _groupCurrentLocation[group] < destination.destination)
             .ToList();
-        // Instance.ModHelper.Console.WriteLine($"groupsToMove: {groupsToMove.Count}");
         if (groupsToMove.Count() is 0) return;
 
         foreach (var group in groupsToMove)
         {
-            // Instance.ModHelper.Console.WriteLine($"moving [{group}] to: {destination.destination}");
-
             OnMoveGroup?.Invoke(group, true);
             _groupCurrentLocation[group] = destination.destination;
         }

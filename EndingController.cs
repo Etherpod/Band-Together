@@ -1,26 +1,29 @@
 ﻿using System;
 using BandTogether.TheDoor;
+using BandTogether.Util;
 using UnityEngine;
 
 namespace BandTogether;
 
 public class EndingController : MonoBehaviour
 {
-  [SerializeField] private EntrywayTrigger roomEntryway;
-  [SerializeField] private Campfire fire;
-  [SerializeField] private Animator musicAnimator;
-  [SerializeField] private AudioSource[] nomaiInstruments;
-  [SerializeField] private AudioSource[] ghirdInstruments;
-  [SerializeField] private AudioSource pad;
+  [SerializeField] private EntrywayTrigger roomEntryway = null;
+  [SerializeField] private Campfire fire = null;
+  [SerializeField] private Animator musicAnimator = null;
+  [SerializeField] private AudioSource[] nomaiInstruments = null;
+  [SerializeField] private AudioSource[] ghirdInstruments = null;
+  [SerializeField] private AudioSource pad = null;
 
-  private bool _entered = false;
-  private bool _fireLit = false;
   private static readonly int Play = Animator.StringToHash("Play");
+
+  private int _moves = 0;
+  private bool _fireLit = false;
 
   private void Awake()
   {
     fire.OnCampfireStateChange += OnFireStateChanged;
     roomEntryway.OnEntry += OnRoomEntered;
+    ModMain.Instance.OnMoveGroup += OnClansMove;
   }
 
   private void OnDestroy()
@@ -29,24 +32,42 @@ public class EndingController : MonoBehaviour
     roomEntryway.OnEntry -= OnRoomEntered;
   }
 
-  private void OnRoomEntered(GameObject gameObject)
+  private void OnRoomEntered(GameObject enteringObject)
   {
-    if (_entered || !gameObject.CompareTag("PlayerDetector")) return;
+    if (!enteringObject.CompareTag("PlayerDetector")) return;
 
-    _entered = true;
+    fire.SetInteractionEnabled(false);
+    roomEntryway.OnEntry -= OnRoomEntered;
     DialogueConditionManager.SharedInstance.SetConditionState("SEARCHED_GREAT_DOOR", true);
+  }
+
+  private void OnClansMove(QuantumNPC.GroupType target, bool shouldActQuatum)
+  {
+    // if (target != QuantumNPC.GroupType.NomaiA) return;
+    //
+    // _moves++;
+    // if (_moves != 2) return;
+
+    fire.SetInteractionEnabled(true);
   }
 
   private void OnFireStateChanged(Campfire changedFire)
   {
-    if (_fireLit || fire.GetState() == Campfire.State.LIT) OnFireLit();
+    if (!_fireLit && fire.GetState() == Campfire.State.LIT) OnFireLit();
   }
 
   private void OnFireLit()
   {
-    Invoke(nameof(NomaiToFire), 5);
-    Invoke(nameof(GhirdToFire), 10);
+    _fireLit = true;
+    Invoke(nameof(DoorkeeperToFire), 5);
+    Invoke(nameof(NomaiToFire), 10);
+    Invoke(nameof(GhirdToFire), 15);
     Invoke(nameof(StartPlaying), 10);
+  }
+
+  private void DoorkeeperToFire()
+  {
+    DialogueConditionManager.SharedInstance.SetConditionState("DOORKEEPER_TO_FIRE", true);
   }
 
   private void NomaiToFire()
@@ -61,10 +82,8 @@ public class EndingController : MonoBehaviour
 
   private void StartPlaying()
   {
-    foreach (var nomaiInstrument in nomaiInstruments)
-    {
-      nomaiInstrument.Play();
-    }
+    nomaiInstruments.ForEach(instrument => instrument.Play());
+    ghirdInstruments.ForEach(instrument => instrument.Play());
     
     musicAnimator.SetTrigger(Play);
   }
