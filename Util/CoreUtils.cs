@@ -47,4 +47,11 @@ public static class CoreUtils
 		source.Select(pair => (pair.second, pair.first));
 
 	#endregion
+
+	#region strings
+
+	public static string Join(this IEnumerable<string> source, string separator = null) =>
+		string.Join(separator, source);
+
+	#endregion
 }

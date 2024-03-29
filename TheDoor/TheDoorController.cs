@@ -1,4 +1,5 @@
 ﻿using System;
+using BandTogether.Util;
 using UnityEngine;
 
 namespace BandTogether.TheDoor;
@@ -20,12 +21,19 @@ public class TheDoorController : MonoBehaviour
         _animator = gameObject.GetRequiredComponent<Animator>();
 
         theDoorKeySocket.OnKeyInserted += KeyInserted;
-        ModMain.Instance.OnShardFound += condition =>
+        ModMain.Instance.OnShardFound += () =>
         {
+            ModMain.WriteMessage($"shards: {shards}");
+            if (shards.Length <= _nextShard) return;
+            
+            ModMain.WriteMessage("shard inserted");
             shards[_nextShard].SetActive(true);
             theDoorKeySocket.OnKeyFragmentPlaced(null);
             _nextShard++;
         };
+        
+        ModMain.WriteMessage($"shards: {shards}");
+        shards.ForEach(shard => shard.SetActive(false));
     }
 
     private void KeyInserted()

@@ -39,7 +39,7 @@ public class ModMain : ModBehaviour
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
 
-    public delegate void ShardFoundEvent(string condition);
+    public delegate void ShardFoundEvent();
     public event ShardFoundEvent OnShardFound;
         
     public INewHorizons nhAPI;
@@ -176,24 +176,28 @@ public class ModMain : ModBehaviour
         if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiA, false);
+            OnShardFound?.Invoke();
             _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
             _numClansConvinced++;
         }
         if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.NomaiB, false);
+            OnShardFound?.Invoke();
             _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
             _numClansConvinced++;
         }
         if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_A"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdA, false);
+            OnShardFound?.Invoke();
             _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
             _numClansConvinced++;
         }
         if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_B"))
         {
             OnMoveGroup?.Invoke(GroupType.GhirdB, false);
+            OnShardFound?.Invoke();
             _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
             _numClansConvinced++;
         }
@@ -224,6 +228,7 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
+        WriteMessage($"condition: {condition}");
         if (factsToEnable.Count > 0 && condition == "MAIN_QUEST_START")
         {
             OnMainQuest?.Invoke();
@@ -236,6 +241,8 @@ public class ModMain : ModBehaviour
         // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (_shardConditions.Contains(condition))
         {
+            OnShardFound?.Invoke();
+            
             _numClansConvinced += 1;
             if (_numClansConvinced == 3 && !GetSavedCondition("LAST_CLAN_TO_AGREE"))
             {
@@ -243,24 +250,27 @@ public class ModMain : ModBehaviour
             }
             else if (_numClansConvinced == 4 && !GetSavedCondition("ALL_CLANS_AGREED"))
             {
-                SetSavedCondition("ALL_CLANS_AGREED", true);
                 Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
+                SetSavedCondition("ALL_CLANS_AGREED", true);
             }
-            
-            OnShardFound?.Invoke(condition);
         }
 
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
+        
+        WriteMessage($"current locs: {_groupCurrentLocation.Select(entry => $"{entry.Key} {entry.Value}").Join(", ")}");
 
         var destination = GroupDialogueConditions[condition];
+        WriteMessage($"move condition: {destination}");
         var groupsToMove = destination
             .groups
             .Where(group => _groupCurrentLocation[group] < destination.destination)
             .ToList();
+        WriteMessage($"groups to move: {groupsToMove.Join()}");
         if (groupsToMove.Count() is 0) return;
 
         foreach (var group in groupsToMove)
         {
+            WriteMessage($"moving {group} to {destination.destination}");
             OnMoveGroup?.Invoke(group, true);
             _groupCurrentLocation[group] = destination.destination;
         }
