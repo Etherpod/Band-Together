@@ -318,7 +318,7 @@ public class ModMain : ModBehaviour
 
     public void OnTriggerCampfireEnd()
     {
-        FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to reunite the clans and bring harmony back to the planet. Maybe the real gift was the friends we made along the way?";
+        FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to\nreunite the clans and bring harmony back to the planet.";
         FindObjectOfType<GameOverController>().SetupGameOverScreen(10f);
     }
 
