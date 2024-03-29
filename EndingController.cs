@@ -82,8 +82,16 @@ public class EndingController : MonoBehaviour
 
   private void StartPlaying()
   {
-    nomaiInstruments.ForEach(instrument => instrument.Play());
-    ghirdInstruments.ForEach(instrument => instrument.Play());
+    nomaiInstruments.ForEach(instrument =>
+    {
+      instrument.Play();
+      instrument.volume = 0;
+    });
+    ghirdInstruments.ForEach(instrument =>
+    {
+      instrument.Play();
+      instrument.volume = 0;
+    });
     
     musicAnimator.SetTrigger(Play);
   }

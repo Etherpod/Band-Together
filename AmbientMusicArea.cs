@@ -53,24 +53,30 @@ public class AmbientMusicArea : MonoBehaviour
 
     private void OnEntry(GameObject obj)
     {
-        if (obj.CompareTag("PlayerDetector"))
-        {
-            audio.time = 0;
-            audio.Play();
-            lastVolume = audio.volume;
-            fadeStartTime = Time.time;
-            fadeIn = true;
-        }
+        if (obj.CompareTag("PlayerDetector")) FadeIn();
     }
 
     private void OnExit(GameObject obj)
     {
-        if (obj.CompareTag("PlayerDetector"))
-        {
-            lastVolume = audio.volume;
-            fadeStartTime = Time.time;
-            fadeOut = true;
-        }
+        if (obj.CompareTag("PlayerDetector")) FadeOut();
+    }
+
+    public void FadeIn()
+    {
+        audio.time = 0;
+        audio.Play();
+        lastVolume = audio.volume;
+        fadeStartTime = Time.time;
+        fadeIn = true;
+        fadeOut = false;
+    }
+
+    public void FadeOut()
+    {
+        lastVolume = audio.volume;
+        fadeStartTime = Time.time;
+        fadeIn = false;
+        fadeOut = true;
     }
 
     private void OnDestroy()

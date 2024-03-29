@@ -8,7 +8,7 @@ public class TheDoorController : MonoBehaviour
 
     [SerializeField] private TheDoorKeySocket theDoorKeySocket;
     [SerializeField] private KeyFragment keyFragment;
-    // [SerializeField] private Transform lostKeyAnimationPivot;
+    [SerializeField] private AmbientMusicArea capitalAmbience;
 
     private Animator _animator;
 
@@ -23,6 +23,7 @@ public class TheDoorController : MonoBehaviour
     {
         _animator.SetTrigger(Open);
         keyFragment.ActivateDoor();
+        capitalAmbience.FadeOut();
     }
 
     public void PlayKeyCompletionSfx()
