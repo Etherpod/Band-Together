@@ -155,6 +155,7 @@
       <Page>Sadly, I am not the one who makes the decisions. You will need to consult our leader about your request.</Page>
       <Page>To gain an audience with him, there is something you will need to do first.</Page>
     </Dialogue>
+    <DialogueTarget>Cockpit_0</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
