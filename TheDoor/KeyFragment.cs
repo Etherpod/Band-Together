@@ -24,20 +24,17 @@ public class KeyFragment : OWItem
 		base.Awake();
 		_type = ItemType;
 		_animator = gameObject.GetRequiredComponent<Animator>();
-		if (_animator) ModMain.WriteDebugMessage("animator found");
 	}
 
 	public void Reveal()
 	{
 		_animator.SetTrigger(TriggerReveal);
-		// ModMain.WriteMessage("reveal");
 	}
 
 	public void ActivateDoor()
 	{
 		_animator.SetTrigger(TriggerActivate);
 		_animating = false;
-		// ModMain.WriteMessage("activate door");
 	}
 
 

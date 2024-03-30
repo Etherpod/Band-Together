@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using BandTogether.Util;
 using UnityEngine;
 
@@ -6,6 +8,14 @@ namespace BandTogether.TheDoor;
 
 public class TheDoorController : MonoBehaviour
 {
+    private static readonly IDictionary<QuantumNPC.GroupType, int> ClanShards =
+        new Dictionary<QuantumNPC.GroupType, int>
+        {
+            { QuantumNPC.GroupType.NomaiA, 0 },
+            { QuantumNPC.GroupType.NomaiB, 1 },
+            { QuantumNPC.GroupType.GhirdA, 2 },
+            { QuantumNPC.GroupType.GhirdB, 3 },
+        };
     private static readonly int Open = Animator.StringToHash("Open");
 
     [SerializeField] private TheDoorKeySocket theDoorKeySocket;
@@ -14,26 +24,28 @@ public class TheDoorController : MonoBehaviour
     [SerializeField] private Transform[] shards;
 
     private Animator _animator;
-    private int _nextShard = 0;
 
     private void Awake()
     {
         _animator = gameObject.GetRequiredComponent<Animator>();
 
         theDoorKeySocket.OnKeyInserted += KeyInserted;
-        ModMain.Instance.OnShardFound += () =>
-        {
-            // ModMain.WriteMessage($"shards: {shards}");
-            if (shards.Length <= _nextShard) return;
-            
-            ModMain.WriteDebugMessage("shard inserted");
-            shards[_nextShard].localScale = Vector3.one;
-            theDoorKeySocket.OnKeyFragmentPlaced(null);
-            _nextShard++;
-        };
+        ModMain.Instance.OnShardFound += OnShardFound;
         
-        // ModMain.WriteMessage($"shards: {shards}");
-        // shards.ForEach(shard => shard.localScale = Vector3.zero);
+        shards.ForEach(shard => shard.localScale = Vector3.zero);
+    }
+
+    private void OnDestroy()
+    {
+        theDoorKeySocket.OnKeyInserted -= KeyInserted;
+        ModMain.Instance.OnShardFound -= OnShardFound;
+    }
+
+    private void OnShardFound(QuantumNPC.GroupType clan)
+    {
+        ModMain.WriteDebugMessage($"shard inserted for: {clan}");
+        shards[ClanShards[clan]].localScale = Vector3.one;
+        theDoorKeySocket.OnKeyFragmentPlaced(null);
     }
 
     private void KeyInserted()

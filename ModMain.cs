@@ -33,13 +33,21 @@ public class ModMain : ModBehaviour
             { "GHIRD_TO_FIRE", (new[] { GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Fire) },
         };
 
+    private static readonly IDictionary<string, GroupType> ShardConditions = new Dictionary<string, GroupType>
+    {
+        { "GOT_NOMAI_SHARD_A", GroupType.NomaiA },
+        { "GOT_NOMAI_SHARD_B", GroupType.NomaiB },
+        { "GOT_GHIRD_SHARD_A", GroupType.GhirdA },
+        { "GOT_GHIRD_SHARD_B", GroupType.GhirdB },
+    };
+
     public static ModMain Instance;
     public delegate void MoveNpcEvent(GroupType target, bool shouldActQuatum);
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
 
-    public delegate void ShardFoundEvent();
+    public delegate void ShardFoundEvent(GroupType shardGroup);
     public event ShardFoundEvent OnShardFound;
         
     public INewHorizons nhAPI;
@@ -56,13 +64,6 @@ public class ModMain : ModBehaviour
         .SelectMany(value => value.groups)
         .Distinct()
         .ToDictionary(key => key, _ => GroupDestination.Start);
-    private readonly string[] _shardConditions =
-    {
-        "GOT_NOMAI_SHARD_A",
-        "GOT_NOMAI_SHARD_B",
-        "GOT_GHIRD_SHARD_A",
-        "GOT_GHIRD_SHARD_B"
-    };
 
     private void Awake()
     {
@@ -143,7 +144,7 @@ public class ModMain : ModBehaviour
     {
         WriteDebugMessage("init conditions");
 
-        if (!PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
+        if (!GetPersistentCondition("MAIN_QUEST_START"))
         {
             _planet
                 .GetComponentsInChildren<ShipLogFactTriggerVolume>()
@@ -154,34 +155,15 @@ public class ModMain : ModBehaviour
                 });
         }
 
-        if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_A"))
-        {
-            OnMoveGroup?.Invoke(GroupType.NomaiA, false);
-            OnShardFound?.Invoke();
-            _groupCurrentLocation[GroupType.NomaiA] = GroupDestination.Door;
-            _numClansConvinced++;
-        }
-        if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_B"))
-        {
-            OnMoveGroup?.Invoke(GroupType.NomaiB, false);
-            OnShardFound?.Invoke();
-            _groupCurrentLocation[GroupType.NomaiB] = GroupDestination.Door;
-            _numClansConvinced++;
-        }
-        if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_A"))
-        {
-            OnMoveGroup?.Invoke(GroupType.GhirdA, false);
-            OnShardFound?.Invoke();
-            _groupCurrentLocation[GroupType.GhirdA] = GroupDestination.Door;
-            _numClansConvinced++;
-        }
-        if (PlayerData.GetPersistentCondition("GOT_GHIRD_SHARD_B"))
-        {
-            OnMoveGroup?.Invoke(GroupType.GhirdB, false);
-            OnShardFound?.Invoke();
-            _groupCurrentLocation[GroupType.GhirdB] = GroupDestination.Door;
-            _numClansConvinced++;
-        }
+        ShardConditions
+            .Where(condition => GetPersistentCondition(condition.Key))
+            .ForEach(condition =>
+            {
+                OnMoveGroup?.Invoke(condition.Value, false);
+                OnShardFound?.Invoke(condition.Value);
+                _groupCurrentLocation[condition.Value] = GroupDestination.Door;
+                _numClansConvinced++;
+            });
 
         if (GetPersistentCondition("SHRUB_GIVEN_TO_NOMAI"))
         {
@@ -193,13 +175,13 @@ public class ModMain : ModBehaviour
         {
             TheDivineThrone socketThrone = FindObjectOfType<TheDivineThrone>();
             socketThrone.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
-            if (!PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+            if (!GetPersistentCondition("START_STEAL_QUEST"))
             {
                 socketThrone.EnableInteraction(false);
             }
         }
 
-        if (PlayerData.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+        if (GetPersistentCondition("OPEN_SUNPOST_DOOR"))
         {
             FindObjectOfType<SunpostDetector>().OpenDoor();
         }
@@ -220,9 +202,9 @@ public class ModMain : ModBehaviour
         }
 
         // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
-        if (_shardConditions.Contains(condition))
+        if (ShardConditions.TryGetValue(condition, out var shardGroup))
         {
-            OnShardFound?.Invoke();
+            OnShardFound?.Invoke(shardGroup);
             
             _numClansConvinced += 1;
             if (_numClansConvinced == 3 && !GetPersistentCondition("LAST_CLAN_TO_AGREE"))
