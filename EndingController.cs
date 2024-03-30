@@ -41,9 +41,9 @@ public class EndingController : MonoBehaviour
     ModMain.SetCondition("SEARCHED_GREAT_DOOR", true);
   }
 
-  private void OnClansMove(QuantumNPC.GroupType target, bool shouldActQuatum)
+  private void OnClansMove(ModMain.GroupType target, bool shouldActQuatum)
   {
-    if (target != QuantumNPC.GroupType.NomaiA) return;
+    if (target != ModMain.GroupType.NomaiA) return;
     
     _moves++;
     if (_moves != 2) return;

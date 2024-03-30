@@ -275,5 +275,14 @@ public class ModMain : ModBehaviour
         Away,
         Fire,
     }
+
+    public enum GroupType
+    {
+        NomaiA,
+        NomaiB,
+        GhirdA,
+        GhirdB,
+        Captial
+    }
 }
 

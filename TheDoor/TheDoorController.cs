@@ -8,13 +8,13 @@ namespace BandTogether.TheDoor;
 
 public class TheDoorController : MonoBehaviour
 {
-    private static readonly IDictionary<QuantumNPC.GroupType, int> ClanShards =
-        new Dictionary<QuantumNPC.GroupType, int>
+    private static readonly IDictionary<ModMain.GroupType, int> ClanShards =
+        new Dictionary<ModMain.GroupType, int>
         {
-            { QuantumNPC.GroupType.NomaiA, 0 },
-            { QuantumNPC.GroupType.NomaiB, 1 },
-            { QuantumNPC.GroupType.GhirdA, 2 },
-            { QuantumNPC.GroupType.GhirdB, 3 },
+            { ModMain.GroupType.NomaiA, 0 },
+            { ModMain.GroupType.NomaiB, 1 },
+            { ModMain.GroupType.GhirdA, 2 },
+            { ModMain.GroupType.GhirdB, 3 },
         };
     private static readonly int Open = Animator.StringToHash("Open");
 
@@ -41,7 +41,7 @@ public class TheDoorController : MonoBehaviour
         ModMain.Instance.OnShardFound -= OnShardFound;
     }
 
-    private void OnShardFound(QuantumNPC.GroupType clan)
+    private void OnShardFound(ModMain.GroupType clan)
     {
         ModMain.WriteDebugMessage($"shard inserted for: {clan}");
         shards[ClanShards[clan]].localScale = Vector3.one;
