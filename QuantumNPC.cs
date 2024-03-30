@@ -3,13 +3,14 @@ using System;
 using UnityEngine;
 
 namespace BandTogether;
+
 public class QuantumNPC : SocketedQuantumObject
 {
 	[SerializeField] private Transform[] targetList;
 	[SerializeField] private GroupType groupType;
 
-    private bool _actQuantum = true;
-    private GameObject _conversationToEnable;
+	private bool _actQuantum = true;
+	private InteractReceiver _conversationInteract;
 
 	public enum GroupType
 	{
@@ -28,33 +29,34 @@ public class QuantumNPC : SocketedQuantumObject
 		base.Awake();
 		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
-        ModMain.Instance.OnMainQuest += OnMainQuest;
+		ModMain.Instance.OnMainQuest += OnMainQuest;
 	}
 
-    public override void Start()
-    {
-        base.Start();
-        if (groupType != GroupType.Captial && GetComponentInChildren<InteractReceiver>() && !PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
-        {
-            _conversationToEnable = GetComponentInChildren<InteractReceiver>().gameObject;
-            _conversationToEnable.SetActive(false);
-        }
-    }
+	public override void Start()
+	{
+		base.Start();
+		_conversationInteract = GetComponentInChildren<InteractReceiver>();
 
-    private void OnMainQuest()
-    {
-        if (groupType != GroupType.Captial && _conversationToEnable != null)
-        {
-            _conversationToEnable.SetActive(true);
-        }
-    }
+		if (groupType != GroupType.Captial && _conversationInteract && !ModMain.GetPersistentCondition("MAIN_QUEST_START"))
+		{
+			_conversationInteract.SetInteractionEnabled(false);
+		}
+	}
+
+	private void OnMainQuest()
+	{
+		if (groupType != GroupType.Captial && _conversationInteract)
+		{
+			_conversationInteract.SetInteractionEnabled(true);
+		}
+	}
 
 	private void OnMoveGroup(GroupType targetGroup, bool shouldActQuantum)
 	{
-		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} asked to move for: {targetGroup}");
 		if (targetGroup != groupType) return;
-		// ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} moving");
 
+		if (_conversationInteract) _conversationInteract.SetInteractionEnabled(false);
+		
 		_actQuantum = shouldActQuantum;
 		_waitingToTeleport = true;
 	}
@@ -76,76 +78,87 @@ public class QuantumNPC : SocketedQuantumObject
 		}
 	}
 
-    //Just getting rid of the error logs when there are no sockets (nothing actually breaks)
+	//Just getting rid of the error logs when there are no sockets (nothing actually breaks)
 	public override bool ChangeQuantumState(bool skipInstantVisibilityCheck)
 	{
-        for (int i = 0; i < this._childSockets.Count; i++)
-        {
-            if (this._childSockets[i].IsOccupied())
-            {
-                return false;
-            }
-        }
-        if (this._socketList.Count <= 1)
-        {
-            //Debug.LogError("Not enough quantum sockets in list!", this);
-            //Debug.Break();
-            return false;
-        }
-        List<QuantumSocket> list = new List<QuantumSocket>();
-        for (int j = 0; j < this._socketList.Count; j++)
-        {
-            if (!this._socketList[j].IsOccupied() && this._socketList[j].IsActive())
-            {
-                list.Add(this._socketList[j]);
-            }
-        }
-        if (list.Count == 0)
-        {
-            return false;
-        }
-        if (this._recentlyObscuredSocket != null)
-        {
-            this.MoveToSocket(this._recentlyObscuredSocket);
-            this._recentlyObscuredSocket = null;
-            return true;
-        }
-        QuantumSocket occupiedSocket = this._occupiedSocket;
-        for (int k = 0; k < 20; k++)
-        {
-            int num = UnityEngine.Random.Range(0, list.Count);
-            this.MoveToSocket(list[num]);
-            if (skipInstantVisibilityCheck)
-            {
-                return true;
-            }
-            bool flag;
-            if (this.IsPlayerEntangled())
-            {
-                flag = this.CheckIllumination();
-            }
-            else
-            {
-                flag = (this.CheckIllumination() ? base.CheckVisibilityInstantly() : base.CheckPointInside(Locator.GetPlayerCamera().transform.position));
-            }
-            if (!flag)
-            {
-                return true;
-            }
-            list.RemoveAt(num);
-            if (list.Count == 0)
-            {
-                break;
-            }
-        }
-        this.MoveToSocket(occupiedSocket);
-        return false;
-    }
+		for (int i = 0; i < this._childSockets.Count; i++)
+		{
+			if (this._childSockets[i].IsOccupied())
+			{
+				return false;
+			}
+		}
 
-    public override void OnDestroy()
+		if (this._socketList.Count <= 1)
+		{
+			//Debug.LogError("Not enough quantum sockets in list!", this);
+			//Debug.Break();
+			return false;
+		}
+
+		List<QuantumSocket> list = new List<QuantumSocket>();
+		for (int j = 0; j < this._socketList.Count; j++)
+		{
+			if (!this._socketList[j].IsOccupied() && this._socketList[j].IsActive())
+			{
+				list.Add(this._socketList[j]);
+			}
+		}
+
+		if (list.Count == 0)
+		{
+			return false;
+		}
+
+		if (this._recentlyObscuredSocket != null)
+		{
+			this.MoveToSocket(this._recentlyObscuredSocket);
+			this._recentlyObscuredSocket = null;
+			return true;
+		}
+
+		QuantumSocket occupiedSocket = this._occupiedSocket;
+		for (int k = 0; k < 20; k++)
+		{
+			int num = UnityEngine.Random.Range(0, list.Count);
+			this.MoveToSocket(list[num]);
+			if (skipInstantVisibilityCheck)
+			{
+				return true;
+			}
+
+			bool flag;
+			if (this.IsPlayerEntangled())
+			{
+				flag = this.CheckIllumination();
+			}
+			else
+			{
+				flag = (this.CheckIllumination()
+					? base.CheckVisibilityInstantly()
+					: base.CheckPointInside(Locator.GetPlayerCamera().transform.position));
+			}
+
+			if (!flag)
+			{
+				return true;
+			}
+
+			list.RemoveAt(num);
+			if (list.Count == 0)
+			{
+				break;
+			}
+		}
+
+		this.MoveToSocket(occupiedSocket);
+		return false;
+	}
+
+	public override void OnDestroy()
 	{
-        base.OnDestroy();
-        ModMain.Instance.OnMoveGroup -= OnMoveGroup;
-        ModMain.Instance.OnMainQuest -= OnMainQuest;
-    }
+		base.OnDestroy();
+		ModMain.Instance.OnMoveGroup -= OnMoveGroup;
+		ModMain.Instance.OnMainQuest -= OnMainQuest;
+	}
 }
