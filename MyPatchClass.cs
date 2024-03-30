@@ -59,12 +59,4 @@ public class MyPatchClass
                 return false;
             });
     }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(PlayerData), nameof(PlayerData.ResetGame))]
-    public static void ResetGamePostfix()
-    {
-        ModMain.WriteMessage("Clearing");
-        ModMain.Instance.ClearSavedConditions();
-    }
 }

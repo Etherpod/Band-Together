@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BandTogether;
 
@@ -14,10 +13,10 @@ public class CockpitDetector : MonoBehaviour
 
 	private void Start()
 	{
-        trigger = GetComponent<OWTriggerVolume>();
+		trigger = GetComponent<OWTriggerVolume>();
 		trigger.OnEntry += OnEntry;
 		trigger.OnExit += OnExit;
-    }
+	}
 
 	private void Update()
 	{
@@ -30,23 +29,24 @@ public class CockpitDetector : MonoBehaviour
 
 	private void OnDisable()
 	{
-        trigger.OnEntry -= OnEntry;
-        trigger.OnExit -= OnExit;
-    }
+		trigger.OnEntry -= OnEntry;
+		trigger.OnExit -= OnExit;
+	}
 
-    private void OnEntry(GameObject hitObj)
+	private void OnEntry(GameObject hitObj)
 	{
-        if (hitObj.transform.parent.name == "Module_Cockpit_Body" && !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
+		if (hitObj.transform.parent.name == "Module_Cockpit_Body" &&
+		    !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
 		{
-			ModMain.SetSavedCondition("GOT_COCKPIT", true);
+			ModMain.SetPersistentCondition("GOT_COCKPIT", true);
 		}
 	}
 
 	private void OnExit(GameObject hitObj)
 	{
-        if (hitObj.transform.parent.name == "Module_Cockpit_Body")
-        {
-            ModMain.SetSavedCondition("GOT_COCKPIT", true);
-        }
-    }
+		if (hitObj.transform.parent.name == "Module_Cockpit_Body")
+		{
+			ModMain.SetPersistentCondition("GOT_COCKPIT", true);
+		}
+	}
 }

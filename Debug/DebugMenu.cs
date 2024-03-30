@@ -68,7 +68,7 @@ public class DebugMenu
 	{
 		_menuAPI.PauseMenu_MakeSimpleButton(buttonText, _conditionMenu).onClick.AddListener(() =>
 		{
-			DialogueConditionManager.SharedInstance.SetConditionState(conditionName, true);
+			ModMain.SetCondition(conditionName, true);
 		});
 	}
 

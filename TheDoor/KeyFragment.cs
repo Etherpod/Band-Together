@@ -24,7 +24,7 @@ public class KeyFragment : OWItem
 		base.Awake();
 		_type = ItemType;
 		_animator = gameObject.GetRequiredComponent<Animator>();
-		if (_animator) ModMain.WriteMessage("animator found");
+		if (_animator) ModMain.WriteDebugMessage("animator found");
 	}
 
 	public void Reveal()

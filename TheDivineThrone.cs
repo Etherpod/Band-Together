@@ -25,7 +25,7 @@ public class TheDivineThrone : OWItemSocket
     private void OnShrubberyReSeatedUponItsHolyArborealThrone(OWItem item)
     {
         base.EnableInteraction(false);
-        ModMain.SetSavedCondition("FINISH_SHRUB_QUEST", true);
+        ModMain.SetPersistentCondition("FINISH_SHRUB_QUEST", true);
     }
 
     private void OnShrubberyRemovedFromItsHolyArborealThrone(OWItem item)

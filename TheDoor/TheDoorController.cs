@@ -11,7 +11,7 @@ public class TheDoorController : MonoBehaviour
     [SerializeField] private TheDoorKeySocket theDoorKeySocket;
     [SerializeField] private KeyFragment keyFragment;
     [SerializeField] private AmbientMusicArea capitalAmbience;
-    [SerializeField] private GameObject[] shards;
+    [SerializeField] private Transform[] shards;
 
     private Animator _animator;
     private int _nextShard = 0;
@@ -23,17 +23,17 @@ public class TheDoorController : MonoBehaviour
         theDoorKeySocket.OnKeyInserted += KeyInserted;
         ModMain.Instance.OnShardFound += () =>
         {
-            ModMain.WriteMessage($"shards: {shards}");
+            // ModMain.WriteMessage($"shards: {shards}");
             if (shards.Length <= _nextShard) return;
             
-            ModMain.WriteMessage("shard inserted");
-            shards[_nextShard].SetActive(true);
+            ModMain.WriteDebugMessage("shard inserted");
+            shards[_nextShard].localScale = Vector3.one;
             theDoorKeySocket.OnKeyFragmentPlaced(null);
             _nextShard++;
         };
         
-        ModMain.WriteMessage($"shards: {shards}");
-        shards.ForEach(shard => shard.SetActive(false));
+        // ModMain.WriteMessage($"shards: {shards}");
+        // shards.ForEach(shard => shard.localScale = Vector3.zero);
     }
 
     private void KeyInserted()

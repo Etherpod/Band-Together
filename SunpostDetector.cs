@@ -31,12 +31,12 @@ public class SunpostDetector : MonoBehaviour
 			if (!correctTime && dot > 0.999f)
 			{
 				correctTime = true;
-				DialogueConditionManager.SharedInstance.SetConditionState("SUNPOST_IN_RANGE", true);
+				ModMain.SetCondition("SUNPOST_IN_RANGE", true);
             }
 			else if (correctTime && dot <= 0.999f)
 			{
 				correctTime = false;
-                DialogueConditionManager.SharedInstance.SetConditionState("SUNPOST_IN_RANGE", false);
+                ModMain.SetCondition("SUNPOST_IN_RANGE", false);
             }
         }
 

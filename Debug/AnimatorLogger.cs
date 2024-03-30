@@ -57,6 +57,6 @@ public class AnimatorLogger : MonoBehaviour
 
 	private void WriteLog(string message)
 	{
-		ModMain.WriteMessage($"[ANIMLOG] {objectLogName} | {message}");
+		ModMain.WriteDebugMessage($"[ANIMLOG] {objectLogName} | {message}");
 	}
 }

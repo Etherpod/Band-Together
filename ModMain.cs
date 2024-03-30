@@ -49,6 +49,7 @@ public class ModMain : ModBehaviour
     private List<string> _currentSave = new();
     private List<GameObject> factsToEnable = new();
     private GameObject _planet;
+    private DebugMenu _debugMenu;
 
     private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
         .Values
@@ -112,13 +113,7 @@ public class ModMain : ModBehaviour
                     brain.OnEnterDreamWorld();
                 });
             }, 15);
-
-            ModHelper.Events.Unity.FireInNUpdates(CreateDebugMenus, 25);
         };
-    }
-
-    private void CreateDebugMenus()
-    {
     }
 
     private void OnBodyLoaded(string bodyName)
@@ -129,7 +124,7 @@ public class ModMain : ModBehaviour
 
             _planet = nhAPI.GetPlanet(bodyName);
 
-            if (IsDebugEnabled()) DebugMenu.InitMenu(_planet);
+            if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(_planet);
 
             _planet
                 .transform
@@ -146,31 +141,17 @@ public class ModMain : ModBehaviour
 
     private void InitializeConditions()
     {
-        //Loads the save or makes a new one
-        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
-        //Gets the name to use for the save dict
-        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
-        //Gets the save data for the current profile
-        List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
-        _currentSave = save;
-
-        if (GetSavedConditionList() != null)
-        {
-            foreach (string savedCondition in GetSavedConditionList())
-            {
-                WriteMessage(savedCondition);
-                if (savedCondition.IndexOf(':') == -1) continue;
-                DialogueConditionManager.SharedInstance.SetConditionState(savedCondition.Split(':').First(), savedCondition.EndsWith("True"));
-            }
-        }
+        WriteDebugMessage("init conditions");
 
         if (!PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
         {
-            foreach (ShipLogFactTriggerVolume factTrigger in _planet.GetComponentsInChildren<ShipLogFactTriggerVolume>())
-            {
-                factsToEnable.Add(factTrigger.gameObject);
-                factTrigger.gameObject.SetActive(false);
-            }
+            _planet
+                .GetComponentsInChildren<ShipLogFactTriggerVolume>()
+                .ForEach(factTrigger =>
+                {
+                    factsToEnable.Add(factTrigger.gameObject);
+                    factTrigger.gameObject.SetActive(false);
+                });
         }
 
         if (PlayerData.GetPersistentCondition("GOT_NOMAI_SHARD_A"))
@@ -202,13 +183,13 @@ public class ModMain : ModBehaviour
             _numClansConvinced++;
         }
 
-        if (GetSavedCondition("SHRUB_GIVEN_TO_NOMAI"))
+        if (GetPersistentCondition("SHRUB_GIVEN_TO_NOMAI"))
         {
             ShrubberySocketNomai socketNomai = FindObjectOfType<ShrubberySocketNomai>();
             socketNomai.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
             socketNomai.EnableInteraction(false);
         }
-        else if (GetSavedCondition("FINISH_SHRUB_QUEST"))
+        else if (GetPersistentCondition("FINISH_SHRUB_QUEST"))
         {
             TheDivineThrone socketThrone = FindObjectOfType<TheDivineThrone>();
             socketThrone.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
@@ -228,7 +209,7 @@ public class ModMain : ModBehaviour
 
     private void OnDialogueConditionChanged(string condition, bool value)
     {
-        WriteMessage($"condition: {condition}");
+        WriteDebugMessage($"condition: {condition}");
         if (factsToEnable.Count > 0 && condition == "MAIN_QUEST_START")
         {
             OnMainQuest?.Invoke();
@@ -244,93 +225,52 @@ public class ModMain : ModBehaviour
             OnShardFound?.Invoke();
             
             _numClansConvinced += 1;
-            if (_numClansConvinced == 3 && !GetSavedCondition("LAST_CLAN_TO_AGREE"))
+            if (_numClansConvinced == 3 && !GetPersistentCondition("LAST_CLAN_TO_AGREE"))
             {
-                SetSavedCondition("LAST_CLAN_TO_AGREE", true);
+                SetPersistentCondition("LAST_CLAN_TO_AGREE", true);
             }
-            else if (_numClansConvinced == 4 && !GetSavedCondition("ALL_CLANS_AGREED"))
+            else if (_numClansConvinced == 4 && !GetPersistentCondition("ALL_CLANS_AGREED"))
             {
                 Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
-                SetSavedCondition("ALL_CLANS_AGREED", true);
+                SetPersistentCondition("ALL_CLANS_AGREED", true);
             }
         }
 
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
         
-        WriteMessage($"current locs: {_groupCurrentLocation.Select(entry => $"{entry.Key} {entry.Value}").Join(", ")}");
+        WriteDebugMessage($"current locs: {_groupCurrentLocation.Select(entry => $"{entry.Key} {entry.Value}").Join(", ")}");
 
         var destination = GroupDialogueConditions[condition];
-        WriteMessage($"move condition: {destination}");
+        WriteDebugMessage($"move condition: {destination}");
         var groupsToMove = destination
             .groups
             .Where(group => _groupCurrentLocation[group] < destination.destination)
             .ToList();
-        WriteMessage($"groups to move: {groupsToMove.Join()}");
+        WriteDebugMessage($"groups to move: {groupsToMove.Join()}");
         if (groupsToMove.Count() is 0) return;
 
         foreach (var group in groupsToMove)
         {
-            WriteMessage($"moving {group} to {destination.destination}");
+            WriteDebugMessage($"moving {group} to {destination.destination}");
             OnMoveGroup?.Invoke(group, true);
             _groupCurrentLocation[group] = destination.destination;
         }
     }
 
-    public static void SetSavedCondition(string condition, bool value)
-    {
-        //Loads the save or makes a new one
-        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
-        //Gets the name to use for the save dict
-        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
-        //Gets the save data for the current profile
-        List<string> save = guy.ContainsKey(name) ? guy[name] : new List<string>();
-        // Instance.SendMessage("Length: " + save.Count);
-
-        List<string> toRemove = new();
-
-        save.RemoveAll(savedCondition => savedCondition.StartsWith(condition + ":"));
-
-        //Re-adds condition
-        save.Add(condition + ":" + value);
-        guy[name] = save;
-        Instance.ModHelper.Storage.Save(guy, "save.json");
-        Instance._currentSave = save;
-
+    public static void SetCondition(string condition, bool value) =>
         DialogueConditionManager.SharedInstance.SetConditionState(condition, value);
-    }
 
-    public static bool GetSavedCondition(string condition)
+    public static bool GetCondition(string condition) =>
+        DialogueConditionManager.SharedInstance.GetConditionState(condition);
+
+    public static void SetPersistentCondition(string condition, bool value, bool includeTransient = true)
     {
-        //WriteMessage("Condition: " + condition);
-        if (Instance._currentSave.Count == 0) { return false; }
-        string[] savedConditions = Instance._currentSave.Where(savedCondition => savedCondition.StartsWith(condition + ":")).ToArray();
-        if (savedConditions.Count() > 0)
-        {
-            //WriteMessage("Saved: " + savedConditions[0]);
-            return savedConditions[0].EndsWith("True");
-        }
-
-        return false;
+        PlayerData.SetPersistentCondition(condition, value);
+        if( includeTransient) SetCondition(condition, value);
     }
 
-    public static List<string> GetSavedConditionList()
-    {
-        if (Instance._currentSave.Count == 0) return null;
-        return Instance._currentSave;
-    }
-
-    public void ClearSavedConditions()
-    {
-        //Loads the save or makes a new one
-        Dictionary<string, List<string>> guy = Instance.ModHelper.Storage.Load<Dictionary<string, List<string>>>("save.json") ?? new();
-        //Gets the name to use for the save dict
-        var name = StandaloneProfileManager.SharedInstance?.currentProfile?.profileName ?? "xbox";
-        if (guy.ContainsKey(name))
-        {
-            guy[name].Clear();
-            Instance.ModHelper.Storage.Save(guy, "save.json");
-        }
-    }
+    public static bool GetPersistentCondition(string condition) =>
+        PlayerData.GetPersistentCondition(condition);
 
     public void OnTriggerCampfireEnd()
     {
@@ -338,8 +278,9 @@ public class ModMain : ModBehaviour
         FindObjectOfType<GameOverController>().SetupGameOverScreen(10f);
     }
 
-    public static void WriteMessage(object msg)
+    public static void WriteDebugMessage(object msg)
     {
+        if (!IsDebugEnabled()) return;
         Instance.ModHelper.Console.WriteLine(msg.ToString());
     }
 

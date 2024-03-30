@@ -38,7 +38,7 @@ public class EndingController : MonoBehaviour
 
     fire.SetInteractionEnabled(false);
     roomEntryway.OnEntry -= OnRoomEntered;
-    DialogueConditionManager.SharedInstance.SetConditionState("SEARCHED_GREAT_DOOR", true);
+    ModMain.SetCondition("SEARCHED_GREAT_DOOR", true);
   }
 
   private void OnClansMove(QuantumNPC.GroupType target, bool shouldActQuatum)
@@ -67,17 +67,17 @@ public class EndingController : MonoBehaviour
 
   private void DoorkeeperToFire()
   {
-    DialogueConditionManager.SharedInstance.SetConditionState("DOORKEEPER_TO_FIRE", true);
+    ModMain.SetCondition("DOORKEEPER_TO_FIRE", true);
   }
 
   private void NomaiToFire()
   {
-    DialogueConditionManager.SharedInstance.SetConditionState("NOMAI_TO_FIRE", true);
+    ModMain.SetCondition("NOMAI_TO_FIRE", true);
   }
 
   private void GhirdToFire()
   {
-    DialogueConditionManager.SharedInstance.SetConditionState("GHIRD_TO_FIRE", true);
+    ModMain.SetCondition("GHIRD_TO_FIRE", true);
   }
 
   private void StartPlaying()
