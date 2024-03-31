@@ -11,7 +11,6 @@ public class QuantumNPC : SocketedQuantumObject
 
     private bool _actQuantum = true;
     private InteractReceiver _conversationInteract;
-    private GameObject _conversationToEnable;
     private int _targetIndex = 0;
     private bool _waitingToTeleport = false;
 
@@ -40,10 +39,10 @@ public class QuantumNPC : SocketedQuantumObject
         ModMain.Instance.OnMainQuest += OnMainQuest;
         //targetList[_targetIndex].OnNewlyObscured += OnSocketObscured;
 
-        if (groupType != ModMain.GroupType.Captial && GetComponentInChildren<InteractReceiver>() && !PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
+        _conversationInteract = GetComponentInChildren<InteractReceiver>();
+        if (groupType != ModMain.GroupType.Captial && _conversationInteract && !PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
         {
-            _conversationToEnable = GetComponentInChildren<InteractReceiver>().gameObject;
-            _conversationToEnable.SetActive(false);
+            _conversationInteract.SetInteractionEnabled(false);
         }
 
         //ModMain.WriteDebugMessage(targetList[_targetIndex].GetVisibilityObject());
@@ -51,9 +50,9 @@ public class QuantumNPC : SocketedQuantumObject
 
     private void OnMainQuest()
     {
-        if (groupType != ModMain.GroupType.Captial && _conversationToEnable != null)
+        if (groupType != ModMain.GroupType.Captial && _conversationInteract)
         {
-            _conversationToEnable.SetActive(true);
+            _conversationInteract.SetInteractionEnabled(true);
         }
     }
 
