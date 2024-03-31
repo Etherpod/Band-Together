@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using BandTogether.TheDoor;
 using BandTogether.Util;
+using Epic.OnlineServices.Lobby;
 using UnityEngine;
 
 namespace BandTogether.Debug;
@@ -59,7 +60,12 @@ public class DebugMenu
 
 		_menuAPI.PauseMenu_MakeSimpleButton("END SCREEN", _modMenu).onClick.AddListener(() =>
 		{
-			ModMain.Instance.ModHelper.Events.Unity.FireInNUpdates(() => ModMain.Instance.OnTriggerCampfireEnd(), 120);
+			ModMain.Instance.ModHelper.Events.Unity.FireInNUpdates(() => 
+			{
+                Locator.GetPromptManager().SetPromptsVisible(false);
+                ReticleController.Hide();
+                Object.FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
+			}, 120);
 			_modMenu.EnableMenu(false);
 		});
 	}

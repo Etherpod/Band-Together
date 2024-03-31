@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using Mono.Cecil.Mdb;
 using OWML.ModHelper;
 
 namespace BandTogether;
@@ -58,5 +59,17 @@ public class MyPatchClass
                 // ModMain.WriteMessage("condition not found");
                 return false;
             });
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(DeathManager), nameof(DeathManager.FinishEscapeTimeLoopSequence))]
+    public static void CallCampfireEnd(DeathManager __instance)
+    {
+        if (!__instance._escapedTimeLoopSequenceComplete && !ModMain.Instance.inEndSequence)
+        {
+            __instance._escapedTimeLoopSequenceComplete = true;
+            ModMain.Instance.inEndSequence = true;
+            ModMain.Instance.OnTriggerCampfireEnd();
+        }
     }
 }

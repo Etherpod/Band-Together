@@ -46,6 +46,7 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
+    public bool inEndSequence = false;
 
     public delegate void ShardFoundEvent(GroupType shardGroup);
     public event ShardFoundEvent OnShardFound;
@@ -125,6 +126,7 @@ public class ModMain : ModBehaviour
             if (scene == OWScene.SolarSystem)
             {
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
+                inEndSequence = false;
             }
         };
     }
@@ -268,9 +270,6 @@ public class ModMain : ModBehaviour
 
     public void OnTriggerCampfireEnd()
     {
-        Locator.GetPromptManager().SetPromptsVisible(false);
-        ReticleController.Hide();
-        FindObjectOfType<HUDCamera>().DeactivateHUD();
         FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to\nreunite the clans and bring harmony back to the planet.";
         FindObjectOfType<GameOverController>().SetupGameOverScreen(10f);
     }
