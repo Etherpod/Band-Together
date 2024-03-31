@@ -248,7 +248,7 @@ public class ModMain : ModBehaviour
     public static void SetPersistentCondition(string condition, bool value, bool includeTransient = true)
     {
         PlayerData.SetPersistentCondition(condition, value);
-        if( includeTransient) SetCondition(condition, value);
+        if(includeTransient) SetCondition(condition, value);
     }
 
     public static bool GetPersistentCondition(string condition) =>

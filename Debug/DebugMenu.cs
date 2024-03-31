@@ -1,4 +1,6 @@
-﻿using BandTogether.Util;
+﻿using System.Linq;
+using BandTogether.TheDoor;
+using BandTogether.Util;
 using UnityEngine;
 
 namespace BandTogether.Debug;
@@ -40,6 +42,20 @@ public class DebugMenu
 
 		CreateTelepoMenu();
 		CreateConditionMenu();
+		
+		_menuAPI.PauseMenu_MakeSimpleButton("GIVE LOST SHARD", _modMenu).onClick.AddListener(() =>
+		{
+			var shard = Object
+				.FindObjectsOfType<KeyFragment>()
+				.First(fragment => fragment.name == "LostFragmentPivot")
+				.gameObject;
+			var camera = Locator.GetPlayerCamera().transform;
+			shard.transform.position = camera.position + 2*camera.forward;
+			shard.transform.rotation = camera.rotation;
+			shard.GetComponent<Animator>().SetTrigger("SkipToMove");
+			
+			_modMenu.EnableMenu(false);
+		});
 
 		_menuAPI.PauseMenu_MakeSimpleButton("END SCREEN", _modMenu).onClick.AddListener(() =>
 		{
@@ -53,22 +69,29 @@ public class DebugMenu
 		_conditionMenu = _menuAPI.PauseMenu_MakePauseListMenu("CONDITION TOOLS");
 		_menuAPI.PauseMenu_MakeMenuOpenButton("CONDITIONS", _conditionMenu, _modMenu);
 
-		AddConditionButton("SHARD // NOMAI A", "GOT_NOMAI_SHARD_A");
-		AddConditionButton("SHARD // NOMAI B", "GOT_NOMAI_SHARD_B");
-		AddConditionButton("SHARD // GHIRD A", "GOT_GHIRD_SHARD_A");
-		AddConditionButton("SHARD // GHIRD B", "GOT_GHIRD_SHARD_B");
-		AddConditionButton("DOOR // NOMAI A", "NOMAI_VILLAGE_A_TO_DOOR");
-		AddConditionButton("DOOR // NOMAI B", "NOMAI_VILLAGE_B_TO_DOOR");
-		AddConditionButton("DOOR // GHIRD A", "GHIRD_VILLAGE_A_TO_DOOR");
-		AddConditionButton("DOOR // GHIRD B", "GHIRD_VILLAGE_B_TO_DOOR");
+		AddConditionButton("SHARD // NOMAI A", "GOT_NOMAI_SHARD_A", true);
+		AddConditionButton("SHARD // NOMAI B", "GOT_NOMAI_SHARD_B", true);
+		AddConditionButton("SHARD // GHIRD A", "GOT_GHIRD_SHARD_A", true);
+		AddConditionButton("SHARD // GHIRD B", "GOT_GHIRD_SHARD_B", true);
+		AddConditionButton("DOOR // NOMAI A", "NOMAI_VILLAGE_A_TO_DOOR", true);
+		AddConditionButton("DOOR // NOMAI B", "NOMAI_VILLAGE_B_TO_DOOR", true);
+		AddConditionButton("DOOR // GHIRD A", "GHIRD_VILLAGE_A_TO_DOOR", true);
+		AddConditionButton("DOOR // GHIRD B", "GHIRD_VILLAGE_B_TO_DOOR", true);
 		AddConditionButton("CLANS LEAVE", "CLANS_LEAVE_DOOR");
 	}
 
-	private void AddConditionButton(string buttonText, string conditionName)
+	private void AddConditionButton(string buttonText, string conditionName, bool persistent = false)
 	{
 		_menuAPI.PauseMenu_MakeSimpleButton(buttonText, _conditionMenu).onClick.AddListener(() =>
 		{
-			ModMain.SetCondition(conditionName, true);
+			if (persistent)
+			{
+				ModMain.SetPersistentCondition(conditionName, true);
+			}
+			else
+			{
+				ModMain.SetCondition(conditionName, true);
+			}
 		});
 	}
 

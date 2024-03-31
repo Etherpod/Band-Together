@@ -84,21 +84,16 @@ public class EndingController : MonoBehaviour
   {
     nomaiInstruments.ForEach(instrument =>
     {
-      instrument.Play();
       instrument.volume = 0;
+      instrument.Play();
     });
     ghirdInstruments.ForEach(instrument =>
     {
-      instrument.Play();
       instrument.volume = 0;
+      instrument.Play();
     });
     
     musicAnimator.SetTrigger(Play);
-    ModMain.Instance.Invoke(nameof(ModMain.OnTriggerCampfireEnd), 40);
+    // ModMain.Instance.Invoke(nameof(ModMain.OnTriggerCampfireEnd), 40);
   }
-
-  // public void AndSoTheStoryComesToAnEnd()
-  // {
-  //   ModMain.Instance.OnTriggerCampfireEnd();
-  // }
 }
