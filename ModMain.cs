@@ -268,6 +268,9 @@ public class ModMain : ModBehaviour
 
     public void OnTriggerCampfireEnd()
     {
+        Locator.GetPromptManager().SetPromptsVisible(false);
+        ReticleController.Hide();
+        FindObjectOfType<HUDCamera>().DeactivateHUD();
         FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to\nreunite the clans and bring harmony back to the planet.";
         FindObjectOfType<GameOverController>().SetupGameOverScreen(10f);
     }
