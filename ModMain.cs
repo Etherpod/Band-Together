@@ -83,7 +83,11 @@ public class ModMain : ModBehaviour
 
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
-            if (loadScene != OWScene.SolarSystem) return;
+            if (loadScene != OWScene.SolarSystem)
+            {
+                return;
+            }
+
             ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
 
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
@@ -114,6 +118,14 @@ public class ModMain : ModBehaviour
                     brain.OnEnterDreamWorld();
                 });
             }, 15);
+        };
+
+        LoadManager.OnStartSceneLoad += (scene, loadScene) =>
+        {
+            if (scene == OWScene.SolarSystem)
+            {
+                nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
+            }
         };
     }
 
@@ -264,6 +276,11 @@ public class ModMain : ModBehaviour
     {
         if (!IsDebugEnabled()) return;
         Instance.ModHelper.Console.WriteLine(msg.ToString());
+    }
+
+    private void OnDestroy()
+    {
+        nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
     }
 
     public static bool IsDebugEnabled() => Instance._debugEnabled;
