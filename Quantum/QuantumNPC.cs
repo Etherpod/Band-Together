@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
-using System;
-using System.Linq;
-using BandTogether.Quantum;
 using BandTogether.Util;
 using UnityEngine;
 using static BandTogether.Quantum.QuantumGroup;
 
-namespace BandTogether;
+namespace BandTogether.Quantum;
 
 public class QuantumNPC : SocketedQuantumObject
 {

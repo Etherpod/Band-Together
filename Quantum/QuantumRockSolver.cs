@@ -1,8 +1,7 @@
-﻿using System;
-using BandTogether.TheDoor;
+﻿using BandTogether.TheDoor;
 using UnityEngine;
 
-namespace BandTogether;
+namespace BandTogether.Quantum;
 public class QuantumRockSolver : MonoBehaviour
 {
     private static readonly int Activated = Animator.StringToHash("Activated");
