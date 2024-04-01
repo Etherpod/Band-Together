@@ -79,7 +79,7 @@ public class QuantumNPC : SocketedQuantumObject
 	{
 		if (!_waitingToTeleport) return true;
 
-		ModMain.WriteDebugMessage($"{name} trying to teleport to: {_teleportTarget}");
+		// ModMain.WriteDebugMessage($"{name} trying to teleport to: {_teleportTarget}");
 		_waitingToTeleport = false;
 
 		var occupiedSocket = _occupiedSocket;
@@ -91,10 +91,10 @@ public class QuantumNPC : SocketedQuantumObject
 			? CheckVisibilityInstantly()
 			: CheckPointInside(Locator.GetPlayerCamera().transform.position);
 
-		ModMain.WriteDebugMessage($"{name}'s {_teleportTarget} target visibility: {isVisible}");
+		// ModMain.WriteDebugMessage($"{name}'s {_teleportTarget} target visibility: {isVisible}");
 		if (!isVisible) return true;
 
-		ModMain.WriteDebugMessage($"{name} retrying teleport");
+		// ModMain.WriteDebugMessage($"{name} retrying teleport");
 		MoveToSocket(occupiedSocket);
 		_waitingToTeleport = true;
 		return false;
