@@ -68,13 +68,14 @@ public class QuantumNPC : SocketedQuantumObject
 			return;
 		}
 
-		ModMain.WriteDebugMessage($"moving {name} to {targetType}");
+		ModMain.WriteDebugMessage($"moving {name} to {targetType} [locked:{IsLocked()}]");
 
 		if (_conversationInteract) _conversationInteract.SetInteractionEnabled(false);
 
 		_teleportTarget = targetType;
 		_ignoreVisibility = ignoreVisibility;
 		_waitingToTeleport = true;
+		_wasLocked = true;
 	}
 
 	public override bool ChangeQuantumState(bool skipInstantVisibilityCheck)
