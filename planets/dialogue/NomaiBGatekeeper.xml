@@ -61,12 +61,11 @@
   
   <DialogueNode>
     <Name>Init_3</Name>
-
     <EntryCondition>START_COCKPIT_QUEST</EntryCondition>
     <EntryCondition>GOT_COCKPIT</EntryCondition>
     <Dialogue>
       <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
-      <Page>You have been granted an audience with our leader. Allow me to open the doors.</Page>
+      <Page>You have been granted an audience with the Leader of Exploration. Allow me to open the doors.</Page>
     </Dialogue>
     <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
@@ -185,18 +184,30 @@
 
     <DialogueOptionsList>
       <DialogueOption>
+        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
         <Text>Consider it done.</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
         <Text>I'll get you one in no time!</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
         <Text>I'll see what I can do.</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>GOT_COCKPIT</RequiredPersistentCondition>
+        <Text>Already got one.</Text>
+        <DialogueTarget>Cockpit_End_1</DialogueTarget>
+      </DialogueOption>
     </DialogueOptionsList>
+    
+    <RevealFacts>
+      <FactID>NOMAI_VILLAGE_B_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -204,10 +215,60 @@
     <Dialogue>
       <Page>Excellent. Goodbye, and good luck.</Page>
     </Dialogue>
-    <RevealFacts>
-      <FactID>NOMAI_VILLAGE_B_QUEST</FactID>
-    </RevealFacts>
     <SetPersistentCondition>START_COCKPIT_QUEST</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_End_1</Name>
+    <Dialogue>
+      <Page>Oh, my. I had not even noticed that there.</Page>
+      <Page>How did you know we were going to need a cockpit?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I can see into the future.</Text>
+        <DialogueTarget>Cockpit_End_10</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'm from a parallel universe.</Text>
+        <DialogueTarget>Cockpit_End_11</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Lucky guess.</Text>
+        <DialogueTarget>Cockpit_End_12</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_End_10</Name>
+    <Dialogue>
+      <Page>That is impressive! I was not aware your species was capable of such things.</Page>
+      <Page>You must have already known that I was planning on opening this door for you, then.</Page>
+      <Page>The Leader of Exploration welcomes you to his halls.</Page>
+    </Dialogue>
+    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_End_11</Name>
+    <Dialogue>
+      <Page>A parallel universe, you say? I must say, I am reluctant to believe you.</Page>
+      <Page>In the case that you are, I am sure our leader will be interested in meeting one such as you.</Page>
+      <Page>The Leader of Exploration welcomes you to his halls.</Page>
+    </Dialogue>
+    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Cockpit_End_12</Name>
+    <Dialogue>
+      <Page>An impressive guess indeed. Perhaps I will hire you to make estimations for me!</Page>
+      <Page>I believe our leader wishes to see you now.</Page>
+      <Page>The Leader of Exploration welcomes you to his halls.</Page>
+    </Dialogue>
+    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>

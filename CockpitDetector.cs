@@ -35,8 +35,8 @@ public class CockpitDetector : MonoBehaviour
 
 	private void OnEntry(GameObject hitObj)
 	{
-		if (hitObj.transform.parent.name == "Module_Cockpit_Body" &&
-		    !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
+		if (hitObj.transform.parent.name == "Module_Cockpit_Body" 
+			&& !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
 		{
 			ModMain.SetPersistentCondition("GOT_COCKPIT", true);
 		}
@@ -44,9 +44,10 @@ public class CockpitDetector : MonoBehaviour
 
 	private void OnExit(GameObject hitObj)
 	{
-		if (hitObj.transform.parent.name == "Module_Cockpit_Body")
+		if (hitObj.transform.parent.name == "Module_Cockpit_Body"
+            && !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
 		{
-			ModMain.SetPersistentCondition("GOT_COCKPIT", true);
+			ModMain.SetPersistentCondition("GOT_COCKPIT", false);
 		}
 	}
 }
