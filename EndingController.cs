@@ -1,4 +1,5 @@
 ﻿using System;
+using BandTogether.Quantum;
 using BandTogether.TheDoor;
 using BandTogether.Util;
 using UnityEngine;
@@ -16,7 +17,6 @@ public class EndingController : MonoBehaviour
 
   private static readonly int Play = Animator.StringToHash("Play");
 
-  private int _moves = 0;
   private bool _fireLit = false;
 
   private void Awake()
@@ -41,12 +41,9 @@ public class EndingController : MonoBehaviour
     ModMain.SetCondition("SEARCHED_GREAT_DOOR", true);
   }
 
-  private void OnClansMove(ModMain.GroupType target, bool shouldActQuatum)
+  private void OnClansMove(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility)
   {
-    if (target != ModMain.GroupType.NomaiA) return;
-    
-    _moves++;
-    if (_moves != 2) return;
+    if (targetType != QuantumTarget.Away) return;
 
     fire.SetInteractionEnabled(true);
   }

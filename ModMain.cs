@@ -1,54 +1,51 @@
-using System;
-using OWML.Common;
-using OWML.ModHelper;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using static BandTogether.QuantumNPC;
 using System.Reflection;
 using BandTogether.Debug;
+using BandTogether.Quantum;
 using BandTogether.Util;
 using HarmonyLib;
+using OWML.Common;
+using OWML.ModHelper;
 using OWML.Utils;
+using UnityEngine;
+using static BandTogether.Quantum.QuantumGroup;
+using static BandTogether.Quantum.QuantumTarget;
 
 namespace BandTogether;
 public class ModMain : ModBehaviour
 {
-    private static readonly IDictionary<string, (GroupType[] groups, GroupDestination destination)> GroupDialogueConditions =
-        new Dictionary<string, (GroupType[], GroupDestination)>
+    private static readonly IDictionary<string, (QuantumGroup[] groups, QuantumTarget destination)> GroupDialogueConditions =
+        new Dictionary<string, (QuantumGroup[], QuantumTarget)>
         {
-            { "NOMAI_VILLAGE_A_TO_DOOR", (new[] { GroupType.NomaiA }, GroupDestination.Door) },
-            { "NOMAI_VILLAGE_B_TO_DOOR", (new[] { GroupType.NomaiB }, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GroupType.GhirdA }, GroupDestination.Door) },
-            { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GroupType.GhirdB }, GroupDestination.Door) },
+            { "NOMAI_VILLAGE_A_TO_DOOR", (new[] { NomaiA }, Door) },
+            { "NOMAI_VILLAGE_B_TO_DOOR", (new[] { NomaiB }, Door) },
+            { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GhirdA }, Door) },
+            { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GhirdB }, Door) },
 
-            {
-                "CLANS_LEAVE_DOOR",
-                (new[] { GroupType.NomaiA, GroupType.NomaiB, GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Away)
-            },
+            { "CLANS_LEAVE_DOOR", (new[] { NomaiA, NomaiB, GhirdA, GhirdB }, Away) },
 
-            { "DOORKEEPER_TO_FIRE", (new[] { GroupType.Captial }, GroupDestination.Fire) },
-            { "NOMAI_TO_FIRE", (new[] { GroupType.NomaiA, GroupType.NomaiB }, GroupDestination.Fire) },
-            { "GHIRD_TO_FIRE", (new[] { GroupType.GhirdA, GroupType.GhirdB }, GroupDestination.Fire) },
+            { "DOORKEEPER_TO_FIRE", (new[] { Captial }, Fire) },
+            { "NOMAI_TO_FIRE", (new[] { NomaiA, NomaiB }, Fire) },
+            { "GHIRD_TO_FIRE", (new[] { GhirdA, GhirdB }, Fire) },
         };
 
-    private static readonly IDictionary<string, GroupType> ShardConditions = new Dictionary<string, GroupType>
+    private static readonly IDictionary<string, QuantumGroup> ShardConditions = new Dictionary<string, QuantumGroup>
     {
-        { "GOT_NOMAI_SHARD_A", GroupType.NomaiA },
-        { "GOT_NOMAI_SHARD_B", GroupType.NomaiB },
-        { "GOT_GHIRD_SHARD_A", GroupType.GhirdA },
-        { "GOT_GHIRD_SHARD_B", GroupType.GhirdB },
+        { "GOT_NOMAI_SHARD_A", NomaiA },
+        { "GOT_NOMAI_SHARD_B", NomaiB },
+        { "GOT_GHIRD_SHARD_A", GhirdA },
+        { "GOT_GHIRD_SHARD_B", GhirdB },
     };
 
     public static ModMain Instance;
-    public delegate void MoveNpcEvent(GroupType target, bool shouldActQuatum);
+    public delegate void MoveNpcEvent(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility);
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
     public bool inEndSequence = false;
 
-    public delegate void ShardFoundEvent(GroupType shardGroup);
+    public delegate void ShardFoundEvent(QuantumGroup shardGroup);
     public event ShardFoundEvent OnShardFound;
         
     public INewHorizons nhAPI;
@@ -60,11 +57,11 @@ public class ModMain : ModBehaviour
     private GameObject _planet;
     private DebugMenu _debugMenu;
 
-    private readonly IDictionary<GroupType, GroupDestination> _groupCurrentLocation = GroupDialogueConditions
+    private readonly IDictionary<QuantumGroup, QuantumTarget> _groupCurrentLocation = GroupDialogueConditions
         .Values
         .SelectMany(value => value.groups)
         .Distinct()
-        .ToDictionary(key => key, _ => GroupDestination.Start);
+        .ToDictionary(key => key, _ => QuantumTarget.Start);
 
     private void Awake()
     {
@@ -173,9 +170,9 @@ public class ModMain : ModBehaviour
             .Where(condition => GetPersistentCondition(condition.Key))
             .ForEach(condition =>
             {
-                OnMoveGroup?.Invoke(condition.Value, false);
+                OnMoveGroup?.Invoke(condition.Value, Door, true);
                 OnShardFound?.Invoke(condition.Value);
-                _groupCurrentLocation[condition.Value] = GroupDestination.Door;
+                _groupCurrentLocation[condition.Value] = Door;
                 _numClansConvinced++;
             });
 
@@ -233,24 +230,11 @@ public class ModMain : ModBehaviour
         }
 
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
-        
-        WriteDebugMessage($"current locs: {_groupCurrentLocation.Select(entry => $"{entry.Key} {entry.Value}").Join(", ")}");
 
         var destination = GroupDialogueConditions[condition];
         WriteDebugMessage($"move condition: {destination}");
-        var groupsToMove = destination
-            .groups
-            .Where(group => _groupCurrentLocation[group] < destination.destination)
-            .ToList();
-        WriteDebugMessage($"groups to move: {groupsToMove.Join()}");
-        if (groupsToMove.Count() is 0) return;
 
-        foreach (var group in groupsToMove)
-        {
-            WriteDebugMessage($"moving {group} to {destination.destination}");
-            OnMoveGroup?.Invoke(group, true);
-            _groupCurrentLocation[group] = destination.destination;
-        }
+        destination.groups.ForEach(group => OnMoveGroup?.Invoke(group, destination.destination, false));
     }
 
     public static void SetCondition(string condition, bool value) =>
@@ -286,22 +270,5 @@ public class ModMain : ModBehaviour
     }
 
     public static bool IsDebugEnabled() => Instance._debugEnabled;
-
-    private enum GroupDestination
-    {
-        Start,
-        Door,
-        Away,
-        Fire,
-    }
-
-    public enum GroupType
-    {
-        NomaiA,
-        NomaiB,
-        GhirdA,
-        GhirdB,
-        Captial
-    }
 }
 

@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BandTogether.Quantum;
 using BandTogether.Util;
 using UnityEngine;
+using static BandTogether.Quantum.QuantumGroup;
 
 namespace BandTogether.TheDoor;
 
 public class TheDoorController : MonoBehaviour
 {
-    private static readonly IDictionary<ModMain.GroupType, int> ClanShards =
-        new Dictionary<ModMain.GroupType, int>
+    private static readonly IDictionary<QuantumGroup, int> ClanShards =
+        new Dictionary<QuantumGroup, int>
         {
-            { ModMain.GroupType.NomaiA, 0 },
-            { ModMain.GroupType.NomaiB, 1 },
-            { ModMain.GroupType.GhirdA, 2 },
-            { ModMain.GroupType.GhirdB, 3 },
+            { NomaiA, 0 },
+            { NomaiB, 1 },
+            { GhirdA, 2 },
+            { GhirdB, 3 },
         };
     private static readonly int Open = Animator.StringToHash("Open");
 
@@ -23,7 +25,7 @@ public class TheDoorController : MonoBehaviour
     [SerializeField] private AmbientMusicArea capitalAmbience;
     [SerializeField] private Transform[] shards;
 
-    private IDictionary<ModMain.GroupType, bool> _insertedShards =
+    private readonly IDictionary<QuantumGroup, bool> _insertedShards =
         ClanShards
             .Keys
             .SelectPair(clan => false)
@@ -49,7 +51,7 @@ public class TheDoorController : MonoBehaviour
         ModMain.Instance.OnShardFound -= OnShardFound;
     }
 
-    private void OnShardFound(ModMain.GroupType clan)
+    private void OnShardFound(QuantumGroup clan)
     {
         if (_insertedShards[clan])
         {
@@ -58,11 +60,14 @@ public class TheDoorController : MonoBehaviour
         }
         
         ModMain.WriteDebugMessage($"shard inserted for: {clan}");
+        
         var clanShard = ClanShards[clan];
         ModMain.WriteDebugMessage($"clanShard: {clanShard}");
+        
         shards[clanShard].localScale = Vector3.one;
-        _insertedShards[clan] = true;
         theDoorKeySocket.OnKeyFragmentPlaced(null);
+        
+        _insertedShards[clan] = true;
     }
 
     private void KeyInserted()
