@@ -23,10 +23,18 @@ public class TheDoorController : MonoBehaviour
     [SerializeField] private AmbientMusicArea capitalAmbience;
     [SerializeField] private Transform[] shards;
 
+    private IDictionary<ModMain.GroupType, bool> _insertedShards =
+        ClanShards
+            .Keys
+            .SelectPair(clan => false)
+            .ToDict();
+    
     private Animator _animator;
 
     private void Awake()
     {
+        if (shards.Length < 4) throw new Exception($"4 shards required but {shards.Length} found.");
+        
         _animator = gameObject.GetRequiredComponent<Animator>();
 
         theDoorKeySocket.OnKeyInserted += KeyInserted;
@@ -43,8 +51,17 @@ public class TheDoorController : MonoBehaviour
 
     private void OnShardFound(ModMain.GroupType clan)
     {
+        if (_insertedShards[clan])
+        {
+            ModMain.WriteDebugMessage($"shard was already inserted for: {clan}");
+            return;
+        }
+        
         ModMain.WriteDebugMessage($"shard inserted for: {clan}");
-        shards[ClanShards[clan]].localScale = Vector3.one;
+        var clanShard = ClanShards[clan];
+        ModMain.WriteDebugMessage($"clanShard: {clanShard}");
+        shards[clanShard].localScale = Vector3.one;
+        _insertedShards[clan] = true;
         theDoorKeySocket.OnKeyFragmentPlaced(null);
     }
 
