@@ -20,14 +20,16 @@ public class TheDoorKeySocket : OWItemSocket
         _completionSfx = GetComponentInChildren<AudioSource>();
         _disabledPromptDisplay = GetComponentInChildren<KeySocketPromptDisplay>();
         
-        OnSocketableDonePlacing += OnKeyFragmentPlaced;
+        OnSocketableDonePlacing += OnKeyFragmentDonePlacing;
+        OnSocketablePlaced += OnKeyFragmentPlaced;
         
         EnableInteraction(false);
     }
 
     private void OnDestroy()
     {
-        OnSocketableDonePlacing -= OnKeyFragmentPlaced;
+        OnSocketableDonePlacing -= OnKeyFragmentDonePlacing;
+        OnSocketablePlaced -= OnKeyFragmentPlaced;
     }
 
     public override void EnableInteraction(bool value)
@@ -38,8 +40,14 @@ public class TheDoorKeySocket : OWItemSocket
 
     public void OnKeyFragmentPlaced(OWItem socketable)
     {
+        // _numInsertedFragments won't have been incremented yet so check against one less num fragments
+        if (numKeyFragments - 1 <= _numInsertedFragments) EnableInteraction(false);
+    }
+
+    public void OnKeyFragmentDonePlacing(OWItem socketable)
+    {
         _numInsertedFragments += 1;
-        if (numKeyFragments - 1 <= _numInsertedFragments) EnableInteraction(true);
+        if (_numInsertedFragments == numKeyFragments - 1) EnableInteraction(true);
         if (_numInsertedFragments < numKeyFragments) return;
         
         ModMain.WriteDebugMessage("key complete");

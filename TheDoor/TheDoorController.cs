@@ -65,7 +65,7 @@ public class TheDoorController : MonoBehaviour
         ModMain.WriteDebugMessage($"clanShard: {clanShard}");
         
         shards[clanShard].localScale = Vector3.one;
-        theDoorKeySocket.OnKeyFragmentPlaced(null);
+        theDoorKeySocket.OnKeyFragmentDonePlacing(null);
         
         _insertedShards[clan] = true;
     }
