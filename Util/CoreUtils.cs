@@ -43,8 +43,17 @@ public static class CoreUtils
 	public static IEnumerable<(T, U)> SelectPair<T, U>(this IEnumerable<T> source, Func<T, U> transform) =>
 		source.Select(element => (element, transform(element)));
 
-	public static IEnumerable<(U, T)> Flip<T, U>(this IEnumerable<(T first, U second)> source) =>
+	public static IEnumerable<(U first, T second)> Flip<T, U>(this IEnumerable<(T first, U second)> source) =>
 		source.Select(pair => (pair.second, pair.first));
+
+	public static IEnumerable<(K key, V value)> ToPairs<K, V>(this IEnumerable<KeyValuePair<K, V>> source) =>
+		source.Select(kvp => (kvp.Key, kvp.Value));
+
+	public static IDictionary<K, V> ToDict<K, V>(this IEnumerable<(K k, V v)> source) =>
+		source
+			.GroupBy(entry => entry.k)
+			.Select(group => (k: group.Key, v: group.Last().v))
+			.ToDictionary(entry => entry.k, entry => entry.v);
 
 	#endregion
 

@@ -1,158 +1,104 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
+using BandTogether.Quantum;
+using BandTogether.Util;
 using UnityEngine;
+using static BandTogether.Quantum.QuantumGroup;
 
 namespace BandTogether;
 
 public class QuantumNPC : SocketedQuantumObject
 {
-    [SerializeField] private QuantumSocket[] targetList;
-    [SerializeField] private ModMain.GroupType groupType;
+	[SerializeField] private QuantumGroup quantumGroup = Captial;
+	[SerializeField] private QuantumNPCSocket[] targetSockets;
 
-    private bool _actQuantum = true;
-    private InteractReceiver _conversationInteract;
-    private int _targetIndex = 0;
-    private bool _waitingToTeleport = false;
+	private IDictionary<QuantumTarget, QuantumNPCSocket> _targets = null;
 
-    public override void Start()
-    {
-        if (this._newlyObscuredSocketProbability > 0f)
-        {
-            for (int i = 0; i < this._socketList.Count; i++)
-            {
-                ModMain.WriteDebugMessage("Testing socket: " + _socketList[i].name);
-                if (this._socketList[i].GetVisibilityObject() != null)
-                {
-                    ModMain.WriteDebugMessage("Visiblity object: " + _socketList[i].name);
-                    this._socketList[i].OnNewlyObscured += this.OnSocketObscured;
-                }
-            }
-        }
-        if (this._alignWithGravity)
-        {
-            this._gravityVolume = base.GetComponentInParent<OWRigidbody>().GetAttachedGravityVolume();
-        }
-        base.Start();
+	private InteractReceiver _conversationInteract;
+	private QuantumTarget _teleportTarget = QuantumTarget.Start;
+	private bool _waitingToTeleport = false;
+	private bool _ignoreVisibility = false;
 
-        // ModMain.Instance.ModHelper.Console.WriteLine($"{groupType} awakened");
-        ModMain.Instance.OnMoveGroup += OnMoveGroup;
-        ModMain.Instance.OnMainQuest += OnMainQuest;
-        //targetList[_targetIndex].OnNewlyObscured += OnSocketObscured;
+	public override void Awake()
+	{
+		base.Awake();
 
-        _conversationInteract = GetComponentInChildren<InteractReceiver>();
-        if (groupType != ModMain.GroupType.Captial && _conversationInteract && !PlayerData.GetPersistentCondition("MAIN_QUEST_START"))
-        {
-            _conversationInteract.SetInteractionEnabled(false);
-        }
+		ModMain.Instance.OnMoveGroup += OnMoveGroup;
+		ModMain.Instance.OnMainQuest += OnMainQuest;
 
-        //ModMain.WriteDebugMessage(targetList[_targetIndex].GetVisibilityObject());
-    }
+		_targets = targetSockets
+			.SelectPair(socket => socket.targetType)
+			.Flip()
+			.ToDict();
+	}
 
-    private void OnMainQuest()
-    {
-        if (groupType != ModMain.GroupType.Captial && _conversationInteract)
-        {
-            _conversationInteract.SetInteractionEnabled(true);
-        }
-    }
+	public override void OnDestroy()
+	{
+		base.OnDestroy();
 
-    private void OnMoveGroup(ModMain.GroupType targetGroup, bool shouldActQuantum)
-    {
-        if (targetGroup != groupType) return;
+		ModMain.Instance.OnMoveGroup -= OnMoveGroup;
+		ModMain.Instance.OnMainQuest -= OnMainQuest;
+	}
 
-        if (_conversationInteract) _conversationInteract.SetInteractionEnabled(false);
+	public override void Start()
+	{
+		base.Start();
 
-        _actQuantum = shouldActQuantum;
-        _waitingToTeleport = true;
-    }
+		_conversationInteract = GetComponentInChildren<InteractReceiver>();
+		if (quantumGroup != Captial && _conversationInteract && !ModMain.GetPersistentCondition("MAIN_QUEST_START"))
+		{
+			_conversationInteract.SetInteractionEnabled(false);
+		}
+	}
 
-    public override void Update()
-    {
-        base.Update();
-        if (targetList[_targetIndex].GetVisibilityObject() != null && targetList[_targetIndex].GetVisibilityObject().IsVisible())
-        {
-            ModMain.WriteDebugMessage("Socket in view: " + targetList[_targetIndex].name);
-        }
-    }
+	private void OnMainQuest()
+	{
+		if (quantumGroup != Captial && _conversationInteract)
+			_conversationInteract.SetInteractionEnabled(true);
+	}
 
-    //Just getting rid of the error logs when there are no sockets (nothing actually breaks)
-    public override bool ChangeQuantumState(bool skipInstantVisibilityCheck)
-    {
-        if (!_waitingToTeleport) { return false; }
+	private void OnMoveGroup(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility)
+	{
+		if (targetGroup != quantumGroup) return;
 
-        _waitingToTeleport = false;
+		if (!_targets.ContainsKey(targetType))
+		{
+			ModMain.WriteDebugMessage($"{name} from group {quantumGroup} does not have a target of type {targetType}");
+			return;
+		}
 
-        for (int i = 0; i < this._childSockets.Count; i++)
-        {
-            if (this._childSockets[i].IsOccupied())
-            {
-                return false;
-            }
-        }
-        if (this._socketList.Count < 1)
-        {
-            return false;
-        }
-        List<QuantumSocket> list = new List<QuantumSocket>();
-        for (int j = 0; j < this._socketList.Count; j++)
-        {
-            if (!this._socketList[j].IsOccupied() && this._socketList[j].IsActive())
-            {
-                list.Add(this._socketList[j]);
-            }
-        }
-        if (list.Count == 0)
-        {
-            return false;
-        }
-        if (this._recentlyObscuredSocket != null)
-        {
-            this.MoveToSocket(this._recentlyObscuredSocket);
-            this._recentlyObscuredSocket = null;
-            return true;
-        }
-        QuantumSocket occupiedSocket = this._occupiedSocket;
-        for (int k = 0; k < 20; k++)
-        {
-            this.MoveToSocket(list[_targetIndex]);
-            if (skipInstantVisibilityCheck)
-            {
-                return true;
-            }
-            bool flag;
-            if (this.IsPlayerEntangled())
-            {
-                flag = this.CheckIllumination();
-            }
-            else
-            {
-                flag = (this.CheckIllumination() ? base.CheckVisibilityInstantly() : base.CheckPointInside(Locator.GetPlayerCamera().transform.position));
-            }
-            if (!flag)
-            {
-                return true;
-            }
-            list.RemoveAt(_targetIndex);
-            _targetIndex++;
-            if (_targetIndex >= targetList.Length)
-            {
-                _targetIndex = 0;
-            }
-            if (list.Count == 0)
-            {
-                break;
-            }
-        }
-        this.MoveToSocket(occupiedSocket);
-        return false;
-    }
+		ModMain.WriteDebugMessage($"moving {name} to {targetType}");
 
-    public override void OnDestroy()
-    {
-        base.OnDestroy();
-        ModMain.Instance.OnMoveGroup -= OnMoveGroup;
-        ModMain.Instance.OnMainQuest -= OnMainQuest;
-        //targetList[_targetIndex].OnNewlyObscured -= OnSocketObscured;
-    }
+		if (_conversationInteract) _conversationInteract.SetInteractionEnabled(false);
+
+		_teleportTarget = targetType;
+		_ignoreVisibility = ignoreVisibility;
+		_waitingToTeleport = true;
+	}
+
+	public override bool ChangeQuantumState(bool skipInstantVisibilityCheck)
+	{
+		if (!_waitingToTeleport) return true;
+
+		ModMain.WriteDebugMessage($"{name} trying to teleport to: {_teleportTarget}");
+		_waitingToTeleport = false;
+
+		var occupiedSocket = _occupiedSocket;
+
+		MoveToSocket(_targets[_teleportTarget]);
+		if (_ignoreVisibility || skipInstantVisibilityCheck) return true;
+
+		var isVisible = CheckIllumination()
+			? CheckVisibilityInstantly()
+			: CheckPointInside(Locator.GetPlayerCamera().transform.position);
+
+		ModMain.WriteDebugMessage($"{name}'s {_teleportTarget} target visibility: {isVisible}");
+		if (!isVisible) return true;
+
+		ModMain.WriteDebugMessage($"{name} retrying teleport");
+		MoveToSocket(occupiedSocket);
+		_waitingToTeleport = true;
+		return false;
+	}
 }
-

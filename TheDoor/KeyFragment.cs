@@ -17,7 +17,7 @@ public class KeyFragment : OWItem
 	private Animator _animator = null;
 	private bool _animating = false;
 
-	public override string GetDisplayName() => "Key Fragment";
+	public override string GetDisplayName() => "The Lost Shard";
 
 	public override void Awake()
 	{
