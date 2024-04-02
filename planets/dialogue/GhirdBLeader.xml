@@ -20,7 +20,7 @@
     </Dialogue>
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>ASKED_SHRUB_IDENTIFY</CancelledPersistentCondition>
+        <CancelledCondition>ASKED_SHRUB_IDENTIFY</CancelledCondition>
         <Text>What's the Sacred Shrubbery?</Text>
         <DialogueTarget>Shrub_Identify_0</DialogueTarget>
       </DialogueOption>
@@ -29,7 +29,7 @@
         <DialogueTarget>Shrub_Lost_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>ASKED_SHRUB_EXPLAIN</CancelledPersistentCondition>
+        <CancelledCondition>ASKED_SHRUB_EXPLAIN</CancelledCondition>
         <Text>What's so important about this shrubbery?</Text>
         <DialogueTarget>Shrub_Explain_0</DialogueTarget>
       </DialogueOption>
@@ -42,7 +42,7 @@
       <Page>The Sacred Shrubbery is our almighty angelic guide. It is the creator of everything on this planet. We owe our existence to It.</Page>
       <Page>And It has been lost. We may never find It again.</Page>
     </Dialogue>
-    <SetPersistentCondition>ASKED_SHRUB_IDENTIFY</SetPersistentCondition>
+    <SetCondition>ASKED_SHRUB_IDENTIFY</SetCondition>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
@@ -106,7 +106,7 @@
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetPersistentCondition>ASKED_SHRUB_EXPLAIN</SetPersistentCondition>
+    <SetCondition>ASKED_SHRUB_EXPLAIN</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
