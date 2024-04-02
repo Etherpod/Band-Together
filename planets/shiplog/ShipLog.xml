@@ -115,7 +115,7 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_ELEVATOR</ID>
-      <Text>I found a strange house on the southern side of the planet. The door leading inside is locked.</Text>
+      <Text>I found a strange house that belongs to the Followers of Worship. The door leading inside is locked.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -130,7 +130,7 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_B_QUEST</ID>
-      <Text>One of the Ghirds said I had to find the Sacred Shrubbery to see their leader. They said it was on one of the islands next to theirs, but they weren't sure which one it was.</Text>
+      <Text>The leader of the Followers of Worship said that for them to help me I had to find the Sacred Shrubbery. They said it was on one of the islands next to theirs, but they weren't sure which one it was.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -164,7 +164,7 @@
 
     <ExploreFact>
       <ID>GHIRD_VILLAGE_IDIOT</ID>
-      <Text>I found a strange pole on the island next to the village.</Text>
+      <Text>I found a strange pole on the island next to the village. A Ghird told me it had something to do with the code.</Text>
     </ExploreFact>
 
     <ExploreFact>

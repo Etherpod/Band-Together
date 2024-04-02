@@ -3,8 +3,52 @@
   <NameField>Gatekeeper</NameField>
 
   <DialogueNode>
-    <Name>Init_0</Name>
+    <Name>Greeting</Name>
     <EntryCondition>DEFAULT</EntryCondition>
+    <Dialogue>
+      <Page>Greeings. I guard the entrance to this building.</Page>
+    </Dialogue>
+    <DialogueTarget>Init_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>First_Try_0</Name>
+    <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
+    <Dialogue>
+      <Page>Greetings. I have not seen your kind around here.</Page>
+      <Page>What is more intriguing than your unexpected arrival is how you knew the secret code.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What secret code?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Of course I know it.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>First_Try_00</Name>
+    <Dialogue>
+      <Page>You do not know of it?</Page>
+      <Page>It must have been pure chance that you arrived at this moment, then.</Page>
+      <Page>Return once you have figured out the code.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>First_Try_01</Name>
+    <Dialogue>
+      <Page>Very well. Welcome to the hall of the Followers of Logic.</Page>
+    </Dialogue>
+    <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
+  </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
       <Page>Who wishes to enter?</Page>
     </Dialogue>
@@ -23,9 +67,7 @@
         <DialogueTarget>Init_02</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
-    <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
-    </RevealFacts>
+    <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -35,6 +77,9 @@
       <Page>Only those who know the secret code are granted passage.</Page>
       <Page>Come back at the correct time.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -43,6 +88,9 @@
       <Page>Then surely you must know of the secret code?</Page>
       <Page>Come back at the correct time.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -82,6 +130,9 @@
     <Dialogue>
       <Page>Perfect. Return at the correct time.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -95,8 +146,9 @@
   <DialogueNode>
     <Name>Entry_0</Name>
     <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
+    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
-      <Page>I see you have figured out the code.</Page>
+      <Page>I see you have figured out the code. I expected you to take longer in solving it.</Page>
       <Page>Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
     <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
