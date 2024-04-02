@@ -377,10 +377,45 @@
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Missing_Clans_0</Name>
+    <Name>Main_Quest_Help_0</Name>
     <EntryCondition>MAIN_QUEST_START</EntryCondition>
     <Dialogue>
-      <Page>I don't believe all of the clans are present. We need all of the shards to open the door.</Page>
+      <Page>Was there something you needed?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>What am I supposed to do again?</Text>
+        <DialogueTarget>Main_Quest_Help_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Main_Quest_Help_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Nope.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Main_Quest_Help_00</Name>
+    <Dialogue>
+      <Page>We need to convince each of the four clans on this planet to contribute their piece of the key.</Page>
+      <Page>Once we have the four shards from each clan, we need to find the long lost Fifth Shard.</Page>
+      <Page>Collect information on the Fifth Shard from each clan you visit. I believe they each hold valuable information on it.</Page>
+      <Page>Good luck, traveler.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Main_Quest_Help_01</Name>
+    <Dialogue>
+      <Page>I tend to avoid dwelling on what lies behind those doors.</Page>
+      <Page>While the secret held by those doors is certainly intriguing, I hold more anticipation for the reunion of the clans.</Page>
+      <Page>It has been many years since we were together. Too many. To see all of them again...</Page>
+      <Page>I am sorry- What was I saying?</Page>
+      <Page>Ah, yes. Good luck on your travels.</Page>
     </Dialogue>
   </DialogueNode>
 
@@ -397,7 +432,7 @@
     <EntryCondition>FIFTH_SHARD</EntryCondition>
     <Dialogue>
       <Page>So, this is it.</Page>
-      <Page>After all these centuries, we are finally about to open the Great Door.</Page>
+      <Page>After all these centuries, the clans are back together, joined in the single mission to open the Great Door.</Page>
       <Page>I wonder what secrets lie within?</Page>
     </Dialogue>
   </DialogueNode>
@@ -411,13 +446,20 @@
 
     <DialogueOptionsList>
       <DialogueOption>
+        <Text>Let me keep searching.</Text>
+      </DialogueOption>
+      <DialogueOption>
         <Text>There's... nothing.</Text>
         <DialogueTarget>Opened_Door_01</DialogueTarget>
       </DialogueOption>
-      <DialogueOption>
-        <Text>Let me keep searching.</Text>
-      </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Opened_Door_00</Name>
+    <Dialogue>
+      <Page>There must be something in there. We could not have gone through all of this for nothing.</Page>
+    </Dialogue>
   </DialogueNode>
 
   <DialogueNode>
@@ -425,10 +467,51 @@
     <Dialogue>
       <Page>Nothing? No wealth? Power? Technology?</Page>
       <Page>There's nothing in there?</Page>
-      <Page>And to think, after all these years, we had finally brought all the clans back together, just for there to be nothing behind the door.</Page>
+      <Page>And to think... after all these years, we had finally brought all the clans back together, just for there to be nothing behind the door.</Page>
+      <Page>...</Page>
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
       <Page>This may be it. We may never unite the clans again.</Page>
     </Dialogue>
     <SetCondition>CLANS_LEAVE_DOOR</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Hope_Lost_0</Name>
+    <EntryCondition>CLANS_LEAVE_DOOR</EntryCondition>
+    <Dialogue>
+      <Page>Thank you for trying, traveler. But it seems as if our planet is beyond hope.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>At least it's not completely empty. There's a campfire.</Text>
+        <DialogueTarget>Hope_Lost_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Hope_Lost_1</Name>
+    <Dialogue>
+      <Page>Oh, yes. The discovery of a lifetime.</Page>
+      <Page>I am sorry, but I fear an ordinary campfire is not enough for the clans.</Page>
+      <Page>A campfire. How could this have happened..?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Do you wanna sit by the fire with me?</Text>
+        <DialogueTarget>Hope_Lost_2</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Hope_Lost_2</Name>
+    <Dialogue>
+      <Page>I suppose. It is not as if I have anything better to do with my time.</Page>
+      <Page>Perhaps we will share some of your marshmallows.</Page>
+    </Dialogue>
+    <SetCondition>KEEPER_TO_FIRE</SetCondition>
   </DialogueNode>
 </DialogueTree>

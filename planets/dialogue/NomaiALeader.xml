@@ -287,7 +287,7 @@
     <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
     <Dialogue>
       <Page>Is this it? You stole the Sacred Shrubbery?</Page>
-      <Page>I offer my congragulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
+      <Page>I offer my congratulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
       <Page>I am proud to help a traveler such as you. You have my word that I will join you at the Great Door and contribute my shard to the whole.</Page>
     </Dialogue>
     <SetPersistentCondition>GOT_NOMAI_SHARD_A</SetPersistentCondition>
@@ -334,20 +334,13 @@
   <DialogueNode>
     <Name>Finish_Steal_Quest_12</Name>
     <Dialogue>
-      <Page>Goodbye, traveler.</Page>
-    </Dialogue>
-    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
-  <DialogueTarget>Finish_Steal_Quest_13</DialogueTarget>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Finish_Steal_Quest_13</Name>
-    <Dialogue>
-      <Page>It was a pleasure meeting you.</Page>
+      <Page>Goodbye, traveler. It was a pleasure meeting you.</Page>
     </Dialogue>
     <RevealFacts>
       <FactID>NOMAI_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
+    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>GOT_GHIRD_SHARD_B</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>
