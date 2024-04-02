@@ -56,15 +56,9 @@ public class EndingController : MonoBehaviour
   private void OnFireLit()
   {
     _fireLit = true;
-    Invoke(nameof(DoorkeeperToFire), 5);
-    Invoke(nameof(NomaiToFire), 10);
-    Invoke(nameof(GhirdToFire), 15);
-    Invoke(nameof(StartPlaying), 10);
-  }
-
-  private void DoorkeeperToFire()
-  {
-    ModMain.SetCondition("DOORKEEPER_TO_FIRE", true);
+    Invoke(nameof(NomaiToFire), 5);
+    Invoke(nameof(GhirdToFire), 10);
+    Invoke(nameof(StartPlaying), 15);
   }
 
   private void NomaiToFire()
@@ -91,6 +85,5 @@ public class EndingController : MonoBehaviour
     });
     
     musicAnimator.SetTrigger(Play);
-    // ModMain.Instance.Invoke(nameof(ModMain.OnTriggerCampfireEnd), 40);
   }
 }
