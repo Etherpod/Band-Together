@@ -21,10 +21,16 @@ public static class CoreUtils
 		return listSource;
 	}
 
-	public static IEnumerable<T> AddAll<T>(this IEnumerable<T> source, ICollection<T> target) =>
+	public static IEnumerable<T> AddAll<T>(this ICollection<T> source, IEnumerable<T> elementsToAdd)
+	{
+		elementsToAdd.ForEach(source.Add);
+		return source;
+	}
+
+	public static IEnumerable<T> AddAllTo<T>(this IEnumerable<T> source, ICollection<T> target) =>
 		source.ForEach(target.Add);
 
-	public static IEnumerable<U> AddAll<T, U>(this IEnumerable<T> source, ICollection<U> target, Func<T, U> transform) =>
+	public static IEnumerable<U> AddAllTo<T, U>(this IEnumerable<T> source, ICollection<U> target, Func<T, U> transform) =>
 		source
 			.Select(transform)
 			.ForEach(target.Add);
@@ -33,7 +39,7 @@ public static class CoreUtils
 
 	#region dictionaries
 
-	public static IEnumerable<(K, V)> AddAll<K, V>(this IEnumerable<(K key, V value)> source, IDictionary<K, V> target) =>
+	public static IEnumerable<(K, V)> AddAllTo<K, V>(this IEnumerable<(K key, V value)> source, IDictionary<K, V> target) =>
 		source.ForEach(entry => target.Add(entry.key, entry.value));
 
 	#endregion

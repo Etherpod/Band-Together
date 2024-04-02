@@ -30,12 +30,12 @@ public class AnimatorLogger : MonoBehaviour
 		states
 			.SelectPair(Animator.StringToHash)
 			.Flip()
-			.AddAll(StateHashes);
+			.AddAllTo(StateHashes);
 
 		triggers
 			.SelectPair(Animator.StringToHash)
 			.Flip()
-			.AddAll(TriggerHashes);
+			.AddAllTo(TriggerHashes);
 	}
 
 	private void Update()
