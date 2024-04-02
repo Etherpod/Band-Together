@@ -25,13 +25,13 @@
         <DialogueTarget>Shrub_Identify_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>How did you lose it?</Text>
-        <DialogueTarget>Shrub_Lost_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
         <CancelledCondition>ASKED_SHRUB_EXPLAIN</CancelledCondition>
         <Text>What's so important about this shrubbery?</Text>
         <DialogueTarget>Shrub_Explain_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>How did you lose it?</Text>
+        <DialogueTarget>Shrub_Lost_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -224,6 +224,26 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Shrub_Seen_0</Name>
+    <EntryCondition>START_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>HAS_SHRUBBERY</EntryCondition>
+    <Dialogue>
+      <Page>Could it be..? Is it truly our long lost savior?</Page>
+      <Page>Thank the Shrub! I knew you would find It!</Page>
+    </Dialogue>
+    <SetCondition>GHIRD_B_SEEN_SHRUBBERY</SetCondition>
+    <DialogueTarget>Shrub_Seen_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Seen_1</Name>
+    <EntryCondition>GHIRD_B_SEEN_SHRUBBERY</EntryCondition>
+    <Dialogue>
+      <Page>Please escort It to the back of these halls. The holy shrine awaits It.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>Shrub_Returned_0</Name>
     <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
     <Dialogue>
@@ -242,7 +262,7 @@
   <DialogueNode>
     <Name>Shrub_Returned_01</Name>
     <Dialogue>
-      <Page>Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
+      <Page>Oh, yes. Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
     </Dialogue>
     <RevealFacts>
       <FactID>GHIRD_VILLAGE_B_AGREED</FactID>

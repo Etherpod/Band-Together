@@ -241,14 +241,14 @@
   <DialogueNode>
     <Name>Steal_Shrub_Quest_3</Name>
     <Dialogue>
-      <Page>The last time the Followers of Worship had their Sacred Shrubbery, this world nearly fell under the complete control of the Order of the Shrubbery.</Page>
-      <Page>This is no longer a matter of simply stealing an item. This is a matter of saving this solar system.</Page>
-      <Page>If we don't extract their Sacred Shrubbery soon... what could happen is something to fear.</Page>
+      <Page>The last time the Followers of Worship had their "sacred shrubbery", this world nearly fell under the complete control of the Order of the Shrubbery.</Page>
+      <Page>This is no longer a matter of simply stealing something. This is a matter of saving this solar system.</Page>
+      <Page>If we don't extract that shrubbery soon... what could happen is something to fear.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
-        <Text>What do I do?</Text>
+        <Text>Is there anything I can do?</Text>
         <DialogueTarget>Steal_Shrub_Quest_4</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
@@ -257,7 +257,7 @@
   <DialogueNode>
     <Name>Steal_Shrub_Quest_4</Name>
     <Dialogue>
-      <Page>Sneak back into the sacred halls and steal the Sacred Shrubbery.</Page>
+      <Page>Sneak back into the sacred halls of the Followers of Worship and steal the shrubbery.</Page>
       <Page>Once you have escaped with it, bring it to me and place it on the table in front of me. I will handle it from there.</Page>
       <Page>Good luck, traveler.</Page>
     </Dialogue>
@@ -276,21 +276,52 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <Text>What do I do?</Text>
+        <Text>What am I supposed to do again?</Text>
         <DialogueTarget>Steal_Shrub_Quest_4</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Finish_Steal_Quest_0</Name>
+    <Name>Seen_Shrub_0</Name>
+    <EntryCondition>START_STEAL_QUEST</EntryCondition>
+    <EntryCondition>HAS_SHRUBBERY</EntryCondition>
+    <Dialogue>
+      <Page>Is this it? Is this the shrubbery?</Page>
+      <Page>Amazing work! To be honest, I was partly expecting something more... sacred.</Page>
+      <Page>Place it on the table in front of me. I will take care of the rest.</Page>
+    </Dialogue>
+    <SetCondition>NOMAI_A_SEEN_SHRUBBERY</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Seen_Shrub_1</Name>
+    <EntryCondition>NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
+    <Dialogue>
+      <Page>Place it on the table in front of me. I will take care of the rest.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Seen_Shrubbery_Finish_Quest</Name>
     <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
     <Dialogue>
-      <Page>Is this it? You stole the Sacred Shrubbery?</Page>
+      <Page>Is this it? Is this the shrubbery?</Page>
+      <Page>For a shrubbery of such high esteem, I am surprised at how it was stolen so easily!</Page>
+    </Dialogue>
+    <DialogueTarget>Finish_Steal_Quest_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Finish_Steal_Quest_0</Name>
+    <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
+    <EntryCondition>NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
+    <Dialogue>
       <Page>I offer my congratulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
       <Page>I am proud to help a traveler such as you. You have my word that I will join you at the Great Door and contribute my shard to the whole.</Page>
     </Dialogue>
     <SetPersistentCondition>GOT_NOMAI_SHARD_A</SetPersistentCondition>
+    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
     <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
 
@@ -320,7 +351,6 @@
         <Text>Just saying hi.</Text>
       </DialogueOption>
     </DialogueOptionsList>
-    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
