@@ -4,56 +4,26 @@ using UnityEngine;
 namespace BandTogether;
 
 [RequireComponent(typeof(OWTriggerVolume))]
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(OWAudioSource))]
 public class AmbientMusicArea : MonoBehaviour
 {
-    [SerializeField] float fadeTime;
+    [SerializeField] private float fadeTime;
 
     OWTriggerVolume trigger;
-    AudioSource audio;
-    bool fadeIn;
-    bool fadeOut;
-    float fadeStartTime;
-    float lastVolume;
-    float maxVolume;
+    OWAudioSource audio;
 
     private void Start()
     {
         trigger = GetComponent<OWTriggerVolume>();
-        audio = GetComponent<AudioSource>();
-
-        maxVolume = audio.volume;
+        audio = GetComponent<OWAudioSource>();
 
         trigger.OnEntry += OnEntry;
         trigger.OnExit += OnExit;
     }
 
-    private void Update()
-    {
-        if (fadeIn)
-        {
-            float num = Mathf.InverseLerp(fadeStartTime, fadeStartTime + fadeTime, Time.time);
-            audio.volume = Mathf.Lerp(lastVolume, maxVolume, num);
-            if (audio.volume >= maxVolume)
-            {
-                fadeIn = false;
-            }
-        }
-        else if (fadeOut)
-        {
-            float num = Mathf.InverseLerp(fadeStartTime, fadeStartTime + fadeTime, Time.time);
-            audio.volume = Mathf.Lerp(lastVolume, 0f, num);
-            if (audio.volume <= 0)
-            {
-                audio.Stop();
-                fadeOut = false;
-            }
-        }
-    }
-
     private void OnEntry(GameObject obj)
     {
-        if (obj.CompareTag("PlayerDetector")) FadeIn();
+        if (obj.CompareTag("PlayerDetector")) audio.FadeIn(fadeTime);
     }
 
     private void OnExit(GameObject obj)
@@ -61,22 +31,9 @@ public class AmbientMusicArea : MonoBehaviour
         if (obj.CompareTag("PlayerDetector")) FadeOut();
     }
 
-    public void FadeIn()
-    {
-        audio.time = 0;
-        audio.Play();
-        lastVolume = audio.volume;
-        fadeStartTime = Time.time;
-        fadeIn = true;
-        fadeOut = false;
-    }
-
     public void FadeOut()
     {
-        lastVolume = audio.volume;
-        fadeStartTime = Time.time;
-        fadeIn = false;
-        fadeOut = true;
+        audio.FadeOut(fadeTime);
     }
 
     private void OnDestroy()

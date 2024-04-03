@@ -512,6 +512,6 @@
       <Page>I suppose. It is not as if I have anything better to do with my time.</Page>
       <Page>Perhaps we will share some of your marshmallows.</Page>
     </Dialogue>
-    <SetCondition>KEEPER_TO_FIRE</SetCondition>
+    <SetCondition>DOORKEEPER_TO_FIRE</SetCondition>
   </DialogueNode>
 </DialogueTree>

@@ -22,9 +22,11 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>What secret code?</Text>
+        <DialogueTarget>First_Try_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>Of course I know it.</Text>
+        <DialogueTarget>First_Try_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
