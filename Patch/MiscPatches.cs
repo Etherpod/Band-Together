@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using BandTogether.Debug;
 using HarmonyLib;
+using UnityEngine;
 
 namespace BandTogether.Patch;
 
@@ -13,14 +15,26 @@ public class MiscPatches
 		__instance._data.sensor.isIlluminatedByPlayer = __instance._data.sensor.isIlluminated;
 	}
 
-	[HarmonyPostfix]
+	[HarmonyPrefix]
 	[HarmonyPatch(typeof(GhostGrabController), nameof(GhostGrabController.OnSnapPlayerNeck))]
-	public static void OwlkSnap(GhostGrabController __instance)
+	public static bool GhostGrabController_OnSnapPlayerNeck_Prefix(GhostGrabController __instance)
 	{
-		if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
-		{
-			Locator.GetDeathManager().KillPlayer(DeathType.CrushedByElevator);
-		}
+        if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
+        {
+            Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
+            DebugMenu.Instance.TeleportPlayer("GhirdShrubbery");
+            __instance.ReleasePlayer();
+			GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
+            brain.ChangeAction(null);
+			brain._data.OnPlayerExitDreamWorld();
+            ReticleController.Show();
+            Locator.GetPromptManager().SetPromptsVisible(true);
+			Locator.GetDreamWorldController()._playerCamEffectController.OpenEyes(0.5f, false);
+        }
+
+        __instance.enabled = false;
+
+		return false;
 	}
 
 	[HarmonyPostfix]

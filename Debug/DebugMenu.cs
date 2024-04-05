@@ -127,7 +127,7 @@ public class DebugMenu
 		});
 	}
 
-	private void TeleportPlayer(string target)
+	public void TeleportPlayer(string target)
 	{
 		var playerBody = Locator.GetPlayerBody();
 		// var playerCamera = Locator.GetPlayerCamera();
