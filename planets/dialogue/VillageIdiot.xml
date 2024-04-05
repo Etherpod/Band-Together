@@ -26,6 +26,25 @@
 
     <DialogueOptionsList>
       <DialogueOption>
+        <Text>What secret code?</Text>
+        <DialogueTarget>Code_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Good luck figuring it out.</Text>
+        <DialogueTarget>End_0</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_0</Name>
+    <Dialogue>
+      <Page>The Ghird inside the house to my left asks anyone who wishes to enter for the secret code.</Page>
+      <Page>I need to see the Leader of Logic, but I cannot recall what the code is...</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
         <Text>Good luck figuring it out.</Text>
         <DialogueTarget>End_0</DialogueTarget>
       </DialogueOption>
@@ -39,7 +58,7 @@
       <Page>Perhaps I will ask one of the other Ghirds tomorrow. They may be able to shed some light on this situation.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_IDIOT</FactID>
+      <FactID>GHIRD_VILLAGE_A_PUZZLE_POST</FactID>
     </RevealFacts>
   </DialogueNode>
 </DialogueTree>

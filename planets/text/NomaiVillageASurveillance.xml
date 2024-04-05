@@ -1,0 +1,62 @@
+<NomaiObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/text_schema.xsd">
+  <TextBlock>
+    <ID>1</ID>
+    <Text>FOLLOWER OF GREED: Is the surveillance probe functioning well?</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>2</ID>
+    <ParentID>1</ParentID>
+    <Text>LEADER OF GREED: Yes. It is yielding magnificent results. Remind me to thank the Followers of Exploration for gifting us this device.</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>3</ID>
+    <ParentID>2</ParentID>
+    <Text>FOLLOWER OF GREED: Have you seen anything of interest lately?</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>4</ID>
+    <ParentID>3</ParentID>
+    <Text>LEADER OF GREED: I located the Followers of Logic. It seems that they have reverted their open-door policy and now require a code to gain an audience with their leader.</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>41</ID>
+    <ParentID>4</ParentID>
+    <Text>FOLLOWER OF GREED: But you have an idea of what the code may be?</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>42</ID>
+    <ParentID>41</ParentID>
+    <Text>LEADER OF GREED: Yes, I believe so. I overheard a Ghird speaking about shadow.</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>43</ID>
+    <ParentID>42</ParentID>
+    <Text>FOLLOWER OF GREED: Shadow? What could that mean?</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>44</ID>
+    <ParentID>43</ParentID>
+    <Text>LEADER OF GREED: I am unsure. However, the concept of using shadows for a secret code is certainly interesting.</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>5</ID>
+    <ParentID>4</ParentID>
+    <Text>LEADER OF GREED: This will make it much more difficult to negotiate, I think.</Text>
+  </TextBlock>
+
+  <ShipLogConditions>
+    <RevealFact>
+      <FactID>GHIRD_VILLAGE_A_PUZZLE_SHADOW</FactID>
+      <Condition>42</Condition>
+    </RevealFact>
+  </ShipLogConditions>
+</NomaiObject>

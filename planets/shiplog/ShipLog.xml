@@ -17,7 +17,7 @@
 
     <ExploreFact>
       <ID>GREAT_DOOR_INIT</ID>
-      <Text>A mysterious, large door at the capital. The Nomai says they haven't been able to open it for centuries.</Text>
+      <Text>A mysterious, large door. The Nomai says they haven't been able to open it for centuries.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -68,7 +68,7 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_A_AGREED</ID>
-      <Text>The leader of the Followers of Greed agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Greed agreed to help us open the Great Door by placing their shard into it.</Text>
     </ExploreFact>
   </Entry>
 
@@ -91,12 +91,12 @@
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_B_QUEST</ID>
-      <Text>One of the Nomai told me I had to give them a cockpit to see their leader.</Text>
+      <Text>A Nomai told me I had to give them a cockpit to see their leader.</Text>
     </ExploreFact>
 
     <ExploreFact>
       <ID>NOMAI_VILLAGE_B_AGREED</ID>
-      <Text>The leader of the Followers of Exploration agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Exploration agreed to help us open the Great Door by placing their shard into it.</Text>
     </ExploreFact>
   </Entry>
 
@@ -137,7 +137,11 @@
       <ID>GHIRD_VILLAGE_B_AGREED</ID>
       <Text>The leader of the Followers of Worship said they would help us, but they sounded a little suspicious.</Text>
     </ExploreFact>
-    
+
+    <ExploreFact>
+      <ID>GHIRD_VILLAGE_B_AGREED_AGAIN</ID>
+      <Text>After their Sacred Shrubbery mysteriously disappeared again, they decided to help us by placing their shard into the Great Door.</Text>
+    </ExploreFact>
   </Entry>
 
   <Entry>
@@ -158,19 +162,44 @@
     </ExploreFact>
 
     <ExploreFact>
-      <ID>GHIRD_VILLAGE_A_QUEST</ID>
-      <Text>A Ghird told me that I need to know the code and come back at the correct time.</Text>
-    </ExploreFact>
-
-    <ExploreFact>
-      <ID>GHIRD_VILLAGE_IDIOT</ID>
-      <Text>I found a strange pole on the island next to the village. A Ghird told me it had something to do with the code.</Text>
-    </ExploreFact>
-
-    <ExploreFact>
       <ID>GHIRD_VILLAGE_A_AGREED</ID>
-      <Text>The leader of the Followers of Logic agreed to help us open the door by giving their shard to us.</Text>
+      <Text>The leader of the Followers of Logic agreed to help us open the Great Door by placing their shard into it.</Text>
     </ExploreFact>
+    
+    <Entry>
+      <ID>GHIRD_VILLAGE_A_PUZZLE</ID>
+      <Name>Sunpost Code</Name>
+
+      <RumorFact>
+        <ID>GHIRD_VILLAGE_A_PUZZLE_CODE</ID>
+        <SourceID>GHIRD_VILLAGE_A</SourceID>
+        <RumorName>Secret Code</RumorName>
+        <Text>I need a secret code to enter one of the houses.</Text>
+      </RumorFact>
+
+      <RumorFact>
+        <ID>GHIRD_VILLAGE_A_PUZZLE_POST</ID>
+        <SourceID>GHIRD_VILLAGE_A</SourceID>
+        <RumorName>Secret Code</RumorName>
+        <Text>The code has something to do with the strange post on the island next to the village.</Text>
+      </RumorFact>
+
+      <RumorFact>
+        <ID>GHIRD_VILLAGE_A_PUZZLE_SHADOW</ID>
+        <SourceID>NOMAI_VILLAGE_A</SourceID>
+        <RumorName>Secret Code</RumorName>
+        <Text>There is a secret code at one of the Ghird villages that uses shadows in some way.</Text>
+        <AltText>
+          <Text>The code uses shadows in some way.</Text>
+          <Condition>GHIRD_VILLAGE_A_FOUND</Condition>
+        </AltText>
+      </RumorFact>
+
+      <ExploreFact>
+        <ID>GHIRD_VILLAGE_A_PUZZLE_SOLVED</ID>
+        <Text>I solved the code by waiting until the shadow of the strange post was on the side of the building I wanted to enter.</Text>
+      </ExploreFact>
+    </Entry>
   </Entry>
 
   <Entry>
@@ -209,7 +238,7 @@
       <ID>FIFTH_SHARD_LIGHT</ID>
       <SourceID>GHIRD_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
-      <Text>The leader of the Followers of Logic told me: "Place a light upon the stone..."</Text>
+      <Text>The leader of the Followers of Logic told me: "Attach a light to the stone..."</Text>
     </RumorFact>
 
     <ExploreFact>

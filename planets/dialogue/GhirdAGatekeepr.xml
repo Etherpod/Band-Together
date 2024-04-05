@@ -29,6 +29,9 @@
         <DialogueTarget>First_Try_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -46,11 +49,25 @@
       <Page>Very well. Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
     <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>ACCIDENTAL_SOLVE</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Restart_0</Name>
+    <EntryCondition>ACCIDENTAL_SOLVE</EntryCondition>
+    <Dialogue>
+      <Page>I hope you are proud of yourself for solving the code.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>(in progress)</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
   </DialogueNode>
   
   <DialogueNode>
     <Name>Init_0</Name>
-    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
       <Page>Who wishes to enter?</Page>
     </Dialogue>
@@ -68,7 +85,10 @@
         <Text>Who's asking?</Text>
         <DialogueTarget>Init_02</DialogueTarget>
       </DialogueOption>
-    </DialogueOptionsList>
+    </DialogueOptionsList>    
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
+    </RevealFacts>
     <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
   </DialogueNode>
 
@@ -146,6 +166,43 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Code_Help_0</Name>
+    <Dialogue>
+      <Page>Have you figured out the code?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_SHADOW</RequiredLogCondition>
+        <Text>Does it have something to do with shadows?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_POST</RequiredLogCondition>
+        <Text>Does it have something to do with that post on the other island?</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'm still figuring it out.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Help_00</Name>
+    <Dialogue>
+      <Page>Shadows are only part of the puzzle. The rest is up to you to discover.</Page>
+    </Dialogue>
+    <DialogueTarget>Code_Help_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Help_01</Name>
+    <Dialogue>
+      <Page>The post is an essential part to the puzzle, yes.</Page>
+    </Dialogue>
+    <DialogueTarget>Code_Help_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>Entry_0</Name>
     <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
     <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
@@ -153,6 +210,9 @@
       <Page>I see you have figured out the code. I expected you to take longer in solving it.</Page>
       <Page>Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
+    <RevealFacts>
+      <FactID>GHIRD_VILLAGE_A_PUZZLE_SOLVED</FactID>
+    </RevealFacts>
     <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>
