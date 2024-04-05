@@ -17,6 +17,8 @@ public class QuantumNPC : SocketedQuantumObject
 	private bool _waitingToTeleport = false;
 	private bool _ignoreVisibility = false;
 
+	public QuantumTarget CurrentLocation => ((QuantumNPCSocket)_occupiedSocket)?.targetType ?? QuantumTarget.Start;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -49,6 +51,11 @@ public class QuantumNPC : SocketedQuantumObject
 		}
 	}
 
+	public void SetInteractionEnabled(bool interactionEnabled)
+	{
+		_conversationInteract.SetInteractionEnabled(interactionEnabled);
+	}
+
 	private void OnMainQuest()
 	{
 		if (quantumGroup != Captial && _conversationInteract)
@@ -67,7 +74,7 @@ public class QuantumNPC : SocketedQuantumObject
 
 		ModMain.WriteDebugMessage($"moving {name} to {targetType} [locked:{IsLocked()}]");
 
-		if (_conversationInteract) _conversationInteract.SetInteractionEnabled(false);
+		if (_conversationInteract && targetType == QuantumTarget.Door) _conversationInteract.SetInteractionEnabled(false);
 
 		_teleportTarget = targetType;
 		_ignoreVisibility = ignoreVisibility;

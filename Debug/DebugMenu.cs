@@ -60,12 +60,7 @@ public class DebugMenu
 
 		_menuAPI.PauseMenu_MakeSimpleButton("END SCREEN", _modMenu).onClick.AddListener(() =>
 		{
-			ModMain.Instance.ModHelper.Events.Unity.FireInNUpdates(() => 
-			{
-                Locator.GetPromptManager().SetPromptsVisible(false);
-                ReticleController.Hide();
-                Object.FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
-			}, 120);
+			ModMain.TriggerEnd();
 			_modMenu.EnableMenu(false);
 		});
 	}

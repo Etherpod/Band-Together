@@ -23,6 +23,7 @@ public class ModMain : ModBehaviour
             { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GhirdA }, Door) },
             { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GhirdB }, Door) },
 
+            { "SEARCHED_GREAT_DOOR", (new[] { Captial }, Away) },
             { "CLANS_LEAVE_DOOR", (new[] { NomaiA, NomaiB, GhirdA, GhirdB }, Away) },
 
             { "DOORKEEPER_TO_FIRE", (new[] { Captial }, Fire) },
@@ -43,19 +44,23 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
-    public bool inEndSequence = false;
 
     public delegate void ShardFoundEvent(QuantumGroup shardGroup);
     public event ShardFoundEvent OnShardFound;
+
+    public delegate void DialogueConditionChanged(string condition, bool value);
         
     public INewHorizons nhAPI;
-
+    public bool inEndSequence = false;
+    public GameObject Planet { get; private set; }
+    
     private bool _debugEnabled = false;
     private int _numClansConvinced;
     private List<string> _currentSave = new();
     private List<GameObject> factsToEnable = new();
-    public GameObject Planet { get; private set; }
     private DebugMenu _debugMenu;
+    private readonly IDictionary<string, List<DialogueConditionChanged>> _dialogueConditionListeners =
+        new Dictionary<string, List<DialogueConditionChanged>>();
 
     private readonly IDictionary<QuantumGroup, QuantumTarget> _groupCurrentLocation = GroupDialogueConditions
         .Values
@@ -91,6 +96,9 @@ public class ModMain : ModBehaviour
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
+            AddDialogueConditionListener(OnMainQuestStart, "MAIN_QUEST_START");
+            AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
+            AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
@@ -204,32 +212,41 @@ public class ModMain : ModBehaviour
     private void OnDialogueConditionChanged(string condition, bool value)
     {
         WriteDebugMessage($"condition: {condition}");
-        if (factsToEnable.Count > 0 && condition == "MAIN_QUEST_START")
+        if (_dialogueConditionListeners.TryGetValue(condition, out var listeners))
         {
-            OnMainQuest?.Invoke();
-            foreach (GameObject factTrigger in factsToEnable)
-            {
-                factTrigger.SetActive(true);
-            }
+            listeners.ForEach(listener => listener(condition, value));
         }
+    }
 
+    private void OnMainQuestStart(string condition, bool value)
+    {
+        if (factsToEnable.Count == 0 || condition != "MAIN_QUEST_START") return;
+        
+        OnMainQuest?.Invoke();
+        factsToEnable.ForEach(factTrigger => factTrigger.SetActive(true));
+    }
+
+    private void OnShardCondition(string condition, bool value)
+    {
         // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
-        if (ShardConditions.TryGetValue(condition, out var shardGroup))
-        {
-            OnShardFound?.Invoke(shardGroup);
+        if (!ShardConditions.TryGetValue(condition, out var shardGroup)) return;
+        
+        OnShardFound?.Invoke(shardGroup);
             
-            _numClansConvinced += 1;
-            if (_numClansConvinced == 3 && !GetPersistentCondition("LAST_CLAN_TO_AGREE"))
-            {
-                SetPersistentCondition("LAST_CLAN_TO_AGREE", true);
-            }
-            else if (_numClansConvinced == 4 && !GetPersistentCondition("ALL_CLANS_AGREED"))
-            {
-                Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
-                SetPersistentCondition("ALL_CLANS_AGREED", true);
-            }
+        _numClansConvinced += 1;
+        if (_numClansConvinced == 3 && !GetPersistentCondition("LAST_CLAN_TO_AGREE"))
+        {
+            SetPersistentCondition("LAST_CLAN_TO_AGREE", true);
         }
+        else if (_numClansConvinced == 4 && !GetPersistentCondition("ALL_CLANS_AGREED"))
+        {
+            Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
+            SetPersistentCondition("ALL_CLANS_AGREED", true);
+        }
+    }
 
+    private void OnGroupMoveCondition(string condition, bool value)
+    {
         if (!GroupDialogueConditions.ContainsKey(condition) || !value) return;
 
         var destination = GroupDialogueConditions[condition];
@@ -237,6 +254,20 @@ public class ModMain : ModBehaviour
 
         destination.groups.ForEach(group => OnMoveGroup?.Invoke(group, destination.destination, false));
     }
+
+    public static void AddDialogueConditionListener(DialogueConditionChanged listener, params string[] conditions) =>
+        conditions.ForEach(condition =>
+            Instance._dialogueConditionListeners
+                .GetOrInit(condition, new List<DialogueConditionChanged>())
+                .Add(listener)
+        );
+
+    public static void RemoveDialogueConditionListener(DialogueConditionChanged listener, params string[] conditions) =>
+        conditions.ForEach(condition => 
+            Instance._dialogueConditionListeners
+                .GetOrInit(condition, new List<DialogueConditionChanged>())
+                .Remove(listener)
+        );
 
     public static void SetCondition(string condition, bool value) =>
         DialogueConditionManager.SharedInstance.SetConditionState(condition, value);
@@ -252,6 +283,16 @@ public class ModMain : ModBehaviour
 
     public static bool GetPersistentCondition(string condition) =>
         PlayerData.GetPersistentCondition(condition);
+
+    public static void TriggerEnd()
+    {
+        Instance.ModHelper.Events.Unity.FireOnNextUpdate(() =>
+        {
+            Locator.GetPromptManager().SetPromptsVisible(false);
+            ReticleController.Hide();
+            Object.FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
+        });
+    }
 
     public void OnTriggerCampfireEnd()
     {

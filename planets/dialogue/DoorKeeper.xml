@@ -514,4 +514,12 @@
     </Dialogue>
     <SetCondition>DOORKEEPER_TO_FIRE</SetCondition>
   </DialogueNode>
+  
+  <DialogueNode>
+    <Name>Light_The_Fire</Name>
+    <EntryCondition>DOORKEEPER_TO_FIRE</EntryCondition>
+    <Dialogue>
+      <Page>Go ahead and light the fire so we can enjoy those marshmallows of yours.</Page>
+    </Dialogue>
+  </DialogueNode>
 </DialogueTree>

@@ -42,6 +42,14 @@ public static class CoreUtils
 	public static IEnumerable<(K, V)> AddAllTo<K, V>(this IEnumerable<(K key, V value)> source, IDictionary<K, V> target) =>
 		source.ForEach(entry => target.Add(entry.key, entry.value));
 
+	public static V GetOrInit<K, V>(this IDictionary<K, V> source, K key, V initial)
+	{
+		if (source.TryGetValue(key, out var foundValue)) return foundValue;
+
+		source[key] = initial;
+		return initial;
+	}
+
 	#endregion
 
 	#region pairs
