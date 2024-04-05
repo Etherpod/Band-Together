@@ -83,6 +83,12 @@
   },
   "ShipLog": {
     "xmlFile": "planets/shiplog/ShipLog.xml",
-    "spriteFolder": "planets/shiplog"
+    "spriteFolder": "planets/shiplog",
+    "mapMode": {
+      "revealedSprite": "planets/shiplog/FracturedHarmony.png",
+      "invisibleWhenHidden": true,
+      "scale": 1.5,
+      "offset": 0.5
+    }
   }
 }
