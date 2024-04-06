@@ -54,7 +54,7 @@ public class ModMain : ModBehaviour
     private int _numClansConvinced;
     private List<string> _currentSave = new();
     private List<GameObject> factsToEnable = new();
-    private GameObject _planet;
+    public GameObject planet { get; private set; }
     private DebugMenu _debugMenu;
 
     private readonly IDictionary<QuantumGroup, QuantumTarget> _groupCurrentLocation = GroupDialogueConditions
@@ -134,11 +134,11 @@ public class ModMain : ModBehaviour
         {
             _debugEnabled = PlayerData.GetPersistentCondition("BAND_TOGETHER_DEBUG_ENABLED");
 
-            _planet = nhAPI.GetPlanet(bodyName);
+            planet = nhAPI.GetPlanet(bodyName);
 
-            if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(_planet);
+            if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(planet);
 
-            ReferenceLocator.GetSacredEntryway().LoadWaterObject(_planet);
+            ReferenceLocator.GetSacredEntryway().LoadWaterObject(planet);
 
             this.ModHelper.Events.Unity.FireOnNextUpdate(() =>
             {
@@ -153,7 +153,7 @@ public class ModMain : ModBehaviour
 
         if (!GetPersistentCondition("MAIN_QUEST_START"))
         {
-            _planet
+            planet
                 .GetComponentsInChildren<ShipLogFactTriggerVolume>()
                 .ForEach(factTrigger =>
                 {

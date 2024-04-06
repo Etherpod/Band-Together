@@ -12,6 +12,7 @@ public class ReferenceLocator : MonoBehaviour
     [SerializeField] SunpostDetector sunpostDetector;
     [SerializeField] GhirdLightsOutController lightsOutController;
     [SerializeField] DreamLanternItem dreamLantern;
+    [SerializeField] Transform playerRespawnPoint;
 
     private static ReferenceLocator Instance;
 
@@ -63,5 +64,10 @@ public class ReferenceLocator : MonoBehaviour
     public static DreamLanternItem GetDreamLanternItem()
     {
         return Instance.dreamLantern;
+    }
+
+    public static Transform GetPlayerRespawnPoint()
+    {
+        return Instance.playerRespawnPoint;
     }
 }

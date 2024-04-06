@@ -40,20 +40,39 @@ public class MiscPatches
 
 	private static void RespawnTeleport()
 	{
-        DebugMenu.Instance.TeleportPlayer("GhirdRespawn");
-		TheDivineThrone throneSocket = ReferenceLocator.GetShrubSocketThrone();
+        var playerBody = Locator.GetPlayerBody();
+        var destination = ReferenceLocator.GetPlayerRespawnPoint();
+        var planetBody = ModMain.Instance.planet.GetComponent<OWRigidbody>();
 
-        if (!throneSocket.IsSocketOccupied())
+        var targetRotation = destination.rotation;
+        var targetPosition = destination.position + 2 * (targetRotation * Vector3.up);
+        var targetVelocity = planetBody.GetVelocity();
+
+        playerBody.SetPosition(targetPosition);
+        playerBody.SetRotation(targetRotation);
+        playerBody.SetVelocity(targetVelocity);
+
+        TheDivineThrone throneSocket = ReferenceLocator.GetShrubSocketThrone();
+		ItemTool itemTool = Object.FindObjectOfType<ItemTool>();
+        Shrubbery shrub = ReferenceLocator.GetShrubbery();
+
+        if (itemTool.GetHeldItemType() == shrub.GetItemType())
 		{
-			Shrubbery shrub = ReferenceLocator.GetShrubbery();
-			shrub.transform.localScale = Vector3.one;
-			ModMain.SetCondition("HAS_SHRUBBERY", false);
+			itemTool.SocketItem(throneSocket);
+            ModMain.SetCondition("HAS_SHRUBBERY", false);
+        }
+        else if (!throneSocket.IsSocketOccupied())
+		{
             throneSocket.PlaceIntoSocket(shrub);
 		}
 
-		SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
+        shrub.transform.localScale = Vector3.one;
+		throneSocket.EnableInteraction(true);
+		ReferenceLocator.GetShrubSocketNomai().EnableInteraction(false);
+
+        SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
         entryway.ForceSetEnabled(true);
-		ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
+		//ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
 
 		CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
 		elevator._currentDestinationIdx = elevator._destinations.Length - 1;
