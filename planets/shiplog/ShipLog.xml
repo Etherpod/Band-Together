@@ -169,6 +169,7 @@
     <Entry>
       <ID>GHIRD_VILLAGE_A_PUZZLE</ID>
       <Name>Sunpost Code</Name>
+      <Curiosity>GREAT_DOOR</Curiosity>
 
       <RumorFact>
         <ID>GHIRD_VILLAGE_A_PUZZLE_CODE</ID>

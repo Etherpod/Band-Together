@@ -54,5 +54,13 @@ public class KeyFragment : OWItem
 		transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 		transform.localPosition = new Vector3(0f, -0.4f, 0f);
 		_animator.SetTrigger(TriggerMove);
+		FindObjectOfType<KeySocketPromptDisplay>().UpdatePrompt(true);
 	}
+
+    public override void DropItem(Vector3 position, Vector3 normal, Transform parent, Sector sector, IItemDropTarget customDropTarget)
+    {
+        base.DropItem(position, normal, parent, sector, customDropTarget);
+		KeySocketPromptDisplay prompt = FindObjectOfType<KeySocketPromptDisplay>();
+        FindObjectOfType<KeySocketPromptDisplay>().UpdatePrompt(false);
+    }
 }

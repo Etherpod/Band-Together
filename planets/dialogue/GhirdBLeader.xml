@@ -283,10 +283,6 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>Where are the other clans?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
         <Text>I'll see you at the door.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -302,15 +298,6 @@
     <RevealFacts>
       <FactID>FIFTH_SHARD_PILLAR</FactID>
     </RevealFacts>
-    <DialogueTarget>Shrub_Returned_02</DialogueTarget>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Clans_0</Name>
-    <Dialogue>
-      <Page>We do not know much about the other clans, as we rarely leave these halls.</Page>
-      <Page>The last time I heard about the other clans, there were two Nomai clans and one other Ghird clan.</Page>
-    </Dialogue>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
 

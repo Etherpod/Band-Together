@@ -133,11 +133,6 @@
       </DialogueOption>
       <DialogueOption>
         <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
-        <Text>Do you know where the other clans are?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>I'm glad you agreed to help us.</Text>
         <DialogueTarget>End_00</DialogueTarget>
       </DialogueOption>
@@ -173,15 +168,6 @@
     <RevealFacts>
       <FactID>FIFTH_SHARD_POS</FactID>
     </RevealFacts>
-    <DialogueTarget>Init_1</DialogueTarget>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Clans_0</Name>
-    <Dialogue>
-      <Page>I know that there is one other Nomai clan on the northern hemisphere and two Ghird clans on the southern hemisphere.</Page>
-      <Page>I do not know their precise locations, however. I hope that is enough for you to find them.</Page>
-    </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 

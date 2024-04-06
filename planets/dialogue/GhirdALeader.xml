@@ -59,11 +59,6 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
-        <Text>Do you know where the other clans are?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
         <Text>Thanks for helping us open the Great Door.</Text>
         <DialogueTarget>End_0</DialogueTarget>
       </DialogueOption>
@@ -92,14 +87,6 @@
     <RevealFacts>
       <FactID>FIFTH_SHARD_LIGHT</FactID>
     </RevealFacts>
-    <DialogueTarget>Init_1</DialogueTarget>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Clans_0</Name>
-    <Dialogue>
-      <Page>The last time our clan heard of the others, there was one Ghird clan on the southern hemisphere and two Nomai clans on the northern hemisphere.</Page>
-    </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 

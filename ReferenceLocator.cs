@@ -11,6 +11,7 @@ public class ReferenceLocator : MonoBehaviour
     [SerializeField] Shrubbery shrubObject;
     [SerializeField] SunpostDetector sunpostDetector;
     [SerializeField] GhirdLightsOutController lightsOutController;
+    [SerializeField] DreamLanternItem dreamLantern;
 
     private static ReferenceLocator Instance;
 
@@ -57,5 +58,10 @@ public class ReferenceLocator : MonoBehaviour
     public static GhirdLightsOutController GetLightsOutController()
     {
         return Instance.lightsOutController;
+    }
+
+    public static DreamLanternItem GetDreamLanternItem()
+    {
+        return Instance.dreamLantern;
     }
 }

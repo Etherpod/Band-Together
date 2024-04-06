@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BandTogether.TheDoor;
 
@@ -14,7 +13,7 @@ public class KeySocketPromptDisplay : SingleInteractionVolume, IRaycastInteracta
 		base.Start();
 		
 		SetKeyCommandVisible(false);
-		ChangePrompt("The Lost Shard cannot yet be inserted.");
+		ChangePrompt("");
 	}
 
 	public override void EnableInteraction()
@@ -27,6 +26,18 @@ public class KeySocketPromptDisplay : SingleInteractionVolume, IRaycastInteracta
 	{
 		base.DisableInteraction();
 		_interactionEnabled = false;
+	}
+
+	public void UpdatePrompt(bool enabled)
+	{
+		if (!enabled)
+		{
+            ChangePrompt("The Fifth Shard cannot be inserted yet.");
+        }
+		else
+		{
+			ChangePrompt("");
+		}
 	}
 
 	public void Observe(RaycastHit hit)

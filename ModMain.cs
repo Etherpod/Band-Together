@@ -102,9 +102,9 @@ public class ModMain : ModBehaviour
                 var dreamCampfire = Locator.GetDreamCampfire(location);
                 if (Locator.GetToolModeSwapper().GetItemCarryTool().GetHeldItemType() != ItemType.DreamLantern)
                 {
-                    var dreamLanternItem = GameObject.Find("THE_GOD_OF_ALL_LANTERNS_PIKPIK_CARROT").GetComponent<DreamLanternItem>();
-                    dreamLanternItem.OnEnterDreamWorld();
-                    Locator.GetDreamWorldController()._playerLantern = dreamLanternItem;
+                    DreamLanternItem lantern = ReferenceLocator.GetDreamLanternItem();
+                    lantern.OnEnterDreamWorld();
+                    Locator.GetDreamWorldController()._playerLantern = lantern;
                 };
 
                 //Puts player into a semi-dreamworld state
