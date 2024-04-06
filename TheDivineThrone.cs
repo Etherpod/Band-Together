@@ -31,6 +31,6 @@ public class TheDivineThrone : OWItemSocket
     private void OnShrubberyRemovedFromItsHolyArborealThrone(OWItem item)
     {
         base.EnableInteraction(false);
-        FindObjectOfType<ShrubberySocketNomai>().EnableInteraction(true);
+        ReferenceLocator.GetShrubSocketNomai().EnableInteraction(true);
     }
 }

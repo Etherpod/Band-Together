@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using BandTogether.Debug;
 using HarmonyLib;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class MiscPatches
         if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
         {
             Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
-            DebugMenu.Instance.TeleportPlayer("GhirdShrubbery");
+			RespawnTeleport();
             __instance.ReleasePlayer();
 			GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
             brain.ChangeAction(null);
@@ -36,6 +37,29 @@ public class MiscPatches
 
 		return false;
 	}
+
+	private static void RespawnTeleport()
+	{
+        DebugMenu.Instance.TeleportPlayer("GhirdRespawn");
+		TheDivineThrone throneSocket = ReferenceLocator.GetShrubSocketThrone();
+
+        if (!throneSocket.IsSocketOccupied())
+		{
+			Shrubbery shrub = ReferenceLocator.GetShrubbery();
+			shrub.transform.localScale = Vector3.one;
+			ModMain.SetCondition("HAS_SHRUBBERY", false);
+            throneSocket.PlaceIntoSocket(shrub);
+		}
+
+		SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
+        entryway.ForceSetEnabled(true);
+		ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
+
+		CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
+		elevator._currentDestinationIdx = elevator._destinations.Length - 1;
+		elevator._ghostInterface.SetStartingPosition(true);
+		elevator.SetReached(true, true, true);
+    }
 
 	[HarmonyPostfix]
 	[HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.EntryConditionsSatisfied))]

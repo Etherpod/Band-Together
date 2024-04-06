@@ -50,7 +50,7 @@ public class GhirdLightsOutController : MonoBehaviour
 
     public void LightsOut()
     {
-        FindObjectOfType<TheDivineThrone>().EnableInteraction(true);
+        ReferenceLocator.GetShrubSocketThrone().EnableInteraction(true);
 
         foreach (Light light in lightsParent.GetComponentsInChildren<Light>())
         {

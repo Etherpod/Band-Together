@@ -138,11 +138,7 @@ public class ModMain : ModBehaviour
 
             if (IsDebugEnabled()) _debugMenu = DebugMenu.InitMenu(_planet);
 
-            _planet
-                .transform
-                .Find("Sector/JamPlanet/GhirdCityB/CityHall/house/SacredEntrywayTrigger")
-                .GetComponent<SacredEntrywayTrigger>()
-                .LoadWaterObject(_planet);
+            ReferenceLocator.GetSacredEntryway().LoadWaterObject(_planet);
 
             this.ModHelper.Events.Unity.FireOnNextUpdate(() =>
             {
@@ -178,14 +174,14 @@ public class ModMain : ModBehaviour
 
         if (GetPersistentCondition("SHRUB_GIVEN_TO_NOMAI"))
         {
-            ShrubberySocketNomai socketNomai = FindObjectOfType<ShrubberySocketNomai>();
-            socketNomai.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            ShrubberySocketNomai socketNomai = ReferenceLocator.GetShrubSocketNomai();
+            socketNomai.PlaceIntoSocket(ReferenceLocator.GetShrubbery());
             socketNomai.EnableInteraction(false);
         }
         else if (GetPersistentCondition("FINISH_SHRUB_QUEST"))
         {
-            TheDivineThrone socketThrone = FindObjectOfType<TheDivineThrone>();
-            socketThrone.PlaceIntoSocket(FindObjectOfType<Shrubbery>());
+            TheDivineThrone socketThrone = ReferenceLocator.GetShrubSocketThrone();
+            socketThrone.PlaceIntoSocket(ReferenceLocator.GetShrubbery());
             if (!GetPersistentCondition("START_STEAL_QUEST"))
             {
                 socketThrone.EnableInteraction(false);
@@ -194,10 +190,10 @@ public class ModMain : ModBehaviour
 
         if (GetPersistentCondition("OPEN_SUNPOST_DOOR"))
         {
-            FindObjectOfType<SunpostDetector>().OpenDoor();
+            ReferenceLocator.GetSunpostDetector().OpenDoor();
         }
 
-        FindObjectOfType<GhirdLightsOutController>().InitializeGhirds();
+        ReferenceLocator.GetLightsOutController().InitializeGhirds();
     }
 
     private void OnDialogueConditionChanged(string condition, bool value)
