@@ -61,9 +61,77 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <Text>(in progress)</Text>
+        <Text>What code?</Text>
+        <DialogueTarget>Restart_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I sure am!</Text>
+        <DialogueTarget>Restart_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Restart_00</Name>
+    <Dialogue>
+      <Page>You do not know the code? Then it was only chance that you happened to speak to me at that moment.</Page>
+      <Page>If you would like, I can close the door and let you solve the code.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Sure.</Text>
+        <DialogueTarget>Restart_000</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'm good.</Text>
+        <DialogueTarget>Restart_001</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Restart_000</Name>
+    <Dialogue>
+      <Page>Excellent. Return when you have solved it.</Page>
+    </Dialogue>
+    <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
+    <DisablePersistentCondition>OPEN_SUNPOST_DOOR</DisablePersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Restart_001</Name>
+    <Dialogue>
+      <Page>Very well. I will keep these doors open for you.</Page>
+      <Page>If you decide you would like to solve the puzzle, come speak to me.</Page>
+    </Dialogue>
+    <SetCondition>WAIT_FOR_CHANGED_MIND</SetCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Changed_Mind_0</Name>
+    <EntryCondition>WAIT_FOR_CHANGED_MIND</EntryCondition>
+    <Dialogue>
+      <Page>Have you had a change of heart?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Close the doors. I can solve the puzzle.</Text>
+        <DialogueTarget>Restart_000</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I'm not in the mood for puzzle solving today.</Text>
+        <DialogueTarget>Restart_001</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Restart_01</Name>
+    <Dialogue>
+      <Page>Congragulations.</Page>
+    </Dialogue>
   </DialogueNode>
   
   <DialogueNode>
@@ -167,6 +235,7 @@
 
   <DialogueNode>
     <Name>Code_Help_0</Name>
+    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
       <Page>Have you figured out the code?</Page>
     </Dialogue>
@@ -175,10 +244,12 @@
       <DialogueOption>
         <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_SHADOW</RequiredLogCondition>
         <Text>Does it have something to do with shadows?</Text>
+        <DialogueTarget>Code_Help_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_POST</RequiredLogCondition>
         <Text>Does it have something to do with that post on the other island?</Text>
+        <DialogueTarget>Code_Help_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>I'm still figuring it out.</Text>

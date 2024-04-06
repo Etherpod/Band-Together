@@ -9,8 +9,8 @@
   "Orbit": {
     "semiMajorAxis": 7000,
     "primaryBody": "Jam 3 Sun",
-    "siderealPeriod": 20,
-    "initialRotation": 290
+    "siderealPeriod": 10,
+    "initialRotation": 270
   },
   "Water": {
     "size": 148
