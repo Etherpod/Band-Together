@@ -179,21 +179,21 @@
       </RumorFact>
 
       <RumorFact>
-        <ID>GHIRD_VILLAGE_A_PUZZLE_POST</ID>
-        <SourceID>GHIRD_VILLAGE_A</SourceID>
-        <RumorName>Secret Code</RumorName>
-        <Text>The code has something to do with the strange post on the island next to the village.</Text>
-      </RumorFact>
-
-      <RumorFact>
         <ID>GHIRD_VILLAGE_A_PUZZLE_SHADOW</ID>
         <SourceID>NOMAI_VILLAGE_A</SourceID>
         <RumorName>Secret Code</RumorName>
         <Text>There is a secret code at one of the Ghird villages that uses shadows in some way.</Text>
         <AltText>
           <Text>The code uses shadows in some way.</Text>
-          <Condition>GHIRD_VILLAGE_A_FOUND</Condition>
+          <Condition>GHIRD_VILLAGE_A_PUZZLE_CODE</Condition>
         </AltText>
+      </RumorFact>
+
+      <RumorFact>
+        <ID>GHIRD_VILLAGE_A_PUZZLE_POST</ID>
+        <SourceID>GHIRD_VILLAGE_A</SourceID>
+        <RumorName>Secret Code</RumorName>
+        <Text>The code has something to do with the strange post on the island next to the village.</Text>
       </RumorFact>
 
       <ExploreFact>

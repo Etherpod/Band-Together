@@ -74,6 +74,8 @@ public class MiscPatches
         entryway.ForceSetEnabled(true);
 		//ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
 
+		ReferenceLocator.GetFlashlightRuleset().OnExit();
+
 		CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
 		elevator._currentDestinationIdx = elevator._destinations.Length - 1;
 		elevator._ghostInterface.SetStartingPosition(true);

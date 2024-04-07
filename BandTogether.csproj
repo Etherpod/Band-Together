@@ -22,6 +22,9 @@
     <ItemGroup>
       <CopyItems Include="$(TargetDir)\planets\dialogue\*.*" />
     </ItemGroup>
+    <ItemGroup>
+      <CopyItems Include="$(TargetDir)\planets\text\*.*" />
+    </ItemGroup>
     <Copy SourceFiles="@(CopyItems)" DestinationFolder="$(UnityProjectModDir)" />
 
     <Message Text="Copy complete" Importance="High" />

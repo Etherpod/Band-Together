@@ -1,47 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace BandTogether
+namespace BandTogether;
+public class FlashlightRuleset : MonoBehaviour
 {
-    internal class FlashlightRuleset : MonoBehaviour
+    [SerializeField]
+    float FillLight = 90;
+
+    [SerializeField]
+    float SpotLight = 50;
+
+    [SerializeField]
+    private OWTriggerVolume _triggerVolume;
+
+    OWLight2 Flashlight_FillLight;
+    OWLight2 Flashlight_SpotLight;
+
+    private void Start()
     {
-        [SerializeField]
-        float FillLight = 90;
+        _triggerVolume.OnEntry += ctx => OnEntry();
+        _triggerVolume.OnExit += ctx => OnExit();
 
-        [SerializeField]
-        float SpotLight = 50;
+        Flashlight_FillLight = GameObject.Find("Player_Body")
+            .GetComponentInChildren<PlayerCameraController>()
+            .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_FillLight")
+            .GetComponent<OWLight2>();
+        Flashlight_SpotLight = GameObject.Find("Player_Body")
+            .GetComponentInChildren<PlayerCameraController>()
+            .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_SpotLight")
+            .GetComponent<OWLight2>();
+    }
 
-        [SerializeField]
-        private Collider _trigger;
+    public void OnEntry()
+    {
+        Flashlight_FillLight.range = FillLight;
+        Flashlight_SpotLight.range = SpotLight;
+    }
 
-        OWLight2 Flashlight_FillLight;
-        OWLight2 Flashlight_SpotLight;
+    public void OnExit()
+    {
+        Flashlight_FillLight.range = 90;
+        Flashlight_SpotLight.range = 50;
+    }
 
-        private void Start()
-        {
-            Flashlight_FillLight = GameObject.Find("Player_Body")
-                .GetComponentInChildren<PlayerCameraController>()
-                .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_FillLight")
-                .GetComponent<OWLight2>();
-            Flashlight_SpotLight = GameObject.Find("Player_Body")
-                .GetComponentInChildren<PlayerCameraController>()
-                .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_SpotLight")
-                .GetComponent<OWLight2>();
-        }
-
-        private void OnTriggerEnter(Collider _trigger)
-        {
-            Flashlight_FillLight.range = FillLight;
-            Flashlight_SpotLight.range = SpotLight;
-        }
-        private void OnTriggerExit(Collider _trigger)
-        {
-            Flashlight_FillLight.range = 90;
-            Flashlight_SpotLight.range = 50;
-        }
+    private void OnDestroy()
+    {
+        _triggerVolume.OnEntry -= ctx => OnEntry();
+        _triggerVolume.OnExit -= ctx => OnExit();
     }
 }

@@ -13,6 +13,7 @@ public class ReferenceLocator : MonoBehaviour
     [SerializeField] GhirdLightsOutController lightsOutController;
     [SerializeField] DreamLanternItem dreamLantern;
     [SerializeField] Transform playerRespawnPoint;
+    [SerializeField] FlashlightRuleset flashlightRuleset;
 
     private static ReferenceLocator Instance;
 
@@ -69,5 +70,10 @@ public class ReferenceLocator : MonoBehaviour
     public static Transform GetPlayerRespawnPoint()
     {
         return Instance.playerRespawnPoint;
+    }
+
+    public static FlashlightRuleset GetFlashlightRuleset()
+    {
+        return Instance.flashlightRuleset;
     }
 }
