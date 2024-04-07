@@ -42,7 +42,7 @@ public class MiscPatches
 	{
         var playerBody = Locator.GetPlayerBody();
         var destination = ReferenceLocator.GetPlayerRespawnPoint();
-        var planetBody = ModMain.Instance.planet.GetComponent<OWRigidbody>();
+        var planetBody = ModMain.Instance.Planet.GetComponent<OWRigidbody>();
 
         var targetRotation = destination.rotation;
         var targetPosition = destination.position + 2 * (targetRotation * Vector3.up);

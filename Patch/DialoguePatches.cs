@@ -22,7 +22,7 @@ public class DialoguePatches
 	{
 		if (name == "SetPersistentCondition")
 		{
-			ModMain.WriteDebugMessage("capturing conditions to set");
+			// ModMain.WriteDebugMessage("capturing conditions to set");
 			PersistentConditionsToSet.Value = __instance
 				.Elements("SetPersistentCondition")
 				.Select(element => element.Value)
@@ -30,7 +30,7 @@ public class DialoguePatches
 		}
 		else if (name == "DisablePersistentCondition")
 		{
-			ModMain.WriteDebugMessage("capturing conditions to disable");
+			// ModMain.WriteDebugMessage("capturing conditions to disable");
 			PersistentConditionsToDisable.Value = __instance
 				.Elements("DisablePersistentCondition")
 				.Select(element => element.Value)
@@ -42,7 +42,7 @@ public class DialoguePatches
 	[HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.PersistentConditionToSet), MethodType.Setter)]
 	public static void LinkNodeToPersistentConditionsToSet(DialogueNode __instance)
 	{
-		ModMain.WriteDebugMessage("linking dialogue node for set");
+		// ModMain.WriteDebugMessage("linking dialogue node for set");
 		if (!NodeEnhancements.TryGetValue(__instance, out var enhancements))
 		{
 			enhancements = new DialogueNodeEnhancements();
@@ -56,7 +56,7 @@ public class DialoguePatches
 	[HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.PersistentConditionToDisable), MethodType.Setter)]
 	public static void LinkNodeToPersistentConditionsToDisable(DialogueNode __instance)
 	{
-		ModMain.WriteDebugMessage("linking dialogue node for disable");
+		// ModMain.WriteDebugMessage("linking dialogue node for disable");
 		if (!NodeEnhancements.TryGetValue(__instance, out var enhancements))
 		{
 			enhancements = new DialogueNodeEnhancements();
