@@ -3,17 +3,18 @@
 namespace BandTogether;
 public class ReferenceLocator : MonoBehaviour
 {
-    [SerializeField] SacredEntrywayTrigger sacredEntrywayTrigger;
-    [SerializeField] DarkZone ghirdVillageBDarkZone;
-    [SerializeField] CageElevator ghirdVillageBElevator;
-    [SerializeField] TheDivineThrone shrubSocketThrone;
-    [SerializeField] ShrubberySocketNomai shrubSocketNomai;
-    [SerializeField] Shrubbery shrubObject;
-    [SerializeField] SunpostDetector sunpostDetector;
-    [SerializeField] GhirdLightsOutController lightsOutController;
-    [SerializeField] DreamLanternItem dreamLantern;
-    [SerializeField] Transform playerRespawnPoint;
-    [SerializeField] FlashlightRuleset flashlightRuleset;
+    [SerializeField] SacredEntrywayTrigger sacredEntrywayTrigger = null;
+    [SerializeField] DarkZone ghirdVillageBDarkZone = null;
+    [SerializeField] CageElevator ghirdVillageBElevator = null;
+    [SerializeField] TheDivineThrone shrubSocketThrone = null;
+    [SerializeField] ShrubberySocketNomai shrubSocketNomai = null;
+    [SerializeField] Shrubbery shrubObject = null;
+    [SerializeField] SunpostDetector sunpostDetector = null;
+    [SerializeField] GhirdLightsOutController lightsOutController = null;
+    [SerializeField] DreamLanternItem dreamLantern = null;
+    [SerializeField] Transform playerRespawnPoint = null;
+    [SerializeField] FlashlightRuleset flashlightRuleset = null;
+    [SerializeField] OWAudioSource creditsSong = null;
 
     private static ReferenceLocator Instance;
 
@@ -75,5 +76,10 @@ public class ReferenceLocator : MonoBehaviour
     public static FlashlightRuleset GetFlashlightRuleset()
     {
         return Instance.flashlightRuleset;
+    }
+
+    public static OWAudioSource GetCreditsSong()
+    {
+        return Instance.creditsSong;
     }
 }

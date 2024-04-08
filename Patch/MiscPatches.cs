@@ -131,4 +131,21 @@ public class MiscPatches
 			ModMain.Instance.OnTriggerCampfireEnd();
 		}
 	}
+
+	[HarmonyPatch(typeof(PlayerCameraEffectController), nameof(PlayerCameraEffectController.Update))]
+	public static void AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
+	{
+
+		if (__instance._isConsciousnessFading && ModMain.Instance.startedEndSequence)
+		{
+			ModMain.WriteDebugMessage(AudioListener.volume);
+			AudioListener.volume = 1;
+			if (ModMain.Instance.fadeEndMusic)
+			{
+				ModMain.Instance.fadeEndMusic = false;
+				//Locator.GetAudioMixer().MixSleepAtCampfire(5f);
+				ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 0.8f);
+			}
+		}
+	}
 }

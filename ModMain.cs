@@ -52,6 +52,7 @@ public class ModMain : ModBehaviour
         
     public INewHorizons nhAPI;
     public bool inEndSequence = false;
+    public bool fadeEndMusic = false;
     public GameObject Planet { get; private set; }
     
     private bool _debugEnabled = false;
@@ -132,6 +133,7 @@ public class ModMain : ModBehaviour
             {
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
                 inEndSequence = false;
+                fadeEndMusic = false;
             }
         };
     }
@@ -290,7 +292,8 @@ public class ModMain : ModBehaviour
         {
             Locator.GetPromptManager().SetPromptsVisible(false);
             ReticleController.Hide();
-            Object.FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
+            FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
+            Instance.fadeEndMusic = true;
         });
     }
 
