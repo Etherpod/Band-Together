@@ -100,7 +100,7 @@ public class EndingController : MonoBehaviour
 
 		var timeSinceStart = Time.time - _musicStartTime;
 		var padLength = pad.clip.length / 2; // audio doesn't actually start until half way through;
-		var delayBeforeStart = timeSinceStart < 2 * padLength ? 1f : 0f;
+		var delayBeforeStart = timeSinceStart < 2 * padLength ? padLength : 0f;
 		delayBeforeStart += padLength - (timeSinceStart % padLength);
 		StartCoroutine(TheEnd(delayBeforeStart));
 	}
