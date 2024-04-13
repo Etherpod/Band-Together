@@ -63,15 +63,16 @@ public class EndingController : MonoBehaviour
 	}
 
 	private void OnNomaiMove(QuantumObject quantumObject, bool collapsed) =>
-		OnNpcMove(quantumObject, collapsed, StartNomaiMusic);
+		StartCoroutine(OnNpcMove(quantumObject, collapsed, StartNomaiMusic));
 
 	private void OnGhirdMove(QuantumObject quantumObject, bool collapsed) =>
-		OnNpcMove(quantumObject, collapsed, StartGhirdMusic);
+		StartCoroutine(OnNpcMove(quantumObject, collapsed, StartGhirdMusic));
 
-	private void OnNpcMove(QuantumObject quantumObject, bool collapsed, Action action)
+	private IEnumerator OnNpcMove(QuantumObject quantumObject, bool collapsed, Action action)
 	{
 		var npc = (QuantumNPC)quantumObject;
-		if (!collapsed || npc.CurrentLocation != QuantumTarget.Fire) return;
+		if (!collapsed || npc.CurrentLocation != QuantumTarget.Fire) yield break;
+		yield return new WaitUntil(npc.IsVisible);
 		action();
 	}
 

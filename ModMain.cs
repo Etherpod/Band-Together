@@ -61,6 +61,8 @@ public class ModMain : ModBehaviour
     private int _numClansConvinced;
     private List<string> _currentSave = new();
     private List<GameObject> factsToEnable = new();
+    private List<ScrollItem> scrollsToEnable = new();
+    private List<GameObject> textToEnable = new();
     private DebugMenu _debugMenu;
     private readonly IDictionary<string, List<DialogueConditionChanged>> _dialogueConditionListeners =
         new Dictionary<string, List<DialogueConditionChanged>>();
@@ -180,6 +182,18 @@ public class ModMain : ModBehaviour
                     factsToEnable.Add(factTrigger.gameObject);
                     factTrigger.gameObject.SetActive(false);
                 });
+
+            Planet.GetComponentsInChildren<ScrollItem>().ForEach(scrollItem =>
+            {
+                scrollsToEnable.Add(scrollItem);
+                scrollItem.EnableInteraction(false);
+            });
+
+            Planet.GetComponentsInChildren<NomaiWallText>().ForEach(wallText =>
+            {
+                textToEnable.Add(wallText.gameObject);
+                wallText.gameObject.SetActive(false);
+            });
         }
 
         ShardConditions
@@ -231,6 +245,8 @@ public class ModMain : ModBehaviour
         
         OnMainQuest?.Invoke();
         factsToEnable.ForEach(factTrigger => factTrigger.SetActive(true));
+        scrollsToEnable.ForEach(scrollItem => scrollItem.EnableInteraction(true));
+        textToEnable.ForEach(wallText => wallText.gameObject.SetActive(true));
     }
 
     private void OnShardCondition(string condition, bool value)

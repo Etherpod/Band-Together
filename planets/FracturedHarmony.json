@@ -51,7 +51,7 @@
       },
       {
         "type": "scroll",
-        "seed": 11,
+        "seed": 14134,
         "xmlFile": "planets/text/NomaiVillageASurveillance.xml",
         "position": {
           "x": -149.3064,

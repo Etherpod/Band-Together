@@ -29,7 +29,10 @@ public class DebugMenu
 
 	public static DebugMenu InitMenu(GameObject planet)
 	{
-		if (_instance is not null) return _instance;
+		if (_instance is not null)
+		{
+            return _instance;
+		}
 
 		_instance = new DebugMenu(planet);
 		_instance.LoadMenu();
