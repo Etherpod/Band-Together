@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using BandTogether.TheDoor;
 using BandTogether.Util;
-using Epic.OnlineServices.Lobby;
+using System;
 using UnityEngine;
+using OWML.ModHelper.Events;
+using OWML.Utils;
 
 namespace BandTogether.Debug;
 
@@ -46,7 +49,7 @@ public class DebugMenu
 		
 		_menuAPI.PauseMenu_MakeSimpleButton("GIVE LOST SHARD", _modMenu).onClick.AddListener(() =>
 		{
-			var shard = Object
+			var shard = UnityEngine.Object
 				.FindObjectsOfType<KeyFragment>()
 				.First(fragment => fragment.name == "LostFragmentPivot")
 				.gameObject;
@@ -63,6 +66,8 @@ public class DebugMenu
 			ModMain.TriggerEnd();
 			_modMenu.EnableMenu(false);
 		});
+
+		_menuAPI.PauseMenu_MakeSimpleButton("CHANGE LISTENER TEST", _modMenu).onClick.AddListener(ModMain.Instance.AudioListenerTest);
 	}
 
 	private void CreateConditionMenu()

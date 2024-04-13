@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -53,6 +54,7 @@ public class ModMain : ModBehaviour
     public INewHorizons nhAPI;
     public bool inEndSequence = false;
     public bool fadeEndMusic = false;
+    public bool startedEndSequence = false;
     public GameObject Planet { get; private set; }
     
     private bool _debugEnabled = false;
@@ -134,6 +136,7 @@ public class ModMain : ModBehaviour
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
                 inEndSequence = false;
                 fadeEndMusic = false;
+                startedEndSequence = false;
             }
         };
     }
@@ -150,7 +153,9 @@ public class ModMain : ModBehaviour
 
             ReferenceLocator.GetSacredEntryway().LoadWaterObject(Planet);
 
-            this.ModHelper.Events.Unity.FireOnNextUpdate(() =>
+            ReferenceLocator.GetCreditsSong().transform.parent = null;
+
+            ModHelper.Events.Unity.FireOnNextUpdate(() =>
             {
                 InitializeConditions();
             });
@@ -290,11 +295,28 @@ public class ModMain : ModBehaviour
     {
         Instance.ModHelper.Events.Unity.FireOnNextUpdate(() =>
         {
-            Locator.GetPromptManager().SetPromptsVisible(false);
-            ReticleController.Hide();
-            FindObjectOfType<PlayerCameraEffectController>().OnPlayerEscapeTimeLoop();
+            Instance.startedEndSequence = true;
             Instance.fadeEndMusic = true;
+            Locator.GetDeathManager().BeginEscapedTimeLoopSequence(TimeloopEscapeType.Ship);
         });
+    }
+
+    public void AudioListenerTest()
+    {
+        StartCoroutine(ListenerTest());
+    }
+
+    private IEnumerator ListenerTest()
+    {
+        yield return new WaitForSeconds(5f);
+        ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
+        yield return new WaitForSeconds(5f);
+        CenterOfTheUniverse.DeactivateUniverse();
+        Locator.GetActiveCamera().enabled = false;
+        GameOverController gameOverController = FindObjectOfType<GameOverController>();
+        gameOverController._flashbackCamera.enabled = true;
+        gameOverController._flashbackCamera.postProcessing.enabled = false;
+        gameOverController._audioListener.enabled = true;
     }
 
     public void OnTriggerCampfireEnd()

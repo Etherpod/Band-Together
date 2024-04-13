@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using System.Runtime.CompilerServices;
-using BandTogether.Debug;
+﻿using System;
+using System.Linq;
 using HarmonyLib;
 using UnityEngine;
 
@@ -53,7 +52,7 @@ public class MiscPatches
         playerBody.SetVelocity(targetVelocity);
 
         TheDivineThrone throneSocket = ReferenceLocator.GetShrubSocketThrone();
-		ItemTool itemTool = Object.FindObjectOfType<ItemTool>();
+		ItemTool itemTool = UnityEngine.Object.FindObjectOfType<ItemTool>();
         Shrubbery shrub = ReferenceLocator.GetShrubbery();
 
         if (itemTool.GetHeldItemType() == shrub.GetItemType())
@@ -132,20 +131,195 @@ public class MiscPatches
 		}
 	}
 
+    [HarmonyPrefix]
 	[HarmonyPatch(typeof(PlayerCameraEffectController), nameof(PlayerCameraEffectController.Update))]
-	public static void AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
+	public static bool AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
 	{
+        if (__instance._waitForWakeInput && LateInitializerManager.isDoneInitializing)
+        {
+            if (!__instance._wakePrompt.IsVisible())
+            {
+                __instance._wakePrompt.SetVisibility(true);
+            }
+            if (OWInput.IsNewlyPressed(InputLibrary.interact, InputMode.All))
+            {
+                __instance._waitForWakeInput = false;
+                LateInitializerManager.pauseOnInitialization = false;
+                Locator.GetPauseCommandListener().RemovePauseCommandLock();
+                Locator.GetPromptManager().RemoveScreenPrompt(__instance._wakePrompt);
+                OWTime.Unpause(OWTime.PauseType.Sleeping);
+                __instance.WakeUp();
+            }
+        }
+        if (__instance._playerResources.GetHazardDetector().GetNetDamagePerSecond() > 0f)
+        {
+            __instance.ApplyExposureDamage();
+        }
+        if (__instance._isDying)
+        {
+            float num = Mathf.InverseLerp(__instance._deathStartTime, __instance._deathStartTime + __instance._deathFadeLength, Time.time);
+            switch (__instance._deathType)
+            {
+                case DeathType.Default:
+                case DeathType.Impact:
+                case DeathType.Crushed:
+                case DeathType.Dream:
+                    if (__instance._impactDeathSpeed < __instance._impactQuickDeathSpeed)
+                    {
+                        __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - __instance._impactSlowCurve.Evaluate(num);
+                        __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -5f, __instance._impactSlowCurve.Evaluate(num));
+                    }
+                    else
+                    {
+                        __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num;
+                        __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, 10f, num);
+                    }
+                    break;
+                case DeathType.Asphyxiation:
+                    {
+                        float num2 = (2f - num) * num;
+                        __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num;
+                        __instance._owCamera.postProcessingSettings.bloom.threshold = Mathf.Lerp(__instance._owCamera.postProcessingSettings.bloomDefault.threshold, 0f, num2);
+                        __instance._owCamera.postProcessingSettings.bloom.radius = Mathf.Lerp(__instance._owCamera.postProcessingSettings.bloomDefault.radius, 7f, num2);
+                        __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num2);
+                        __instance._owCamera.postProcessingSettings.colorGrading.saturation = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.saturation, 0f, num2);
+                        break;
+                    }
+                case DeathType.Energy:
+                case DeathType.Supernova:
+                case DeathType.Lava:
+                case DeathType.DreamExplosion:
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, 10f, num);
+                    break;
+                case DeathType.Digestion:
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num);
+                    break;
+                case DeathType.BigBang:
+                    {
+                        float num3 = Mathf.Clamp01((Time.time - __instance._deathStartTime) / __instance._energyFadeLength);
+                        __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, 10f, num3);
+                        break;
+                    }
+                case DeathType.Meditation:
+                    __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num;
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num);
+                    break;
+                case DeathType.TimeLoop:
+                    __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - __instance._timeLoopEyeMaskCurve.Evaluate(num);
+                    __instance._owCamera.postProcessingSettings.eyeMask.linesProgress = __instance._timeLoopLinesProgressionCurve.Evaluate(num);
+                    break;
+                case DeathType.BlackHole:
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num);
+                    break;
+                case DeathType.CrushedByElevator:
+                    __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num;
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, 10f, num);
+                    break;
+                default:
+                    __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num;
+                    __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, 10f, num);
+                    break;
+            }
+            if (num >= 1f && !__instance._deathSequenceFinished)
+            {
+                __instance._deathSequenceFinished = true;
+                if (Locator.GetDeathManager().IsFakeMeditationDeath())
+                {
+                    __instance.ResetDeathSequence();
+                    __instance._owCamera.postProcessingSettings.eyeMask.openness = 0f;
+                }
+                Locator.GetDeathManager().FinishDeathSequence();
+            }
+        }
+        else if (__instance._isOpeningEyes)
+        {
+            float num4 = Mathf.Clamp01((Time.time - __instance._eyeAnimStartTime) / __instance._eyeAnimDuration);
+            float num5 = __instance._wakeCurve.Evaluate(num4);
+            __instance._owCamera.postProcessingSettings.eyeMask.openness = num5;
+            __instance._owCamera.postProcessingSettings.bloom.threshold = Mathf.Lerp(0f, __instance._owCamera.postProcessingSettings.bloomDefault.threshold, num5);
+            if (__instance._lastOpenness >= 0.5f && num5 < 0.5f)
+            {
+                GlobalMessenger.FireEvent("PlayerBlink");
+            }
+            __instance._lastOpenness = num5;
+            if (num4 >= 1f)
+            {
+                __instance._owCamera.postProcessingSettings.eyeMaskEnabled = false;
+                __instance._isOpeningEyes = false;
+                GlobalMessenger.FireEvent("FinishOpenEyes");
+            }
+        }
+        else if (__instance._isClosingEyes)
+        {
+            float num6 = Mathf.Clamp01((Time.time - __instance._eyeAnimStartTime) / __instance._eyeAnimDuration);
+            __instance._owCamera.postProcessingSettings.eyeMask.openness = 1f - num6;
+            __instance._owCamera.postProcessingSettings.bloom.threshold = Mathf.Lerp(0f, __instance._owCamera.postProcessingSettings.bloomDefault.threshold, 1f - num6);
+            if (num6 >= 1f)
+            {
+                __instance._isClosingEyes = false;
+            }
+        }
+        else if (__instance._isWincing)
+        {
+            float num7 = Mathf.Clamp01((Time.time - __instance._winceStartTime) / __instance._winceFadeLength);
+            float num8 = 1f - __instance._winceEffectCurve.Evaluate(num7);
+            __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Lerp(__instance._winceExposure.Evaluate(__instance._winceDamage), __instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, num8);
+            __instance._owCamera.postProcessingSettings.colorGrading.saturation = Mathf.Lerp(__instance._winceSaturation.Evaluate(__instance._winceDamage), __instance._owCamera.postProcessingSettings.colorGradingDefault.saturation, num8);
+            __instance._owCamera.postProcessingSettings.colorGrading.contrast = Mathf.Lerp(__instance._winceContrast.Evaluate(__instance._winceDamage), __instance._owCamera.postProcessingSettings.colorGradingDefault.contrast, num8);
+            if (num7 >= 1f)
+            {
+                __instance._isWincing = false;
+                __instance._winceDamage = 0f;
+            }
+        }
+        if (__instance._isConsciousnessFading)
+        {
+            float num9 = Mathf.Clamp01((Time.time - __instance._consciousnessFadeStartTime) / __instance._consciousnessFadeLength);
+            __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Min(Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num9), __instance._owCamera.postProcessingSettings.colorGrading.postExposure);
+            
+            if (ModMain.Instance.startedEndSequence)
+            {
+                ModMain.WriteDebugMessage(AudioListener.volume);
+                if (ModMain.Instance.fadeEndMusic)
+                {
+                    ModMain.Instance.fadeEndMusic = false;
+                    Locator.GetAudioMixer().MixSleepAtCampfire(5f);
+                }
+            }
+            else
+            {
+                AudioListener.volume = 1f - num9;
+            }
 
-		if (__instance._isConsciousnessFading && ModMain.Instance.startedEndSequence)
-		{
-			ModMain.WriteDebugMessage(AudioListener.volume);
-			AudioListener.volume = 1;
-			if (ModMain.Instance.fadeEndMusic)
-			{
-				ModMain.Instance.fadeEndMusic = false;
-				//Locator.GetAudioMixer().MixSleepAtCampfire(5f);
-				ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 0.8f);
-			}
-		}
+            if (num9 >= 1f)
+            {
+                Locator.GetDeathManager().FinishEscapeTimeLoopSequence();
+            }
+        }
+        if (__instance._isRealityShattering && !__instance._isRealityShatterEffectComplete)
+        {
+            float num10 = Time.time - __instance._realityShatterStartTime;
+            __instance._realityShatterEffect.SetShatterParameters(__instance._realityShardShatterCurve.Evaluate(num10), __instance._realityShardOffsetCurve.Evaluate(num10), __instance._realityShardDissolveWidthCurve.Evaluate(num10), __instance._realityShardDissolveProgressCurve.Evaluate(num10));
+            if (num10 >= __instance._realityShatterLength)
+            {
+                __instance._isRealityShatterEffectComplete = true;
+                if (typeof(PlayerCameraEffectController).GetField("OnRealityShatterEffectComplete")?.GetValue(__instance) is MulticastDelegate multiDelegate)
+                {
+                    multiDelegate.DynamicInvoke();
+                }
+            }
+        }
+        if (__instance._owCamera.postProcessingSettings.phosphenesEnabled)
+        {
+            float num11 = Mathf.Clamp01((Time.time - __instance._winceStartTime) / __instance._phospheneFadeLength);
+            __instance._owCamera.postProcessingSettings.phosphenes.visibility = 1f - num11;
+            __instance._owCamera.postProcessingSettings.phosphenes.brightness = __instance._phospheneBrightness.Evaluate(num11);
+            if (num11 >= 1f)
+            {
+                __instance._owCamera.postProcessingSettings.phosphenesEnabled = false;
+            }
+        }
+
+        return false;
 	}
 }

@@ -139,14 +139,18 @@ public class EndingController : MonoBehaviour
 		nomaiInstruments.ForEach(instrument => instrument.loop = false);
 		ghirdInstruments.ForEach(instrument => instrument.loop = false);
 		
-		yield return new WaitForSeconds(padLength - 1);
+		yield return new WaitForSeconds(padLength - 10);
 		
-		pad.FadeOut(1);
-		doorkeeperInstrument.FadeOut(1);
-		nomaiInstruments.ForEach(instrument => instrument.FadeOut(1));
-		ghirdInstruments.ForEach(instrument => instrument.FadeOut(1));
-		
+		pad.FadeOut(10);
+		doorkeeperInstrument.FadeOut(10);
+		nomaiInstruments.ForEach(instrument => instrument.FadeOut(10));
+		ghirdInstruments.ForEach(instrument => instrument.FadeOut(10));
+
 		yield return new WaitForSeconds(2);
+
+        ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
+
+        yield return new WaitForSeconds(7);
 		
 		ModMain.TriggerEnd();
 	}
