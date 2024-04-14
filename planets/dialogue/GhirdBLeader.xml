@@ -183,7 +183,7 @@
       <Page>When you have returned It, we will join you at the Great Door.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_B_QUEST</FactID>
+      <FactID>BT_GHIRD_VILLAGE_B_QUEST</FactID>
     </RevealFacts>
     <SetPersistentCondition>START_SHRUB_QUEST</SetPersistentCondition>
   </DialogueNode>
@@ -265,7 +265,7 @@
       <Page>Oh, yes. Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_B_AGREED</FactID>
+      <FactID>BT_GHIRD_VILLAGE_B_AGREED</FactID>
     </RevealFacts>
     <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_B</SetPersistentCondition>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
@@ -296,7 +296,7 @@
       <Page>I hope that helps you.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>FIFTH_SHARD_PILLAR</FactID>
+      <FactID>BT_FIFTH_SHARD_PILLAR</FactID>
     </RevealFacts>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
@@ -316,10 +316,6 @@
       <DialogueOption>
         <Text>Do you know anything about the Fifth Shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <Text>Where are the other clans?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>Nothing, sorry.</Text>

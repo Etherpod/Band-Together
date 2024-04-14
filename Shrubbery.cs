@@ -6,7 +6,7 @@ public class Shrubbery : OWItem
 {
     public static readonly ItemType ItemType = (ItemType)256;
 
-    public override string GetDisplayName() =>
+    /*public override string GetDisplayName() =>
       """
     The Sacred Shrubbery, Guardian of Light, Protector of the Faithful, Beacon of Hope,
     Harbinger of Peace, Fountain of Wisdom, Arbiter of Justice, Patron of Tranquility,
@@ -14,7 +14,9 @@ public class Shrubbery : OWItem
     Eternal Patron of Transcendental Unity, Sacred Arboreal Beacon of Celestial Illumination,
     Ethereal Arboreal Custodian of Harmonious Existence, Divine Guardian of Cosmic Order,
     Celestial Patron of Transcendental Bliss, Eternal Arboreal Sentinel of Universal Harmony
-    """;
+    """;*/
+
+    public override string GetDisplayName() => "The Sacred Shrubbery";
 
     public override void Awake()
     {

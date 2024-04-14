@@ -95,11 +95,6 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
-        <Text>Do you know where the other clans are?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
         <RequiredPersistentCondition>TALKED_TO_NOMAI_LEADER_B</RequiredPersistentCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
@@ -153,7 +148,7 @@
       <Page>As clan leader, I make the decision that the Followers of Exploration will help you in your mission and lend you our shard.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>NOMAI_VILLAGE_B_AGREED</FactID>
+      <FactID>BT_NOMAI_VILLAGE_B_AGREED</FactID>
     </RevealFacts>
     <SetPersistentCondition>GOT_NOMAI_SHARD_B</SetPersistentCondition>
     <DialogueTarget>Init_2</DialogueTarget>
@@ -166,7 +161,7 @@
       <Page>I hope this knowledge aids you on your journey.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>FIFTH_SHARD_POS</FactID>
+      <FactID>BT_FIFTH_SHARD_POS</FactID>
     </RevealFacts>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>

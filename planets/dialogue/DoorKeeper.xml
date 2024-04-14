@@ -368,10 +368,10 @@
       <Page>I will be waiting here, as I always have. Good luck, traveler.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>NOMAI_VILLAGE_A_RUMOR</FactID>
-      <FactID>NOMAI_VILLAGE_B_RUMOR</FactID>
-      <FactID>GHIRD_VILLAGE_A_RUMOR</FactID>
-      <FactID>GHIRD_VILLAGE_B_RUMOR</FactID>
+      <FactID>BT_NOMAI_VILLAGE_A_RUMOR</FactID>
+      <FactID>BT_NOMAI_VILLAGE_B_RUMOR</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_RUMOR</FactID>
+      <FactID>BT_GHIRD_VILLAGE_B_RUMOR</FactID>
     </RevealFacts>
     <SetPersistentCondition>MAIN_QUEST_START</SetPersistentCondition>
   </DialogueNode>
@@ -391,6 +391,14 @@
       <DialogueOption>
         <Text>What do you think is behind the Great Door?</Text>
         <DialogueTarget>Main_Quest_Help_01</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Who are the Ghrids?</Text>
+        <DialogueTarget>Main_Quest_Help_02</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Who are the Nomai?</Text>
+        <DialogueTarget>Main_Quest_Help_03</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>Nope.</Text>
@@ -420,6 +428,24 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Main_Quest_Help_02</Name>
+    <Dialogue>
+      <Page>The Ghirds are one of the two races that inhabit this planet. They are defined by their feathery skin and their majestic antlers.</Page>
+      <Page>I believe the two Ghird clans on this planet are both on the southern hemisphere.</Page>
+    </Dialogue>
+    <DialogueTarget>Main_Quest_Help_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Main_Quest_Help_03</Name>
+    <Dialogue>
+      <Page>The Nomai are one of the two races on this planet. I am a Nomai myself!</Page>
+      <Page>We are defined by our ornate masks that we wear. Both of the Nomai clans are on the northern hemisphere.</Page>
+    </Dialogue>
+    <DialogueTarget>Main_Quest_Help_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>Missing_Shard_0</Name>
     <EntryCondition>ALL_CLANS_AGREED</EntryCondition>
     <Dialogue>
@@ -428,8 +454,18 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Missing_Clans_0</Name>
+    <EntryCondition>BT_FIFTH_SHARD</EntryCondition>
+    <Dialogue>
+      <Page>Do my eyes deceive me? Is that the Fifth Shard?</Page>
+      <Page>Congratulations on finding it! But we need the other shards before we can place the Fifth Shard into the door.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>All_Shards_0</Name>
-    <EntryCondition>FIFTH_SHARD</EntryCondition>
+    <EntryCondition>BT_FIFTH_SHARD</EntryCondition>
+    <EntryCondition>ALL_CLANS_AGREED</EntryCondition>
     <Dialogue>
       <Page>So, this is it.</Page>
       <Page>After all these centuries, the clans are back together, joined in the single mission to open the Great Door.</Page>
@@ -465,8 +501,8 @@
   <DialogueNode>
     <Name>Opened_Door_01</Name>
     <Dialogue>
-      <Page>Nothing? No wealth? Power? Technology?</Page>
-      <Page>There's nothing in there?</Page>
+      <Page>Nothing? No wealth? No new technology?</Page>
+      <Page>There is nothing in there? This... this is not good.</Page>
       <Page>And to think... after all these years, we had finally brought all the clans back together, just for there to be nothing behind the door.</Page>
       <Page>...</Page>
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>

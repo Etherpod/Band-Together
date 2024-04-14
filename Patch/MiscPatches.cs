@@ -8,37 +8,37 @@ namespace BandTogether.Patch;
 [HarmonyPatch]
 public class MiscPatches
 {
-	[HarmonyPostfix]
-	[HarmonyPatch(typeof(GhostSensors), nameof(GhostSensors.FixedUpdate_Sensors))]
-	public static void FlashLightOwlk(GhostSensors __instance)
-	{
-		__instance._data.sensor.isIlluminatedByPlayer = __instance._data.sensor.isIlluminated;
-	}
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(GhostSensors), nameof(GhostSensors.FixedUpdate_Sensors))]
+    public static void FlashLightOwlk(GhostSensors __instance)
+    {
+        __instance._data.sensor.isIlluminatedByPlayer = __instance._data.sensor.isIlluminated;
+    }
 
-	[HarmonyPrefix]
-	[HarmonyPatch(typeof(GhostGrabController), nameof(GhostGrabController.OnSnapPlayerNeck))]
-	public static bool GhostGrabController_OnSnapPlayerNeck_Prefix(GhostGrabController __instance)
-	{
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(GhostGrabController), nameof(GhostGrabController.OnSnapPlayerNeck))]
+    public static bool GhostGrabController_OnSnapPlayerNeck_Prefix(GhostGrabController __instance)
+    {
         if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
         {
             Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
-			RespawnTeleport();
+            RespawnTeleport();
             __instance.ReleasePlayer();
-			GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
+            GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
             brain.ChangeAction(null);
-			brain._data.OnPlayerExitDreamWorld();
+            brain._data.OnPlayerExitDreamWorld();
             ReticleController.Show();
             Locator.GetPromptManager().SetPromptsVisible(true);
-			Locator.GetDreamWorldController()._playerCamEffectController.OpenEyes(0.5f, false);
+            Locator.GetDreamWorldController()._playerCamEffectController.OpenEyes(0.5f, false);
         }
 
         __instance.enabled = false;
 
-		return false;
-	}
+        return false;
+    }
 
-	private static void RespawnTeleport()
-	{
+    private static void RespawnTeleport()
+    {
         var playerBody = Locator.GetPlayerBody();
         var destination = ReferenceLocator.GetPlayerRespawnPoint();
         var planetBody = ModMain.Instance.Planet.GetComponent<OWRigidbody>();
@@ -52,89 +52,89 @@ public class MiscPatches
         playerBody.SetVelocity(targetVelocity);
 
         TheDivineThrone throneSocket = ReferenceLocator.GetShrubSocketThrone();
-		ItemTool itemTool = UnityEngine.Object.FindObjectOfType<ItemTool>();
+        ItemTool itemTool = UnityEngine.Object.FindObjectOfType<ItemTool>();
         Shrubbery shrub = ReferenceLocator.GetShrubbery();
 
         if (itemTool.GetHeldItemType() == shrub.GetItemType())
-		{
-			itemTool.SocketItem(throneSocket);
+        {
+            itemTool.SocketItem(throneSocket);
             ModMain.SetCondition("HAS_SHRUBBERY", false);
         }
         else if (!throneSocket.IsSocketOccupied())
-		{
+        {
             throneSocket.PlaceIntoSocket(shrub);
-		}
+        }
 
         shrub.transform.localScale = Vector3.one;
-		throneSocket.EnableInteraction(true);
-		ReferenceLocator.GetShrubSocketNomai().EnableInteraction(false);
+        throneSocket.EnableInteraction(true);
+        ReferenceLocator.GetShrubSocketNomai().EnableInteraction(false);
 
         SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
         entryway.ForceSetEnabled(true);
-		//ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
+        //ReferenceLocator.GetGhirdVillageBDarkZone().OnExit(Locator.GetPlayerDetector());
 
-		ReferenceLocator.GetFlashlightRuleset().OnExit();
+        ReferenceLocator.GetFlashlightRuleset().OnExit();
 
-		CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
-		elevator._currentDestinationIdx = elevator._destinations.Length - 1;
-		elevator._ghostInterface.SetStartingPosition(true);
-		elevator.SetReached(true, true, true);
+        CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
+        elevator._currentDestinationIdx = elevator._destinations.Length - 1;
+        elevator._ghostInterface.SetStartingPosition(true);
+        elevator.SetReached(true, true, true);
     }
 
-	[HarmonyPostfix]
-	[HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.EntryConditionsSatisfied))]
-	public static void DialogueEntryConditionsSatisfied(DialogueNode __instance, ref bool __result)
-	{
-		// ModMain.WriteMessage("entry condition patch");
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.EntryConditionsSatisfied))]
+    public static void DialogueEntryConditionsSatisfied(DialogueNode __instance, ref bool __result)
+    {
+        // ModMain.WriteMessage("entry condition patch");
 
-		if (__instance._listEntryCondition.Count == 0)
-		{
-			// ModMain.WriteMessage("no entry conditions");
-			__result = false;
-			return;
-		}
+        if (__instance._listEntryCondition.Count == 0)
+        {
+            // ModMain.WriteMessage("no entry conditions");
+            __result = false;
+            return;
+        }
 
-		;
+        ;
 
-		var sharedInstance = DialogueConditionManager.SharedInstance;
-		__result = __instance._listEntryCondition
-			.All(condition =>
-			{
-				// ModMain.WriteMessage($"checking condition: {condition}");
+        var sharedInstance = DialogueConditionManager.SharedInstance;
+        __result = __instance._listEntryCondition
+            .All(condition =>
+            {
+                // ModMain.WriteMessage($"checking condition: {condition}");
 
-				if (PlayerData.PersistentConditionExists(condition))
-				{
-					// ModMain.WriteMessage($"found persistent condition value: {PlayerData.GetPersistentCondition(condition)}");
-					return PlayerData.GetPersistentCondition(condition);
-				}
+                if (PlayerData.PersistentConditionExists(condition))
+                {
+                    // ModMain.WriteMessage($"found persistent condition value: {PlayerData.GetPersistentCondition(condition)}");
+                    return PlayerData.GetPersistentCondition(condition);
+                }
 
-				if (sharedInstance.ConditionExists(condition))
-				{
-					// ModMain.WriteMessage($"found condition value: {sharedInstance.GetConditionState(condition)}");
-					return sharedInstance.GetConditionState(condition);
-				}
+                if (sharedInstance.ConditionExists(condition))
+                {
+                    // ModMain.WriteMessage($"found condition value: {sharedInstance.GetConditionState(condition)}");
+                    return sharedInstance.GetConditionState(condition);
+                }
 
-				// ModMain.WriteMessage("condition not found");
-				return false;
-			});
-	}
-
-	[HarmonyPrefix]
-	[HarmonyPatch(typeof(DeathManager), nameof(DeathManager.FinishEscapeTimeLoopSequence))]
-	public static void CallCampfireEnd(DeathManager __instance)
-	{
-		if (!__instance._escapedTimeLoopSequenceComplete && !ModMain.Instance.inEndSequence)
-		{
-			__instance._escapedTimeLoopSequenceComplete = true;
-			ModMain.Instance.inEndSequence = true;
-			ModMain.Instance.OnTriggerCampfireEnd();
-		}
-	}
+                // ModMain.WriteMessage("condition not found");
+                return false;
+            });
+    }
 
     [HarmonyPrefix]
-	[HarmonyPatch(typeof(PlayerCameraEffectController), nameof(PlayerCameraEffectController.Update))]
-	public static bool AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
-	{
+    [HarmonyPatch(typeof(DeathManager), nameof(DeathManager.FinishEscapeTimeLoopSequence))]
+    public static void CallCampfireEnd(DeathManager __instance)
+    {
+        if (!__instance._escapedTimeLoopSequenceComplete && !ModMain.Instance.inEndSequence)
+        {
+            __instance._escapedTimeLoopSequenceComplete = true;
+            ModMain.Instance.inEndSequence = true;
+            ModMain.Instance.OnTriggerCampfireEnd();
+        }
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(PlayerCameraEffectController), nameof(PlayerCameraEffectController.Update))]
+    public static bool AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
+    {
         if (__instance._waitForWakeInput && LateInitializerManager.isDoneInitializing)
         {
             if (!__instance._wakePrompt.IsVisible())
@@ -276,7 +276,7 @@ public class MiscPatches
         {
             float num9 = Mathf.Clamp01((Time.time - __instance._consciousnessFadeStartTime) / __instance._consciousnessFadeLength);
             __instance._owCamera.postProcessingSettings.colorGrading.postExposure = Mathf.Min(Mathf.Lerp(__instance._owCamera.postProcessingSettings.colorGradingDefault.postExposure, -10f, num9), __instance._owCamera.postProcessingSettings.colorGrading.postExposure);
-            
+
             if (ModMain.Instance.startedEndSequence)
             {
                 ModMain.WriteDebugMessage(AudioListener.volume);
@@ -321,5 +321,25 @@ public class MiscPatches
         }
 
         return false;
-	}
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(QuantumObject), nameof(QuantumObject.IsLockedByPlayerContact))]
+    public static void LockedByContactOverride(QuantumObject __instance, ref bool __result)
+    {
+        if (__instance.GetComponent<MapModeQuantumObject>())
+        {
+            __result = __instance.IsPlayerEntangled() && !Locator.GetMapController()._isMapMode;
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(SocketedQuantumObject), nameof(SocketedQuantumObject.MoveToSocket))]
+    public static void MoveToSocketPostfix(SocketedQuantumObject __instance)
+    {
+        if (__instance.IsPlayerEntangled() && __instance.TryGetComponent(out MapModeQuantumObject quantumObj) && quantumObj.ernestoRock)
+        {
+            quantumObj.OnTeleport();
+        }
+    }
 }

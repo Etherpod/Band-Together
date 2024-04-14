@@ -1,7 +1,7 @@
 {
   "curiosities": [
     {
-      "id": "GREAT_DOOR",
+      "id": "BT_GREAT_DOOR",
       "color": {
         "r": 152,
         "g": 193,
@@ -17,56 +17,63 @@
     }
   ],
   "initialReveal": [
-    "PLANET_RUMOR"
+    "BT_PLANET_RUMOR"
   ],
   "entryPositions": [
     {
-      "id": "GREAT_DOOR",
+      "id": "BT_GREAT_DOOR",
       "position": {
         "x": 600,
         "y": -200
       }
     },
     {
-      "id": "NOMAI_VILLAGE_A",
+      "id": "BT_NOMAI_VILLAGE_A",
       "position": {
         "x": 1000,
         "y": 100
       }
     },
     {
-      "id": "NOMAI_VILLAGE_B",
+      "id": "BT_NOMAI_VILLAGE_B",
       "position": {
         "x": 1000,
         "y": -100
       }
     },
     {
-      "id": "GHIRD_VILLAGE_A",
+      "id": "BT_GHIRD_VILLAGE_A",
       "position": {
         "x": 1000,
         "y": -300
       }
     },
     {
-      "id": "GHIRD_VILLAGE_A_PUZZLE",
+      "id": "BT_GHIRD_VILLAGE_A_PUZZLE",
       "position": {
         "x": 1120,
         "y": -300
       }
     },
     {
-      "id": "GHIRD_VILLAGE_B",
+      "id": "BT_GHIRD_VILLAGE_B",
       "position": {
         "x": 1000,
         "y": -500
       }
     },
     {
-      "id": "FIFTH_SHARD",
+      "id": "BT_FIFTH_SHARD",
       "position": {
         "x": 1400,
         "y": -200
+      }
+    },
+    {
+      "id": "BT_ERNESTO",
+      "position": {
+        "x": 750,
+        "y": -600
       }
     }
   ]

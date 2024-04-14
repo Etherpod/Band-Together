@@ -30,11 +30,6 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
-        <Text>Do you know where the other clans are?</Text>
-        <DialogueTarget>Clans_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
         <RequiredPersistentCondition>GOT_GHIRD_SHARD_A</RequiredPersistentCondition>
         <CancelledPersistentCondition>TALKED_TO_GHIRD_LEADER_A</CancelledPersistentCondition>
         <Text>Thanks for helping us open the Great Door.</Text>
@@ -85,7 +80,7 @@
       <Page>The rest of it I do not know. I hope this information helps you.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>FIFTH_SHARD_LIGHT</FactID>
+      <FactID>BT_FIFTH_SHARD_LIGHT</FactID>
     </RevealFacts>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
@@ -96,7 +91,7 @@
       <Page>It is my pleasure. When the time comes, I will be with you to open the Great Door.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_AGREED</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
     <SetPersistentCondition>GHIRD_VILLAGE_A_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_A</SetPersistentCondition>

@@ -206,7 +206,7 @@
     </DialogueOptionsList>
     
     <RevealFacts>
-      <FactID>NOMAI_VILLAGE_B_QUEST</FactID>
+      <FactID>BT_NOMAI_VILLAGE_B_QUEST</FactID>
     </RevealFacts>
   </DialogueNode>
 

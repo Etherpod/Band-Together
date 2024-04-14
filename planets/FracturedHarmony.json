@@ -26,11 +26,6 @@
         "path": "Assets/CommunityMod/JamPlanet.prefab",
         "assetBundle": "assets/jamplanet",
         "keepLoaded": true
-      },
-      {
-        "path": "Assets/CommunityMod/BT_EndScreenAudio.prefab",
-        "assetBundle": "assets/jamplanet",
-        "keepLoaded": true
       }
     ],
     "translatorText": [

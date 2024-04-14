@@ -58,7 +58,220 @@
       <Page>Perhaps I will ask one of the other Ghirds tomorrow. They may be able to shed some light on this situation.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_PUZZLE_POST</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_POST</FactID>
     </RevealFacts>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Solved_0</Name>
+    <EntryCondition>SUNPOST_PUZZLE_SOLVED</EntryCondition>
+    <Dialogue>
+      <Page>Hello again, stranger. Did you solve the puzzle?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Yeah.</Text>
+        <DialogueTarget>Code_Solved_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>No.</Text>
+        <DialogueTarget>Code_Solved_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Solved_00</Name>
+    <Dialogue>
+      <Page>You did? How did you solve it?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I waited until the shadow of that strange post was on the side of the building.</Text>
+        <DialogueTarget>Code_Solved_000</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Sorry, I can't tell you.</Text>
+        <DialogueTarget>Code_Solved_001</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Solved_000</Name>
+    <Dialogue>
+      <Page>I knew it was something to do with that post!</Page>
+      <Page>Thank you, stranger. I will finally be able to ask for help with finding Ernesto.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Wait, what?</Text>
+        <DialogueTarget>Ernesto_Quest_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Good luck.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Solved_001</Name>
+    <Dialogue>
+      <Page>I guess that is only fair. I am not fit to be a Follower of Logic if I cannot figure it out myself.</Page>
+      <Page>Oh, poor Ernesto... I will never find him without help.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Wait, what?</Text>
+        <DialogueTarget>Ernesto_Quest_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Good luck.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Code_Solved_01</Name>
+    <Dialogue>
+      <Page>That is a shame. I hope you are able to solve it.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_0</Name>
+    <Dialogue>
+      <Page>My dear Ernesto was lost somewhere on the planet. I have not been able to find him.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Do you want help finding him?</Text>
+        <DialogueTarget>Ernesto_Quest_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Where did you last see him?</Text>
+        <DialogueTarget>Ernesto_Quest_00</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_00</Name>
+    <Dialogue>
+      <Page>You would help me search for him? Thank you, traveler!</Page>
+    </Dialogue>
+    <DialogueTarget>Ernesto_Quest_01</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_01</Name>
+    <Dialogue>
+      <Page>The last time I remember seeing Ernesto was when we were exploring the South Pole.</Page>
+      <Page>He was playing on a strange white rock. I thought he was fine where he was, so I looked away to watch the sunset.</Page>
+      <Page>When I looked back... my poor Ernesto was nowhere to be seen. Please, help me find him.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I'll find him, don't worry.</Text>
+        <DialogueTarget>Ernesto_Quest_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_1</Name>
+    <Dialogue>
+      <Page>Thank you. And good luck, traveler.</Page>
+    </Dialogue>
+    <RevealFacts>
+      <FactID>BT_ERNESTO_RUMOR</FactID>
+    </RevealFacts>
+    <SetPersistentCondition>BT_ERNESTO_QUEST_START</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_Query_0</Name>
+    <EntryCondition>BT_ERNESTO_QUEST_START</EntryCondition>
+    <Dialogue>
+      <Page>Did you find Ernesto?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredLogCondition>BT_ERNESTO_FOUND</RequiredLogCondition>
+        <Text>I found him, he's safe.</Text>
+        <DialogueTarget>Ernesto_Quest_Query_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>No, not yet.</Text>
+        <DialogueTarget>Ernesto_Quest_Query_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_Query_00</Name>
+    <Dialogue>
+      <Page>Thank you, traveler. You have eased my worry.</Page>
+      <Page>Where did you find him?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>I found him trapped in an underground room.</Text>
+        <DialogueTarget>Ernesto_Quest_Query_000</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>START_SHRUB_QUEST</RequiredPersistentCondition>
+        <Text>I found him secretly praying to the Sacred Shrubbery.</Text>
+        <DialogueTarget>Ernesto_Quest_Query_001</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_Query_01</Name>
+    <Dialogue>
+      <Page>I hope you are able to find him. Good luck.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_Query_000</Name>
+    <Dialogue>
+      <Page>Poor thing. I hope he is able to escape.</Page>
+    </Dialogue>
+    <DialogueTarget>Ernesto_Quest_End</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_Query_001</Name>
+    <Dialogue>
+      <Page>He was praying to a shrub?</Page>
+      <Page>How strange... I did not know he was religious.</Page>
+    </Dialogue>
+    <DialogueTarget>Ernesto_Quest_End</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Quest_End</Name>
+    <Dialogue>
+      <Page>Thank you again for finding Ernesto. I wish you good luck on your travels.</Page>
+    </Dialogue>
+    <SetPersistentCondition>BT_ERNESTO_QUEST_FINISH</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Post_Ernesto_Quest</Name>
+    <EntryCondition></EntryCondition>
+    <Dialogue>
+      <Page>I hope Ernesto is still okay...</Page>
+    </Dialogue>
   </DialogueNode>
 </DialogueTree>

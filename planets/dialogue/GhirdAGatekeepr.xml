@@ -30,7 +30,7 @@
       </DialogueOption>
     </DialogueOptionsList>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
     </RevealFacts>
   </DialogueNode>
 
@@ -155,7 +155,7 @@
       </DialogueOption>
     </DialogueOptionsList>    
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
     </RevealFacts>
     <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
   </DialogueNode>
@@ -242,12 +242,12 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_SHADOW</RequiredLogCondition>
+        <RequiredLogCondition>BT_GHIRD_VILLAGE_A_PUZZLE_SHADOW</RequiredLogCondition>
         <Text>Does it have something to do with shadows?</Text>
         <DialogueTarget>Code_Help_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredLogCondition>GHIRD_VILLAGE_A_PUZZLE_POST</RequiredLogCondition>
+        <RequiredLogCondition>BT_GHIRD_VILLAGE_A_PUZZLE_POST</RequiredLogCondition>
         <Text>Does it have something to do with that post on the other island?</Text>
         <DialogueTarget>Code_Help_01</DialogueTarget>
       </DialogueOption>
@@ -282,8 +282,23 @@
       <Page>Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_PUZZLE_SOLVED</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_SOLVED</FactID>
     </RevealFacts>
     <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>SUNPOST_PUZZLE_SOLVED</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Post_Solve_0</Name>
+    <EntryCondition>SUNPOST_PUZZLE_SOLVED</EntryCondition>
+    <Dialogue>
+      <Page>Congratulations on solving the code.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Thanks.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
   </DialogueNode>
 </DialogueTree>

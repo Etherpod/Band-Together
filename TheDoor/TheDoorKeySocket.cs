@@ -51,7 +51,7 @@ public class TheDoorKeySocket : OWItemSocket
         if (_numInsertedFragments < numKeyFragments) return;
         
         ModMain.WriteDebugMessage("key complete");
-        Locator.GetShipLogManager().RevealFact("KEY_COMPLETE");
+        Locator.GetShipLogManager().RevealFact("BT_KEY_COMPLETE");
         OnKeyInserted?.Invoke();
     }
 

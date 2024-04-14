@@ -1,0 +1,146 @@
+﻿<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+  <NameField>Ernesto</NameField>
+  
+  <DialogueNode>
+    <Name>Init_0</Name>
+    <EntryCondition>DEFAULT</EntryCondition>
+    <Randomize/>
+    <Dialogue>
+      <Page>Hey.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Hello.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Finally! I was getting a bit lonely down here.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>It's been a while since I've seen anyone.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Could you get me out of here? I need sunlight.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Are you also stuck down here?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Don't scream. I won't eat you.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>I should have never touched that rock.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Are you Ernesto?</Text>
+        <DialogueTarget>Init_1</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_1</Name>
+    <Dialogue>
+      <Page>Yeah. Remember me? Ernesto the magic talking anglerfish?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Of course I remember you!</Text>
+        <DialogueTarget>Init_10</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Never seen you in my life.</Text>
+        <DialogueTarget>Init_11</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_10</Name>
+    <Dialogue>
+      <Page>Good.</Page>
+    </Dialogue>
+    <DialogueTarget>Escape_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Init_11</Name>
+    <Dialogue>
+      <Page>I guess I wasn't as popular as I thought.</Page>
+    </Dialogue>
+    <DialogueTarget>Escape_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Escape_0</Name>
+    <Dialogue>
+      <Page>Have you found a way out of here? I've looked everywhere, but all I could find was that portrait of a bush.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>You can use the same rock that brought you in here.</Text>
+        <DialogueTarget>Escape_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>We're trapped in here forever.</Text>
+        <DialogueTarget>Escape_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+    <RevealFacts>
+      <FactID>BT_ERNESTO_FOUND</FactID>
+    </RevealFacts>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Escape_00</Name>
+    <Dialogue>
+      <Page>Oh, cool. Nice meeting you.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredLogCondition>BT_ERNESTO_RUMOR</RequiredLogCondition>
+        <Text>One of the Ghirds was looking for you.</Text>
+        <DialogueTarget>Ghird_Searching_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Bye.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Escape_01</Name>
+    <Dialogue>
+      <Page>I guess I'd better get comfy then. Nice meeting you.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <RequiredLogCondition>BT_ERNESTO_RUMOR</RequiredLogCondition>
+        <Text>One of the Ghirds was looking for you.</Text>
+        <DialogueTarget>Ghird_Searching_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Bye.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ghird_Searching_0</Name>
+    <Dialogue>
+      <Page>Tell them I'll be back soon. I think I might stay down here a bit longer.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ghird_Searching_1</Name>
+    <Dialogue>
+      <Page>Tell them I'll be back soon. Although soon could be a year depending on how long it takes to find a way out of here.</Page>
+    </Dialogue>
+  </DialogueNode>
+</DialogueTree>

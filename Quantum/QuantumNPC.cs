@@ -74,7 +74,7 @@ public class QuantumNPC : SocketedQuantumObject
 
 		ModMain.WriteDebugMessage($"moving {name} to {targetType} [locked:{IsLocked()}]");
 
-		if (_conversationInteract && targetType == QuantumTarget.Door) _conversationInteract.SetInteractionEnabled(false);
+		if (_conversationInteract && targetType == QuantumTarget.Fire) _conversationInteract.SetInteractionEnabled(false);
 
 		_teleportTarget = targetType;
 		_ignoreVisibility = ignoreVisibility;

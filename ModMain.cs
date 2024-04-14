@@ -59,7 +59,6 @@ public class ModMain : ModBehaviour
     
     private bool _debugEnabled = false;
     private int _numClansConvinced;
-    private List<string> _currentSave = new();
     private List<GameObject> factsToEnable = new();
     private List<ScrollItem> scrollsToEnable = new();
     private List<GameObject> textToEnable = new();
@@ -139,6 +138,9 @@ public class ModMain : ModBehaviour
                 inEndSequence = false;
                 fadeEndMusic = false;
                 startedEndSequence = false;
+                factsToEnable.Clear();
+                scrollsToEnable.Clear();
+                textToEnable.Clear();
             }
         };
     }
@@ -241,12 +243,21 @@ public class ModMain : ModBehaviour
 
     private void OnMainQuestStart(string condition, bool value)
     {
-        if (factsToEnable.Count == 0 || condition != "MAIN_QUEST_START") return;
+        if (condition != "MAIN_QUEST_START") return;
         
         OnMainQuest?.Invoke();
-        factsToEnable.ForEach(factTrigger => factTrigger.SetActive(true));
-        scrollsToEnable.ForEach(scrollItem => scrollItem.EnableInteraction(true));
-        textToEnable.ForEach(wallText => wallText.gameObject.SetActive(true));
+        if (factsToEnable.Count > 0)
+        {
+            factsToEnable.ForEach(factTrigger => factTrigger.SetActive(true));
+        }
+        if (scrollsToEnable.Count > 0)
+        {
+            scrollsToEnable.ForEach(scrollItem => scrollItem.EnableInteraction(true));
+        }
+        if (textToEnable.Count > 0)
+        {
+            textToEnable.ForEach(wallText => wallText.gameObject.SetActive(true));
+        }
     }
 
     private void OnShardCondition(string condition, bool value)
@@ -263,7 +274,7 @@ public class ModMain : ModBehaviour
         }
         else if (_numClansConvinced == 4 && !GetPersistentCondition("ALL_CLANS_AGREED"))
         {
-            Locator.GetShipLogManager().RevealFact("GREAT_DOOR_CLANS_AGREED");
+            Locator.GetShipLogManager().RevealFact("BT_GREAT_DOOR_CLANS_AGREED");
             SetPersistentCondition("ALL_CLANS_AGREED", true);
         }
     }

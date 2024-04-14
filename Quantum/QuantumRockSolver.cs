@@ -45,7 +45,7 @@ public class QuantumRockSolver : MonoBehaviour
     public void OnPickedUp(OWItem item)
     {
         _animator.SetTrigger(PickedUp);
-        ModMain.SetCondition("FIFTH_SHARD", true);
-        Locator.GetShipLogManager().RevealFact("FIFTH_SHARD_FOUND");
+        ModMain.SetCondition("BT_FIFTH_SHARD", true);
+        Locator.GetShipLogManager().RevealFact("BT_FIFTH_SHARD_FOUND");
     }
 }

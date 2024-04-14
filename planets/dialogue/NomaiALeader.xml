@@ -45,7 +45,7 @@
       <Page>I hope this assists you in some way.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>FIFTH_SHARD_QUANTUM</FactID>
+      <FactID>BT_FIFTH_SHARD_QUANTUM</FactID>
     </RevealFacts>
     <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
@@ -177,7 +177,7 @@
       <Page>Nothing, currently.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>NOMAI_VILLAGE_A_QUEST</FactID>
+      <FactID>BT_NOMAI_VILLAGE_A_QUEST</FactID>
     </RevealFacts>
     <SetPersistentCondition>WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
     <DialogueTarget>Steal_Quest_Delay</DialogueTarget>
@@ -262,7 +262,7 @@
       <Page>Good luck, traveler.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>STEAL_QUEST</FactID>
+      <FactID>BT_STEAL_QUEST</FactID>
     </RevealFacts>
     <SetPersistentCondition>START_STEAL_QUEST</SetPersistentCondition>
   </DialogueNode>
@@ -367,7 +367,7 @@
       <Page>Goodbye, traveler. It was a pleasure meeting you.</Page>
     </Dialogue>
     <RevealFacts>
-      <FactID>NOMAI_VILLAGE_A_AGREED</FactID>
+      <FactID>BT_NOMAI_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
     <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>

@@ -55,7 +55,7 @@
 
   <ShipLogConditions>
     <RevealFact>
-      <FactID>GHIRD_VILLAGE_A_PUZZLE_SHADOW</FactID>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_SHADOW</FactID>
       <Condition>42</Condition>
     </RevealFact>
   </ShipLogConditions>
