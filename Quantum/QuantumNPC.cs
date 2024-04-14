@@ -9,6 +9,7 @@ public class QuantumNPC : SocketedQuantumObject
 {
 	[SerializeField] private QuantumGroup quantumGroup = Captial;
 	[SerializeField] private QuantumNPCSocket[] targetSockets;
+	[SerializeField] bool isLogicGatekeeper;
 
 	private IDictionary<QuantumTarget, QuantumNPCSocket> _targets = null;
 
@@ -25,6 +26,7 @@ public class QuantumNPC : SocketedQuantumObject
 
 		ModMain.Instance.OnMoveGroup += OnMoveGroup;
 		ModMain.Instance.OnMainQuest += OnMainQuest;
+		ModMain.Instance.OnCompleteAccidentalCode += MoveGatekeeper;
 
 		_targets = targetSockets
 			.SelectPair(socket => socket.targetType)
@@ -38,7 +40,8 @@ public class QuantumNPC : SocketedQuantumObject
 
 		ModMain.Instance.OnMoveGroup -= OnMoveGroup;
 		ModMain.Instance.OnMainQuest -= OnMainQuest;
-	}
+        ModMain.Instance.OnCompleteAccidentalCode -= MoveGatekeeper;
+    }
 
 	public override void Start()
 	{
@@ -64,7 +67,7 @@ public class QuantumNPC : SocketedQuantumObject
 
 	private void OnMoveGroup(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility)
 	{
-		if (targetGroup != quantumGroup) return;
+		if (targetGroup != quantumGroup || (isLogicGatekeeper && !ModMain.GetPersistentCondition("BT_SUNPOST_PUZZLE_SOLVED"))) return;
 
 		if (!_targets.ContainsKey(targetType))
 		{
@@ -80,6 +83,13 @@ public class QuantumNPC : SocketedQuantumObject
 		_ignoreVisibility = ignoreVisibility;
 		_waitingToTeleport = true;
 		_wasLocked = true;
+	}
+
+	private void MoveGatekeeper()
+	{
+		if (!isLogicGatekeeper) return;
+
+		OnMoveGroup(GhirdA, QuantumTarget.Door, false);
 	}
 
 	public override bool ChangeQuantumState(bool skipInstantVisibilityCheck)

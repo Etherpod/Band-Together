@@ -45,6 +45,8 @@ public class ModMain : ModBehaviour
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
     public event ModStartEvent OnMainQuest;
+    public delegate void MoveGatekeeperEvent();
+    public event MoveGatekeeperEvent OnCompleteAccidentalCode;
 
     public delegate void ShardFoundEvent(QuantumGroup shardGroup);
     public event ShardFoundEvent OnShardFound;
@@ -103,6 +105,7 @@ public class ModMain : ModBehaviour
             AddDialogueConditionListener(OnMainQuestStart, "BT_MAIN_QUEST_START");
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
+            AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
@@ -277,6 +280,13 @@ public class ModMain : ModBehaviour
             Locator.GetShipLogManager().RevealFact("BT_GREAT_DOOR_CLANS_AGREED");
             SetPersistentCondition("BT_ALL_CLANS_AGREED", true);
         }
+    }
+
+    private void OnGatekeeperToDoor(string condition, bool value)
+    {
+        if (condition != "BT_SUNPOST_PUZZLE_SOLVED" || !GetPersistentCondition("BT_ACCIDENTAL_SOLVE")) return;
+
+        OnCompleteAccidentalCode?.Invoke();
     }
 
     private void OnGroupMoveCondition(string condition, bool value)
