@@ -79,14 +79,14 @@
 
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_NOMAI_LEADER_B</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_NOMAI_LEADER_B</EntryCondition>
     <Dialogue>
       <Page>What would you request of me?</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
         <Text>Will you help us open the Great Door?</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -95,20 +95,20 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>TALKED_TO_NOMAI_LEADER_B</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</RequiredPersistentCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
-        <CancelledPersistentCondition>TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <RequiredPersistentCondition>BT_GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
+        <CancelledPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>I'm glad you agreed to help us.</Text>
         <DialogueTarget>End_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
-        <RequiredPersistentCondition>GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
-        <CancelledPersistentCondition>TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
+        <RequiredPersistentCondition>BT_LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
+        <CancelledPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
         <Text>I'm glad you agreed to help us.</Text>
         <DialogueTarget>End_01</DialogueTarget>
       </DialogueOption>
@@ -127,12 +127,12 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>I'm glad you agreed to help us.</Text>
         <DialogueTarget>End_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
         <Text>I'm glad you agreed to help us.</Text>
         <DialogueTarget>End_01</DialogueTarget>
       </DialogueOption>
@@ -150,7 +150,7 @@
     <RevealFacts>
       <FactID>BT_NOMAI_VILLAGE_B_AGREED</FactID>
     </RevealFacts>
-    <SetPersistentCondition>GOT_NOMAI_SHARD_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_GOT_NOMAI_SHARD_B</SetPersistentCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
 
@@ -172,8 +172,8 @@
       <Page>The feeling is mutual. I hope convincing the other clans to join goes as smoothly as it did with mine, although I have my doubts.</Page>
       <Page>I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetPersistentCondition>TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
-    <SetPersistentCondition>NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>
   
   <DialogueNode>
@@ -181,7 +181,7 @@
     <Dialogue>
       <Page>The feeling is mutual. I will see you at the Great Door, my friend.</Page>
     </Dialogue>
-    <SetPersistentCondition>TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
-    <SetPersistentCondition>NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_NOMAI_VILLAGE_B_TO_DOOR</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

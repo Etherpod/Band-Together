@@ -45,7 +45,7 @@ public class QuantumNPC : SocketedQuantumObject
 		base.Start();
 
 		_conversationInteract = GetComponentInChildren<InteractReceiver>();
-		if (quantumGroup != Captial && _conversationInteract && !ModMain.GetPersistentCondition("MAIN_QUEST_START"))
+		if (quantumGroup != Captial && _conversationInteract && !ModMain.GetPersistentCondition("BT_MAIN_QUEST_START"))
 		{
 			_conversationInteract.SetInteractionEnabled(false);
 		}

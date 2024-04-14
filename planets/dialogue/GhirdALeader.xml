@@ -14,14 +14,14 @@
 
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_GHIRD_LEADER_A</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_GHIRD_LEADER_A</EntryCondition>
     <Dialogue>
       <Page>What would you ask of me?</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_GHIRD_SHARD_A</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_GHIRD_SHARD_A</CancelledPersistentCondition>
         <Text>Can you help us open the Great Door?</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -30,13 +30,13 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>GOT_GHIRD_SHARD_A</RequiredPersistentCondition>
-        <CancelledPersistentCondition>TALKED_TO_GHIRD_LEADER_A</CancelledPersistentCondition>
+        <RequiredPersistentCondition>BT_GOT_GHIRD_SHARD_A</RequiredPersistentCondition>
+        <CancelledPersistentCondition>BT_TALKED_TO_GHIRD_LEADER_A</CancelledPersistentCondition>
         <Text>Thanks for helping us open the Great Door.</Text>
         <DialogueTarget>End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>TALKED_TO_GHIRD_LEADER_A</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_TALKED_TO_GHIRD_LEADER_A</RequiredPersistentCondition>
         <Text>Nothing, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -68,7 +68,7 @@
       <Page>I speak for the rest of my clan when I say that the Followers of Logic will contribute their shard to this mission.</Page>
       <Page>You have done well to reach this place. It is only fair that you receive a reward.</Page>
     </Dialogue>
-    <SetPersistentCondition>GOT_GHIRD_SHARD_A</SetPersistentCondition>
+    <SetPersistentCondition>BT_GOT_GHIRD_SHARD_A</SetPersistentCondition>
     <DialogueTarget>Init_2</DialogueTarget>
   </DialogueNode>
 
@@ -93,7 +93,7 @@
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
-    <SetPersistentCondition>GHIRD_VILLAGE_A_TO_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_A</SetPersistentCondition>
+    <SetPersistentCondition>BT_GHIRD_VILLAGE_A_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_GHIRD_LEADER_A</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

@@ -43,7 +43,7 @@
         <DialogueTarget>Background_Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_COMPREHEND</CancelledCondition>
         <Text>How am I able to understand you?</Text>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
@@ -69,7 +69,7 @@
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetCondition>BACKGROUND_DOOR</SetCondition>
+    <SetCondition>BT_BACKGROUND_DOOR</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -80,7 +80,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR_CONTENT</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_DOOR_CONTENT</CancelledCondition>
         <Text>What's behind it?</Text>
         <DialogueTarget>Background_Door_01</DialogueTarget>
       </DialogueOption>
@@ -90,7 +90,7 @@
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetCondition>BACKGROUND_DOOR_OPEN</SetCondition>
+    <SetCondition>BT_BACKGROUND_DOOR_OPEN</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -103,7 +103,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR_OPEN</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_DOOR_OPEN</CancelledCondition>
         <Text>How do you open it?</Text>
         <DialogueTarget>Background_Door_00</DialogueTarget>
       </DialogueOption>
@@ -113,7 +113,7 @@
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetCondition>BACKGROUND_DOOR_CONTENT</SetCondition>
+    <SetCondition>BT_BACKGROUND_DOOR_CONTENT</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -125,28 +125,28 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_DOOR</CancelledCondition>
         <Text>You what..?</Text>
         <DialogueTarget>Background_Comprehend_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_DOOR</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_DOOR</CancelledCondition>
         <Text>That's amazing!</Text>
         <DialogueTarget>Background_Comprehend_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_DOOR</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_DOOR</RequiredCondition>
         <Text>You what..?</Text>
         <DialogueTarget>Background_Comprehend_02</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_DOOR</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_DOOR</RequiredCondition>
         <Text>That's amazing!</Text>
         <DialogueTarget>Background_Comprehend_03</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
     
-    <SetCondition>BACKGROUND_COMPREHEND</SetCondition>
+    <SetCondition>BT_BACKGROUND_COMPREHEND</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -187,12 +187,12 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_CLANS</CancelledCondition>
         <Text>Where are the other clans?</Text>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_CLANS</RequiredCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
@@ -207,12 +207,12 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_CLANS</CancelledCondition>
         <Text>Where are the other clans?</Text>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_CLANS</RequiredCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
@@ -234,18 +234,18 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_COMPREHEND</CancelledCondition>
         <Text>How am I able to understand you?</Text>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_CLANS</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_CLANS</CancelledCondition>
         <Text>Where are the other clans?</Text>
         <DialogueTarget>Background_Clans_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_CLANS</RequiredCondition>
-        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_CLANS</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_COMPREHEND</RequiredCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
@@ -262,18 +262,18 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>BACKGROUND_COMPREHEND</CancelledCondition>
+        <CancelledCondition>BT_BACKGROUND_COMPREHEND</CancelledCondition>
         <Text>How am I able to understand you?</Text>
         <DialogueTarget>Background_Comprehend_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredCondition>BACKGROUND_COMPREHEND</RequiredCondition>
+        <RequiredCondition>BT_BACKGROUND_COMPREHEND</RequiredCondition>
         <Text>Why were you transmitting a signal?</Text>
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetCondition>BACKGROUND_CLANS</SetCondition>
+    <SetCondition>BT_BACKGROUND_CLANS</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -373,12 +373,12 @@
       <FactID>BT_GHIRD_VILLAGE_A_RUMOR</FactID>
       <FactID>BT_GHIRD_VILLAGE_B_RUMOR</FactID>
     </RevealFacts>
-    <SetPersistentCondition>MAIN_QUEST_START</SetPersistentCondition>
+    <SetPersistentCondition>BT_MAIN_QUEST_START</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Main_Quest_Help_0</Name>
-    <EntryCondition>MAIN_QUEST_START</EntryCondition>
+    <EntryCondition>BT_MAIN_QUEST_START</EntryCondition>
     <Dialogue>
       <Page>Was there something you needed?</Page>
     </Dialogue>
@@ -447,7 +447,7 @@
 
   <DialogueNode>
     <Name>Missing_Shard_0</Name>
-    <EntryCondition>ALL_CLANS_AGREED</EntryCondition>
+    <EntryCondition>BT_ALL_CLANS_AGREED</EntryCondition>
     <Dialogue>
       <Page>Fantastic! Every clan is here! The last thing we need to do is find the Fifth Shard and complete the key.</Page>
     </Dialogue>
@@ -465,7 +465,7 @@
   <DialogueNode>
     <Name>All_Shards_0</Name>
     <EntryCondition>BT_FIFTH_SHARD</EntryCondition>
-    <EntryCondition>ALL_CLANS_AGREED</EntryCondition>
+    <EntryCondition>BT_ALL_CLANS_AGREED</EntryCondition>
     <Dialogue>
       <Page>So, this is it.</Page>
       <Page>After all these centuries, the clans are back together, joined in the single mission to open the Great Door.</Page>
@@ -475,7 +475,7 @@
 
   <DialogueNode>
     <Name>Opened_Door_0</Name>
-    <EntryCondition>SEARCHED_GREAT_DOOR</EntryCondition>
+    <EntryCondition>BT_SEARCHED_GREAT_DOOR</EntryCondition>
     <Dialogue>
       <Page>What did you find in the chamber?</Page>
     </Dialogue>
@@ -508,12 +508,12 @@
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
       <Page>This may be it. We may never unite the clans again.</Page>
     </Dialogue>
-    <SetCondition>CLANS_LEAVE_DOOR</SetCondition>
+    <SetCondition>BT_CLANS_LEAVE_DOOR</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Hope_Lost_0</Name>
-    <EntryCondition>CLANS_LEAVE_DOOR</EntryCondition>
+    <EntryCondition>BT_CLANS_LEAVE_DOOR</EntryCondition>
     <Dialogue>
       <Page>Thank you for trying, traveler. But it seems as if our planet is beyond hope.</Page>
     </Dialogue>
@@ -548,12 +548,12 @@
       <Page>I suppose. It is not as if I have anything better to do with my time.</Page>
       <Page>Perhaps we will share some of your marshmallows.</Page>
     </Dialogue>
-    <SetCondition>DOORKEEPER_TO_FIRE</SetCondition>
+    <SetCondition>BT_DOORKEEPER_TO_FIRE</SetCondition>
   </DialogueNode>
   
   <DialogueNode>
     <Name>Light_The_Fire</Name>
-    <EntryCondition>DOORKEEPER_TO_FIRE</EntryCondition>
+    <EntryCondition>BT_DOORKEEPER_TO_FIRE</EntryCondition>
     <Dialogue>
       <Page>Go ahead and light the fire so we can enjoy those marshmallows of yours.</Page>
     </Dialogue>

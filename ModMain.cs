@@ -19,25 +19,25 @@ public class ModMain : ModBehaviour
     private static readonly IDictionary<string, (QuantumGroup[] groups, QuantumTarget destination)> GroupDialogueConditions =
         new Dictionary<string, (QuantumGroup[], QuantumTarget)>
         {
-            { "NOMAI_VILLAGE_A_TO_DOOR", (new[] { NomaiA }, Door) },
-            { "NOMAI_VILLAGE_B_TO_DOOR", (new[] { NomaiB }, Door) },
-            { "GHIRD_VILLAGE_A_TO_DOOR", (new[] { GhirdA }, Door) },
-            { "GHIRD_VILLAGE_B_TO_DOOR", (new[] { GhirdB }, Door) },
+            { "BT_NOMAI_VILLAGE_A_TO_DOOR", (new[] { NomaiA }, Door) },
+            { "BT_NOMAI_VILLAGE_B_TO_DOOR", (new[] { NomaiB }, Door) },
+            { "BT_GHIRD_VILLAGE_A_TO_DOOR", (new[] { GhirdA }, Door) },
+            { "BT_GHIRD_VILLAGE_B_TO_DOOR", (new[] { GhirdB }, Door) },
 
-            { "SEARCHED_GREAT_DOOR", (new[] { Captial }, Away) },
-            { "CLANS_LEAVE_DOOR", (new[] { NomaiA, NomaiB, GhirdA, GhirdB }, Away) },
+            { "BT_SEARCHED_GREAT_DOOR", (new[] { Captial }, Away) },
+            { "BT_CLANS_LEAVE_DOOR", (new[] { NomaiA, NomaiB, GhirdA, GhirdB }, Away) },
 
-            { "DOORKEEPER_TO_FIRE", (new[] { Captial }, Fire) },
+            { "BT_DOORKEEPER_TO_FIRE", (new[] { Captial }, Fire) },
             { "NOMAI_TO_FIRE", (new[] { NomaiA, NomaiB }, Fire) },
             { "GHIRD_TO_FIRE", (new[] { GhirdA, GhirdB }, Fire) },
         };
 
     private static readonly IDictionary<string, QuantumGroup> ShardConditions = new Dictionary<string, QuantumGroup>
     {
-        { "GOT_NOMAI_SHARD_A", NomaiA },
-        { "GOT_NOMAI_SHARD_B", NomaiB },
-        { "GOT_GHIRD_SHARD_A", GhirdA },
-        { "GOT_GHIRD_SHARD_B", GhirdB },
+        { "BT_GOT_NOMAI_SHARD_A", NomaiA },
+        { "BT_GOT_NOMAI_SHARD_B", NomaiB },
+        { "BT_GOT_GHIRD_SHARD_A", GhirdA },
+        { "BT_GOT_GHIRD_SHARD_B", GhirdB },
     };
 
     public static ModMain Instance;
@@ -100,7 +100,7 @@ public class ModMain : ModBehaviour
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
-            AddDialogueConditionListener(OnMainQuestStart, "MAIN_QUEST_START");
+            AddDialogueConditionListener(OnMainQuestStart, "BT_MAIN_QUEST_START");
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
 
@@ -175,7 +175,7 @@ public class ModMain : ModBehaviour
     {
         WriteDebugMessage("init conditions");
 
-        if (!GetPersistentCondition("MAIN_QUEST_START"))
+        if (!GetPersistentCondition("BT_MAIN_QUEST_START"))
         {
             Planet
                 .GetComponentsInChildren<ShipLogFactTriggerVolume>()
@@ -208,23 +208,23 @@ public class ModMain : ModBehaviour
                 _numClansConvinced++;
             });
 
-        if (GetPersistentCondition("SHRUB_GIVEN_TO_NOMAI"))
+        if (GetPersistentCondition("BT_SHRUB_GIVEN_TO_NOMAI"))
         {
             ShrubberySocketNomai socketNomai = ReferenceLocator.GetShrubSocketNomai();
             socketNomai.PlaceIntoSocket(ReferenceLocator.GetShrubbery());
             socketNomai.EnableInteraction(false);
         }
-        else if (GetPersistentCondition("FINISH_SHRUB_QUEST"))
+        else if (GetPersistentCondition("BT_FINISH_SHRUB_QUEST"))
         {
             TheDivineThrone socketThrone = ReferenceLocator.GetShrubSocketThrone();
             socketThrone.PlaceIntoSocket(ReferenceLocator.GetShrubbery());
-            if (!GetPersistentCondition("START_STEAL_QUEST"))
+            if (!GetPersistentCondition("BT_START_STEAL_QUEST"))
             {
                 socketThrone.EnableInteraction(false);
             }
         }
 
-        if (GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+        if (GetPersistentCondition("BT_OPEN_SUNPOST_DOOR"))
         {
             ReferenceLocator.GetSunpostDetector().OpenDoor();
         }
@@ -243,7 +243,7 @@ public class ModMain : ModBehaviour
 
     private void OnMainQuestStart(string condition, bool value)
     {
-        if (condition != "MAIN_QUEST_START") return;
+        if (condition != "BT_MAIN_QUEST_START") return;
         
         OnMainQuest?.Invoke();
         if (factsToEnable.Count > 0)
@@ -268,14 +268,14 @@ public class ModMain : ModBehaviour
         OnShardFound?.Invoke(shardGroup);
             
         _numClansConvinced += 1;
-        if (_numClansConvinced == 3 && !GetPersistentCondition("LAST_CLAN_TO_AGREE"))
+        if (_numClansConvinced == 3 && !GetPersistentCondition("BT_LAST_CLAN_TO_AGREE"))
         {
-            SetPersistentCondition("LAST_CLAN_TO_AGREE", true);
+            SetPersistentCondition("BT_LAST_CLAN_TO_AGREE", true);
         }
-        else if (_numClansConvinced == 4 && !GetPersistentCondition("ALL_CLANS_AGREED"))
+        else if (_numClansConvinced == 4 && !GetPersistentCondition("BT_ALL_CLANS_AGREED"))
         {
             Locator.GetShipLogManager().RevealFact("BT_GREAT_DOOR_CLANS_AGREED");
-            SetPersistentCondition("ALL_CLANS_AGREED", true);
+            SetPersistentCondition("BT_ALL_CLANS_AGREED", true);
         }
     }
 

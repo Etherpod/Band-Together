@@ -78,15 +78,15 @@ public class DebugMenu
 		_conditionMenu = _menuAPI.PauseMenu_MakePauseListMenu("CONDITION TOOLS");
 		_menuAPI.PauseMenu_MakeMenuOpenButton("CONDITIONS", _conditionMenu, _modMenu);
 
-		AddConditionButton("SHARD // NOMAI A", "GOT_NOMAI_SHARD_A", true);
-		AddConditionButton("SHARD // NOMAI B", "GOT_NOMAI_SHARD_B", true);
-		AddConditionButton("SHARD // GHIRD A", "GOT_GHIRD_SHARD_A", true);
-		AddConditionButton("SHARD // GHIRD B", "GOT_GHIRD_SHARD_B", true);
-		AddConditionButton("DOOR // NOMAI A", "NOMAI_VILLAGE_A_TO_DOOR", true);
-		AddConditionButton("DOOR // NOMAI B", "NOMAI_VILLAGE_B_TO_DOOR", true);
-		AddConditionButton("DOOR // GHIRD A", "GHIRD_VILLAGE_A_TO_DOOR", true);
-		AddConditionButton("DOOR // GHIRD B", "GHIRD_VILLAGE_B_TO_DOOR", true);
-		AddConditionButton("CLANS LEAVE", "CLANS_LEAVE_DOOR");
+		AddConditionButton("SHARD // NOMAI A", "BT_GOT_NOMAI_SHARD_A", true);
+		AddConditionButton("SHARD // NOMAI B", "BT_GOT_NOMAI_SHARD_B", true);
+		AddConditionButton("SHARD // GHIRD A", "BT_GOT_GHIRD_SHARD_A", true);
+		AddConditionButton("SHARD // GHIRD B", "BT_GOT_GHIRD_SHARD_B", true);
+		AddConditionButton("DOOR // NOMAI A", "BT_NOMAI_VILLAGE_A_TO_DOOR", true);
+		AddConditionButton("DOOR // NOMAI B", "BT_NOMAI_VILLAGE_B_TO_DOOR", true);
+		AddConditionButton("DOOR // GHIRD A", "BT_GHIRD_VILLAGE_A_TO_DOOR", true);
+		AddConditionButton("DOOR // GHIRD B", "BT_GHIRD_VILLAGE_B_TO_DOOR", true);
+		AddConditionButton("CLANS LEAVE", "BT_CLANS_LEAVE_DOOR");
 	}
 
 	private void AddConditionButton(string buttonText, string conditionName, bool persistent = false)

@@ -19,7 +19,7 @@ public class ShrubberySocketNomai : OWItemSocket
 
     private void OnInsert(OWItem item)
     {
-        ModMain.SetPersistentCondition("SHRUB_GIVEN_TO_NOMAI", true);
+        ModMain.SetPersistentCondition("BT_SHRUB_GIVEN_TO_NOMAI", true);
         base.EnableInteraction(false);
     }
 }

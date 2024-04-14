@@ -20,7 +20,7 @@ public class CockpitDetector : MonoBehaviour
 
 	private void Update()
 	{
-		if (!doorOpen && PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
+		if (!doorOpen && PlayerData.GetPersistentCondition("BT_FINISH_COCKPIT_QUEST"))
 		{
 			doorOpen = true;
 			doorController.Open(activateSlot);
@@ -36,18 +36,18 @@ public class CockpitDetector : MonoBehaviour
 	private void OnEntry(GameObject hitObj)
 	{
 		if (hitObj.transform.parent.name == "Module_Cockpit_Body" 
-			&& !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
+			&& !PlayerData.GetPersistentCondition("BT_FINISH_COCKPIT_QUEST"))
 		{
-			ModMain.SetPersistentCondition("GOT_COCKPIT", true);
+			ModMain.SetPersistentCondition("BT_GOT_COCKPIT", true);
 		}
 	}
 
 	private void OnExit(GameObject hitObj)
 	{
 		if (hitObj.transform.parent.name == "Module_Cockpit_Body"
-            && !PlayerData.GetPersistentCondition("FINISH_COCKPIT_QUEST"))
+            && !PlayerData.GetPersistentCondition("BT_FINISH_COCKPIT_QUEST"))
 		{
-			ModMain.SetPersistentCondition("GOT_COCKPIT", false);
+			ModMain.SetPersistentCondition("BT_GOT_COCKPIT", false);
 		}
 	}
 }

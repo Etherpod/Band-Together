@@ -24,12 +24,12 @@ public class TheDivineThrone : OWItemSocket
 
     private void OnShrubberyReSeatedUponItsHolyArborealThrone(OWItem item)
     {
-        if (!ModMain.GetPersistentCondition("START_STEAL_QUEST"))
+        if (!ModMain.GetPersistentCondition("BT_START_STEAL_QUEST"))
         {
             base.EnableInteraction(false);
         }
 
-        ModMain.SetPersistentCondition("FINISH_SHRUB_QUEST", true);
+        ModMain.SetPersistentCondition("BT_FINISH_SHRUB_QUEST", true);
     }
 
     private void OnShrubberyRemovedFromItsHolyArborealThrone(OWItem item)

@@ -28,20 +28,20 @@ public class Shrubbery : OWItem
     {
         base.PickUpItem(holdTranform);
         transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        ModMain.SetCondition("HAS_SHRUBBERY", true);
+        ModMain.SetCondition("BT_HAS_SHRUBBERY", true);
     }
 
     public override void SocketItem(Transform socketTransform, Sector sector)
     {
         base.SocketItem(socketTransform, sector);
         transform.localScale = Vector3.one;
-        ModMain.SetCondition("HAS_SHRUBBERY", false);
+        ModMain.SetCondition("BT_HAS_SHRUBBERY", false);
     }
 
     public override void DropItem(Vector3 position, Vector3 normal, Transform parent, Sector sector, IItemDropTarget customDropTarget)
     {
         base.DropItem(position, normal, parent, sector, customDropTarget);
         transform.localScale = Vector3.one;
-        ModMain.SetCondition("HAS_SHRUBBERY", false);
+        ModMain.SetCondition("BT_HAS_SHRUBBERY", false);
     }
 }

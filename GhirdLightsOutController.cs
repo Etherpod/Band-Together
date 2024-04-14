@@ -12,14 +12,14 @@ public class GhirdLightsOutController : MonoBehaviour
 
     private void Update()
     {
-        if (lightsOut && PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
+        if (lightsOut && PlayerData.GetPersistentCondition("BT_FINISH_STEAL_QUEST"))
         {
             lightsOut = false;
             LightsOn();
         }
-        if (lightsOut || PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST")) return;
+        if (lightsOut || PlayerData.GetPersistentCondition("BT_FINISH_STEAL_QUEST")) return;
         
-        if (PlayerData.GetPersistentCondition("START_STEAL_QUEST"))
+        if (PlayerData.GetPersistentCondition("BT_START_STEAL_QUEST"))
         {
             lightsOut = true;
             LightsOut();
@@ -40,7 +40,7 @@ public class GhirdLightsOutController : MonoBehaviour
                 ghostBrain.gameObject.SetActive(false);
             }
 
-            if (PlayerData.GetPersistentCondition("START_STEAL_QUEST") && !PlayerData.GetPersistentCondition("FINISH_STEAL_QUEST"))
+            if (PlayerData.GetPersistentCondition("BT_START_STEAL_QUEST") && !PlayerData.GetPersistentCondition("BT_FINISH_STEAL_QUEST"))
             {
                 lightsOut = true;
                 LightsOut();

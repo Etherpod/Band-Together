@@ -64,7 +64,7 @@
 
   <DialogueNode>
     <Name>Code_Solved_0</Name>
-    <EntryCondition>SUNPOST_PUZZLE_SOLVED</EntryCondition>
+    <EntryCondition>BT_SUNPOST_PUZZLE_SOLVED</EntryCondition>
     <Dialogue>
       <Page>Hello again, stranger. Did you solve the puzzle?</Page>
     </Dialogue>
@@ -228,7 +228,7 @@
         <DialogueTarget>Ernesto_Quest_Query_000</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>START_SHRUB_QUEST</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_START_SHRUB_QUEST</RequiredPersistentCondition>
         <Text>I found him secretly praying to the Sacred Shrubbery.</Text>
         <DialogueTarget>Ernesto_Quest_Query_001</DialogueTarget>
       </DialogueOption>
@@ -269,7 +269,7 @@
 
   <DialogueNode>
     <Name>Post_Ernesto_Quest</Name>
-    <EntryCondition></EntryCondition>
+    <EntryCondition>BT_ERNESTO_QUEST_FINISH</EntryCondition>
     <Dialogue>
       <Page>I hope Ernesto is still okay...</Page>
     </Dialogue>

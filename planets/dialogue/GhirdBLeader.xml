@@ -20,12 +20,12 @@
     </Dialogue>
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledCondition>ASKED_SHRUB_IDENTIFY</CancelledCondition>
+        <CancelledCondition>BT_ASKED_SHRUB_IDENTIFY</CancelledCondition>
         <Text>What's the Sacred Shrubbery?</Text>
         <DialogueTarget>Shrub_Identify_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledCondition>ASKED_SHRUB_EXPLAIN</CancelledCondition>
+        <CancelledCondition>BT_ASKED_SHRUB_EXPLAIN</CancelledCondition>
         <Text>What's so important about this shrubbery?</Text>
         <DialogueTarget>Shrub_Explain_0</DialogueTarget>
       </DialogueOption>
@@ -42,7 +42,7 @@
       <Page>The Sacred Shrubbery is our almighty angelic guide. It is the creator of everything on this planet. We owe our existence to It.</Page>
       <Page>And It has been lost. We may never find It again.</Page>
     </Dialogue>
-    <SetCondition>ASKED_SHRUB_IDENTIFY</SetCondition>
+    <SetCondition>BT_ASKED_SHRUB_IDENTIFY</SetCondition>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
 
@@ -106,7 +106,7 @@
       </DialogueOption>
     </DialogueOptionsList>
 
-    <SetCondition>ASKED_SHRUB_EXPLAIN</SetCondition>
+    <SetCondition>BT_ASKED_SHRUB_EXPLAIN</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -185,12 +185,12 @@
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_B_QUEST</FactID>
     </RevealFacts>
-    <SetPersistentCondition>START_SHRUB_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_START_SHRUB_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Shrub_Quest_Hint_0</Name>
-    <EntryCondition>START_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>BT_START_SHRUB_QUEST</EntryCondition>
     <Dialogue>
       <Page>Are you having problems with retreiving the Sacred Shrubbery?</Page>
     </Dialogue>
@@ -225,19 +225,19 @@
 
   <DialogueNode>
     <Name>Shrub_Seen_0</Name>
-    <EntryCondition>START_SHRUB_QUEST</EntryCondition>
-    <EntryCondition>HAS_SHRUBBERY</EntryCondition>
+    <EntryCondition>BT_START_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>BT_HAS_SHRUBBERY</EntryCondition>
     <Dialogue>
       <Page>Could it be..? Is it truly our long lost savior?</Page>
       <Page>Thank the Shrub! I knew you would find It!</Page>
     </Dialogue>
-    <SetCondition>GHIRD_B_SEEN_SHRUBBERY</SetCondition>
+    <SetCondition>BT_GHIRD_B_SEEN_SHRUBBERY</SetCondition>
     <DialogueTarget>Shrub_Seen_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Shrub_Seen_1</Name>
-    <EntryCondition>GHIRD_B_SEEN_SHRUBBERY</EntryCondition>
+    <EntryCondition>BT_GHIRD_B_SEEN_SHRUBBERY</EntryCondition>
     <Dialogue>
       <Page>Please escort It to the back of these halls. The holy shrine awaits It.</Page>
     </Dialogue>
@@ -245,7 +245,7 @@
 
   <DialogueNode>
     <Name>Shrub_Returned_0</Name>
-    <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>BT_FINISH_SHRUB_QUEST</EntryCondition>
     <Dialogue>
       <Page>Oh, how I have missed our holy savior! Far too long has it been since we have seen It.</Page>
       <Page>I can already feel Its divine protection encompassing me. Thank you, traveler. We bid you farewell.</Page>
@@ -267,7 +267,7 @@
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_B_AGREED</FactID>
     </RevealFacts>
-    <SetPersistentCondition>TALKED_TO_GHIRD_LEADER_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_GHIRD_LEADER_B</SetPersistentCondition>
     <DialogueTarget>Shrub_Returned_02</DialogueTarget>
   </DialogueNode>
 
@@ -303,7 +303,7 @@
 
   <DialogueNode>
     <Name>Waiting_0</Name>
-    <EntryCondition>TALKED_TO_GHIRD_LEADER_B</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_GHIRD_LEADER_B</EntryCondition>
     <Dialogue>
       <Page>What do you want now?</Page>
     </Dialogue>

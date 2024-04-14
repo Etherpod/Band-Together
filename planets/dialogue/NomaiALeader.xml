@@ -159,12 +159,12 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <RequiredPersistentCondition>FINISH_SHRUB_QUEST</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_FINISH_SHRUB_QUEST</RequiredPersistentCondition>
         <Text>What about the Sacred Shrubbery?</Text>
         <DialogueTarget>Steal_Shrub_Quest_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>FINISH_SHRUB_QUEST</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_FINISH_SHRUB_QUEST</CancelledPersistentCondition>
         <Text>Then what am I supposed to steal?</Text>
         <DialogueTarget>Steal_Quest_3</DialogueTarget>
       </DialogueOption>
@@ -179,13 +179,13 @@
     <RevealFacts>
       <FactID>BT_NOMAI_VILLAGE_A_QUEST</FactID>
     </RevealFacts>
-    <SetPersistentCondition>WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
+    <SetPersistentCondition>BT_WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
     <DialogueTarget>Steal_Quest_Delay</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Steal_Quest_Delay</Name>
-    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
+    <EntryCondition>BT_WAIT_TO_STEAL_SHRUB</EntryCondition>
     <Dialogue>
       <Page>When an opportunity arises, I will have a job for you. Return here at a later date.</Page>
     </Dialogue>
@@ -193,8 +193,8 @@
 
   <DialogueNode>
     <Name>Steal_Shrub_Quest_0</Name>
-    <EntryCondition>FINISH_SHRUB_QUEST</EntryCondition>
-    <EntryCondition>WAIT_TO_STEAL_SHRUB</EntryCondition>
+    <EntryCondition>BT_FINISH_SHRUB_QUEST</EntryCondition>
+    <EntryCondition>BT_WAIT_TO_STEAL_SHRUB</EntryCondition>
     <Dialogue>
       <Page>I still cannot think of what I would gain influence from.</Page>
     </Dialogue>
@@ -264,12 +264,12 @@
     <RevealFacts>
       <FactID>BT_STEAL_QUEST</FactID>
     </RevealFacts>
-    <SetPersistentCondition>START_STEAL_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_START_STEAL_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Steal_Shrub_Help</Name>
-    <EntryCondition>START_STEAL_QUEST</EntryCondition>
+    <EntryCondition>BT_START_STEAL_QUEST</EntryCondition>
     <Dialogue>
       <Page>Did you run into a problem?</Page>
     </Dialogue>
@@ -284,19 +284,19 @@
 
   <DialogueNode>
     <Name>Seen_Shrub_0</Name>
-    <EntryCondition>START_STEAL_QUEST</EntryCondition>
-    <EntryCondition>HAS_SHRUBBERY</EntryCondition>
+    <EntryCondition>BT_START_STEAL_QUEST</EntryCondition>
+    <EntryCondition>BT_HAS_SHRUBBERY</EntryCondition>
     <Dialogue>
       <Page>Is this it? Is this the shrubbery?</Page>
       <Page>Amazing work! To be honest, I was partly expecting something more... sacred.</Page>
       <Page>Place it on the table in front of me. I will take care of the rest.</Page>
     </Dialogue>
-    <SetCondition>NOMAI_A_SEEN_SHRUBBERY</SetCondition>
+    <SetCondition>BT_NOMAI_A_SEEN_SHRUBBERY</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Seen_Shrub_1</Name>
-    <EntryCondition>NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
+    <EntryCondition>BT_NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
     <Dialogue>
       <Page>Place it on the table in front of me. I will take care of the rest.</Page>
     </Dialogue>
@@ -304,7 +304,7 @@
 
   <DialogueNode>
     <Name>Seen_Shrubbery_Finish_Quest</Name>
-    <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
+    <EntryCondition>BT_SHRUB_GIVEN_TO_NOMAI</EntryCondition>
     <Dialogue>
       <Page>Is this it? Is this the shrubbery?</Page>
       <Page>For a shrubbery of such high esteem, I am surprised at how it was stolen so easily!</Page>
@@ -314,20 +314,20 @@
 
   <DialogueNode>
     <Name>Finish_Steal_Quest_0</Name>
-    <EntryCondition>SHRUB_GIVEN_TO_NOMAI</EntryCondition>
-    <EntryCondition>NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
+    <EntryCondition>BT_SHRUB_GIVEN_TO_NOMAI</EntryCondition>
+    <EntryCondition>BT_NOMAI_A_SEEN_SHRUBBERY</EntryCondition>
     <Dialogue>
       <Page>I offer my congratulations! You have not only demonstrated proficiency in thievery, but courage too.</Page>
       <Page>I am proud to help a traveler such as you. You have my word that I will join you at the Great Door and contribute my shard to the whole.</Page>
     </Dialogue>
-    <SetPersistentCondition>GOT_NOMAI_SHARD_A</SetPersistentCondition>
-    <SetPersistentCondition>FINISH_STEAL_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_GOT_NOMAI_SHARD_A</SetPersistentCondition>
+    <SetPersistentCondition>BT_FINISH_STEAL_QUEST</SetPersistentCondition>
     <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Finish_Steal_Quest_1</Name>
-    <EntryCondition>GOT_NOMAI_SHARD_A</EntryCondition>
+    <EntryCondition>BT_GOT_NOMAI_SHARD_A</EntryCondition>
     <Dialogue>
       <Page>Is there anything you would like to ask me?</Page>
     </Dialogue>
@@ -342,12 +342,12 @@
         <DialogueTarget>Shard_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</CancelledPersistentCondition>
         <Text>I'll see you at the door!</Text>
         <DialogueTarget>Finish_Steal_Quest_12</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -369,8 +369,8 @@
     <RevealFacts>
       <FactID>BT_NOMAI_VILLAGE_A_AGREED</FactID>
     </RevealFacts>
-    <SetPersistentCondition>GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>GOT_GHIRD_SHARD_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_GOT_GHIRD_SHARD_B</SetPersistentCondition>
   </DialogueNode>
 </DialogueTree>

@@ -13,14 +13,14 @@
   
   <DialogueNode>
     <Name>Init_1</Name>
-    <EntryCondition>TALKED_TO_NOMAI_GATEKEEPER_B</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_NOMAI_GATEKEEPER_B</EntryCondition>
     <Dialogue>
       <Page>Was there something you needed?</Page>
     </Dialogue>
     
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
         <Text>We need your help to open the Great Door.</Text>
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
@@ -33,12 +33,12 @@
       </DialogueOption>
     </DialogueOptionsList>
     
-    <SetPersistentCondition>TALKED_TO_NOMAI_GATEKEEPER_B</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_NOMAI_GATEKEEPER_B</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Init_2</Name>
-    <EntryCondition>START_COCKPIT_QUEST</EntryCondition>
+    <EntryCondition>BT_START_COCKPIT_QUEST</EntryCondition>
     <Dialogue>
       <Page>Have you been able to acquire a cockpit?</Page>
     </Dialogue>
@@ -61,18 +61,18 @@
   
   <DialogueNode>
     <Name>Init_3</Name>
-    <EntryCondition>START_COCKPIT_QUEST</EntryCondition>
-    <EntryCondition>GOT_COCKPIT</EntryCondition>
+    <EntryCondition>BT_START_COCKPIT_QUEST</EntryCondition>
+    <EntryCondition>BT_GOT_COCKPIT</EntryCondition>
     <Dialogue>
       <Page>A cockpit! Excellent work. I think our leader will be pleased.</Page>
       <Page>You have been granted an audience with the Leader of Exploration. Allow me to open the doors.</Page>
     </Dialogue>
-    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Init_4</Name>
-    <EntryCondition>FINISH_COCKPIT_QUEST</EntryCondition>
+    <EntryCondition>BT_FINISH_COCKPIT_QUEST</EntryCondition>
     <Dialogue>
       <Page>Was there something you needed?</Page>
     </Dialogue>
@@ -100,12 +100,12 @@
         <DialogueTarget>Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_LAST_CLAN_TO_AGREE</CancelledPersistentCondition>
         <Text>Do you want to be the only one between the other clans and opening that door?</Text>
         <DialogueTarget>Door_01</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_LAST_CLAN_TO_AGREE</RequiredPersistentCondition>
         <Text>Every other clan has agreed to help.</Text>
         <DialogueTarget>Door_02</DialogueTarget>
       </DialogueOption>
@@ -184,22 +184,22 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_COCKPIT</CancelledPersistentCondition>
         <Text>Consider it done.</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_COCKPIT</CancelledPersistentCondition>
         <Text>I'll get you one in no time!</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>GOT_COCKPIT</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_GOT_COCKPIT</CancelledPersistentCondition>
         <Text>I'll see what I can do.</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <RequiredPersistentCondition>GOT_COCKPIT</RequiredPersistentCondition>
+        <RequiredPersistentCondition>BT_GOT_COCKPIT</RequiredPersistentCondition>
         <Text>Already got one.</Text>
         <DialogueTarget>Cockpit_End_1</DialogueTarget>
       </DialogueOption>
@@ -215,7 +215,7 @@
     <Dialogue>
       <Page>Excellent. Goodbye, and good luck.</Page>
     </Dialogue>
-    <SetPersistentCondition>START_COCKPIT_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_START_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -248,7 +248,7 @@
       <Page>You must have already known that I was planning on opening this door for you, then.</Page>
       <Page>The Leader of Exploration welcomes you to his halls.</Page>
     </Dialogue>
-    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -258,7 +258,7 @@
       <Page>In the case that you are, I am sure our leader will be interested in meeting one such as you.</Page>
       <Page>The Leader of Exploration welcomes you to his halls.</Page>
     </Dialogue>
-    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -268,7 +268,7 @@
       <Page>I believe our leader wishes to see you now.</Page>
       <Page>The Leader of Exploration welcomes you to his halls.</Page>
     </Dialogue>
-    <SetPersistentCondition>FINISH_COCKPIT_QUEST</SetPersistentCondition>
+    <SetPersistentCondition>BT_FINISH_COCKPIT_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>

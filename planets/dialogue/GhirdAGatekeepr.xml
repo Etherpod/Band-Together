@@ -13,7 +13,7 @@
 
   <DialogueNode>
     <Name>First_Try_0</Name>
-    <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
+    <EntryCondition>BT_SUNPOST_IN_RANGE</EntryCondition>
     <Dialogue>
       <Page>Greetings. I have not seen your kind around here.</Page>
       <Page>What is more intriguing than your unexpected arrival is how you knew the secret code.</Page>
@@ -48,13 +48,13 @@
     <Dialogue>
       <Page>Very well. Welcome to the hall of the Followers of Logic.</Page>
     </Dialogue>
-    <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>ACCIDENTAL_SOLVE</SetPersistentCondition>
+    <SetPersistentCondition>BT_OPEN_SUNPOST_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_ACCIDENTAL_SOLVE</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Restart_0</Name>
-    <EntryCondition>ACCIDENTAL_SOLVE</EntryCondition>
+    <EntryCondition>BT_ACCIDENTAL_SOLVE</EntryCondition>
     <Dialogue>
       <Page>I hope you are proud of yourself for solving the code.</Page>
     </Dialogue>
@@ -95,8 +95,8 @@
     <Dialogue>
       <Page>Excellent. Return when you have solved it.</Page>
     </Dialogue>
-    <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
-    <DisablePersistentCondition>OPEN_SUNPOST_DOOR</DisablePersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
+    <DisablePersistentCondition>BT_OPEN_SUNPOST_DOOR</DisablePersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -105,12 +105,12 @@
       <Page>Very well. I will keep these doors open for you.</Page>
       <Page>If you decide you would like to solve the puzzle, come speak to me.</Page>
     </Dialogue>
-    <SetCondition>WAIT_FOR_CHANGED_MIND</SetCondition>
+    <SetCondition>BT_WAIT_FOR_CHANGED_MIND</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Changed_Mind_0</Name>
-    <EntryCondition>WAIT_FOR_CHANGED_MIND</EntryCondition>
+    <EntryCondition>BT_WAIT_FOR_CHANGED_MIND</EntryCondition>
     <Dialogue>
       <Page>Have you had a change of heart?</Page>
     </Dialogue>
@@ -157,7 +157,7 @@
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_CODE</FactID>
     </RevealFacts>
-    <SetPersistentCondition>TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
+    <SetPersistentCondition>BT_TALKED_TO_GHIRD_GATEKEEPER_A</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -167,9 +167,6 @@
       <Page>Only those who know the secret code are granted passage.</Page>
       <Page>Come back at the correct time.</Page>
     </Dialogue>
-    <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
-    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -178,9 +175,6 @@
       <Page>Then surely you must know of the secret code?</Page>
       <Page>Come back at the correct time.</Page>
     </Dialogue>
-    <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
-    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -220,9 +214,6 @@
     <Dialogue>
       <Page>Perfect. Return at the correct time.</Page>
     </Dialogue>
-    <RevealFacts>
-      <FactID>GHIRD_VILLAGE_A_QUEST</FactID>
-    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -235,7 +226,7 @@
 
   <DialogueNode>
     <Name>Code_Help_0</Name>
-    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
       <Page>Have you figured out the code?</Page>
     </Dialogue>
@@ -275,8 +266,8 @@
 
   <DialogueNode>
     <Name>Entry_0</Name>
-    <EntryCondition>SUNPOST_IN_RANGE</EntryCondition>
-    <EntryCondition>TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
+    <EntryCondition>BT_SUNPOST_IN_RANGE</EntryCondition>
+    <EntryCondition>BT_TALKED_TO_GHIRD_GATEKEEPER_A</EntryCondition>
     <Dialogue>
       <Page>I see you have figured out the code. I expected you to take longer in solving it.</Page>
       <Page>Welcome to the hall of the Followers of Logic.</Page>
@@ -284,13 +275,13 @@
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_SOLVED</FactID>
     </RevealFacts>
-    <SetPersistentCondition>OPEN_SUNPOST_DOOR</SetPersistentCondition>
-    <SetPersistentCondition>SUNPOST_PUZZLE_SOLVED</SetPersistentCondition>
+    <SetPersistentCondition>BT_OPEN_SUNPOST_DOOR</SetPersistentCondition>
+    <SetPersistentCondition>BT_SUNPOST_PUZZLE_SOLVED</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Post_Solve_0</Name>
-    <EntryCondition>SUNPOST_PUZZLE_SOLVED</EntryCondition>
+    <EntryCondition>BT_SUNPOST_PUZZLE_SOLVED</EntryCondition>
     <Dialogue>
       <Page>Congratulations on solving the code.</Page>
     </Dialogue>

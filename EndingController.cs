@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.EnterpriseServices;
 using BandTogether.Quantum;
 using BandTogether.TheDoor;
 using BandTogether.Util;
@@ -30,7 +31,7 @@ public class EndingController : MonoBehaviour
 		roomEntryway.OnEntry += OnRoomEntered;
 		nomai.ForEach(npc => npc.OnPostCollapse += OnNomaiMove);
 		ghird.ForEach(npc => npc.OnPostCollapse += OnGhirdMove);
-		ModMain.AddDialogueConditionListener(EnableFire, "DOORKEEPER_TO_FIRE");
+		ModMain.AddDialogueConditionListener(EnableFire, "BT_DOORKEEPER_TO_FIRE");
 		
 		doorkeeperInstrument.SetLocalVolume(0);
 		nomaiInstruments.ForEach(instrument => instrument.SetLocalVolume(0));
@@ -43,7 +44,7 @@ public class EndingController : MonoBehaviour
 		roomEntryway.OnEntry -= OnRoomEntered;
 		nomai.ForEach(npc => npc.OnPostCollapse -= OnNomaiMove);
 		ghird.ForEach(npc => npc.OnPostCollapse -= OnGhirdMove);
-		ModMain.RemoveDialogueConditionListener(EnableFire, "DOORKEEPER_TO_FIRE");
+		ModMain.RemoveDialogueConditionListener(EnableFire, "BT_DOORKEEPER_TO_FIRE");
 	}
 
 	private void OnRoomEntered(GameObject enteringObject)
@@ -53,7 +54,7 @@ public class EndingController : MonoBehaviour
 		fire.SetInteractionEnabled(false);
 		roomEntryway.OnEntry -= OnRoomEntered;
 		roomEntryway.enabled = false;
-		ModMain.SetCondition("SEARCHED_GREAT_DOOR", true);
+		ModMain.SetCondition("BT_SEARCHED_GREAT_DOOR", true);
 	}
 
 	private void EnableFire(string condition, bool value)
@@ -99,9 +100,14 @@ public class EndingController : MonoBehaviour
 		_ghirdMusicStarted = true;
 		ghirdInstruments.ForEach(instrument => instrument.FadeIn(4, fadeFromNothing: true));
 
+		// Only set one time when the door keeper starts
 		var timeSinceStart = Time.time - _musicStartTime;
 		var padLength = pad.clip.length / 2; // audio doesn't actually start until half way through;
+		// Checks if in the first song loop to start halfway
+		// What happens if past halfway but in first loop?
 		var delayBeforeStart = timeSinceStart < 2 * padLength ? padLength : 0f;
+		// Subtracts the number of times the pad length was passed from the pad length, then adds it to previous delay
+		// This makes no sense, missing a multiplication?
 		delayBeforeStart += padLength - (timeSinceStart % padLength);
 		StartCoroutine(TheEnd(delayBeforeStart));
 	}

@@ -64,7 +64,7 @@ public class SunpostDetector : MonoBehaviour
                 fadeGemComplete = false;
                 lastGemFade = gemEmissive.GetEmissiveScale();
                 gemFadeStart = Time.time;
-                ModMain.SetCondition("SUNPOST_IN_RANGE", true);
+                ModMain.SetCondition("BT_SUNPOST_IN_RANGE", true);
             }
             else if (correctTime && dot <= 0.999f)
             {
@@ -72,11 +72,11 @@ public class SunpostDetector : MonoBehaviour
                 fadeGemComplete = false;
                 lastGemFade = gemEmissive.GetEmissiveScale();
                 gemFadeStart = Time.time;
-                ModMain.SetCondition("SUNPOST_IN_RANGE", false);
+                ModMain.SetCondition("BT_SUNPOST_IN_RANGE", false);
             }
         }
 
-        if (opened && !ModMain.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+        if (opened && !ModMain.GetPersistentCondition("BT_OPEN_SUNPOST_DOOR"))
 		{
 			if (!playerInHouse)
 			{
@@ -87,7 +87,7 @@ public class SunpostDetector : MonoBehaviour
                 waitToClose = true;
             }
 		}
-		else if (!opened && ModMain.GetPersistentCondition("OPEN_SUNPOST_DOOR"))
+		else if (!opened && ModMain.GetPersistentCondition("BT_OPEN_SUNPOST_DOOR"))
 		{
 			OpenDoor();
 		}

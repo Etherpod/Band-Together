@@ -58,7 +58,7 @@ public class MiscPatches
         if (itemTool.GetHeldItemType() == shrub.GetItemType())
         {
             itemTool.SocketItem(throneSocket);
-            ModMain.SetCondition("HAS_SHRUBBERY", false);
+            ModMain.SetCondition("BT_HAS_SHRUBBERY", false);
         }
         else if (!throneSocket.IsSocketOccupied())
         {
