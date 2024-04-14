@@ -169,6 +169,9 @@
         <DialogueTarget>Steal_Quest_3</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+    <RevealFacts>
+      <FactID>BT_NOMAI_VILLAGE_A_QUEST</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
@@ -176,9 +179,6 @@
     <Dialogue>
       <Page>Nothing, currently.</Page>
     </Dialogue>
-    <RevealFacts>
-      <FactID>BT_NOMAI_VILLAGE_A_QUEST</FactID>
-    </RevealFacts>
     <SetPersistentCondition>BT_WAIT_TO_STEAL_SHRUB</SetPersistentCondition>
     <DialogueTarget>Steal_Quest_Delay</DialogueTarget>
   </DialogueNode>
@@ -368,6 +368,7 @@
     </Dialogue>
     <RevealFacts>
       <FactID>BT_NOMAI_VILLAGE_A_AGREED</FactID>
+      <FactID>BT_GHIRD_VILLAGE_B_AGREED_AGAIN</FactID>
     </RevealFacts>
     <SetPersistentCondition>BT_GHIRD_VILLAGE_B_TO_DOOR</SetPersistentCondition>
     <SetPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</SetPersistentCondition>

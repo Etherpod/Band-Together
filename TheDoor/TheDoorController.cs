@@ -75,6 +75,7 @@ public class TheDoorController : MonoBehaviour
         _animator.SetTrigger(Open);
         keyFragment.ActivateDoor();
         capitalAmbience.FadeOut();
+        TimeLoop.SetSecondsRemaining(720);
     }
 
     public void PlayKeyCompletionSfx()

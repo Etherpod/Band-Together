@@ -12,7 +12,7 @@
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
-  
+
   <DialogueNode>
     <Name>Init_1</Name>
     <Dialogue>
@@ -72,7 +72,7 @@
       <Page>Without It, we are vurnerable; nothing stops the other clans from using their unholy technology against us.</Page>
       <Page>We cannot search for It without Its sacred protection.</Page>
     </Dialogue>
-    
+
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Did you see where it went?</Text>
@@ -334,5 +334,36 @@
         <Text>If you say so...</Text>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>At_Door_0</Name>
+    <EntryCondition>BT_GHIRD_VILLAGE_B_TO_DOOR</EntryCondition>
+    <Dialogue>
+      <Page>Hello, again.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Why aren't you praying to the Sacred Shrubbery?</Text>
+        <DialogueTarget>Shrub_Stolen_Again_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Do you know anything about the Fifth Shard?</Text>
+        <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Bye.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Stolen_Again_0</Name>
+    <Dialogue>
+      <Page>It was abducted from our halls once more. I almost cannot believe it myself.</Page>
+      <Page>How we could allow such a sacred being to slip through our fingers a second time is... painful. Perhaps we are not worthy of being Followers of Worship.</Page>
+    </Dialogue>
+    <DialogueTarget>At_Door_0</DialogueTarget>
   </DialogueNode>
 </DialogueTree>

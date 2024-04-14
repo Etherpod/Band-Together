@@ -63,7 +63,7 @@
 
     <ExploreFact>
       <ID>BT_STEAL_QUEST</ID>
-      <Text>The Nomai said I had to steal the Sacred Shrubbery from the Followers of Worship and bring it to them.</Text>
+      <Text>The Nomai said I had to steal the Sacred Shrubbery from the Followers of Worship and bring It to them.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -130,7 +130,7 @@
 
     <ExploreFact>
       <ID>BT_GHIRD_VILLAGE_B_QUEST</ID>
-      <Text>The leader of the Followers of Worship said that for them to help me I had to find the Sacred Shrubbery. They said it was on one of the islands next to theirs, but they weren't sure which one it was.</Text>
+      <Text>The leader of the Followers of Worship said that for them to help me I had to find the Sacred Shrubbery. They said It was on one of the islands next to theirs, but they weren't sure which one it was.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -256,7 +256,7 @@
     <RumorFact>
       <ID>BT_ERNESTO_RUMOR</ID>
       <RumorName>Ernesto?</RumorName>
-      <Text>A Ghird from the Followers of Logic lost someone named Ernesto. They said that they had taken Ernesto to the South Pole to explore, and last saw him playing on a strange white rock. When the Ghird looked away to check their map, Ernesto mysteriously disappeared.</Text>
+      <Text>A Ghird from the Followers of Logic lost someone named Ernesto. They said that they had taken Ernesto to the South Pole to explore, and last saw him playing on a strange white rock. When the Ghird looked away to check their map, Ernesto mysteriously disappeared. The part about the map was strangely emphasized.</Text>
     </RumorFact>
 
     <ExploreFact>

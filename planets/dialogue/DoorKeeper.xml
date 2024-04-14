@@ -372,6 +372,7 @@
       <FactID>BT_NOMAI_VILLAGE_B_RUMOR</FactID>
       <FactID>BT_GHIRD_VILLAGE_A_RUMOR</FactID>
       <FactID>BT_GHIRD_VILLAGE_B_RUMOR</FactID>
+      <FactID>BT_FIFTH_SHARD_RUMOR</FactID>
     </RevealFacts>
     <SetPersistentCondition>BT_MAIN_QUEST_START</SetPersistentCondition>
   </DialogueNode>
