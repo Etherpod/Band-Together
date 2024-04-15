@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.EnterpriseServices;
 using BandTogether.Quantum;
-using BandTogether.TheDoor;
 using BandTogether.Util;
 using UnityEngine;
 
@@ -23,7 +21,13 @@ public class EndingController : MonoBehaviour
 	private bool _fireLit = false;
 	private bool _nomaiMusicStarted = false;
 	private bool _ghirdMusicStarted = false;
-	private float _musicStartTime = 0; 
+	private bool _endingInProgress = false;
+	private bool _musicWasPlaying = false;
+	private float _musicStartTime = 0;
+	private float _musicPauseTime = 0;
+	private float _durationToStartFinale = float.MaxValue;
+	private float _durationToEndFinale = float.MaxValue;
+	private FinaleState _finaleState = FinaleState.Waiting;
 
 	private void Awake()
 	{
@@ -32,10 +36,12 @@ public class EndingController : MonoBehaviour
 		nomai.ForEach(npc => npc.OnPostCollapse += OnNomaiMove);
 		ghird.ForEach(npc => npc.OnPostCollapse += OnGhirdMove);
 		ModMain.AddDialogueConditionListener(EnableFire, "BT_DOORKEEPER_TO_FIRE");
-		
+
 		doorkeeperInstrument.SetLocalVolume(0);
 		nomaiInstruments.ForEach(instrument => instrument.SetLocalVolume(0));
 		ghirdInstruments.ForEach(instrument => instrument.SetLocalVolume(0));
+
+		enabled = false;
 	}
 
 	private void OnDestroy()
@@ -45,6 +51,78 @@ public class EndingController : MonoBehaviour
 		nomai.ForEach(npc => npc.OnPostCollapse -= OnNomaiMove);
 		ghird.ForEach(npc => npc.OnPostCollapse -= OnGhirdMove);
 		ModMain.RemoveDialogueConditionListener(EnableFire, "BT_DOORKEEPER_TO_FIRE");
+	}
+
+	private void Update()
+	{
+		if (!_endingInProgress)
+		{
+			enabled = false;
+			ModMain.WriteDebugMessage("ending not in progress. disabling updates");
+			return;
+		}
+
+		if (_musicWasPlaying != doorkeeperInstrument.isPlaying)
+		{
+			if (_musicWasPlaying)
+			{
+				_musicPauseTime = Time.time;
+				ModMain.WriteDebugMessage("pausing music");
+			}
+			else
+			{
+				_musicStartTime += Time.time - _musicPauseTime;
+				ModMain.WriteDebugMessage($"unpausing music after {Time.time - _musicPauseTime}s");
+			}
+
+			_musicWasPlaying = !_musicWasPlaying;
+			return;
+		}
+
+		var timeSinceMusicStart = Time.time - _musicStartTime;
+		if (timeSinceMusicStart < _durationToStartFinale) return;
+
+		switch (_finaleState)
+		{
+			case FinaleState.Waiting:
+				pad.loop = false;
+				doorkeeperInstrument.loop = false;
+				nomaiInstruments.ForEach(instrument => instrument.loop = false);
+				ghirdInstruments.ForEach(instrument => instrument.loop = false);
+				pad.time = doorkeeperInstrument.time;
+				pad.Play();
+
+				ModMain.WriteDebugMessage($"finale started. fading out in {_durationToEndFinale - timeSinceMusicStart}s");
+				_finaleState = FinaleState.Start;
+				break;
+
+			case FinaleState.Start:
+				if (timeSinceMusicStart < _durationToEndFinale - 2) return;
+
+				pad.FadeOut(2);
+				doorkeeperInstrument.FadeOut(2);
+				nomaiInstruments.ForEach(instrument => instrument.FadeOut(2));
+				ghirdInstruments.ForEach(instrument => instrument.FadeOut(2));
+
+				ModMain.WriteDebugMessage($"finale fading out");
+				_finaleState = FinaleState.FadeOut;
+				break;
+
+			case FinaleState.FadeOut:
+				if (timeSinceMusicStart < _durationToEndFinale + 2) return;
+
+				ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
+				ModMain.TriggerEnd();
+
+				ModMain.WriteDebugMessage($"triggered credits");
+				_finaleState = FinaleState.Credits;
+				break;
+
+			case FinaleState.Credits:
+				enabled = false;
+				ModMain.WriteDebugMessage($"disabling ending updates");
+				break;
+		}
 	}
 
 	private void OnRoomEntered(GameObject enteringObject)
@@ -80,9 +158,10 @@ public class EndingController : MonoBehaviour
 	private void StartDoorkeeperMusic()
 	{
 		_musicStartTime = Time.time;
-		doorkeeperInstrument.FadeIn(1, fadeFromNothing: true);
-		nomaiInstruments.ForEach(instrument => instrument.Play());
-		ghirdInstruments.ForEach(instrument => instrument.Play());
+		doorkeeperInstrument.FadeIn(8, fadeFromNothing: true);
+		_musicWasPlaying = true;
+		// nomaiInstruments.ForEach(instrument => instrument.Play());
+		// ghirdInstruments.ForEach(instrument => instrument.Play());
 		Invoke(nameof(NomaiToFire), 8);
 	}
 
@@ -90,7 +169,11 @@ public class EndingController : MonoBehaviour
 	{
 		if (_nomaiMusicStarted) return;
 		_nomaiMusicStarted = true;
-		nomaiInstruments.ForEach(instrument => instrument.FadeIn(4, fadeFromNothing: true));
+		nomaiInstruments.ForEach(instrument =>
+		{
+			instrument.time = doorkeeperInstrument.time;
+			instrument.FadeIn(4, fadeFromNothing: true);
+		});
 		Invoke(nameof(GhirdToFire), 8);
 	}
 
@@ -98,18 +181,27 @@ public class EndingController : MonoBehaviour
 	{
 		if (_ghirdMusicStarted) return;
 		_ghirdMusicStarted = true;
-		ghirdInstruments.ForEach(instrument => instrument.FadeIn(4, fadeFromNothing: true));
+		ghirdInstruments.ForEach(instrument =>
+		{
+			instrument.time = doorkeeperInstrument.time;
+			instrument.FadeIn(4, fadeFromNothing: true);
+		});
 
-		// Only set one time when the door keeper starts
 		var timeSinceStart = Time.time - _musicStartTime;
-		var padLength = pad.clip.length / 2; // audio doesn't actually start until half way through;
-		// Checks if in the first song loop to start halfway
-		// What happens if past halfway but in first loop?
-		var delayBeforeStart = timeSinceStart < 2 * padLength ? padLength : 0f;
-		// Subtracts the number of times the pad length was passed from the pad length, then adds it to previous delay
-		// This makes no sense, missing a multiplication?
-		delayBeforeStart += padLength - (timeSinceStart % padLength);
-		StartCoroutine(TheEnd(delayBeforeStart));
+		var padLength = pad.clip.length;
+
+		// ensure we wait until at least one loop has completed
+		_durationToStartFinale = Math.Max(1f, timeSinceStart / padLength);
+		// end the finale at the end of the next loop
+		_durationToEndFinale = _durationToStartFinale + 1f;
+		// we should start in the middle of a loop, as that is when the pad begins
+		// and this way we guarantee that no instruments are cut off at the boundary
+		_durationToStartFinale += 0.5f;
+		// multiply by pad length to compute the actual final duration to wait
+		_durationToStartFinale *= padLength;
+		_durationToEndFinale *= padLength;
+		
+		ModMain.WriteDebugMessage($"starting finale in {_durationToStartFinale - timeSinceStart}s");
 	}
 
 	private void OnFireStateChanged(Campfire changedFire)
@@ -121,7 +213,9 @@ public class EndingController : MonoBehaviour
 	{
 		_fireLit = true;
 		doorkeeper.SetInteractionEnabled(false);
-		Invoke(nameof(StartDoorkeeperMusic), 5);
+		_endingInProgress = true;
+		enabled = true;
+		StartDoorkeeperMusic();
 	}
 
 	private void NomaiToFire()
@@ -134,31 +228,11 @@ public class EndingController : MonoBehaviour
 		ModMain.SetCondition("GHIRD_TO_FIRE", true);
 	}
 
-	private IEnumerator TheEnd(float delayBeforeStart)
+	private enum FinaleState
 	{
-		yield return new WaitForSeconds(delayBeforeStart);
-		
-		var padLength = pad.clip.length / 2; // audio doesn't actually start until half way through;
-		pad.time = padLength;
-		pad.loop = false;
-		pad.Play();
-		doorkeeperInstrument.loop = false;
-		nomaiInstruments.ForEach(instrument => instrument.loop = false);
-		ghirdInstruments.ForEach(instrument => instrument.loop = false);
-		
-		yield return new WaitForSeconds(padLength - 10);
-		
-		pad.FadeOut(10);
-		doorkeeperInstrument.FadeOut(10);
-		nomaiInstruments.ForEach(instrument => instrument.FadeOut(10));
-		ghirdInstruments.ForEach(instrument => instrument.FadeOut(10));
-
-		yield return new WaitForSeconds(2);
-
-        ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
-
-        yield return new WaitForSeconds(7);
-		
-		ModMain.TriggerEnd();
+		Waiting,
+		Start,
+		FadeOut,
+		Credits,
 	}
 }
