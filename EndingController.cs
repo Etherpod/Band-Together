@@ -97,21 +97,22 @@ public class EndingController : MonoBehaviour
 				break;
 
 			case FinaleState.Start:
-				if (timeSinceMusicStart < _durationToEndFinale - 2) return;
+				if (timeSinceMusicStart < _durationToEndFinale - 5) return;
 
-				pad.FadeOut(2);
-				doorkeeperInstrument.FadeOut(2);
-				nomaiInstruments.ForEach(instrument => instrument.FadeOut(2));
-				ghirdInstruments.ForEach(instrument => instrument.FadeOut(2));
+				pad.FadeOut(5);
+				doorkeeperInstrument.FadeOut(5);
+				nomaiInstruments.ForEach(instrument => instrument.FadeOut(5));
+				ghirdInstruments.ForEach(instrument => instrument.FadeOut(5));
 
-				ModMain.WriteDebugMessage($"finale fading out");
+                ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
+
+                ModMain.WriteDebugMessage($"finale fading out");
 				_finaleState = FinaleState.FadeOut;
 				break;
 
 			case FinaleState.FadeOut:
 				if (timeSinceMusicStart < _durationToEndFinale + 2) return;
 
-				ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
 				ModMain.TriggerEnd();
 
 				ModMain.WriteDebugMessage($"triggered credits");
@@ -215,7 +216,7 @@ public class EndingController : MonoBehaviour
 		doorkeeper.SetInteractionEnabled(false);
 		_endingInProgress = true;
 		enabled = true;
-		StartDoorkeeperMusic();
+		Invoke(nameof(StartDoorkeeperMusic), 5f);
 	}
 
 	private void NomaiToFire()
