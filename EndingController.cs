@@ -191,7 +191,7 @@ public class EndingController : MonoBehaviour
 		var padLength = pad.clip.length;
 
 		// ensure we wait until at least one loop has completed
-		_durationToStartFinale = Math.Max(1f, timeSinceStart / padLength);
+		_durationToStartFinale = Math.Max(1f, (float)Math.Floor(timeSinceStart / padLength));
 		// end the finale at the end of the next loop
 		_durationToEndFinale = _durationToStartFinale + 1f;
 		// we should start in the middle of a loop, as that is when the pad begins
