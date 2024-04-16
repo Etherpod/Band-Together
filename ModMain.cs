@@ -24,10 +24,10 @@ public class ModMain : ModBehaviour
             { "BT_GHIRD_VILLAGE_A_TO_DOOR", (new[] { GhirdA }, Door) },
             { "BT_GHIRD_VILLAGE_B_TO_DOOR", (new[] { GhirdB }, Door) },
 
-            { "BT_SEARCHED_GREAT_DOOR", (new[] { Captial }, Away) },
+            { "BT_SEARCHED_GREAT_DOOR", (new[] { Captial }, Door) },
             { "BT_CLANS_LEAVE_DOOR", (new[] { NomaiA, NomaiB, GhirdA, GhirdB }, Away) },
 
-            { "BT_DOORKEEPER_TO_FIRE", (new[] { Captial }, Fire) },
+            { "BT_DOORKEEPER_TO_FIRE", (new[] { Captial }, Away) },
             { "NOMAI_TO_FIRE", (new[] { NomaiA, NomaiB }, Fire) },
             { "GHIRD_TO_FIRE", (new[] { GhirdA, GhirdB }, Fire) },
         };
