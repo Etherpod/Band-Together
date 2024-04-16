@@ -21,9 +21,10 @@ public class QuantumRockSolver : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         keyFragment.onPickedUp += OnPickedUp;
+        Locator.GetProbe().OnAnchorProbe += OnAnchorProbe;
     }
 
-    private void Update()
+    private void OnAnchorProbe()
     {
         if (!_puzzleSolved && _quantumController._occupiedSocket == correctSocket && Locator.GetProbe().transform.parent == GetComponentInChildren<Collider>().transform)
         {
@@ -47,5 +48,11 @@ public class QuantumRockSolver : MonoBehaviour
         _animator.SetTrigger(PickedUp);
         ModMain.SetCondition("BT_FIFTH_SHARD", true);
         Locator.GetShipLogManager().RevealFact("BT_FIFTH_SHARD_FOUND");
+    }
+
+    private void OnDestroy()
+    {
+        keyFragment.onPickedUp -= OnPickedUp;
+        Locator.GetProbe().OnAnchorProbe -= OnAnchorProbe;
     }
 }
