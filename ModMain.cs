@@ -40,6 +40,14 @@ public class ModMain : ModBehaviour
         { "BT_GOT_GHIRD_SHARD_B", GhirdB },
     };
 
+    private readonly List<string> ShipLogShardEntries = new()
+    {
+        "BT_FIFTH_SHARD_POS",
+        "BT_FIFTH_SHARD_QUANTUM",
+        "BT_FIFTH_SHARD_PILLAR",
+        "BT_FIFTH_SHARD_LIGHT"
+    };
+
     public static ModMain Instance;
     public delegate void MoveNpcEvent(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility);
     public event MoveNpcEvent OnMoveGroup;
@@ -61,7 +69,7 @@ public class ModMain : ModBehaviour
     
     private bool _debugEnabled = false;
     private int _numClansConvinced;
-    private int _numFifthShardFacts = 0;
+    private bool _allFifthShardFacts;
     private List<GameObject> factsToEnable = new();
     private List<ScrollItem> scrollsToEnable = new();
     private List<GameObject> textToEnable = new();
@@ -108,8 +116,8 @@ public class ModMain : ModBehaviour
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
-
-            foreach
+            ShipLogShardEntries.ForEach(shardLog => Locator.GetShipLogManager().GetFact(shardLog).OnFactRevealed += OnFifthShardFactRevealed);
+            OnFifthShardFactRevealed();
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
@@ -142,6 +150,7 @@ public class ModMain : ModBehaviour
             if (scene == OWScene.SolarSystem)
             {
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
+                ShipLogShardEntries.ForEach(shardLog => Locator.GetShipLogManager().GetFact(shardLog).OnFactRevealed -= OnFifthShardFactRevealed);
                 inEndSequence = false;
                 fadeEndMusic = false;
                 startedEndSequence = false;
@@ -295,7 +304,13 @@ public class ModMain : ModBehaviour
 
     private void OnFifthShardFactRevealed()
     {
-        
+        int numLogsRevealed = 0;
+        ShipLogShardEntries.ForEach(shardLog =>
+        {
+            if (Locator.GetShipLogManager().IsFactRevealed(shardLog)) numLogsRevealed++;
+            if (numLogsRevealed == 4) _allFifthShardFacts = true;
+            else _allFifthShardFacts = false;
+        });
     }
 
     private void OnGroupMoveCondition(string condition, bool value)
@@ -336,6 +351,9 @@ public class ModMain : ModBehaviour
 
     public static bool GetPersistentCondition(string condition) =>
         PlayerData.GetPersistentCondition(condition);
+
+    public static bool AllFifthShardRumors() =>
+        Instance._allFifthShardFacts;
 
     public static void TriggerEnd()
     {

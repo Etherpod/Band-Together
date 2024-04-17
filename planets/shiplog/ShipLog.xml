@@ -253,6 +253,10 @@
       <RumorName>The Fifth Shard</RumorName>
       <RumorNamePriority>2</RumorNamePriority>
       <Text>I found the Fifth Shard, but I'm not sure how I did it.</Text>
+      <AltText>
+        <Text>I found the Fifth Shard locked behind a puzzle with quantum rocks.</Text>
+        <Condition>BT_FIFTH_SHARD_FOUND</Condition>
+      </AltText>
     </RumorFact>
 
     <ExploreFact>
