@@ -196,6 +196,12 @@
         <Text>The code has something to do with the strange post on the island next to the village.</Text>
       </RumorFact>
 
+      <RumorFact>
+        <ID>BT_GHIRD_VILLAGE_A_PUZZLE_GEM</ID>
+        <RumorName>Secret Code</RumorName>
+        <Text>I saw a strange gem on the wall behind the Ghird. The Ghird said it glows when it's time to pray.</Text>
+      </RumorFact>
+
       <ExploreFact>
         <ID>BT_GHIRD_VILLAGE_A_PUZZLE_SOLVED</ID>
         <Text>I solved the code by waiting until the shadow of the strange post was on the side of the building I wanted to enter.</Text>
@@ -240,6 +246,13 @@
       <SourceID>BT_GHIRD_VILLAGE_A</SourceID>
       <RumorName>Fifth shard?</RumorName>
       <Text>The leader of the Followers of Logic told me: "Attach a light to the stone..."</Text>
+    </RumorFact>
+
+    <RumorFact>
+      <ID>BT_FIFTH_SHARD_ACCIDENT</ID>
+      <RumorName>The Fifth Shard</RumorName>
+      <RumorNamePriority>2</RumorNamePriority>
+      <Text>I found the Fifth Shard, but I'm not sure how I did it.</Text>
     </RumorFact>
 
     <ExploreFact>

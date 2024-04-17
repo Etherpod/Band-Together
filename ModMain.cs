@@ -61,6 +61,7 @@ public class ModMain : ModBehaviour
     
     private bool _debugEnabled = false;
     private int _numClansConvinced;
+    private int _numFifthShardFacts = 0;
     private List<GameObject> factsToEnable = new();
     private List<ScrollItem> scrollsToEnable = new();
     private List<GameObject> textToEnable = new();
@@ -102,10 +103,13 @@ public class ModMain : ModBehaviour
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
+            GlobalMessenger.AddListener("ShipLogUpdated", OnFifthShardFactRevealed);
             AddDialogueConditionListener(OnMainQuestStart, "BT_MAIN_QUEST_START");
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
+
+            foreach
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
@@ -287,6 +291,11 @@ public class ModMain : ModBehaviour
         if (condition != "BT_SUNPOST_PUZZLE_SOLVED" || !GetPersistentCondition("BT_ACCIDENTAL_SOLVE")) return;
 
         OnCompleteAccidentalCode?.Invoke();
+    }
+
+    private void OnFifthShardFactRevealed()
+    {
+        
     }
 
     private void OnGroupMoveCondition(string condition, bool value)

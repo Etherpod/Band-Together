@@ -21,10 +21,9 @@ public class QuantumRockSolver : MonoBehaviour
         _animator = GetComponent<Animator>();
 
         keyFragment.onPickedUp += OnPickedUp;
-        Locator.GetProbe().OnAnchorProbe += OnAnchorProbe;
     }
 
-    private void OnAnchorProbe()
+    private void Update()
     {
         if (!_puzzleSolved && _quantumController._occupiedSocket == correctSocket && Locator.GetProbe().transform.parent == GetComponentInChildren<Collider>().transform)
         {
@@ -53,6 +52,5 @@ public class QuantumRockSolver : MonoBehaviour
     private void OnDestroy()
     {
         keyFragment.onPickedUp -= OnPickedUp;
-        Locator.GetProbe().OnAnchorProbe -= OnAnchorProbe;
     }
 }

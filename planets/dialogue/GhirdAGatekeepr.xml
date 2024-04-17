@@ -233,14 +233,8 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <RequiredLogCondition>BT_GHIRD_VILLAGE_A_PUZZLE_SHADOW</RequiredLogCondition>
-        <Text>Does it have something to do with shadows?</Text>
-        <DialogueTarget>Code_Help_00</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <RequiredLogCondition>BT_GHIRD_VILLAGE_A_PUZZLE_POST</RequiredLogCondition>
-        <Text>Does it have something to do with that post on the other island?</Text>
-        <DialogueTarget>Code_Help_01</DialogueTarget>
+        <Text>What's that on the wall behind you?</Text>
+        <DialogueTarget>Sun_Gem_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>I'm still figuring it out.</Text>
@@ -249,19 +243,14 @@
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Code_Help_00</Name>
+    <Name>Sun_Gem_0</Name>
     <Dialogue>
-      <Page>Shadows are only part of the puzzle. The rest is up to you to discover.</Page>
+      <Page>That is a gem. It is of no particular interest, and is only used as a reminder.</Page>
+      <Page>When it glows, we know to silently pray.</Page>
     </Dialogue>
-    <DialogueTarget>Code_Help_0</DialogueTarget>
-  </DialogueNode>
-
-  <DialogueNode>
-    <Name>Code_Help_01</Name>
-    <Dialogue>
-      <Page>The post is an essential part to the puzzle, yes.</Page>
-    </Dialogue>
-    <DialogueTarget>Code_Help_0</DialogueTarget>
+    <RevealFacts>
+      <FactID>BT_GHIRD_VILLAGE_A_PUZZLE_GEM</FactID>
+    </RevealFacts>
   </DialogueNode>
 
   <DialogueNode>
