@@ -21,6 +21,9 @@ public static class CoreUtils
 		return listSource;
 	}
 
+	public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source) =>
+		source.Where(value => value != null);
+
 	public static IEnumerable<T> AddAll<T>(this ICollection<T> source, IEnumerable<T> elementsToAdd)
 	{
 		elementsToAdd.ForEach(source.Add);

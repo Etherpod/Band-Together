@@ -40,7 +40,7 @@ public class ModMain : ModBehaviour
         { "BT_GOT_GHIRD_SHARD_B", GhirdB },
     };
 
-    private readonly List<string> FifthShardFactNames = new()
+    private static readonly List<string> FifthShardFactNames = new()
     {
         "BT_FIFTH_SHARD_POS",
         "BT_FIFTH_SHARD_QUANTUM",
@@ -111,18 +111,19 @@ public class ModMain : ModBehaviour
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
             GlobalMessenger<string, bool>.AddListener("DialogueConditionChanged", OnDialogueConditionChanged);
-            GlobalMessenger.AddListener("ShipLogUpdated", OnFifthShardFactRevealed);
             AddDialogueConditionListener(OnMainQuestStart, "BT_MAIN_QUEST_START");
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
-            FifthShardFactNames
-                .Select(factName => Locator.GetShipLogManager().GetFact(factName))
-                .ForEach(fact => fact.OnFactRevealed += OnFifthShardFactRevealed);
-            OnFifthShardFactRevealed();
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
+                FifthShardFactNames
+                    .Select(factName => Locator.GetShipLogManager().GetFact(factName))
+                    .WhereNotNull()
+                    .ForEach(fact => fact.OnFactRevealed += OnFifthShardFactRevealed);
+                OnFifthShardFactRevealed();
+                
                 var relativeLocation = new RelativeLocationData(Vector3.up * 2 + Vector3.forward * 2, Quaternion.identity, Vector3.zero);
 
                 //nessesary for owlks, lets them work somehow????????
@@ -154,6 +155,7 @@ public class ModMain : ModBehaviour
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
                 FifthShardFactNames
                     .Select(factName => Locator.GetShipLogManager().GetFact(factName))
+                    .WhereNotNull()
                     .ForEach(fact => fact.OnFactRevealed -= OnFifthShardFactRevealed);
                 inEndSequence = false;
                 fadeEndMusic = false;
