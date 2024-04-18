@@ -40,7 +40,7 @@ public class ModMain : ModBehaviour
         { "BT_GOT_GHIRD_SHARD_B", GhirdB },
     };
 
-    private readonly List<string> ShipLogShardEntries = new()
+    private readonly List<string> FifthShardFactNames = new()
     {
         "BT_FIFTH_SHARD_POS",
         "BT_FIFTH_SHARD_QUANTUM",
@@ -116,7 +116,9 @@ public class ModMain : ModBehaviour
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
-            ShipLogShardEntries.ForEach(shardLog => Locator.GetShipLogManager().GetFact(shardLog).OnFactRevealed += OnFifthShardFactRevealed);
+            FifthShardFactNames
+                .Select(factName => Locator.GetShipLogManager().GetFact(factName))
+                .ForEach(fact => fact.OnFactRevealed += OnFifthShardFactRevealed);
             OnFifthShardFactRevealed();
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
@@ -150,7 +152,9 @@ public class ModMain : ModBehaviour
             if (scene == OWScene.SolarSystem)
             {
                 nhAPI.GetBodyLoadedEvent().RemoveListener(OnBodyLoaded);
-                ShipLogShardEntries.ForEach(shardLog => Locator.GetShipLogManager().GetFact(shardLog).OnFactRevealed -= OnFifthShardFactRevealed);
+                FifthShardFactNames
+                    .Select(factName => Locator.GetShipLogManager().GetFact(factName))
+                    .ForEach(fact => fact.OnFactRevealed -= OnFifthShardFactRevealed);
                 inEndSequence = false;
                 fadeEndMusic = false;
                 startedEndSequence = false;
@@ -304,13 +308,8 @@ public class ModMain : ModBehaviour
 
     private void OnFifthShardFactRevealed()
     {
-        int numLogsRevealed = 0;
-        ShipLogShardEntries.ForEach(shardLog =>
-        {
-            if (Locator.GetShipLogManager().IsFactRevealed(shardLog)) numLogsRevealed++;
-            if (numLogsRevealed == 4) _allFifthShardFacts = true;
-            else _allFifthShardFacts = false;
-        });
+        _allFifthShardFacts = FifthShardFactNames
+            .All(shardLog => Locator.GetShipLogManager().IsFactRevealed(shardLog));
     }
 
     private void OnGroupMoveCondition(string condition, bool value)
