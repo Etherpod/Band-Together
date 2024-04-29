@@ -7,8 +7,11 @@ using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
 using QSB.EchoesOfTheEye.Ghosts;
 using QSB.EchoesOfTheEye.Ghosts.Messages;
 using QSB.EchoesOfTheEye.Ghosts.WorldObjects;
+using QSB.EchoesOfTheEye.LightSensorSync.Patches;
 using QSB.Messaging;
 using QSB.Player;
+using QSB.Tools.FlashlightTool;
+using QSB.Tools.ProbeTool;
 using QSB.Utility;
 using QSB.WorldSync;
 using UnityEngine;
@@ -138,9 +141,9 @@ public class MiscPatches
         }
     }
 
-    [HarmonyPrefix]
+    /*[HarmonyPrefix]
     [HarmonyPatch(typeof(SingleLightSensor), nameof(SingleLightSensor.UpdateIllumination))]
-    public static void FlaslightIlluminationFix(SingleLightSensor __instance)
+    public static bool FlaslightIlluminationFix(SingleLightSensor __instance)
     {
         __instance._illuminated = false;
         if (__instance._illuminatingDreamLanternList != null)
@@ -149,7 +152,7 @@ public class MiscPatches
         }
         if (__instance._lightSources == null || __instance._lightSources.Count == 0)
         {
-            return;
+            return false;
         }
         Vector3 vector = __instance.transform.TransformPoint(__instance._localSensorOffset);
         Vector3 vector2 = Vector3.zero;
@@ -233,6 +236,132 @@ public class MiscPatches
                 }
             }
         }
+
+        return false;
+    }*/
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(LightSensorPatches), "UpdateIllumination")]
+    public static bool GhostFlashlightFix(SingleLightSensor __0)
+    {
+        __0._illuminated = false;
+        __0._illuminatingDreamLanternList?.Clear();
+        if (__0._lightSources == null || __0._lightSources.Count == 0)
+        {
+            return false;
+        }
+        var sensorWorldPos = __0.transform.TransformPoint(__0._localSensorOffset);
+        var sensorWorldDir = Vector3.zero;
+        if (__0._directionalSensor)
+        {
+            sensorWorldDir = __0.transform.TransformDirection(__0._localDirection).normalized;
+        }
+        foreach (var lightSource in __0._lightSources)
+        {
+            if ((__0._lightSourceMask & lightSource.GetLightSourceType()) == lightSource.GetLightSourceType() &&
+                lightSource.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance))
+            {
+                switch (lightSource.GetLightSourceType())
+                {
+                    case LightSourceType.UNDEFINED:
+                        {
+                            var owlight = lightSource as OWLight2;
+                            var occludableLight = owlight.GetLight().shadows != LightShadows.None &&
+                                owlight.GetLight().shadowStrength > 0.5f;
+                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
+                                !__0.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
+                            {
+                                __0._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.FLASHLIGHT:
+                        {
+                            if (lightSource is QSBFlashlight qsbFlashlight)
+                            {
+                                var position = qsbFlashlight.Player.Camera.transform.position;
+                                var vector3 = __0.transform.position - position;
+                                if (Vector3.Angle(qsbFlashlight.Player.Camera.transform.forward, vector3) <= __0._maxSpotHalfAngle &&
+                                    !__0.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
+                                {
+                                    __0._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    __0._illuminated = true;
+                                }
+                            }
+                            else
+                            {
+                                var position = Locator.GetPlayerCamera().transform.position;
+                                var vector3 = __0.transform.position - position;
+                                if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __0._maxSpotHalfAngle &&
+                                    !__0.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
+                                {
+                                    __0._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    __0._illuminated = true;
+                                }
+                            }
+                            break;
+                        }
+                    case LightSourceType.PROBE:
+                        {
+                            if (lightSource is QSBSurveyorProbe qsbProbe)
+                            {
+                                var probe = qsbProbe;
+                                if (probe != null &&
+                                    probe.IsLaunched() &&
+                                    !probe.IsRetrieving() &&
+                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
+                                    !__0.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
+                                {
+                                    __0._illuminated = true;
+                                }
+                            }
+                            else
+                            {
+                                var probe = Locator.GetProbe();
+                                if (probe != null &&
+                                    probe.IsLaunched() &&
+                                    !probe.IsRetrieving() &&
+                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
+                                    !__0.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
+                                {
+                                    __0._illuminated = true;
+                                }
+                            }
+                            break;
+                        }
+                    case LightSourceType.DREAM_LANTERN:
+                        {
+                            var dreamLanternController = lightSource as DreamLanternController;
+                            if (dreamLanternController.IsLit() &&
+                                dreamLanternController.IsFocused(__0._lanternFocusThreshold) &&
+                                dreamLanternController.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
+                                !__0.CheckOcclusion(dreamLanternController.GetLightPosition(), sensorWorldPos, sensorWorldDir))
+                            {
+                                __0._illuminatingDreamLanternList.Add(dreamLanternController);
+                                __0._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.SIMPLE_LANTERN:
+                        foreach (var owlight in lightSource.GetLights())
+                        {
+                            var occludableLight = owlight.GetLight().shadows != LightShadows.None &&
+                                owlight.GetLight().shadowStrength > 0.5f;
+                            var maxDistance = Mathf.Min(__0._maxSimpleLanternDistance, __0._maxDistance);
+                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, maxDistance) &&
+                                !__0.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
+                            {
+                                __0._illuminated = true;
+                            }
+                        }
+                        break;
+                    case LightSourceType.VOLUME_ONLY:
+                        __0._illuminated = true;
+                        break;
+                }
+            }
+        }
+        return false;
     }
 
     [HarmonyPrefix]
