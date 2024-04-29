@@ -13,6 +13,7 @@ using OWML.Common;
 using OWML.ModHelper;
 using OWML.Utils;
 using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
+using QSB.EchoesOfTheEye.Ghosts;
 using QSB.EchoesOfTheEye.Ghosts.WorldObjects;
 using QSB.Player;
 using QSB.Player.TransformSync;
@@ -76,6 +77,7 @@ public class ModMain : ModBehaviour
     public bool fadeEndMusic = false;
     public bool startedEndSequence = false;
     public GameObject Planet { get; private set; }
+    public List<PlayerInfo> ghostGrabPlayers = new();
 
     private bool _debugEnabled = false;
     private int _numClansConvinced;
@@ -139,6 +141,12 @@ public class ModMain : ModBehaviour
                     .ForEach(fact => fact.OnFactRevealed += OnFifthShardFactRevealed);
                 OnFifthShardFactRevealed();
 
+                if (qsbEnabled)
+                {
+                    QSBWorldSync.Init<QSBShrubberyItem, Shrubbery>();
+                    QSBWorldSync.Init<QSBShardItem, KeyFragment>();
+                }
+
                 var relativeLocation = new RelativeLocationData(Vector3.up * 2 + Vector3.forward * 2, Quaternion.identity, Vector3.zero);
 
                 //nessesary for owlks, lets them work somehow????????
@@ -168,13 +176,6 @@ public class ModMain : ModBehaviour
                         brain.OnEnterDreamWorld();
                     }
                 });
-
-/*                Resources.FindObjectsOfTypeAll<GhostBrain>().ToList().ForEach((brain) =>
-                {
-                    brain.enabled = true;
-                    brain.WakeUp();
-                    brain.OnEnterDreamWorld();
-                });*/
             }, 15);
         };
 
@@ -213,8 +214,6 @@ public class ModMain : ModBehaviour
         qsbAPI = ModHelper.Interaction.TryGetModApi<IQSBAPI>("Raicuparta.QuantumSpaceBuddies");
         if (qsbAPI == null) return;
         qsbEnabled = true;
-        QSBWorldSync.Init<QSBShrubberyItem, Shrubbery>();
-        QSBWorldSync.Init<QSBShardItem, KeyFragment>();
         StartCoroutine(WaitForLocalPlayer());
     }
 

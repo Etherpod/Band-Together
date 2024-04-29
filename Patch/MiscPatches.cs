@@ -67,8 +67,16 @@ public class MiscPatches
             player.sensor.isPlayerHoldingLantern = true;
             __instance._data.isIlluminated = __instance.AttachedObject._lightSensor.IsIlluminated();
             //player.sensor.isIlluminatedByPlayer = (lanternController.IsHeldByPlayer() && __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController));
-            //player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController);
-            player.sensor.isIlluminatedByPlayer = __instance._data.isIlluminated;
+            player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController);
+            if (__instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController))
+            {
+                ModMain.WriteDebugMessage("lantern controller illuminated");
+            }
+            if (__instance.AttachedObject._lightSensor.IsIlluminatedByLantern(ReferenceLocator.GetDreamLanternItem().GetLanternController()))
+            {
+                ModMain.WriteDebugMessage("lantern god illuminated");
+            }
+            //player.sensor.isIlluminatedByPlayer = __instance._data.isIlluminated;
             player.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance.AttachedObject._lantern);
             //player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
             player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated() || Locator.GetFlashlight().IsFlashlightOn();
@@ -130,7 +138,7 @@ public class MiscPatches
         }
     }
 
-    /*[HarmonyPrefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(SingleLightSensor), nameof(SingleLightSensor.UpdateIllumination))]
     public static void FlaslightIlluminationFix(SingleLightSensor __instance)
     {
@@ -170,7 +178,7 @@ public class MiscPatches
                         {
                             Vector3 position = Locator.GetPlayerCamera().transform.position;
                             Vector3 vector3 = __instance.transform.position - position;
-                            if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle 
+                            if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle
                                 && !__instance.CheckOcclusion(position, vector, vector2, true))
                             {
                                 __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
@@ -195,8 +203,8 @@ public class MiscPatches
                     case LightSourceType.DREAM_LANTERN:
                         {
                             DreamLanternController dreamLanternController = __instance._lightSources[i] as DreamLanternController;
-                            if (dreamLanternController.IsLit() && dreamLanternController.IsFocused(__instance._lanternFocusThreshold) 
-                                && dreamLanternController.CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance) 
+                            if (dreamLanternController.IsLit() && dreamLanternController.IsFocused(__instance._lanternFocusThreshold)
+                                && dreamLanternController.CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance)
                                 && !__instance.CheckOcclusion(dreamLanternController.GetLightPosition(), vector, vector2, true))
                             {
                                 __instance._illuminatingDreamLanternList.Add(dreamLanternController);
@@ -225,7 +233,7 @@ public class MiscPatches
                 }
             }
         }
-    }*/
+    }
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(QSBGhostGrabController), nameof(QSBGhostGrabController.GrabPlayer))]
@@ -240,6 +248,7 @@ public class MiscPatches
 
         if (isLocalPlayer)
         {
+            ModMain.Instance.ghostGrabPlayers.Add(QSBPlayerManager.LocalPlayer);
             __instance.AttachedObject.enabled = true;
             //__instance.AttachedObject._snappingNeck = !player.player.AssignedSimulationLantern.AttachedObject.GetLanternController().IsHeldByPlayer();
             __instance.AttachedObject._snappingNeck = true;
@@ -287,6 +296,7 @@ public class MiscPatches
     [HarmonyPatch(typeof(GhostGrabController), nameof(GhostGrabController.OnSnapPlayerNeck))]
     public static bool GhostGrabController_OnSnapPlayerNeck_Prefix(GhostGrabController __instance)
     {
+        if (!ModMain.Instance.ghostGrabPlayers.Contains(QSBPlayerManager.LocalPlayer)) return false;
         if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
         {
             Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
