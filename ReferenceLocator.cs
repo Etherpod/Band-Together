@@ -4,7 +4,7 @@ namespace BandTogether;
 public class ReferenceLocator : MonoBehaviour
 {
     [SerializeField] SacredEntrywayTrigger sacredEntrywayTrigger = null;
-    [SerializeField] DarkZone ghirdVillageBDarkZone = null;
+    [SerializeField] GhostBrain[] worshipGhosts = null;
     [SerializeField] CageElevator ghirdVillageBElevator = null;
     [SerializeField] TheDivineThrone shrubSocketThrone = null;
     [SerializeField] ShrubberySocketNomai shrubSocketNomai = null;
@@ -28,9 +28,9 @@ public class ReferenceLocator : MonoBehaviour
         return Instance.sacredEntrywayTrigger;
     }
 
-    public static DarkZone GetGhirdVillageBDarkZone()
+    public static GhostBrain[] GetWorshipGhosts()
     {
-        return Instance.ghirdVillageBDarkZone;
+        return Instance.worshipGhosts;
     }
 
     public static CageElevator GetGhirdVillageBElevator()

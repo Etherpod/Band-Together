@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using BandTogether.Debug;
+using BandTogether.QSB;
 using BandTogether.Quantum;
+using BandTogether.TheDoor;
 using BandTogether.Util;
 using HarmonyLib;
 using OWML.Common;
 using OWML.ModHelper;
 using OWML.Utils;
+using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
+using QSB.EchoesOfTheEye.Ghosts.WorldObjects;
+using QSB.Player;
+using QSB.Player.TransformSync;
+using QSB.WorldSync;
 using UnityEngine;
 using static BandTogether.Quantum.QuantumGroup;
 using static BandTogether.Quantum.QuantumTarget;
@@ -49,6 +57,7 @@ public class ModMain : ModBehaviour
     };
 
     public static ModMain Instance;
+    public static bool qsbEnabled = false;
     public delegate void MoveNpcEvent(QuantumGroup targetGroup, QuantumTarget targetType, bool ignoreVisibility);
     public event MoveNpcEvent OnMoveGroup;
     public delegate void ModStartEvent();
@@ -60,13 +69,14 @@ public class ModMain : ModBehaviour
     public event ShardFoundEvent OnShardFound;
 
     public delegate void DialogueConditionChanged(string condition, bool value);
-        
+
     public INewHorizons nhAPI;
+    public static IQSBAPI qsbAPI;
     public bool inEndSequence = false;
     public bool fadeEndMusic = false;
     public bool startedEndSequence = false;
     public GameObject Planet { get; private set; }
-    
+
     private bool _debugEnabled = false;
     private int _numClansConvinced;
     private bool _allFifthShardFacts;
@@ -116,6 +126,11 @@ public class ModMain : ModBehaviour
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
 
+            if (ModHelper.Interaction.ModExists("Raicuparta.QuantumSpaceBuddies"))
+            {
+                InitQSBAPI();
+            }
+
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
                 FifthShardFactNames
@@ -123,7 +138,7 @@ public class ModMain : ModBehaviour
                     .WhereNotNull()
                     .ForEach(fact => fact.OnFactRevealed += OnFifthShardFactRevealed);
                 OnFifthShardFactRevealed();
-                
+
                 var relativeLocation = new RelativeLocationData(Vector3.up * 2 + Vector3.forward * 2, Quaternion.identity, Vector3.zero);
 
                 //nessesary for owlks, lets them work somehow????????
@@ -139,12 +154,27 @@ public class ModMain : ModBehaviour
 
                 //Puts player into a semi-dreamworld state
                 Locator.GetDreamWorldController().EnterDreamWorld(dreamCampfire, arrivalPoint, relativeLocation);
-                Resources.FindObjectsOfTypeAll<GhostBrain>().ToList().ForEach((brain) =>
+
+                ReferenceLocator.GetWorshipGhosts().ForEach((brain) =>
+                {
+                    brain.enabled = true;
+                    brain.WakeUp();
+                    if (qsbEnabled)
+                    {
+                        brain.GetWorldObject<QSBGhostBrain>().OnEnterDreamWorld(QSBPlayerManager.LocalPlayer);
+                    }
+                    else
+                    {
+                        brain.OnEnterDreamWorld();
+                    }
+                });
+
+/*                Resources.FindObjectsOfTypeAll<GhostBrain>().ToList().ForEach((brain) =>
                 {
                     brain.enabled = true;
                     brain.WakeUp();
                     brain.OnEnterDreamWorld();
-                });
+                });*/
             }, 15);
         };
 
@@ -165,6 +195,27 @@ public class ModMain : ModBehaviour
                 textToEnable.Clear();
             }
         };
+    }
+
+    private IEnumerator WaitForLocalPlayer()
+    {
+        yield return new WaitUntil(() => PlayerTransformSync.LocalInstance != null);
+        if (qsbEnabled)
+        {
+            var player = QSBPlayerManager.LocalPlayer;
+            player.InDreamWorld = true;
+            player.AssignedSimulationLantern = ReferenceLocator.GetDreamLanternItem().GetWorldObject<QSBDreamLanternItem>();
+        }
+    }
+
+    private void InitQSBAPI()
+    {
+        qsbAPI = ModHelper.Interaction.TryGetModApi<IQSBAPI>("Raicuparta.QuantumSpaceBuddies");
+        if (qsbAPI == null) return;
+        qsbEnabled = true;
+        QSBWorldSync.Init<QSBShrubberyItem, Shrubbery>();
+        QSBWorldSync.Init<QSBShardItem, KeyFragment>();
+        StartCoroutine(WaitForLocalPlayer());
     }
 
     private void OnBodyLoaded(string bodyName)
@@ -191,7 +242,7 @@ public class ModMain : ModBehaviour
     public void InitDebugMenu()
     {
         _debugMenu = DebugMenu.InitMenu(Planet);
-    } 
+    }
 
     private void InitializeConditions()
     {
@@ -266,7 +317,7 @@ public class ModMain : ModBehaviour
     private void OnMainQuestStart(string condition, bool value)
     {
         if (condition != "BT_MAIN_QUEST_START") return;
-        
+
         OnMainQuest?.Invoke();
         if (factsToEnable.Count > 0)
         {
@@ -286,9 +337,9 @@ public class ModMain : ModBehaviour
     {
         // Instance.ModHelper.Console.WriteLine($"condition changed: {condition}");
         if (!ShardConditions.TryGetValue(condition, out var shardGroup)) return;
-        
+
         OnShardFound?.Invoke(shardGroup);
-            
+
         _numClansConvinced += 1;
         if (_numClansConvinced == 3 && !GetPersistentCondition("BT_LAST_CLAN_TO_AGREE"))
         {
@@ -332,7 +383,7 @@ public class ModMain : ModBehaviour
         );
 
     public static void RemoveDialogueConditionListener(DialogueConditionChanged listener, params string[] conditions) =>
-        conditions.ForEach(condition => 
+        conditions.ForEach(condition =>
             Instance._dialogueConditionListeners
                 .GetOrInit(condition, new List<DialogueConditionChanged>())
                 .Remove(listener)
@@ -347,7 +398,7 @@ public class ModMain : ModBehaviour
     public static void SetPersistentCondition(string condition, bool value, bool includeTransient = true)
     {
         PlayerData.SetPersistentCondition(condition, value);
-        if(includeTransient) SetCondition(condition, value);
+        if (includeTransient) SetCondition(condition, value);
     }
 
     public static bool GetPersistentCondition(string condition) =>
@@ -366,24 +417,6 @@ public class ModMain : ModBehaviour
         });
     }
 
-    public void AudioListenerTest()
-    {
-        StartCoroutine(ListenerTest());
-    }
-
-    private IEnumerator ListenerTest()
-    {
-        yield return new WaitForSeconds(5f);
-        ReferenceLocator.GetCreditsSong().FadeIn(1f, true, false, 1f);
-        yield return new WaitForSeconds(5f);
-        CenterOfTheUniverse.DeactivateUniverse();
-        Locator.GetActiveCamera().enabled = false;
-        GameOverController gameOverController = FindObjectOfType<GameOverController>();
-        gameOverController._flashbackCamera.enabled = true;
-        gameOverController._flashbackCamera.postProcessing.enabled = false;
-        gameOverController._audioListener.enabled = true;
-    }
-
     public void OnTriggerCampfireEnd()
     {
         FindObjectOfType<GameOverController>()._deathText.text = "Despite there being nothing of value behind the Great Door, you managed to\nreunite the clans and bring harmony back to the planet.";
@@ -392,9 +425,28 @@ public class ModMain : ModBehaviour
 
     public static void WriteDebugMessage(object msg)
     {
-        if (!IsDebugEnabled()) return;
+        //if (!IsDebugEnabled()) return;
         Instance.ModHelper.Console.WriteLine(msg.ToString());
     }
+
+    /*private void MessageHandler<T>(uint from, T data)
+    {
+        if (data is Dictionary<string, bool>)
+        {
+            Dictionary<string, bool> dialogueConditions = data as Dictionary<string, bool>;
+
+            DialogueConditionManager.SharedInstance._dictConditions.ForEach((pair) =>
+            {
+                if (dialogueConditions.ContainsKey(pair.Key) && !pair.Value)
+                {
+                    if (PlayerData.PersistentConditionExists(pair.Key))
+                    {
+                        PlayerData.SetPersistentCondition(pair.Key, true);
+                    }
+                }
+            });
+        }
+    }*/
 
     private void OnDestroy()
     {

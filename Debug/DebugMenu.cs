@@ -70,7 +70,7 @@ public class DebugMenu
 			_modMenu.EnableMenu(false);
 		});
 
-		_menuAPI.PauseMenu_MakeSimpleButton("CHANGE LISTENER TEST", _modMenu).onClick.AddListener(ModMain.Instance.AudioListenerTest);
+		//_menuAPI.PauseMenu_MakeSimpleButton("CHANGE LISTENER TEST", _modMenu).onClick.AddListener(ModMain.Instance.AudioListenerTest);
 	}
 
 	private void CreateConditionMenu()
