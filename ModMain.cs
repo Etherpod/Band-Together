@@ -225,6 +225,10 @@ public class ModMain : ModBehaviour
 
             Planet = nhAPI.GetPlanet(bodyName);
 
+            DreamLanternItem newLantern = Instantiate(ReferenceLocator.GetLanternPrefab(), Vector3.zero,
+                Quaternion.identity, Planet.transform).GetComponent<DreamLanternItem>();
+            ReferenceLocator.SetDreamLanternItem(newLantern);
+
             if (IsDebugEnabled()) InitDebugMenu();
 
             ReferenceLocator.GetSacredEntryway().LoadWaterObject(Planet);

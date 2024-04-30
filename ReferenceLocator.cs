@@ -11,12 +11,13 @@ public class ReferenceLocator : MonoBehaviour
     [SerializeField] Shrubbery shrubObject = null;
     [SerializeField] SunpostDetector sunpostDetector = null;
     [SerializeField] GhirdLightsOutController lightsOutController = null;
-    [SerializeField] DreamLanternItem dreamLantern = null;
+    [SerializeField] GameObject lanternPrefab;
     [SerializeField] Transform playerRespawnPoint = null;
     [SerializeField] FlashlightRuleset flashlightRuleset = null;
     [SerializeField] OWAudioSource creditsSong = null;
 
     private static ReferenceLocator Instance;
+    private DreamLanternItem playerLantern;
 
     private void Awake()
     {
@@ -63,9 +64,19 @@ public class ReferenceLocator : MonoBehaviour
         return Instance.lightsOutController;
     }
 
+    public static GameObject GetLanternPrefab()
+    {
+        return Instance.lanternPrefab;
+    }
+
     public static DreamLanternItem GetDreamLanternItem()
     {
-        return Instance.dreamLantern;
+        return Instance.playerLantern;
+    }
+
+    public static void SetDreamLanternItem(DreamLanternItem lantern)
+    {
+        Instance.playerLantern = lantern;
     }
 
     public static Transform GetPlayerRespawnPoint()

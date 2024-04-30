@@ -71,25 +71,16 @@ public class MiscPatches
             __instance._data.isIlluminated = __instance.AttachedObject._lightSensor.IsIlluminated();
             //player.sensor.isIlluminatedByPlayer = (lanternController.IsHeldByPlayer() && __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController));
             player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController);
-            if (__instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController))
-            {
-                ModMain.WriteDebugMessage("lantern controller illuminated");
-            }
-            if (__instance.AttachedObject._lightSensor.IsIlluminatedByLantern(ReferenceLocator.GetDreamLanternItem().GetLanternController()))
-            {
-                ModMain.WriteDebugMessage("lantern god illuminated");
-            }
             //player.sensor.isIlluminatedByPlayer = __instance._data.isIlluminated;
             player.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance.AttachedObject._lantern);
-            //player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
-            player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated() || Locator.GetFlashlight().IsFlashlightOn();
+            player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
             player.sensor.isPlayerVisible = false;
             player.sensor.isPlayerHeldLanternVisible = false;
             player.sensor.isPlayerDroppedLanternVisible = false;
             player.sensor.isPlayerOccluded = false;
 
             //if ((lanternController.IsHeldByPlayer() && !lanternController.IsConcealed()) || playerLightSensor.IsIlluminated())
-            if (Locator.GetFlashlight().IsFlashlightOn() || playerLightSensor.IsIlluminated())
+            if (player.player.FlashlightActive || playerLightSensor.IsIlluminated())
             {
                 var position = pair.Key.Camera.transform.position;
                 if (__instance.AttachedObject.CheckPointInVisionCone(position))
@@ -100,9 +91,9 @@ public class MiscPatches
                     }
                     else
                     {
-                        player.sensor.isPlayerVisible = playerLightSensor.IsIlluminated() || Locator.GetFlashlight().IsFlashlightOn();
+                        player.sensor.isPlayerVisible = playerLightSensor.IsIlluminated();
                         //player.sensor.isPlayerHeldLanternVisible = (lanternController.IsHeldByPlayer() && !lanternController.IsConcealed());
-                        player.sensor.isPlayerHeldLanternVisible = Locator.GetFlashlight().IsFlashlightOn();
+                        player.sensor.isPlayerHeldLanternVisible = player.player.FlashlightActive;
                     }
                 }
             }
@@ -244,22 +235,23 @@ public class MiscPatches
     [HarmonyPatch(typeof(LightSensorPatches), "UpdateIllumination")]
     public static bool GhostFlashlightFix(SingleLightSensor __0)
     {
-        __0._illuminated = false;
-        __0._illuminatingDreamLanternList?.Clear();
-        if (__0._lightSources == null || __0._lightSources.Count == 0)
+        SingleLightSensor __instance = __0;
+        __instance._illuminated = false;
+        __instance._illuminatingDreamLanternList?.Clear();
+        if (__instance._lightSources == null || __instance._lightSources.Count == 0)
         {
             return false;
         }
-        var sensorWorldPos = __0.transform.TransformPoint(__0._localSensorOffset);
+        var sensorWorldPos = __instance.transform.TransformPoint(__instance._localSensorOffset);
         var sensorWorldDir = Vector3.zero;
-        if (__0._directionalSensor)
+        if (__instance._directionalSensor)
         {
-            sensorWorldDir = __0.transform.TransformDirection(__0._localDirection).normalized;
+            sensorWorldDir = __instance.transform.TransformDirection(__instance._localDirection).normalized;
         }
-        foreach (var lightSource in __0._lightSources)
+        foreach (var lightSource in __instance._lightSources)
         {
-            if ((__0._lightSourceMask & lightSource.GetLightSourceType()) == lightSource.GetLightSourceType() &&
-                lightSource.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance))
+            if ((__instance._lightSourceMask & lightSource.GetLightSourceType()) == lightSource.GetLightSourceType() &&
+                lightSource.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, __instance._maxDistance))
             {
                 switch (lightSource.GetLightSourceType())
                 {
@@ -268,10 +260,10 @@ public class MiscPatches
                             var owlight = lightSource as OWLight2;
                             var occludableLight = owlight.GetLight().shadows != LightShadows.None &&
                                 owlight.GetLight().shadowStrength > 0.5f;
-                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
-                                !__0.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
+                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, __instance._maxDistance) &&
+                                !__instance.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
                             {
-                                __0._illuminated = true;
+                                __instance._illuminated = true;
                             }
                             break;
                         }
@@ -280,23 +272,23 @@ public class MiscPatches
                             if (lightSource is QSBFlashlight qsbFlashlight)
                             {
                                 var position = qsbFlashlight.Player.Camera.transform.position;
-                                var vector3 = __0.transform.position - position;
-                                if (Vector3.Angle(qsbFlashlight.Player.Camera.transform.forward, vector3) <= __0._maxSpotHalfAngle &&
-                                    !__0.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
+                                var vector3 = __instance.transform.position - position;
+                                if (Vector3.Angle(qsbFlashlight.Player.Camera.transform.forward, vector3) <= __instance._maxSpotHalfAngle &&
+                                    !__instance.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
                                 {
-                                    __0._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
-                                    __0._illuminated = true;
+                                    __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    __instance._illuminated = true;
                                 }
                             }
                             else
                             {
                                 var position = Locator.GetPlayerCamera().transform.position;
-                                var vector3 = __0.transform.position - position;
-                                if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __0._maxSpotHalfAngle &&
-                                    !__0.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
+                                var vector3 = __instance.transform.position - position;
+                                if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle &&
+                                    !__instance.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
                                 {
-                                    __0._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
-                                    __0._illuminated = true;
+                                    __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    __instance._illuminated = true;
                                 }
                             }
                             break;
@@ -309,10 +301,10 @@ public class MiscPatches
                                 if (probe != null &&
                                     probe.IsLaunched() &&
                                     !probe.IsRetrieving() &&
-                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
-                                    !__0.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
+                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, __instance._maxDistance) &&
+                                    !__instance.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
                                 {
-                                    __0._illuminated = true;
+                                    __instance._illuminated = true;
                                 }
                             }
                             else
@@ -321,10 +313,10 @@ public class MiscPatches
                                 if (probe != null &&
                                     probe.IsLaunched() &&
                                     !probe.IsRetrieving() &&
-                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
-                                    !__0.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
+                                    probe.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, __instance._maxDistance) &&
+                                    !__instance.CheckOcclusion(probe.GetLightSourcePosition(), sensorWorldPos, sensorWorldDir))
                                 {
-                                    __0._illuminated = true;
+                                    __instance._illuminated = true;
                                 }
                             }
                             break;
@@ -333,12 +325,12 @@ public class MiscPatches
                         {
                             var dreamLanternController = lightSource as DreamLanternController;
                             if (dreamLanternController.IsLit() &&
-                                dreamLanternController.IsFocused(__0._lanternFocusThreshold) &&
-                                dreamLanternController.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, __0._maxDistance) &&
-                                !__0.CheckOcclusion(dreamLanternController.GetLightPosition(), sensorWorldPos, sensorWorldDir))
+                                dreamLanternController.IsFocused(__instance._lanternFocusThreshold) &&
+                                dreamLanternController.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, __instance._maxDistance) &&
+                                !__instance.CheckOcclusion(dreamLanternController.GetLightPosition(), sensorWorldPos, sensorWorldDir))
                             {
-                                __0._illuminatingDreamLanternList.Add(dreamLanternController);
-                                __0._illuminated = true;
+                                __instance._illuminatingDreamLanternList.Add(dreamLanternController);
+                                __instance._illuminated = true;
                             }
                             break;
                         }
@@ -347,16 +339,16 @@ public class MiscPatches
                         {
                             var occludableLight = owlight.GetLight().shadows != LightShadows.None &&
                                 owlight.GetLight().shadowStrength > 0.5f;
-                            var maxDistance = Mathf.Min(__0._maxSimpleLanternDistance, __0._maxDistance);
-                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __0._sensorRadius, maxDistance) &&
-                                !__0.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
+                            var maxDistance = Mathf.Min(__instance._maxSimpleLanternDistance, __instance._maxDistance);
+                            if (owlight.CheckIlluminationAtPoint(sensorWorldPos, __instance._sensorRadius, maxDistance) &&
+                                !__instance.CheckOcclusion(owlight.transform.position, sensorWorldPos, sensorWorldDir, occludableLight))
                             {
-                                __0._illuminated = true;
+                                __instance._illuminated = true;
                             }
                         }
                         break;
                     case LightSourceType.VOLUME_ONLY:
-                        __0._illuminated = true;
+                        __instance._illuminated = true;
                         break;
                 }
             }
