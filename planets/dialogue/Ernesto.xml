@@ -76,7 +76,7 @@
   <DialogueNode>
     <Name>Escape_0</Name>
     <Dialogue>
-      <Page>Have you found a way out of here? I've looked everywhere, but all I could find was that portrait of a bush.</Page>
+      <Page>Have you found a way out of here? I've looked everywhere, but all I could find was that portrait.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -92,55 +92,222 @@
     <RevealFacts>
       <FactID>BT_ERNESTO_FOUND</FactID>
     </RevealFacts>
+    <SetCondition>BT_TALKED_TO_ERNESTO</SetCondition>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Escape_00</Name>
     <Dialogue>
-      <Page>Oh, cool. Nice meeting you.</Page>
+      <Page>Oh, cool. I'll keep that in mind.</Page>
     </Dialogue>
-
-    <DialogueOptionsList>
-      <DialogueOption>
-        <RequiredLogCondition>BT_ERNESTO_RUMOR</RequiredLogCondition>
-        <Text>One of the Ghirds was looking for you.</Text>
-        <DialogueTarget>Ghird_Searching_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <Text>Bye.</Text>
-      </DialogueOption>
-    </DialogueOptionsList>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
     <Name>Escape_01</Name>
     <Dialogue>
-      <Page>I guess I'd better get comfy then. Nice meeting you.</Page>
+      <Page>I guess I'd better get comfy then.</Page>
+    </Dialogue>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Ernesto_Main_0</Name>
+    <EntryCondition>BT_TALKED_TO_ERNESTO</EntryCondition>
+    <Randomize/>
+    <Dialogue>
+      <Page>Anything you wanna talk about while we're down here?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Did you wanna ask me something?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Tell me a story or something. I'm bored to death down here.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>So, has anything interesting happened up there on the surface?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>What sort of stuff has been going on up there?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>I've been down here a while, what'd I miss on the surface?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>I hope I can find a way out of here soon. Let's talk while we wait.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>What would you like to ask Ernesto, the magic talking anglerfish?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>There must be something you want to ask me. Otherwise you would have left already.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Why are you still here? Do you need something?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>It must be my charming personality that's keeping you down here. Otherwise you would be gone by now.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Why are you still here? Am I that alluring?</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Are you here to marvel at my bulb? It's pretty cool.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Is my light compelling you to stay here and chat? I hope it is.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Hey, have you seen my light? Doesn't it make you want to be hypnotized? No? It must not be working.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
       <DialogueOption>
         <RequiredLogCondition>BT_ERNESTO_RUMOR</RequiredLogCondition>
         <Text>One of the Ghirds was looking for you.</Text>
-        <DialogueTarget>Ghird_Searching_1</DialogueTarget>
+        <DialogueTarget>Ghird_Searching</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>Bye.</Text>
+        <CancelledPersistentCondition>BT_START_SHRUB_QUEST</CancelledPersistentCondition>
+        <Text>What is this place?</Text>
+        <DialogueTarget>Shrine_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>BT_START_SHRUB_QUEST</RequiredPersistentCondition>
+        <Text>What is this place?</Text>
+        <DialogueTarget>Shrubbery_Shrine_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>BT_START_SHRUB_QUEST</RequiredPersistentCondition>
+        <CancelledCondition>BT_ERNEST_KNOWS_SHRUB</CancelledCondition>
+        <Text>Why is there a portrait of the Sacred Shrubbery in here?</Text>
+        <DialogueTarget>Shrub_Portrait_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>BT_START_SHRUB_QUEST</RequiredPersistentCondition>
+        <RequiredCondition>BT_ERNESTO_KNOWS_SHRUB</RequiredCondition>
+        <Text>Why is there a portrait of the Sacred Shrubbery in here?</Text>
+        <DialogueTarget>Shrub_Portrait_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I need to go, see you later.</Text>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Ghird_Searching_0</Name>
+    <Name>Ghird_Searching</Name>
+    <Randomize/>
     <Dialogue>
       <Page>Tell them I'll be back soon. I think I might stay down here a bit longer.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Tell them I'll be back soon. That could be a year though, depending on how long it takes for a solution to arrive.</Page>
+      <Page>Wish me luck while I wait.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>I'll be back there soon. I kind of like it down here.</Page>
+      <Page>It's hard being the best magical talking anglerfish there is, you know? Lots of pressure.</Page>
+      <Page>Been nice to get some fresh air. Metaphorically speaking.</Page>
+      <Page>What?? What do you mean I'm not the best magical talking anglerfish!?</Page>
+      <Page>You'd better leave while you still can. I'm getting hungry.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Yeah, I thought they would notice I was gone. An anglerfish like me going missing is nothing small.</Page>
+      <Page>I am pretty small though, so maybe it isn't such a big event.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>They put up posters last time I disappeared. And the time before that.</Page>
+      <Page>I hope they don't do it again. It really injures my reuptation of being the great Ernesto.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Yeah, I figured they would be worrying about me.</Page>
+      <Page>Hey, what if you went up there and acted like I was invisible? That would be funny.</Page>
+      <Page>Actually... that would be amazing! Everyone would think I had superpowers! I would be famous! Ernesto, The Magical Talking Invisible Anglerfish!</Page>
+      <Page>But... what if someone asks me to prove it?</Page>
+      <Page>I changed my mind. Please don't do that.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Yeah, I figured they would be worried about me.</Page>
+      <Page>Tell them I'm being held hostage by evil alien overlords. That's sure to give them a scare.</Page>
+      <Page>I'm just kidding.</Page>
+      <Page>You weren't... actually planning on doing that, were you?</Page>
+      <Page>Maybe you're the one I'm being held hostage by.</Page>
+    </Dialogue>
+    <Dialogue>
+      <Page>Go tell them I'll be back eventually, they don't need to worry.</Page>
+      <Page>Why are you still here? Aren't you gonna go tell them I'm safe?</Page>
+      <Page>Wait... it must be my bulb! It must be hypnotizing you!</Page>
+      <Page>Spin around! I compel you! Why aren't you doing anything?</Page>
+      <Page>Oh well... either the bulb is dysfunctional, or you are.</Page>
     </Dialogue>
   </DialogueNode>
 
   <DialogueNode>
-    <Name>Ghird_Searching_1</Name>
+    <Name>Shrine_0</Name>
     <Dialogue>
-      <Page>Tell them I'll be back soon. Although soon could be a year depending on how long it takes to find a way out of here.</Page>
+      <Page>No idea. The only thing in here is these candles and a portrait of a bush. It's probably a secret altar or something.</Page>
+      <Page>I'm no expert on that, though. I don't know anything at all about it, actually.</Page>
+    </Dialogue>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrubbery_Shrine_0</Name>
+    <Dialogue>
+      <Page>No idea. The only thing in here is these candles and a portrait of a bush.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>It's the Sacred Shrubbery, not a bush.</Text>
+        <DialogueTarget>Shrubbery_Shrine_00</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Did you just call It a bush?</Text>
+        <DialogueTarget>Shrubbery_Shrine_01</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrubbery_Shrine_00</Name>
+    <Dialogue>
+      <Page>The Sacred Shrubbery? You pray to a plant?</Page>
+      <Page>Your species is weird.</Page>
+    </Dialogue>
+    <SetCondition>BT_ERNESTO_KNOWS_SHRUB</SetCondition>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrubbery_Shrine_01</Name>
+    <Dialogue>
+      <Page>Call what a bush? And why are you emphasizing the "it"?</Page>
+    </Dialogue>
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>It's not a bush! It's the Sacred Shrubbery!</Text>
+        <DialogueTarget>Shrubbery_Shrine_00</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Portrait_0</Name>
+    <Dialogue>
+      <Page>Is that what it's called? Weird name for a bush.</Page>
+      <Page>It's probably down here because it's a seceret altar or something. Not like I would know anything about that, though. Can we talk about something else?</Page>
+    </Dialogue>
+    <SetCondition>BT_ERNESTO_KNOWS_SHRUB</SetCondition>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Shrub_Portrait_1</Name>
+    <Dialogue>
+      <Page>Why are you asking me? Ask the ones who put it down here. It's probably just a seceret altar or something.</Page>
+      <Page>INot like I would know anything about that, though. Can we talk about something else?</Page>
     </Dialogue>
   </DialogueNode>
 </DialogueTree>
