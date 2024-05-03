@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BandTogether.QSB;
 using HarmonyLib;
 using QSB;
 using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
@@ -34,23 +36,6 @@ public class MiscPatches
     [HarmonyPatch(typeof(QSBGhostSensors), nameof(QSBGhostSensors.FixedUpdate_Sensors))]
     public static void FlashLightOwlkQSB(QSBGhostSensors __instance)
     {
-        /*if (!ModMain.qsbEnabled) { return; }
-
-        foreach (var pair in __instance._data.players)
-        {
-            var player = pair.Value;
-
-            var lanternController = player.player.AssignedSimulationLantern.AttachedObject.GetLanternController();
-            player.sensor.isPlayerHoldingLantern = true;
-            player.sensor.isPlayerHeldLanternVisible = !lanternController.IsConcealed();
-            player.sensor.isPlayerDroppedLanternVisible = false;
-            player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController);
-
-            if (!lanternController.IsConcealed() || player.player.LightSensor.IsIlluminated())
-            {
-                var position = 
-            }
-        }*/
         if (__instance._data == null)
         {
             return;
@@ -65,12 +50,24 @@ public class MiscPatches
                 continue;
             }
 
-            var lanternController = player.player.AssignedSimulationLantern.AttachedObject.GetLanternController();
+            /*if (player.player != QSBPlayerManager.LocalPlayer)
+            {
+                flashlight = player.player.FlashLight;
+            }*/
             var playerLightSensor = player.player.LightSensor;
             player.sensor.isPlayerHoldingLantern = true;
             __instance._data.isIlluminated = __instance.AttachedObject._lightSensor.IsIlluminated();
             //player.sensor.isIlluminatedByPlayer = (lanternController.IsHeldByPlayer() && __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController));
-            player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController);
+            player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.GetComponent<FlashlightCompoundSensor>().IsIlluminatedByFlashlight(player.player.PlayerId);
+            /*if (player.player.IsLocalPlayer)
+            {
+                QSBFlashlight flashlight = player.player.FlashLight;
+                player.sensor.isIlluminatedByPlayer = ModMain.Instance.GetFlashlightIlluminated(player.player.PlayerId);
+            }*/
+            /*else
+            {
+                player.sensor.isIlluminatedByPlayer = false;
+            }*/
             //player.sensor.isIlluminatedByPlayer = __instance._data.isIlluminated;
             player.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance.AttachedObject._lantern);
             player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
@@ -238,6 +235,13 @@ public class MiscPatches
         SingleLightSensor __instance = __0;
         __instance._illuminated = false;
         __instance._illuminatingDreamLanternList?.Clear();
+        FlashlightSensorData data = null;
+        List<uint> flashlights = [];
+        if (__instance.TryGetComponent(out FlashlightSensorData sensorData))
+        {
+            data = sensorData;
+            data.ClearFlashlightList();
+        }
         if (__instance._lightSources == null || __instance._lightSources.Count == 0)
         {
             return false;
@@ -276,21 +280,27 @@ public class MiscPatches
                                 if (Vector3.Angle(qsbFlashlight.Player.Camera.transform.forward, vector3) <= __instance._maxSpotHalfAngle &&
                                     !__instance.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
                                 {
-                                    __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    //data?.AddFlashlightID(qsbFlashlight.Player.PlayerId);
+                                    flashlights.Add(qsbFlashlight.Player.PlayerId);
                                     __instance._illuminated = true;
                                 }
                             }
                             else
                             {
+                                //ModMain.WriteDebugMessage("Regular: " + QSBCore.IsHost);
                                 var position = Locator.GetPlayerCamera().transform.position;
                                 var vector3 = __instance.transform.position - position;
                                 if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle &&
                                     !__instance.CheckOcclusion(position, sensorWorldPos, sensorWorldDir))
                                 {
-                                    __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                    //data?.AddFlashlightID(QSBPlayerManager.LocalPlayerId);
+                                    flashlights.Add(QSBPlayerManager.LocalPlayerId);
                                     __instance._illuminated = true;
                                 }
                             }
+
+                            data?.SendList(flashlights.ToArray());
+
                             break;
                         }
                     case LightSourceType.PROBE:

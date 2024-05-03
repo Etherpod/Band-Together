@@ -12,6 +12,7 @@ using HarmonyLib;
 using OWML.Common;
 using OWML.ModHelper;
 using OWML.Utils;
+using QSB;
 using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
 using QSB.EchoesOfTheEye.Ghosts;
 using QSB.EchoesOfTheEye.Ghosts.WorldObjects;
@@ -78,8 +79,10 @@ public class ModMain : ModBehaviour
     public bool startedEndSequence = false;
     public GameObject Planet { get; private set; }
     public List<PlayerInfo> ghostGrabPlayers = new();
+    public List<uint> flashlightIlluminatingPlayers = new();
 
     private bool _debugEnabled = false;
+    private bool _setFlashlightListDirty = false;
     private int _numClansConvinced;
     private bool _allFifthShardFacts;
     private List<GameObject> factsToEnable = new();
@@ -170,6 +173,10 @@ public class ModMain : ModBehaviour
                     if (qsbEnabled)
                     {
                         brain.GetWorldObject<QSBGhostBrain>().OnEnterDreamWorld(QSBPlayerManager.LocalPlayer);
+                        CompoundLightSensor lightSensor = brain.GetComponentInChildren<CompoundLightSensor>();
+                        lightSensor.gameObject.AddComponent<FlashlightCompoundSensor>();
+                        lightSensor._childSensors.ForEach((sensor) => { sensor.gameObject.AddComponent<FlashlightSensorData>(); });
+                        //WriteDebugMessage(brain.GetComponentInChildren<SingleLightSensor>());
                     }
                     else
                     {
@@ -198,6 +205,11 @@ public class ModMain : ModBehaviour
         };
     }
 
+    private void LateUpdate()
+    {
+        _setFlashlightListDirty = true;
+    }
+
     private IEnumerator WaitForLocalPlayer()
     {
         yield return new WaitUntil(() => PlayerTransformSync.LocalInstance != null);
@@ -214,8 +226,38 @@ public class ModMain : ModBehaviour
         qsbAPI = ModHelper.Interaction.TryGetModApi<IQSBAPI>("Raicuparta.QuantumSpaceBuddies");
         if (qsbAPI == null) return;
         qsbEnabled = true;
+        qsbAPI.RegisterRequiredForAllPlayers(this);
+        ModMain.qsbAPI.RegisterHandler<(uint[], int)>("flashlightIDs", FlashlightIDHandler);
         StartCoroutine(WaitForLocalPlayer());
     }
+
+    private void FlashlightIDHandler<T>(uint from, (uint[], int) data)
+    {
+        var (playerIDList, objectID) = data;
+    }
+
+    /*public void UpdateFlashlightIlluminatedList(uint playerID)
+    {
+        if (!QSBCore.IsHost)
+        {
+
+        }
+
+        if (_setFlashlightListDirty)
+        {
+            _setFlashlightListDirty = false;
+            flashlightIlluminatingPlayers.Clear();
+        }
+        if (!flashlightIlluminatingPlayers.Contains(playerID))
+        {
+            flashlightIlluminatingPlayers.Add(playerID);
+        }
+    }
+
+    public bool GetFlashlightIlluminated(uint playerID)
+    {
+        return flashlightIlluminatingPlayers.Contains(playerID);
+    }*/
 
     private void OnBodyLoaded(string bodyName)
     {
@@ -434,22 +476,13 @@ public class ModMain : ModBehaviour
 
     /*private void MessageHandler<T>(uint from, T data)
     {
-        if (data is Dictionary<string, bool>)
+        if (data is uint)
         {
-            Dictionary<string, bool> dialogueConditions = data as Dictionary<string, bool>;
-
-            DialogueConditionManager.SharedInstance._dictConditions.ForEach((pair) =>
-            {
-                if (dialogueConditions.ContainsKey(pair.Key) && !pair.Value)
-                {
-                    if (PlayerData.PersistentConditionExists(pair.Key))
-                    {
-                        PlayerData.SetPersistentCondition(pair.Key, true);
-                    }
-                }
-            });
+            uint playerID = data.GetValue<uint>("playerID");
+            UpdateFlashlightIlluminatedList((uint)data)
         }
     }*/
+
 
     private void OnDestroy()
     {
