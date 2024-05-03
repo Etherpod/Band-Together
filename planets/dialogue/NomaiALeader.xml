@@ -334,6 +334,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
+        <CancelledPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</CancelledPersistentCondition>
         <Text>What's going to happen to the Followers of Worship?</Text>
         <DialogueTarget>Finish_Steal_Quest_11</DialogueTarget>
       </DialogueOption>
@@ -342,8 +343,13 @@
         <DialogueTarget>Shard_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <RequiredPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
         <CancelledPersistentCondition>BT_NOMAI_VILLAGE_A_TO_DOOR</CancelledPersistentCondition>
-        <Text>I'll see you at the door!</Text>
+        <Text>I'll see you at the Door!</Text>
         <DialogueTarget>Finish_Steal_Quest_12</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
@@ -359,6 +365,17 @@
       <Page>I would imagine that, with their Sacred Shrubbery gone once again, they will go to the Great Door. It is not as if they have anything better to do.</Page>
     </Dialogue>
     <DialogueTarget>Finish_Steal_Quest_1</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>An interesting topic to consider. I have been thinking about it for some time now.</Page>
+      <Page>I believe the most likely case is that the Great Door holds the old treasures of some past civilization, certainly one more advanced than us.</Page>
+      <Page>It could be new technologies, or a collection of exquisite gems. Perhaps it is a library of preserved artifacts from millions of years ago.</Page>
+      <Page>But, whatever it turns out to be, I'm sure I and the others will make quite a fortune off of it! Can you imagine how much an intact prehistoric skeleton would sell for?</Page>
+      <Page>Our planet, stuck at the bottom of the economy for far too long, will shoot to the top! I can hardly wait to see what lies inside!</Page>
+    </Dialogue>
   </DialogueNode>
   
   <DialogueNode>

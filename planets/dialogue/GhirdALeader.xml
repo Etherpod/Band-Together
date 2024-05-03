@@ -36,10 +36,25 @@
         <DialogueTarget>End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <RequiredPersistentCondition>BT_GHIRD_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
         <RequiredPersistentCondition>BT_TALKED_TO_GHIRD_LEADER_A</RequiredPersistentCondition>
         <Text>Nothing, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>To be compelled to open the Door for so long must mean there is something of substantial power behind it.</Page>
+      <Page>It is likely that it is some sort of information, but information that could fall into the wrong hands.</Page>
+      <Page>It could be used to usher a new era of peace, or- with a corrupted mind- used to begin an era of fear and destruction.</Page>
+      <Page>If you plan to open the Door, have caution. Any mind can become corrupted.</Page>
+    </Dialogue>
   </DialogueNode>
 
   <DialogueNode>

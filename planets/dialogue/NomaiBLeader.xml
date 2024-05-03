@@ -29,7 +29,7 @@
   <DialogueNode>
     <Name>Init_00</Name>
     <Dialogue>
-      <Page>My clan and I express our gratitude.</Page>
+      <Page>My clan and I express our gratitude. With this, we will be able to construct a cockpit of our own and lift off into the great unknown.</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
@@ -37,7 +37,7 @@
   <DialogueNode>
     <Name>Init_01</Name>
     <Dialogue>
-      <Page>The technology is suitable, yes. My clan and I thank you.</Page>
+      <Page>Yes, it is certainly interesting technology. However, I do believe we will need to make modfications, as the cockpit you gave us looks like it is going to fall apart.</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
@@ -51,7 +51,7 @@
 
     <DialogueOptionsList>
       <DialogueOption>
-        <Text>I was only joking.</Text>
+        <Text>Wait! I was joking!</Text>
         <DialogueTarget>Init_020</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
@@ -64,7 +64,7 @@
   <DialogueNode>
     <Name>Init_020</Name>
     <Dialogue>
-      <Page>I see you are one for humor. Luckily, I too am fond of it.</Page>
+      <Page>I too was joking. Did you really think I would expel my guest?</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
@@ -72,7 +72,7 @@
   <DialogueNode>
     <Name>Init_021</Name>
     <Dialogue>
-      <Page>You are fortunate in that I was not actually planning to do so.</Page>
+      <Page>You are one for humor, I see! And you are lucky I was not actually intending to do that.</Page>
     </Dialogue>
     <DialogueTarget>Init_1</DialogueTarget>
   </DialogueNode>
@@ -95,6 +95,11 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <RequiredPersistentCondition>BT_NOMAI_VILLAGE_B_TO_DOOR</RequiredPersistentCondition>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
         <RequiredPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</RequiredPersistentCondition>
         <Text>Just saying hi.</Text>
       </DialogueOption>
@@ -113,6 +118,16 @@
         <DialogueTarget>End_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>I think it is safe to say that the Great Door was built to serve as some sort of time capsule.</Page>
+      <Page>Some civilization before us likely placed advanced technology inside of a vault that would only be accessible when the evolving species was advanced enough to open it.</Page>
+      <Page>In the case that I am right, I anticipate what we will find when we open it. Could it be a spacecraft? A weapon? A computer? No one can know.</Page>
+      <Page>It may be wise to withold our excitement until the Door is actually opened, though.</Page>
+    </Dialogue>
   </DialogueNode>
   
   <DialogueNode>

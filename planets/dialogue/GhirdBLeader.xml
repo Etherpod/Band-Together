@@ -62,7 +62,87 @@
         <Text>Did you see where it went?</Text>
         <DialogueTarget>Shrub_Lost_01</DialogueTarget>
       </DialogueOption>
+      <DialogueOption>
+        <RequiredCondition>BT_HAS_SHRUBBERY</RequiredCondition>
+        <Text>Well, I have good news!</Text>
+        <DialogueTarget>Early_Shrubbery_0</DialogueTarget>
+      </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_0</Name>
+    <Dialogue>
+      <Page>There is nothing that could possibly remedy the disappearance of our savior. Bring your news to someone else.</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Look what I found!</Text>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>I guess you won't be needing this Sacred Shrubbery, then.</Text>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_00</Name>
+    <Dialogue>
+      <Page>What did you-</Page>
+      <Page>Is it truly..? Is it our golden savior?</Page>
+      <Page>It must be! Thank you, traveler! We are indebted to you.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_01</Name>
+    <Dialogue>
+      <Page>Wait! What did you say? Did you find It?</Page>
+      <Page>By the Shrub, you have! Thank you, traveler. There must be some way we can repay you.</Page>
+    </Dialogue>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_1</Name>
+    <Dialogue>
+      <Page>What would you ask of us?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Your firstborn child.</Text>
+        <DialogueTarget>Early_Shrubbery_10</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>Can you help us open the Great Door?</Text>
+        <DialogueTarget>Early_Shrubbery_11</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_10</Name>
+    <Dialogue>
+      <Page>I am sorry, but I have no children. Is there something else we could give you?</Page>
+    </Dialogue>
+
+    <DialogueOptionsList>
+      <DialogueOption>
+        <Text>Can you help us open the Great Door?</Text>
+        <DialogueTarget>Early_Shrubbery_11</DialogueTarget>
+      </DialogueOption>
+    </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Early_Shrubbery_11</Name>
+    <Dialogue>
+      <Page>The Great Door? Certainly!</Page>
+      <Page>Place the Sacred Shrubbery upon Its divine pedestal at the back of these halls, and we will come to the Great Door.</Page>
+    </Dialogue>
+    <SetCondition>BT_GHIRD_B_SEEN_SHRUBBERY</SetCondition>
+    <SetPersistentCondition>BT_START_SHRUB_QUEST</SetPersistentCondition>
   </DialogueNode>
 
   <DialogueNode>
@@ -179,7 +259,7 @@
   <DialogueNode>
     <Name>Shrub_Quest_1</Name>
     <Dialogue>
-      <Page>This favor you ask of us is a great one. But with the power of our Sacred Shrubbery restored, it will be easily accomplished.</Page>
+      <Page>The Great Door? That is a difficult favor. But, with the power of our Sacred Shrubbery restored, it will be easily accomplished.</Page>
       <Page>When you have returned It, we will join you at the Great Door.</Page>
     </Dialogue>
     <RevealFacts>
@@ -262,7 +342,7 @@
   <DialogueNode>
     <Name>Shrub_Returned_01</Name>
     <Dialogue>
-      <Page>Oh, yes. Of course. When everyone is prepared to open the door, we will come and place our shard in.</Page>
+      <Page>Oh, yes. Of course. When everyone is prepared to open the Door, we will come and place our shard in.</Page>
     </Dialogue>
     <RevealFacts>
       <FactID>BT_GHIRD_VILLAGE_B_AGREED</FactID>
@@ -283,7 +363,7 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <Text>I'll see you at the door.</Text>
+        <Text>I'll see you at the Door.</Text>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -353,6 +433,10 @@
         <DialogueTarget>Shard_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
         <Text>Bye.</Text>
       </DialogueOption>
     </DialogueOptionsList>
@@ -365,5 +449,15 @@
       <Page>How we could allow such a sacred being to slip through our fingers a second time is... painful. Perhaps we are not worthy of being Followers of Worship.</Page>
     </Dialogue>
     <DialogueTarget>At_Door_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>From the moment our ancestors found the Great Door, we felt it calling out to us, to open it.</Page>
+      <Page>The Sacred Shrubbery is only a vessel for a greater power. Its true form lies within that prison.</Page>
+      <Page>Our task, as the Followers of Worship, is to free It from that cold, oppressive vault, bringing us into a new age of peace.</Page>
+      <Page>And we, The Followers of Worship will be at the forefront, leading the clans to salvation under the holy guidance of the Golden Tree.</Page>
+    </Dialogue>
   </DialogueNode>
 </DialogueTree>

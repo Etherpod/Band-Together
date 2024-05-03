@@ -25,15 +25,32 @@
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
+        <CancelledPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>BT_NOMAI_VILLAGE_B_TO_DOOR</RequiredPersistentCondition>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>No, thanks.</Text>
       </DialogueOption>
     </DialogueOptionsList>
-    
     <SetPersistentCondition>BT_TALKED_TO_NOMAI_GATEKEEPER_B</SetPersistentCondition>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>Whatever is behind the Great Door must be the key to our expansion across the galaxy.</Page>
+      <Page>Consider this: the Great Door was built on this planet before we had evolved to a self-conscious state.</Page>
+      <Page>Whoever built it also made it impenetrable, only able to be opened by using a set of keys.</Page>
+      <Page>And the keys are only obtainable once a species has developed tools and sensors to locate them.</Page>
+      <Page>The Great Door must be a sort of technological jumpstart, to allow us to reach spacefaring capabilities faster once we have evolved far enough.</Page>
+      <Page>Once we open it, we will be able to explore the farthest reaches of the galaxy.</Page>
+    </Dialogue>
   </DialogueNode>
 
   <DialogueNode>
@@ -96,7 +113,7 @@
     
     <DialogueOptionsList>
       <DialogueOption>
-        <Text>If we all work together we can finally open the door!</Text>
+        <Text>If we all work together we can finally open the Door!</Text>
         <DialogueTarget>Door_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
@@ -191,11 +208,6 @@
       <DialogueOption>
         <CancelledPersistentCondition>BT_GOT_COCKPIT</CancelledPersistentCondition>
         <Text>I'll get you one in no time!</Text>
-        <DialogueTarget>Cockpit_End_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <CancelledPersistentCondition>BT_GOT_COCKPIT</CancelledPersistentCondition>
-        <Text>I'll see what I can do.</Text>
         <DialogueTarget>Cockpit_End_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>

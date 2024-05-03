@@ -309,5 +309,6 @@
       <Page>Why are you asking me? Ask the ones who put it down here. It's probably just a seceret altar or something.</Page>
       <Page>INot like I would know anything about that, though. Can we talk about something else?</Page>
     </Dialogue>
+    <DialogueTarget>Ernesto_Main_0</DialogueTarget>
   </DialogueNode>
 </DialogueTree>

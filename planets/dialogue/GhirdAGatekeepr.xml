@@ -279,6 +279,19 @@
       <DialogueOption>
         <Text>Thanks.</Text>
       </DialogueOption>
+      <DialogueOption>
+        <RequiredPersistentCondition>BT_GHIRD_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
+        <Text>What do you think is behind the Great Door?</Text>
+      </DialogueOption>
     </DialogueOptionsList>
+  </DialogueNode>
+
+  <DialogueNode>
+    <Name>Door_Secrets_0</Name>
+    <Dialogue>
+      <Page>I have always believed that profound information lies behind the Door.</Page>
+      <Page>It could be a new revolutionary science, or an artificial intelligence, or perhaps even the answers to the deepest questions of the universe.</Page>
+      <Page>But, whatever it is, it will unite the clans in the search for answers.</Page>
+    </Dialogue>
   </DialogueNode>
 </DialogueTree>

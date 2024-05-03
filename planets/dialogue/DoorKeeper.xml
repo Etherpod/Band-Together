@@ -55,7 +55,7 @@
     <Dialogue>
       <Page>The Great Door is the large metal structure that lies at the top of that staircase beside us.</Page>
       <Page>No one knows who or why it was built, only that it has existed on this planet for thousands of years.</Page>
-      <Page>The door is indestructible, proven by countless attempts that were taken to break through it.</Page>
+      <Page>The Door is indestructible, proven by countless attempts that were taken to break through it.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -75,7 +75,7 @@
   <DialogueNode>
     <Name>Background_Door_00</Name>
     <Dialogue>
-      <Page>We believe the only way to open the door is to use a special key, though we did not get the chance to test that theory before the Shattering.</Page>
+      <Page>We believe the only way to open the Door is to use a special key, though we did not get the chance to test that theory before the Shattering.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -96,7 +96,7 @@
   <DialogueNode>
     <Name>Background_Door_01</Name>
     <Dialogue>
-      <Page>The contents of the door are a subject of great speculation.</Page>
+      <Page>The contents of the Door are a subject of great speculation.</Page>
       <Page>Some believe it to hold great wealth. Others believe there to be unimaginable power.</Page>
       <Page>Our curiosity is what has driven us to try and open it. Sadly, the Shattering appears to have replaced that curiosity with greed.</Page>
     </Dialogue>
@@ -222,14 +222,14 @@
   <DialogueNode>
     <Name>Background_Shattering_0</Name>
     <Dialogue>
-      <Page>When our ancestors first discovered the Great Door, they also discovered what appeared to be the key to it. But when they attempted to place it into the door, it did nothing.</Page>
+      <Page>When our ancestors first discovered the Great Door, they also discovered what appeared to be the key to it. But when they attempted to place it into the Door, it did nothing.</Page>
       <Page>The entire core of the key was missing. Without the core, it would not function. The core was hypothesized to be somewhere on the planet, but it was never found.</Page>
       <Page>That is, until someone uncovered ancient manuscripts detailing the location of the core.</Page>
-      <Page>Our united civilization began to split into clans, and each clan had a different idea of what lay behind the door.</Page>
+      <Page>Our united civilization began to split into clans, and each clan had a different idea of what lay behind the Door.</Page>
       <Page>But each clan thought that the rewards should belong to them only.</Page>
       <Page>A large argument ensued about who should reap the rewards, and in the end the key was accidentally shattered into four pieces.</Page>
       <Page>Each clan took a shard for themselves and became independent of the former civilization.</Page>
-      <Page>Today there still exists four clans, all hoping to open the door and steal away the rewards.</Page>
+      <Page>Today there still exists four clans, all hoping to open the Door and steal away the rewards.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -297,7 +297,7 @@
     <Name>Shard_Quest_1</Name>
     <Dialogue>
       <Page>To contribute their shard, of course!</Page>
-      <Page>If each of the clans agree to supply their shards, we can finally open the door!</Page>
+      <Page>If each of the clans agree to supply their shards, we can finally open the Door!</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -459,7 +459,7 @@
     <EntryCondition>BT_FIFTH_SHARD</EntryCondition>
     <Dialogue>
       <Page>Do my eyes deceive me? Is that the Fifth Shard?</Page>
-      <Page>Congratulations on finding it! But we need the other shards before we can place the Fifth Shard into the door.</Page>
+      <Page>Congratulations on finding it! But we need the other shards before we can place the Fifth Shard into the Door.</Page>
     </Dialogue>
   </DialogueNode>
 
@@ -504,7 +504,7 @@
     <Dialogue>
       <Page>Nothing? No wealth? No new technology?</Page>
       <Page>There is nothing in there? This... this is not good.</Page>
-      <Page>And to think... after all these years, we had finally brought all the clans back together, just for there to be nothing behind the door.</Page>
+      <Page>And to think... after all these years, we had finally brought all the clans back together, just for there to be nothing behind the Door.</Page>
       <Page>...</Page>
       <Page>I dislike being the giver of bad news, but I do not think the other clans will take this information lightly.</Page>
       <Page>This may be it. We may never unite the clans again.</Page>
