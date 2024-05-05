@@ -227,7 +227,7 @@ public class ModMain : ModBehaviour
                     {
                         QSBPlayerManager.GetPlayer(qsbAPI.GetPlayerIDs()[i]).AssignedSimulationLantern =
                             ReferenceLocator.GetDreamLanternList()[i].GetWorldObject<QSBDreamLanternItem>();
-                        WriteDebugMessage("Updating lanterns from client: Lantern #" + i + 1);
+                        WriteDebugMessage("Updating lanterns from client: Lantern #" + ReferenceLocator.GetDreamLanternList()[i].GetWorldObject<QSBDreamLanternItem>());
                     }
                 }
             }
@@ -282,14 +282,12 @@ public class ModMain : ModBehaviour
 
     private void OnPlayerJoin(uint playerID)
     {
-
-        WriteDebugMessage("On player join: Lantern #" + qsbAPI.GetPlayerIDs().Length);
-        QSBPlayerManager.GetPlayer(playerID).AssignedSimulationLantern = 
-            ReferenceLocator.GetDreamLanternList()[qsbAPI.GetPlayerIDs().Length - 1].GetWorldObject<QSBDreamLanternItem>();
+        StartCoroutine(PlayerJoinDelay(playerID));
     }
 
-    private void PlayerJoinDelay(uint playerID)
+    private IEnumerator PlayerJoinDelay(uint playerID)
     {
+        yield return new WaitUntil(() => qsbAPI.GetPlayerReady(playerID));
         WriteDebugMessage("On player join: Lantern #" + qsbAPI.GetPlayerIDs().Length);
         QSBPlayerManager.GetPlayer(playerID).AssignedSimulationLantern =
             ReferenceLocator.GetDreamLanternList()[qsbAPI.GetPlayerIDs().Length - 1].GetWorldObject<QSBDreamLanternItem>();

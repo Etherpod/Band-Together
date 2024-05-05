@@ -48,8 +48,12 @@ public class MiscPatches
 
             if (player.player.AssignedSimulationLantern == null)
             {
-                ModMain.WriteDebugMessage("No lantern!");
                 continue;
+            }
+
+            if (!QSBCore.IsHost)
+            {
+                //ModMain.WriteDebugMessage("Lantern acquired!");
             }
 
             var playerLightSensor = player.player.LightSensor;
@@ -63,9 +67,9 @@ public class MiscPatches
             player.sensor.isPlayerDroppedLanternVisible = false;
             player.sensor.isPlayerOccluded = false;
 
-            if (player.sensor.isIlluminatedByPlayer)
+            if (player.sensor.isIlluminatedByPlayer && QSBCore.IsHost)
             {
-                //ModMain.WriteDebugMessage("Illuminated by player");
+                ModMain.WriteDebugMessage("Illuminated by player on " + ((player.player.PlayerId != QSBPlayerManager.LocalPlayerId) ? "client" : "host"));
             }
 
             //if ((lanternController.IsHeldByPlayer() && !lanternController.IsConcealed()) || playerLightSensor.IsIlluminated())
@@ -109,12 +113,11 @@ public class MiscPatches
             return;
         }
 
-        ModMain.WriteDebugMessage("Passed light checks!");
-
         var closest = visiblePlayers.MinBy(x => x.playerLocation.distance);
 
         if (__instance._data.interestedPlayer != closest)
         {
+            ModMain.WriteDebugMessage("Changed interested player: " + closest.player.PlayerId);
             __instance._data.interestedPlayer = closest;
             __instance.SendMessage(new ChangeInterestedPlayerMessage(closest.player.PlayerId));
         }
