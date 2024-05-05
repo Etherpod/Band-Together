@@ -10,11 +10,140 @@ namespace BandTogether.Patch;
 [HarmonyPatch]
 public class MiscPatches
 {
-    [HarmonyPostfix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(GhostSensors), nameof(GhostSensors.FixedUpdate_Sensors))]
-    public static void FlashLightOwlk(GhostSensors __instance)
+    public static bool FlashlightDetectionFix(GhostSensors __instance)
     {
-        __instance._data.sensor.isIlluminatedByPlayer = __instance._data.sensor.isIlluminated;
+        DreamLanternController lanternController = Locator.GetDreamWorldController().GetPlayerLantern().GetLanternController();
+        LightSensor playerLightSensor = Locator.GetPlayerLightSensor();
+        //__instance._data.sensor.isPlayerHoldingLantern = lanternController.IsHeldByPlayer();
+        __instance._data.sensor.isPlayerHoldingLantern = true;
+        __instance._data.sensor.isIlluminated = __instance._lightSensor.IsIlluminated();
+        __instance._data.sensor.isIlluminatedByPlayer = /*lanternController.IsHeldByPlayer() && */__instance._lightSensor.IsIlluminatedByLantern(lanternController);
+        __instance._data.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance._lantern);
+        __instance._data.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
+        __instance._data.sensor.isPlayerVisible = false;
+        __instance._data.sensor.isPlayerHeldLanternVisible = false;
+        __instance._data.sensor.isPlayerDroppedLanternVisible = false;
+        __instance._data.sensor.isPlayerOccluded = false;
+        if (/*(lanternController.IsHeldByPlayer() && !lanternController.IsConcealed())*/ Locator.GetFlashlight().IsFlashlightOn() || playerLightSensor.IsIlluminated())
+        {
+            Vector3 position = Locator.GetPlayerCamera().transform.position;
+            if (__instance.CheckPointInVisionCone(position))
+            {
+                if (__instance.CheckLineOccluded(__instance._sightOrigin.position, position))
+                {
+                    __instance._data.sensor.isPlayerOccluded = true;
+                }
+                else
+                {
+                    __instance._data.sensor.isPlayerVisible = playerLightSensor.IsIlluminated();
+                    __instance._data.sensor.isPlayerHeldLanternVisible = Locator.GetFlashlight().IsFlashlightOn();
+                }
+            }
+        }
+        /*if (!lanternController.IsHeldByPlayer() && __instance.CheckPointInVisionCone(lanternController.GetLightPosition()) && !__instance.CheckLineOccluded(__instance._sightOrigin.position, lanternController.GetLightPosition()))
+        {
+            __instance._data.sensor.isPlayerDroppedLanternVisible = true;
+        }*/
+
+        return false;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(SingleLightSensor), nameof(SingleLightSensor.UpdateIllumination))]
+    public static bool FlashlightIllumination(SingleLightSensor __instance)
+    {
+        __instance._illuminated = false;
+        if (__instance._illuminatingDreamLanternList != null)
+        {
+            __instance._illuminatingDreamLanternList.Clear();
+        }
+        if (__instance._lightSources == null || __instance._lightSources.Count == 0)
+        {
+            return false;
+        }
+        Vector3 vector = __instance.transform.TransformPoint(__instance._localSensorOffset);
+        Vector3 vector2 = Vector3.zero;
+        if (__instance._directionalSensor)
+        {
+            vector2 = __instance.transform.TransformDirection(__instance._localDirection).normalized;
+        }
+        for (int i = 0; i < __instance._lightSources.Count; i++)
+        {
+            if ((__instance._lightSourceMask & __instance._lightSources[i].GetLightSourceType()) == __instance._lightSources[i].GetLightSourceType() && __instance._lightSources[i].CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance))
+            {
+                LightSourceType lightSourceType = __instance._lightSources[i].GetLightSourceType();
+                switch (lightSourceType)
+                {
+                    case LightSourceType.UNDEFINED:
+                        {
+                            OWLight2 owlight = __instance._lightSources[i] as OWLight2;
+                            bool flag = owlight.GetLight().shadows != LightShadows.None && owlight.GetLight().shadowStrength > 0.5f;
+                            if (owlight.CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance) && !__instance.CheckOcclusion(owlight.transform.position, vector, vector2, flag))
+                            {
+                                __instance._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.FLASHLIGHT:
+                        {
+                            Vector3 position = Locator.GetPlayerCamera().transform.position;
+                            Vector3 vector3 = __instance.transform.position - position;
+                            if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle && !__instance.CheckOcclusion(position, vector, vector2, true))
+                            {
+                                __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                __instance._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.PROBE:
+                        {
+                            SurveyorProbe probe = Locator.GetProbe();
+                            if (probe != null && probe.IsLaunched() && !probe.IsRetrieving() && probe.CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance) && !__instance.CheckOcclusion(probe.GetLightSourcePosition(), vector, vector2, true))
+                            {
+                                __instance._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.FLASHLIGHT | LightSourceType.PROBE:
+                    case LightSourceType.FLASHLIGHT | LightSourceType.DREAM_LANTERN:
+                    case LightSourceType.PROBE | LightSourceType.DREAM_LANTERN:
+                    case LightSourceType.FLASHLIGHT | LightSourceType.PROBE | LightSourceType.DREAM_LANTERN:
+                        break;
+                    case LightSourceType.DREAM_LANTERN:
+                        {
+                            DreamLanternController dreamLanternController = __instance._lightSources[i] as DreamLanternController;
+                            if (dreamLanternController.IsLit() && dreamLanternController.IsFocused(__instance._lanternFocusThreshold) && dreamLanternController.CheckIlluminationAtPoint(vector, __instance._sensorRadius, __instance._maxDistance) && !__instance.CheckOcclusion(dreamLanternController.GetLightPosition(), vector, vector2, true))
+                            {
+                                __instance._illuminatingDreamLanternList.Add(dreamLanternController);
+                                __instance._illuminated = true;
+                            }
+                            break;
+                        }
+                    case LightSourceType.SIMPLE_LANTERN:
+                        foreach (OWLight2 owlight in __instance._lightSources[i].GetLights())
+                        {
+                            bool flag = owlight.GetLight().shadows != LightShadows.None && owlight.GetLight().shadowStrength > 0.5f;
+                            float num = Mathf.Min(__instance._maxSimpleLanternDistance, __instance._maxDistance);
+                            if (owlight.CheckIlluminationAtPoint(vector, __instance._sensorRadius, num) && !__instance.CheckOcclusion(owlight.transform.position, vector, vector2, flag))
+                            {
+                                __instance._illuminated = true;
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        if (lightSourceType == LightSourceType.VOLUME_ONLY)
+                        {
+                            __instance._illuminated = true;
+                        }
+                        break;
+                }
+            }
+        }
+
+        return false;
     }
 
     [HarmonyPrefix]
@@ -26,9 +155,14 @@ public class MiscPatches
             Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
             RespawnTeleport();
             __instance.ReleasePlayer();
-            GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
-            brain._data.OnPlayerExitDreamWorld();
-            brain.ChangeAction(null);
+            /*GhostBrain brain = __instance.GetComponentInParent<GhostBrain>();
+            brain._data.TabulaRasa();
+            brain.ChangeAction(null);*/
+            foreach (GhostBrain brain in ReferenceLocator.GetWorshipGhosts())
+            {
+                brain.TabulaRasa();
+                brain.ChangeAction(null);
+            }
             ReticleController.Show();
             Locator.GetPromptManager().SetPromptsVisible(true);
             Locator.GetDreamWorldController()._playerCamEffectController.OpenEyes(0.5f, false);
@@ -77,8 +211,9 @@ public class MiscPatches
         ReferenceLocator.GetFlashlightRuleset().OnExit();
 
         CageElevator elevator = ReferenceLocator.GetGhirdVillageBElevator();
+        elevator._currentDestinationIdx = elevator._destinations.Length - 1;
         elevator._ghostInterface.SetStartingPosition(true);
-        elevator.GoToDestination(elevator._destinations.Length - 1);
+        elevator.SetReached(true, true, true);
     }
 
     [HarmonyPostfix]
