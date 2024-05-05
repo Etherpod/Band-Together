@@ -1,4 +1,5 @@
-﻿using QSB.Tools.FlashlightTool;
+﻿using QSB;
+using QSB.Tools.FlashlightTool;
 using System;
 using UnityEngine;
 
@@ -24,6 +25,10 @@ public class FlashlightCompoundSensor : MonoBehaviour
             if (_lightSensor._childSensors[i].GetComponent<FlashlightSensorData>().IsIlluminatedByFlashlight(playerID))
             {
                 return true;
+            }
+            if (QSBCore.IsHost)
+            {
+                //ModMain.WriteDebugMessage("Light #" + i + " not illuminated");
             }
         }
         return false;

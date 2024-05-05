@@ -11,17 +11,18 @@ public class ReferenceLocator : MonoBehaviour
     [SerializeField] Shrubbery shrubObject = null;
     [SerializeField] SunpostDetector sunpostDetector = null;
     [SerializeField] GhirdLightsOutController lightsOutController = null;
-    [SerializeField] GameObject lanternPrefab;
+    [SerializeField] DreamLanternItem[] playerLanterns = null;
     [SerializeField] Transform playerRespawnPoint = null;
     [SerializeField] FlashlightRuleset flashlightRuleset = null;
     [SerializeField] OWAudioSource creditsSong = null;
 
     private static ReferenceLocator Instance;
-    private DreamLanternItem playerLantern;
 
     private void Awake()
     {
+        ModMain.WriteDebugMessage("Awake");
         Instance = this;
+        ModMain.Instance.InitPlayerLanterns();
     }
 
     public static SacredEntrywayTrigger GetSacredEntryway()
@@ -64,19 +65,9 @@ public class ReferenceLocator : MonoBehaviour
         return Instance.lightsOutController;
     }
 
-    public static GameObject GetLanternPrefab()
+    public static DreamLanternItem[] GetDreamLanternList()
     {
-        return Instance.lanternPrefab;
-    }
-
-    public static DreamLanternItem GetDreamLanternItem()
-    {
-        return Instance.playerLantern;
-    }
-
-    public static void SetDreamLanternItem(DreamLanternItem lantern)
-    {
-        Instance.playerLantern = lantern;
+        return Instance.playerLanterns;
     }
 
     public static Transform GetPlayerRespawnPoint()

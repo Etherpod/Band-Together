@@ -5,6 +5,7 @@ using System.Reflection;
 using BandTogether.QSB;
 using HarmonyLib;
 using QSB;
+using QSB.API;
 using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
 using QSB.EchoesOfTheEye.Ghosts;
 using QSB.EchoesOfTheEye.Ghosts.Messages;
@@ -47,34 +48,25 @@ public class MiscPatches
 
             if (player.player.AssignedSimulationLantern == null)
             {
+                ModMain.WriteDebugMessage("No lantern!");
                 continue;
             }
 
-            /*if (player.player != QSBPlayerManager.LocalPlayer)
-            {
-                flashlight = player.player.FlashLight;
-            }*/
             var playerLightSensor = player.player.LightSensor;
             player.sensor.isPlayerHoldingLantern = true;
             __instance._data.isIlluminated = __instance.AttachedObject._lightSensor.IsIlluminated();
-            //player.sensor.isIlluminatedByPlayer = (lanternController.IsHeldByPlayer() && __instance.AttachedObject._lightSensor.IsIlluminatedByLantern(lanternController));
             player.sensor.isIlluminatedByPlayer = __instance.AttachedObject._lightSensor.GetComponent<FlashlightCompoundSensor>().IsIlluminatedByFlashlight(player.player.PlayerId);
-            /*if (player.player.IsLocalPlayer)
-            {
-                QSBFlashlight flashlight = player.player.FlashLight;
-                player.sensor.isIlluminatedByPlayer = ModMain.Instance.GetFlashlightIlluminated(player.player.PlayerId);
-            }*/
-            /*else
-            {
-                player.sensor.isIlluminatedByPlayer = false;
-            }*/
-            //player.sensor.isIlluminatedByPlayer = __instance._data.isIlluminated;
             player.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance.AttachedObject._lantern);
             player.sensor.isPlayerIlluminated = playerLightSensor.IsIlluminated();
             player.sensor.isPlayerVisible = false;
             player.sensor.isPlayerHeldLanternVisible = false;
             player.sensor.isPlayerDroppedLanternVisible = false;
             player.sensor.isPlayerOccluded = false;
+
+            if (player.sensor.isIlluminatedByPlayer)
+            {
+                //ModMain.WriteDebugMessage("Illuminated by player");
+            }
 
             //if ((lanternController.IsHeldByPlayer() && !lanternController.IsConcealed()) || playerLightSensor.IsIlluminated())
             if (player.player.FlashlightActive || playerLightSensor.IsIlluminated())
@@ -89,17 +81,14 @@ public class MiscPatches
                     else
                     {
                         player.sensor.isPlayerVisible = playerLightSensor.IsIlluminated();
-                        //player.sensor.isPlayerHeldLanternVisible = (lanternController.IsHeldByPlayer() && !lanternController.IsConcealed());
                         player.sensor.isPlayerHeldLanternVisible = player.player.FlashlightActive;
+                        if (player.sensor.isPlayerHeldLanternVisible)
+                        {
+                            //ModMain.WriteDebugMessage("Can see player lantern");
+                        }
                     }
                 }
             }
-
-            /*if (!lanternController.IsHeldByPlayer() && __instance.AttachedObject.CheckPointInVisionCone(lanternController.GetLightPosition()) 
-                && !__instance.AttachedObject.CheckLineOccluded(__instance.AttachedObject._sightOrigin.position, lanternController.GetLightPosition()))
-            {
-                player.sensor.isPlayerDroppedLanternVisible = true;
-            }*/
         }
 
         if (!QSBCore.IsHost)
@@ -107,7 +96,7 @@ public class MiscPatches
             return;
         }
 
-        var visiblePlayers = __instance._data.players.Values.Where(x => x.sensor.isPlayerVisible 
+        var visiblePlayers = __instance._data.players.Values.Where(x => x.sensor.isPlayerVisible
         || x.sensor.isPlayerHeldLanternVisible || x.sensor.inContactWithPlayer || x.sensor.isPlayerIlluminatedByUs);
 
         if (visiblePlayers.Count() == 0) // no players visible
@@ -119,6 +108,8 @@ public class MiscPatches
         {
             return;
         }
+
+        ModMain.WriteDebugMessage("Passed light checks!");
 
         var closest = visiblePlayers.MinBy(x => x.playerLocation.distance);
 
@@ -437,7 +428,7 @@ public class MiscPatches
             if (ModMain.qsbEnabled)
             {
                 QSBGhostBrain qsbBrain = brain.GetWorldObject<QSBGhostBrain>();
-                QSBGhostData data = (QSBGhostData)typeof(QSBGhostBrain).GetField("_data", BindingFlags.NonPublic | 
+                QSBGhostData data = (QSBGhostData)typeof(QSBGhostBrain).GetField("_data", BindingFlags.NonPublic |
                     BindingFlags.Public | BindingFlags.Instance).GetValue(qsbBrain);
                 data.OnPlayerExitDreamWorld(QSBPlayerManager.LocalPlayer);
                 qsbBrain.ChangeAction(null);

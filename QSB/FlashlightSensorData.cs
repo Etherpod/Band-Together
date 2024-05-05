@@ -1,4 +1,5 @@
-﻿using QSB.API;
+﻿using QSB;
+using QSB.API;
 using QSB.EchoesOfTheEye.LightSensorSync.WorldObjects;
 using QSB.Messaging;
 using QSB.WorldSync;
@@ -31,8 +32,13 @@ public class FlashlightSensorData : MonoBehaviour
 
     public void SetFlashlightList(uint[] playerIDList)
     {
+        if (QSBCore.IsHost)
+        {
+            //ModMain.WriteDebugMessage("Info: " + playerIDList.Length);
+        }
         _illuminatingFlashlightList.Clear();
         _illuminatingFlashlightList.AddRange(playerIDList);
+        //ModMain.WriteDebugMessage("After length: " + _illuminatingFlashlightList.Count);
     }
     
     public void SendList(uint[] playerIDList)
@@ -52,7 +58,9 @@ public class FlashlightSensorData : MonoBehaviour
         }
         for (int i = 0; i < _illuminatingFlashlightList.Count; i++)
         {
-            if (this._illuminatingFlashlightList[i] == playerID)
+            //ModMain.WriteDebugMessage(i + ": " + _illuminatingFlashlightList[i]);
+            //ModMain.WriteDebugMessage("Player ID: " + playerID);
+            if (_illuminatingFlashlightList[i] == playerID)
             {
                 return true;
             }

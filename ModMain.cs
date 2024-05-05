@@ -16,6 +16,8 @@ using QSB;
 using QSB.EchoesOfTheEye.DreamLantern.WorldObjects;
 using QSB.EchoesOfTheEye.Ghosts;
 using QSB.EchoesOfTheEye.Ghosts.WorldObjects;
+using QSB.EchoesOfTheEye.LightSensorSync.WorldObjects;
+using QSB.OwnershipSync;
 using QSB.Player;
 using QSB.Player.TransformSync;
 using QSB.WorldSync;
@@ -74,6 +76,7 @@ public class ModMain : ModBehaviour
 
     public INewHorizons nhAPI;
     public static IQSBAPI qsbAPI;
+    public static DreamLanternItem playerLantern;
     public bool inEndSequence = false;
     public bool fadeEndMusic = false;
     public bool startedEndSequence = false;
@@ -82,7 +85,7 @@ public class ModMain : ModBehaviour
     public List<uint> flashlightIlluminatingPlayers = new();
 
     private bool _debugEnabled = false;
-    private bool _setFlashlightListDirty = false;
+    //private bool _setFlashlightListDirty = false;
     private int _numClansConvinced;
     private bool _allFifthShardFacts;
     private List<GameObject> factsToEnable = new();
@@ -114,6 +117,11 @@ public class ModMain : ModBehaviour
             EnumUtils.Create<ItemType>("Shrubbery", 512);
         }
 
+        if (ModHelper.Interaction.ModExists("Raicuparta.QuantumSpaceBuddies"))
+        {
+            InitQSBAPI();
+        }
+
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
             if (loadScene != OWScene.SolarSystem)
@@ -122,6 +130,7 @@ public class ModMain : ModBehaviour
             }
 
             ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
+            //WriteDebugMessage("Lantern: " + ReferenceLocator.GetDreamLanternItem());
 
             nhAPI.GetBodyLoadedEvent().AddListener(OnBodyLoaded);
 
@@ -130,11 +139,6 @@ public class ModMain : ModBehaviour
             AddDialogueConditionListener(OnShardCondition, ShardConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGroupMoveCondition, GroupDialogueConditions.Keys.ToArray());
             AddDialogueConditionListener(OnGatekeeperToDoor, "BT_SUNPOST_PUZZLE_SOLVED");
-
-            if (ModHelper.Interaction.ModExists("Raicuparta.QuantumSpaceBuddies"))
-            {
-                InitQSBAPI();
-            }
 
             ModHelper.Events.Unity.FireInNUpdates(() =>
             {
@@ -158,7 +162,7 @@ public class ModMain : ModBehaviour
                 var dreamCampfire = Locator.GetDreamCampfire(location);
                 if (Locator.GetToolModeSwapper().GetItemCarryTool().GetHeldItemType() != ItemType.DreamLantern)
                 {
-                    DreamLanternItem lantern = ReferenceLocator.GetDreamLanternItem();
+                    DreamLanternItem lantern = playerLantern;
                     lantern.OnEnterDreamWorld();
                     Locator.GetDreamWorldController()._playerLantern = lantern;
                 };
@@ -205,19 +209,34 @@ public class ModMain : ModBehaviour
         };
     }
 
-    private void LateUpdate()
+    /*private void LateUpdate()
     {
         _setFlashlightListDirty = true;
-    }
+    }*/
 
     private IEnumerator WaitForLocalPlayer()
     {
         yield return new WaitUntil(() => PlayerTransformSync.LocalInstance != null);
         if (qsbEnabled)
         {
+            if (!QSBCore.IsHost)
+            {
+                for (int i = 0; i < qsbAPI.GetPlayerIDs().Length; i++)
+                {
+                    if (qsbAPI.GetPlayerIDs()[i] != QSBPlayerManager.LocalPlayerId)
+                    {
+                        QSBPlayerManager.GetPlayer(qsbAPI.GetPlayerIDs()[i]).AssignedSimulationLantern =
+                            ReferenceLocator.GetDreamLanternList()[i].GetWorldObject<QSBDreamLanternItem>();
+                        WriteDebugMessage("Updating lanterns from client: Lantern #" + i + 1);
+                    }
+                }
+            }
+
             var player = QSBPlayerManager.LocalPlayer;
             player.InDreamWorld = true;
-            player.AssignedSimulationLantern = ReferenceLocator.GetDreamLanternItem().GetWorldObject<QSBDreamLanternItem>();
+            player.AssignedSimulationLantern = playerLantern.GetWorldObject<QSBDreamLanternItem>();
+            WriteDebugMessage(player.AssignedSimulationLantern);
+            qsbAPI.OnPlayerJoin().AddListener(OnPlayerJoin);
         }
     }
 
@@ -227,13 +246,53 @@ public class ModMain : ModBehaviour
         if (qsbAPI == null) return;
         qsbEnabled = true;
         qsbAPI.RegisterRequiredForAllPlayers(this);
-        ModMain.qsbAPI.RegisterHandler<(uint[], int)>("flashlightIDs", FlashlightIDHandler);
-        StartCoroutine(WaitForLocalPlayer());
+        qsbAPI.RegisterHandler<(uint[], int)>("flashlightIDs", FlashlightIDHandler<(uint[], int)>);
     }
 
     private void FlashlightIDHandler<T>(uint from, (uint[], int) data)
     {
         var (playerIDList, objectID) = data;
+/*        WriteDebugMessage("Correct sensor");
+        WriteDebugMessage(playerIDList.Length);
+        WriteDebugMessage(objectID);
+        WriteDebugMessage(objectID.GetWorldObject<QSBLightSensor>());*/
+        objectID.GetWorldObject<QSBLightSensor>().AttachedObject.GetComponent<FlashlightSensorData>().SetFlashlightList(playerIDList);
+    }
+
+    public void InitPlayerLanterns()
+    {
+        int numPlayers = qsbAPI.GetPlayerIDs().Length == 0 ? qsbAPI.GetPlayerIDs().Length + 1 : qsbAPI.GetPlayerIDs().Length;
+        WriteDebugMessage("Players in game: " + numPlayers);
+        playerLantern = (numPlayers <= ReferenceLocator.GetDreamLanternList().Length) ?
+            ReferenceLocator.GetDreamLanternList()[numPlayers - 1] : null;
+
+
+        if (!playerLantern)
+        {
+            ModHelper.Console.WriteLine("Reached max player capacity! Max players: " +
+                ReferenceLocator.GetDreamLanternList().Length + ", players connected: " + numPlayers);
+            return;
+        }
+
+        if (qsbEnabled)
+        {
+            StartCoroutine(WaitForLocalPlayer());
+        }
+    }
+
+    private void OnPlayerJoin(uint playerID)
+    {
+
+        WriteDebugMessage("On player join: Lantern #" + qsbAPI.GetPlayerIDs().Length);
+        QSBPlayerManager.GetPlayer(playerID).AssignedSimulationLantern = 
+            ReferenceLocator.GetDreamLanternList()[qsbAPI.GetPlayerIDs().Length - 1].GetWorldObject<QSBDreamLanternItem>();
+    }
+
+    private void PlayerJoinDelay(uint playerID)
+    {
+        WriteDebugMessage("On player join: Lantern #" + qsbAPI.GetPlayerIDs().Length);
+        QSBPlayerManager.GetPlayer(playerID).AssignedSimulationLantern =
+            ReferenceLocator.GetDreamLanternList()[qsbAPI.GetPlayerIDs().Length - 1].GetWorldObject<QSBDreamLanternItem>();
     }
 
     /*public void UpdateFlashlightIlluminatedList(uint playerID)
@@ -266,10 +325,6 @@ public class ModMain : ModBehaviour
             _debugEnabled = PlayerData.GetPersistentCondition("BAND_TOGETHER_DEBUG_ENABLED");
 
             Planet = nhAPI.GetPlanet(bodyName);
-
-            DreamLanternItem newLantern = Instantiate(ReferenceLocator.GetLanternPrefab(), Vector3.zero,
-                Quaternion.identity, Planet.transform).GetComponent<DreamLanternItem>();
-            ReferenceLocator.SetDreamLanternItem(newLantern);
 
             if (IsDebugEnabled()) InitDebugMenu();
 
