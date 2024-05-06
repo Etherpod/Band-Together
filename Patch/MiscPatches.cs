@@ -17,7 +17,6 @@ public class MiscPatches
         DreamLanternController lanternController = Locator.GetDreamWorldController().GetPlayerLantern().GetLanternController();
         LightSensor playerLightSensor = Locator.GetPlayerLightSensor();
         //__instance._data.sensor.isPlayerHoldingLantern = lanternController.IsHeldByPlayer();
-        __instance._data.sensor.isPlayerHoldingLantern = true;
         __instance._data.sensor.isIlluminated = __instance._lightSensor.IsIlluminated();
         __instance._data.sensor.isIlluminatedByPlayer = /*lanternController.IsHeldByPlayer() && */__instance._lightSensor.IsIlluminatedByLantern(lanternController);
         __instance._data.sensor.isPlayerIlluminatedByUs = playerLightSensor.IsIlluminatedByLantern(__instance._lantern);
@@ -42,10 +41,6 @@ public class MiscPatches
                 }
             }
         }
-        /*if (!lanternController.IsHeldByPlayer() && __instance.CheckPointInVisionCone(lanternController.GetLightPosition()) && !__instance.CheckLineOccluded(__instance._sightOrigin.position, lanternController.GetLightPosition()))
-        {
-            __instance._data.sensor.isPlayerDroppedLanternVisible = true;
-        }*/
 
         return false;
     }
@@ -205,8 +200,8 @@ public class MiscPatches
         throneSocket.EnableInteraction(true);
         ReferenceLocator.GetShrubSocketNomai().EnableInteraction(false);
 
-        SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
-        entryway.ForceSetEnabled(true);
+        /*SacredEntrywayTrigger entryway = ReferenceLocator.GetSacredEntryway();
+        entryway.ForceSetEnabled(true);*/
 
         ReferenceLocator.GetFlashlightRuleset().OnExit();
 

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace BandTogether;
 
-[RequireComponent(typeof(EntrywayTrigger))]
 public class SacredEntrywayTrigger : MonoBehaviour
 {
     private EntrywayTrigger _entrywayTrigger;

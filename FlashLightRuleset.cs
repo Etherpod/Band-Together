@@ -4,42 +4,49 @@ namespace BandTogether;
 public class FlashlightRuleset : MonoBehaviour
 {
     [SerializeField]
-    float FillLight = 90;
-
+    private float fillLightRange = 90;
     [SerializeField]
-    float SpotLight = 50;
-
+    private float spotLightRange = 50;
     [SerializeField]
     private OWTriggerVolume _triggerVolume;
 
-    OWLight2 Flashlight_FillLight;
-    OWLight2 Flashlight_SpotLight;
+    private OWLight2 _fillLight;
+    private OWLight2 _spotLight;
+    private float _lastFillRange;
+    private float _lastSpotRange;
 
     private void Start()
     {
         _triggerVolume.OnEntry += ctx => OnEntry();
         _triggerVolume.OnExit += ctx => OnExit();
 
-        Flashlight_FillLight = GameObject.Find("Player_Body")
-            .GetComponentInChildren<PlayerCameraController>()
-            .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_FillLight")
-            .GetComponent<OWLight2>();
-        Flashlight_SpotLight = GameObject.Find("Player_Body")
-            .GetComponentInChildren<PlayerCameraController>()
-            .transform.Find("FlashlightRoot/Flashlight_BasePivot/Flashlight_WobblePivot/Flashlight_SpotLight")
-            .GetComponent<OWLight2>();
+        OWLight2[] lights = Locator.GetFlashlight().GetLights();
+        for (int i = 0; i < lights.Length; i++)
+        {
+            ModMain.WriteDebugMessage(lights[i].name);
+            if (lights[i].name == "Flashlight_FillLight")
+            {
+                _fillLight = lights[i];
+            }
+            else
+            {
+                _spotLight = lights[i];
+            }
+        }
     }
 
     public void OnEntry()
     {
-        Flashlight_FillLight.range = FillLight;
-        Flashlight_SpotLight.range = SpotLight;
+        _lastFillRange = _fillLight.range;
+        _lastSpotRange = _spotLight.range;
+        _fillLight.range = fillLightRange;
+        _spotLight.range = spotLightRange;
     }
 
     public void OnExit()
     {
-        Flashlight_FillLight.range = 90;
-        Flashlight_SpotLight.range = 50;
+        _fillLight.range = _lastFillRange;
+        _spotLight.range = _lastSpotRange;
     }
 
     private void OnDestroy()
