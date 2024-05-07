@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BandTogether.Debug;
 using BandTogether.Quantum;
-using BandTogether.TheDoor;
 using BandTogether.Util;
 using HarmonyLib;
+using NewHorizons.External;
 using OWML.Common;
 using OWML.ModHelper;
 using OWML.Utils;
@@ -66,6 +65,7 @@ public class ModMain : ModBehaviour
     public bool inEndSequence = false;
     public bool fadeEndMusic = false;
     public bool startedEndSequence = false;
+    public ItemType shrubberyType { get; private set; }
     public GameObject Planet { get; private set; }
 
     private bool _debugEnabled = false;
@@ -76,6 +76,7 @@ public class ModMain : ModBehaviour
     private List<ScrollItem> scrollsToEnable = new();
     private List<GameObject> textToEnable = new();
     private DebugMenu _debugMenu;
+    private SignalFrequency _planetFrequency;
     private readonly IDictionary<string, List<DialogueConditionChanged>> _dialogueConditionListeners =
         new Dictionary<string, List<DialogueConditionChanged>>();
 
@@ -98,7 +99,7 @@ public class ModMain : ModBehaviour
 
         if (!EnumUtils.IsDefined<ItemType>("Shrubbery"))
         {
-            EnumUtils.Create<ItemType>("Shrubbery", 512);
+            shrubberyType = EnumUtils.Create<ItemType>("Shrubbery");
         }
 
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
@@ -254,6 +255,8 @@ public class ModMain : ModBehaviour
         {
             ReferenceLocator.GetSunpostDetector().OpenDoor();
         }
+
+        NewHorizonsData.LearnFrequency("Wide-Band Transmission");
 
         ReferenceLocator.GetLightsOutController().InitializeGhirds();
     }

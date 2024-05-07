@@ -12,12 +12,17 @@
     <RumorFact>
       <ID>BT_PLANET_RUMOR</ID>
       <RumorName>Fractured Harmony</RumorName>
-      <Text>A planet in the solar system. I hear a signal coming from somewhere on it.</Text>
+      <Text>A planet in the solar system. I hear a signal coming from it on the frequency Wide-Band Transmission.</Text>
     </RumorFact>
 
     <ExploreFact>
       <ID>BT_GREAT_DOOR_INIT</ID>
       <Text>A mysterious, large door. The Nomai says they haven't been able to open it for centuries.</Text>
+    </ExploreFact>
+
+    <ExploreFact>
+      <ID>BT_GREAT_DOOR_SHARDS</ID>
+      <Text>The door needs a special key to open it, but the key was broken into four pieces. Each of the four clans on this planet has one shard.</Text>
     </ExploreFact>
 
     <ExploreFact>
@@ -120,7 +125,7 @@
 
     <ExploreFact>
       <ID>BT_GHIRD_VILLAGE_B_ENTER</ID>
-      <Text>I found a message written by a Nomai. It says the door to the house only opens when you don't have technology with you.</Text>
+      <Text>I found a message written by a Nomai. It says the door to the house only opens when you don't have technology with you, and that the door isn't affected by larger equipment.</Text>
     </ExploreFact>
 
     <ExploreFact>

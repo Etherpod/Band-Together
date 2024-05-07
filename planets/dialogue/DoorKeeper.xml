@@ -152,7 +152,7 @@
   <DialogueNode>
     <Name>Background_Comprehend_00</Name>
     <Dialogue>
-      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. Only so much caution can be exercised when doing something like this in thirty seconds, though.</Page>
+      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. I suppose there is only so much caution to exercise when doing such a procedure in thirty seconds, though.</Page>
     </Dialogue>
     <DialogueTarget>Background_Comprehend_ToStart</DialogueTarget>
   </DialogueNode>
@@ -182,7 +182,7 @@
   <DialogueNode>
     <Name>Background_Comprehend_02</Name>
     <Dialogue>
-      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. Only so much caution can be exercised when doing something like this in thirty seconds, though.</Page>
+      <Page>Your worry is misplaced. I made sure to exercise caution while carrying out the procedure. I suppose there is only so much caution to exercise when doing such a procedure in thirty seconds, though.</Page>
     </Dialogue>
 
     <DialogueOptionsList>
@@ -272,7 +272,9 @@
         <DialogueTarget>Shard_Quest_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
-
+    <RevealFacts>
+      <FactID>BT_GREAT_DOOR_SHARDS</FactID>
+    </RevealFacts>
     <SetCondition>BT_BACKGROUND_CLANS</SetCondition>
   </DialogueNode>
 
@@ -280,7 +282,7 @@
     <Name>Shard_Quest_0</Name>
     <Dialogue>
       <Page>I was searching for passing travelers that would be willing to help me.</Page>
-      <Page>It has been a long time since the Shattering. I think everyone on this planet is getting tired of conflict.</Page>
+      <Page>It has been a long time since the Shattering. I think everyone on this planet is becoming tired of conflict.</Page>
       <Page>I know that if I were to approach the other clans with an offer of peace, they would reject it.</Page>
       <Page>But a stranger- both to this planet and its history- might have a chance at convincing them.</Page>
     </Dialogue>

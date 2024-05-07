@@ -6,21 +6,27 @@
   </TextBlock>
 
   <TextBlock>
-    <ID>11</ID>
+    <ID>2</ID>
     <ParentID>1</ParentID>
     <Text>LEADER OF GREED: The entrance to this building appears to close whenever someone approaches with excessive technology. I would recommend removing your suit and any other pieces of technology before attempting to enter.</Text>
   </TextBlock>
 
   <TextBlock>
-    <ID>111</ID>
-    <ParentID>11</ParentID>
+    <ID>3</ID>
+    <ParentID>2</ParentID>
     <Text>LEADER OF GREED: Otherwise, you may run into the issue of passing through a solid and very tightly shut door.</Text>
+  </TextBlock>
+
+  <TextBlock>
+    <ID>21</ID>
+    <ParentID>2</ParentID>
+    <Text>LEADER OF GREED: After further testing, I can conclude that the door is not affected by larger technological equipment, as the door remains open when my shuttle is landed near it.</Text>
   </TextBlock>
 
   <ShipLogConditions>
     <RevealFact>
       <FactID>BT_GHIRD_VILLAGE_B_ENTER</FactID>
-      <Condition>11</Condition>
+      <Condition>2</Condition>
     </RevealFact>
   </ShipLogConditions>
 </NomaiObject>

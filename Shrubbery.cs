@@ -4,7 +4,7 @@ namespace BandTogether;
 
 public class Shrubbery : OWItem
 {
-    public static readonly ItemType ItemType = (ItemType)256;
+    public static readonly ItemType ItemType = ModMain.Instance.shrubberyType;
 
     /*public override string GetDisplayName() =>
       """

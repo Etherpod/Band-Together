@@ -282,6 +282,7 @@
       <DialogueOption>
         <RequiredPersistentCondition>BT_GHIRD_VILLAGE_A_TO_DOOR</RequiredPersistentCondition>
         <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>

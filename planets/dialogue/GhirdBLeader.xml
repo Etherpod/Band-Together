@@ -382,6 +382,19 @@
   </DialogueNode>
 
   <DialogueNode>
+    <Name>Shard_1</Name>
+    <Dialogue>
+      <Page>I was reading a scroll earlier that I believe mentioned the Fifth Shard you speak of.</Page>
+      <Page>If I recall correctly, it said something along the lines of "Move it to the shortest pillar..."</Page>
+      <Page>I hope that helps you.</Page>
+    </Dialogue>
+    <RevealFacts>
+      <FactID>BT_FIFTH_SHARD_PILLAR</FactID>
+    </RevealFacts>
+    <DialogueTarget>At_Door_0</DialogueTarget>
+  </DialogueNode>
+
+  <DialogueNode>
     <Name>Waiting_0</Name>
     <EntryCondition>BT_TALKED_TO_GHIRD_LEADER_B</EntryCondition>
     <Dialogue>
@@ -430,7 +443,7 @@
       </DialogueOption>
       <DialogueOption>
         <Text>Do you know anything about the Fifth Shard?</Text>
-        <DialogueTarget>Shard_0</DialogueTarget>
+        <DialogueTarget>Shard_1</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>What do you think is behind the Great Door?</Text>
@@ -457,7 +470,7 @@
       <Page>From the moment our ancestors found the Great Door, we felt it calling out to us, to open it.</Page>
       <Page>The Sacred Shrubbery is only a vessel for a greater power. Its true form lies within that prison.</Page>
       <Page>Our task, as the Followers of Worship, is to free It from that cold, oppressive vault, bringing us into a new age of peace.</Page>
-      <Page>And we, The Followers of Worship will be at the forefront, leading the clans to salvation under the holy guidance of the Golden Tree.</Page>
+      <Page>And we, The Followers of Worship, will be at the forefront, leading the clans to salvation under the holy guidance of the Golden Tree.</Page>
     </Dialogue>
   </DialogueNode>
 </DialogueTree>

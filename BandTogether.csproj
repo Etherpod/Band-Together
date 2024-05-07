@@ -36,14 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
-      <Reference Include="Mirror">
-       <HintPath>$(AppData)\OuterWildsModManager\OWML\Mods\Raicuparta.QuantumSpaceBuddies\Mirror.dll</HintPath>
+      <Reference Include="NewHorizons">
+       <HintPath>$(AppData)\OuterWildsModManager\OWML\Mods\xen.NewHorizons\NewHorizons.dll</HintPath>
        <Private>False</Private>
       </Reference>
-     <Reference Include="QSB">
-       <HintPath>$(AppData)\OuterWildsModManager\OWML\Mods\Raicuparta.QuantumSpaceBuddies\QSB.dll</HintPath>
-        <Private>False</Private>
-     </Reference>
   </ItemGroup>
   
   <ItemGroup>
