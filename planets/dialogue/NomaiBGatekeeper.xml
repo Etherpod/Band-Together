@@ -25,14 +25,9 @@
         <DialogueTarget>Door_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
-        <CancelledPersistentCondition>BT_GOT_NOMAI_SHARD_B</CancelledPersistentCondition>
+        <CancelledPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_0</DialogueTarget>
-      </DialogueOption>
-      <DialogueOption>
-        <RequiredPersistentCondition>BT_GOT_NOMAI_SHARD_B</RequiredPersistentCondition>
-        <Text>What do you think is behind the Great Door?</Text>
-        <DialogueTarget>Door_Secrets_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>No, thanks.</Text>
@@ -96,8 +91,13 @@
 
     <DialogueOptionsList>
       <DialogueOption>
+        <CancelledPersistentCondition>BT_TALKED_TO_NOMAI_LEADER_B</CancelledPersistentCondition>
         <Text>What have you heard about the fifth shard?</Text>
         <DialogueTarget>Shard_1</DialogueTarget>
+      </DialogueOption>
+      <DialogueOption>
+        <Text>What do you think is behind the Great Door?</Text>
+        <DialogueTarget>Door_Secrets_0</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>No, thanks.</Text>

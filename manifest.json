@@ -1,10 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
   "filename": "BandTogether.dll",
-  "author": "pikpik_carrot, Etherpod, ditzy, and TheHipOne",
+  "author": "pikpik_carrot, Etherpod, ditzy, TheHipOne",
   "name": "Band Together",
   "uniqueName": "pikpik_carrot.BandTogether",
   "version": "2.0.0",
   "owmlVersion": "2.9.8",
-  "dependencies": ["xen.NewHorizons", "xen.ModJam3" ]
+  "dependencies": [ "xen.NewHorizons", "xen.ModJam3" ],
+  "conflicts": [ "Raicuparta.QuantumSpaceBuddies" ]
 }

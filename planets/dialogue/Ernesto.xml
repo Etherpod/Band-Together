@@ -179,7 +179,7 @@
       </DialogueOption>
       <DialogueOption>
         <RequiredPersistentCondition>BT_START_SHRUB_QUEST</RequiredPersistentCondition>
-        <CancelledCondition>BT_ERNEST_KNOWS_SHRUB</CancelledCondition>
+        <CancelledCondition>BT_ERNESTO_KNOWS_SHRUB</CancelledCondition>
         <Text>Why is there a portrait of the Sacred Shrubbery in here?</Text>
         <DialogueTarget>Shrub_Portrait_0</DialogueTarget>
       </DialogueOption>
