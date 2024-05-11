@@ -15,7 +15,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>none</DebugType>
   </PropertyGroup>
-  <Target Name="CopyDLLs" AfterTargets="Build" Condition=" '$(Configuration)' == 'Unity' And '$(UnityProjectDir)' != '' ">
+  <Target Name="CopyDLLs" AfterTargets="Build" Condition=" '$(Unity)' == 'Unity' And '$(UnityProjectDir)' != '' ">
     <Message Text="Copying DLL and dialogue to Unity project" Importance="High" />
 
     <Copy SourceFiles="$(TargetDir)$(ProjectName).dll" DestinationFolder="$(UnityProjectModDir)" />

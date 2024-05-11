@@ -33,7 +33,7 @@
         "type": "wall",
         "xmlFile": "planets/text/GhirdVillageBWarning.xml",
         "alignRadial": true,
-        "seed": 27,
+        "seed": 28,
         "position": {
           "x": 93.64751,
           "y": -91.83906,

@@ -552,11 +552,12 @@
       <Page>Perhaps we will share some of your marshmallows.</Page>
     </Dialogue>
     <SetCondition>BT_DOORKEEPER_TO_FIRE</SetCondition>
+    <SetCondition>BT_WAITING_FOR_FIRE</SetCondition>
   </DialogueNode>
   
   <DialogueNode>
     <Name>Light_The_Fire</Name>
-    <EntryCondition>BT_DOORKEEPER_TO_FIRE</EntryCondition>
+    <EntryCondition>BT_WAITING_FOR_FIRE</EntryCondition>
     <Dialogue>
       <Page>Go ahead and light the fire so we can enjoy those marshmallows of yours.</Page>
     </Dialogue>
