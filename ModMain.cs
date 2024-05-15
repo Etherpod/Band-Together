@@ -172,6 +172,7 @@ public class ModMain : ModBehaviour
                 factsToEnable.Clear();
                 scrollsToEnable.Clear();
                 textToEnable.Clear();
+                ghostLightSensors.Clear();
             }
         };
     }
