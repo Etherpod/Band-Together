@@ -87,7 +87,11 @@ public class MiscPatches
                             Vector3 vector3 = __instance.transform.position - position;
                             if (Vector3.Angle(Locator.GetPlayerCamera().transform.forward, vector3) <= __instance._maxSpotHalfAngle && !__instance.CheckOcclusion(position, vector, vector2, true))
                             {
-                                __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                if (ModMain.Instance.ghostLightSensors.Contains(__instance))
+                                {
+                                    __instance._illuminatingDreamLanternList.Add(ReferenceLocator.GetDreamLanternItem().GetLanternController());
+                                }
+
                                 __instance._illuminated = true;
                             }
                             break;

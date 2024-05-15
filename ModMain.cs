@@ -67,6 +67,7 @@ public class ModMain : ModBehaviour
     public bool startedEndSequence = false;
     public ItemType shrubberyType { get; private set; }
     public GameObject Planet { get; private set; }
+    public List<SingleLightSensor> ghostLightSensors { get; private set; }
 
     private bool _debugEnabled = false;
     //private bool _setFlashlightListDirty = false;
@@ -144,9 +145,12 @@ public class ModMain : ModBehaviour
                 //Puts player into a semi-dreamworld state
                 Locator.GetDreamWorldController().EnterDreamWorld(dreamCampfire, arrivalPoint, relativeLocation);
 
+                ghostLightSensors = [];
+
                 ReferenceLocator.GetWorshipGhosts().ForEach((brain) =>
                 {
                     brain.enabled = true;
+                    brain.GetComponentsInChildren<SingleLightSensor>().ForEach((sensor) => ghostLightSensors.Add(sensor));
                     brain.WakeUp();
                     brain.OnEnterDreamWorld();
                 });
