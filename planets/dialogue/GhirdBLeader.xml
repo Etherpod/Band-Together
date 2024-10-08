@@ -79,9 +79,11 @@
     <DialogueOptionsList>
       <DialogueOption>
         <Text>Look what I found!</Text>
+        <DialogueTarget>Early_Shrubbery_00</DialogueTarget>
       </DialogueOption>
       <DialogueOption>
         <Text>I guess you won't be needing this Sacred Shrubbery, then.</Text>
+        <DialogueTarget>Early_Shrubbery_01</DialogueTarget>
       </DialogueOption>
     </DialogueOptionsList>
   </DialogueNode>
@@ -93,6 +95,7 @@
       <Page>Is it truly..? Is it our golden savior?</Page>
       <Page>It must be! Thank you, traveler! We are indebted to you.</Page>
     </Dialogue>
+    <DialogueTarget>Early_Shrubbery_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
@@ -101,6 +104,7 @@
       <Page>Wait! What did you say? Did you find It?</Page>
       <Page>By the Shrub, you have! Thank you, traveler. There must be some way we can repay you.</Page>
     </Dialogue>
+    <DialogueTarget>Early_Shrubbery_1</DialogueTarget>
   </DialogueNode>
 
   <DialogueNode>
