@@ -278,12 +278,12 @@
     <RumorFact>
       <ID>BT_ERNESTO_RUMOR</ID>
       <RumorName>Ernesto?</RumorName>
-      <Text>A Ghird from the Followers of Logic lost someone named Ernesto. They said that they had taken Ernesto to the South Pole to explore, and last saw him playing on a strange white rock. When the Ghird looked away to check their map, Ernesto mysteriously disappeared. The part about the map was strangely emphasized.</Text>
+      <Text>A Ghird from the Followers of Logic lost someone named Ernesto. They said that they had taken Ernesto to the South Pole to explore, and last saw him playing on a strange rock that was silver and gold. When the Ghird looked away to check their map, Ernesto mysteriously disappeared. The part about the map was strangely emphasized.</Text>
     </RumorFact>
 
     <ExploreFact>
       <ID>BT_ERNESTO_FOUND</ID>
-      <Text>I found Ernesto by traveling with the white quantum rock to a strange underground house. I had to open my map so that I wasn't observing my surroundings.</Text>
+      <Text>I found Ernesto by traveling with the silver quantum rock to a strange underground house. I had to open my map so that I wasn't observing my surroundings.</Text>
     </ExploreFact>
   </Entry>
 </AstroObjectEntry>
