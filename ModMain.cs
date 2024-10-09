@@ -69,7 +69,7 @@ public class ModMain : ModBehaviour
     public GameObject Planet { get; private set; }
     public List<SingleLightSensor> ghostLightSensors { get; private set; }
 
-    private bool _debugEnabled = false;
+    private bool _debugEnabled = true;
     //private bool _setFlashlightListDirty = false;
     private int _numClansConvinced;
     private bool _allFifthShardFacts;
@@ -105,7 +105,7 @@ public class ModMain : ModBehaviour
 
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
-            if (loadScene != OWScene.SolarSystem)
+            if (loadScene != OWScene.SolarSystem || nhAPI.GetCurrentStarSystem() != "Jam3")
             {
                 return;
             }

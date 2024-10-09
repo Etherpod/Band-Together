@@ -14,7 +14,13 @@ public class MiscPatches
     [HarmonyPatch(typeof(GhostSensors), nameof(GhostSensors.FixedUpdate_Sensors))]
     public static bool FlashlightDetectionFix(GhostSensors __instance)
     {
-        DreamLanternController lanternController = Locator.GetDreamWorldController().GetPlayerLantern().GetLanternController();
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return true;
+
+        DreamLanternController lanternController = Locator.GetDreamWorldController()?.GetPlayerLantern()?.GetLanternController();
+        if (lanternController == null)
+        {
+            return true;
+        }
         LightSensor playerLightSensor = Locator.GetPlayerLightSensor();
         //__instance._data.sensor.isPlayerHoldingLantern = lanternController.IsHeldByPlayer();
         __instance._data.sensor.isIlluminated = __instance._lightSensor.IsIlluminated();
@@ -49,6 +55,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(SingleLightSensor), nameof(SingleLightSensor.UpdateIllumination))]
     public static bool FlashlightIllumination(SingleLightSensor __instance)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return true;
+
         __instance._illuminated = false;
         if (__instance._illuminatingDreamLanternList != null)
         {
@@ -149,6 +157,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(GhostGrabController), nameof(GhostGrabController.OnSnapPlayerNeck))]
     public static bool GhostGrabController_OnSnapPlayerNeck_Prefix(GhostGrabController __instance)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return true;
+
         if (!Locator.GetDeathManager().IsPlayerDying() && !Locator.GetDeathManager().IsPlayerDead())
         {
             Locator.GetDreamWorldController().ExitDreamWorld(DreamWakeType.NeckSnapped);
@@ -219,6 +229,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(DialogueNode), nameof(DialogueNode.EntryConditionsSatisfied))]
     public static void DialogueEntryConditionsSatisfied(DialogueNode __instance, ref bool __result)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return;
+
         // ModMain.WriteMessage("entry condition patch");
 
         if (__instance._listEntryCondition.Count == 0)
@@ -255,6 +267,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(DeathManager), nameof(DeathManager.FinishEscapeTimeLoopSequence))]
     public static void CallCampfireEnd(DeathManager __instance)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return;
+
         if (!__instance._escapedTimeLoopSequenceComplete && !ModMain.Instance.inEndSequence)
         {
             __instance._escapedTimeLoopSequenceComplete = true;
@@ -267,6 +281,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(PlayerCameraEffectController), nameof(PlayerCameraEffectController.Update))]
     public static bool AudioListenerVolumeUndo(PlayerCameraEffectController __instance)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return true;
+
         if (__instance._waitForWakeInput && LateInitializerManager.isDoneInitializing)
         {
             if (!__instance._wakePrompt.IsVisible())
@@ -459,6 +475,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(QuantumObject), nameof(QuantumObject.IsLockedByPlayerContact))]
     public static void LockedByContactOverride(QuantumObject __instance, ref bool __result)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return;
+
         if (__instance.GetComponent<MapModeQuantumObject>())
         {
             __result = __instance.IsPlayerEntangled() && !Locator.GetMapController()._isMapMode;
@@ -469,6 +487,8 @@ public class MiscPatches
     [HarmonyPatch(typeof(SocketedQuantumObject), nameof(SocketedQuantumObject.MoveToSocket))]
     public static void MoveToSocketPostfix(SocketedQuantumObject __instance)
     {
+        if (ModMain.Instance.nhAPI.GetCurrentStarSystem() != "Jam3") return;
+
         if (__instance.IsPlayerEntangled() && __instance.TryGetComponent(out MapModeQuantumObject quantumObj) && quantumObj.ernestoRock)
         {
             quantumObj.OnTeleport();

@@ -559,7 +559,9 @@
     <Name>Light_The_Fire</Name>
     <EntryCondition>BT_WAITING_FOR_FIRE</EntryCondition>
     <Dialogue>
-      <Page>Go ahead and light the fire so we can enjoy those marshmallows of yours.</Page>
+      <Page>Go ahead and light the fire. I will join you to share some marshmallows shortly.</Page>
+      <Page>I only need a minute to myself.</Page>
+      <Page>I suppose that's all life will ever be, now. Now that we have driven the clans apart once more.</Page>
     </Dialogue>
   </DialogueNode>
 </DialogueTree>
