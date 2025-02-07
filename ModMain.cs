@@ -67,7 +67,7 @@ public class ModMain : ModBehaviour
     public bool startedEndSequence = false;
     public ItemType shrubberyType { get; private set; }
     public GameObject Planet { get; private set; }
-    public List<SingleLightSensor> ghostLightSensors { get; private set; }
+    public List<SingleLightSensor> ghostLightSensors { get; private set; } = [];
 
     private bool _debugEnabled = true;
     //private bool _setFlashlightListDirty = false;
